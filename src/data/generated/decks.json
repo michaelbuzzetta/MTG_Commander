@@ -1,0 +1,1032 @@
+[
+  {
+    "id": "explorers",
+    "name": "Explorers of the Deep",
+    "format": "Commander",
+    "commander": "hakbal",
+    "colorIdentity": [
+      "G",
+      "U"
+    ],
+    "playable": true,
+    "source": "Wizards of the Coast — The Lost Caverns of Ixalan Commander Decklists (2023-11-01)",
+    "cards": [
+      {
+        "id": "hakbal",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-benthic-biomancer",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-cold-eyed-selkie",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-coralhelm-commander",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-deeproot-elite",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-deeproot-historian",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-emperor-mihail-ii",
+        "quantity": 1
+      },
+      {
+        "id": "evolution-sage",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-herald-of-secret-streams",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-kiora-s-follower",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-kopala-warden-of-waves",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-kumena-tyrant-of-orazca",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-master-of-the-pearl-trident",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-merfolk-cave-diver",
+        "quantity": 1
+      },
+      {
+        "id": "merfolk-mistbinder",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-merfolk-skydiver",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-merfolk-sovereign",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-merrow-reejerey",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-metallic-mimic",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-mist-dancer",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-nicanzil-current-conductor",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-prime-speaker-zegana",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-realmwalker",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-sage-of-fables",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-seafloor-oracle",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-singer-of-swift-rivers",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-stonybrook-banneret",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-surgespanner",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-svyelun-of-sea-and-sky",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-tatyova-benthic-druid",
+        "quantity": 1
+      },
+      {
+        "id": "thassa",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-thieving-skydiver",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-tishana-voice-of-thunder",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-topography-tracker",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-tributary-instructor",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-vorel-of-the-hull-clade",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-xolatoyac-the-smiling-flood",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-zegana-utopian-speaker",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-aetherize",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-beast-within",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-commit-memory",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-growth-spiral",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-inspiring-call",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-quandrix-command",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-rapid-hybridization",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-ripples-of-potential",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-ruinous-intrusion",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-bygone-marvels",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-curse-of-the-swine",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-explore",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-kodama-s-reach",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-ravenform",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-wave-goodbye",
+        "quantity": 1
+      },
+      {
+        "id": "arcane-signet",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-commander-s-sphere",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-simic-signet",
+        "quantity": 1
+      },
+      {
+        "id": "sol-ring",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-swiftfoot-boots",
+        "quantity": 1
+      },
+      {
+        "id": "branching-evolution",
+        "quantity": 1
+      },
+      {
+        "id": "deeproot-waters",
+        "quantity": 1
+      },
+      {
+        "id": "hardened-scales",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-kindred-discovery",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-reflections-of-littjara",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-simic-ascendancy",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-alchemist-s-refuge",
+        "quantity": 1
+      },
+      {
+        "id": "command-tower",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-hinterland-harbor",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-karn-s-bastion",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-llanowar-reborn",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-mosswort-bridge",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-myriad-landscape",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-path-of-ancestry",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-reliquary-tower",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-rogue-s-passage",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-secluded-courtyard",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-simic-growth-chamber",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-temple-of-mystery",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-temple-of-the-false-god",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-unclaimed-territory",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-vineglimmer-snarl",
+        "quantity": 1
+      },
+      {
+        "id": "forest",
+        "quantity": 7
+      },
+      {
+        "id": "island",
+        "quantity": 13
+      }
+    ],
+    "cardCount": 100,
+    "notes": "Exact stock 100-card Explorers of the Deep preconstructed Commander deck; this is the playable Hakbal deck."
+  },
+  {
+    "id": "avatar",
+    "name": "Avatar: The Last Airbender",
+    "format": "Commander",
+    "commander": "aang",
+    "colorIdentity": [
+      "W",
+      "U",
+      "R",
+      "G"
+    ],
+    "playable": true,
+    "cards": [
+      {
+        "id": "aang",
+        "quantity": 1
+      },
+      {
+        "id": "command-tower",
+        "quantity": 1
+      },
+      {
+        "id": "sol-ring",
+        "quantity": 1
+      },
+      {
+        "id": "arcane-signet",
+        "quantity": 1
+      },
+      {
+        "id": "grizzly-bears",
+        "quantity": 1
+      },
+      {
+        "id": "wind-drake",
+        "quantity": 1
+      },
+      {
+        "id": "giant-spider",
+        "quantity": 1
+      },
+      {
+        "id": "vigilant-knight",
+        "quantity": 1
+      },
+      {
+        "id": "trampling-rhino",
+        "quantity": 1
+      },
+      {
+        "id": "firstblade",
+        "quantity": 1
+      },
+      {
+        "id": "doubleblade",
+        "quantity": 1
+      },
+      {
+        "id": "indestructible-god",
+        "quantity": 1
+      },
+      {
+        "id": "divination",
+        "quantity": 1
+      },
+      {
+        "id": "healing-salve",
+        "quantity": 1
+      },
+      {
+        "id": "lightning-bolt",
+        "quantity": 1
+      },
+      {
+        "id": "cultivate",
+        "quantity": 1
+      },
+      {
+        "id": "proliferate-spell",
+        "quantity": 1
+      },
+      {
+        "id": "hardened-scales",
+        "quantity": 1
+      },
+      {
+        "id": "branching-evolution",
+        "quantity": 1
+      },
+      {
+        "id": "doubling-season",
+        "quantity": 1
+      },
+      {
+        "id": "parallel-lives",
+        "quantity": 1
+      },
+      {
+        "id": "academy-manufactor",
+        "quantity": 1
+      },
+      {
+        "id": "evolution-sage",
+        "quantity": 1
+      },
+      {
+        "id": "deeproot-waters",
+        "quantity": 1
+      },
+      {
+        "id": "hakbal",
+        "quantity": 1
+      },
+      {
+        "id": "merfolk-scout",
+        "quantity": 1
+      },
+      {
+        "id": "merfolk-mistbinder",
+        "quantity": 1
+      },
+      {
+        "id": "thassa",
+        "quantity": 1
+      },
+      {
+        "id": "plains",
+        "quantity": 18
+      },
+      {
+        "id": "island",
+        "quantity": 18
+      },
+      {
+        "id": "mountain",
+        "quantity": 18
+      },
+      {
+        "id": "forest",
+        "quantity": 18
+      }
+    ],
+    "cardCount": 100
+  },
+  {
+    "id": "three-brothers",
+    "name": "Olympus — The Three Brothers",
+    "format": "Commander",
+    "commander": "sisay",
+    "colorIdentity": [
+      "W",
+      "U",
+      "B",
+      "R",
+      "G"
+    ],
+    "playable": true,
+    "cards": [
+      {
+        "id": "sisay",
+        "quantity": 1
+      },
+      {
+        "id": "command-tower",
+        "quantity": 1
+      },
+      {
+        "id": "sol-ring",
+        "quantity": 1
+      },
+      {
+        "id": "arcane-signet",
+        "quantity": 1
+      },
+      {
+        "id": "grizzly-bears",
+        "quantity": 1
+      },
+      {
+        "id": "wind-drake",
+        "quantity": 1
+      },
+      {
+        "id": "giant-spider",
+        "quantity": 1
+      },
+      {
+        "id": "vigilant-knight",
+        "quantity": 1
+      },
+      {
+        "id": "trampling-rhino",
+        "quantity": 1
+      },
+      {
+        "id": "vampire-nighthawk",
+        "quantity": 1
+      },
+      {
+        "id": "firstblade",
+        "quantity": 1
+      },
+      {
+        "id": "doubleblade",
+        "quantity": 1
+      },
+      {
+        "id": "menace-ogre",
+        "quantity": 1
+      },
+      {
+        "id": "indestructible-god",
+        "quantity": 1
+      },
+      {
+        "id": "divination",
+        "quantity": 1
+      },
+      {
+        "id": "healing-salve",
+        "quantity": 1
+      },
+      {
+        "id": "lightning-bolt",
+        "quantity": 1
+      },
+      {
+        "id": "murder",
+        "quantity": 1
+      },
+      {
+        "id": "cultivate",
+        "quantity": 1
+      },
+      {
+        "id": "proliferate-spell",
+        "quantity": 1
+      },
+      {
+        "id": "treasure-maker",
+        "quantity": 1
+      },
+      {
+        "id": "hardened-scales",
+        "quantity": 1
+      },
+      {
+        "id": "branching-evolution",
+        "quantity": 1
+      },
+      {
+        "id": "doubling-season",
+        "quantity": 1
+      },
+      {
+        "id": "parallel-lives",
+        "quantity": 1
+      },
+      {
+        "id": "academy-manufactor",
+        "quantity": 1
+      },
+      {
+        "id": "evolution-sage",
+        "quantity": 1
+      },
+      {
+        "id": "deeproot-waters",
+        "quantity": 1
+      },
+      {
+        "id": "hakbal",
+        "quantity": 1
+      },
+      {
+        "id": "merfolk-scout",
+        "quantity": 1
+      },
+      {
+        "id": "merfolk-mistbinder",
+        "quantity": 1
+      },
+      {
+        "id": "blech",
+        "quantity": 1
+      },
+      {
+        "id": "pest-summoner",
+        "quantity": 1
+      },
+      {
+        "id": "esika",
+        "quantity": 1
+      },
+      {
+        "id": "thassa",
+        "quantity": 1
+      },
+      {
+        "id": "keranos",
+        "quantity": 1
+      },
+      {
+        "id": "erebos",
+        "quantity": 1
+      },
+      {
+        "id": "smaug",
+        "quantity": 1
+      },
+      {
+        "id": "plains",
+        "quantity": 13
+      },
+      {
+        "id": "island",
+        "quantity": 13
+      },
+      {
+        "id": "swamp",
+        "quantity": 12
+      },
+      {
+        "id": "mountain",
+        "quantity": 12
+      },
+      {
+        "id": "forest",
+        "quantity": 12
+      }
+    ],
+    "cardCount": 100
+  },
+  {
+    "id": "smaug",
+    "name": "Smaug-Centered Hoard",
+    "format": "Commander",
+    "commander": "smaug",
+    "colorIdentity": [
+      "B",
+      "R"
+    ],
+    "playable": true,
+    "cards": [
+      {
+        "id": "smaug",
+        "quantity": 1
+      },
+      {
+        "id": "command-tower",
+        "quantity": 1
+      },
+      {
+        "id": "sol-ring",
+        "quantity": 1
+      },
+      {
+        "id": "arcane-signet",
+        "quantity": 1
+      },
+      {
+        "id": "vampire-nighthawk",
+        "quantity": 1
+      },
+      {
+        "id": "firstblade",
+        "quantity": 1
+      },
+      {
+        "id": "doubleblade",
+        "quantity": 1
+      },
+      {
+        "id": "menace-ogre",
+        "quantity": 1
+      },
+      {
+        "id": "lightning-bolt",
+        "quantity": 1
+      },
+      {
+        "id": "murder",
+        "quantity": 1
+      },
+      {
+        "id": "academy-manufactor",
+        "quantity": 1
+      },
+      {
+        "id": "pest-summoner",
+        "quantity": 1
+      },
+      {
+        "id": "swamp",
+        "quantity": 44
+      },
+      {
+        "id": "mountain",
+        "quantity": 44
+      }
+    ],
+    "cardCount": 100
+  },
+  {
+    "id": "poseidon",
+    "name": "Poseidon & the Olympians",
+    "format": "Commander",
+    "commander": "esika",
+    "colorIdentity": [
+      "W",
+      "U",
+      "B",
+      "R",
+      "G"
+    ],
+    "playable": true,
+    "cards": [
+      {
+        "id": "esika",
+        "quantity": 1
+      },
+      {
+        "id": "command-tower",
+        "quantity": 1
+      },
+      {
+        "id": "sol-ring",
+        "quantity": 1
+      },
+      {
+        "id": "arcane-signet",
+        "quantity": 1
+      },
+      {
+        "id": "grizzly-bears",
+        "quantity": 1
+      },
+      {
+        "id": "wind-drake",
+        "quantity": 1
+      },
+      {
+        "id": "giant-spider",
+        "quantity": 1
+      },
+      {
+        "id": "vigilant-knight",
+        "quantity": 1
+      },
+      {
+        "id": "trampling-rhino",
+        "quantity": 1
+      },
+      {
+        "id": "vampire-nighthawk",
+        "quantity": 1
+      },
+      {
+        "id": "firstblade",
+        "quantity": 1
+      },
+      {
+        "id": "doubleblade",
+        "quantity": 1
+      },
+      {
+        "id": "menace-ogre",
+        "quantity": 1
+      },
+      {
+        "id": "indestructible-god",
+        "quantity": 1
+      },
+      {
+        "id": "divination",
+        "quantity": 1
+      },
+      {
+        "id": "healing-salve",
+        "quantity": 1
+      },
+      {
+        "id": "lightning-bolt",
+        "quantity": 1
+      },
+      {
+        "id": "murder",
+        "quantity": 1
+      },
+      {
+        "id": "cultivate",
+        "quantity": 1
+      },
+      {
+        "id": "proliferate-spell",
+        "quantity": 1
+      },
+      {
+        "id": "treasure-maker",
+        "quantity": 1
+      },
+      {
+        "id": "hardened-scales",
+        "quantity": 1
+      },
+      {
+        "id": "branching-evolution",
+        "quantity": 1
+      },
+      {
+        "id": "doubling-season",
+        "quantity": 1
+      },
+      {
+        "id": "parallel-lives",
+        "quantity": 1
+      },
+      {
+        "id": "academy-manufactor",
+        "quantity": 1
+      },
+      {
+        "id": "evolution-sage",
+        "quantity": 1
+      },
+      {
+        "id": "deeproot-waters",
+        "quantity": 1
+      },
+      {
+        "id": "hakbal",
+        "quantity": 1
+      },
+      {
+        "id": "merfolk-scout",
+        "quantity": 1
+      },
+      {
+        "id": "merfolk-mistbinder",
+        "quantity": 1
+      },
+      {
+        "id": "blech",
+        "quantity": 1
+      },
+      {
+        "id": "pest-summoner",
+        "quantity": 1
+      },
+      {
+        "id": "sisay",
+        "quantity": 1
+      },
+      {
+        "id": "thassa",
+        "quantity": 1
+      },
+      {
+        "id": "keranos",
+        "quantity": 1
+      },
+      {
+        "id": "erebos",
+        "quantity": 1
+      },
+      {
+        "id": "smaug",
+        "quantity": 1
+      },
+      {
+        "id": "plains",
+        "quantity": 13
+      },
+      {
+        "id": "island",
+        "quantity": 13
+      },
+      {
+        "id": "swamp",
+        "quantity": 12
+      },
+      {
+        "id": "mountain",
+        "quantity": 12
+      },
+      {
+        "id": "forest",
+        "quantity": 12
+      }
+    ],
+    "cardCount": 100
+  },
+  {
+    "id": "blech",
+    "name": "Blech's Loafing Swarm",
+    "format": "Commander",
+    "commander": "blech",
+    "colorIdentity": [
+      "B",
+      "G"
+    ],
+    "playable": true,
+    "cards": [
+      {
+        "id": "blech",
+        "quantity": 1
+      },
+      {
+        "id": "command-tower",
+        "quantity": 1
+      },
+      {
+        "id": "sol-ring",
+        "quantity": 1
+      },
+      {
+        "id": "arcane-signet",
+        "quantity": 1
+      },
+      {
+        "id": "grizzly-bears",
+        "quantity": 1
+      },
+      {
+        "id": "giant-spider",
+        "quantity": 1
+      },
+      {
+        "id": "trampling-rhino",
+        "quantity": 1
+      },
+      {
+        "id": "vampire-nighthawk",
+        "quantity": 1
+      },
+      {
+        "id": "menace-ogre",
+        "quantity": 1
+      },
+      {
+        "id": "murder",
+        "quantity": 1
+      },
+      {
+        "id": "cultivate",
+        "quantity": 1
+      },
+      {
+        "id": "hardened-scales",
+        "quantity": 1
+      },
+      {
+        "id": "branching-evolution",
+        "quantity": 1
+      },
+      {
+        "id": "doubling-season",
+        "quantity": 1
+      },
+      {
+        "id": "parallel-lives",
+        "quantity": 1
+      },
+      {
+        "id": "academy-manufactor",
+        "quantity": 1
+      },
+      {
+        "id": "evolution-sage",
+        "quantity": 1
+      },
+      {
+        "id": "pest-summoner",
+        "quantity": 1
+      },
+      {
+        "id": "swamp",
+        "quantity": 41
+      },
+      {
+        "id": "forest",
+        "quantity": 41
+      }
+    ],
+    "cardCount": 100
+  }
+]

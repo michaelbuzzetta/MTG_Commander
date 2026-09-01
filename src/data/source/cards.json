@@ -1,0 +1,4561 @@
+{
+  "plains": {
+    "id": "plains",
+    "name": "Plains",
+    "typeLine": "Basic Land — Plains",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "mana": {
+          "W": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": {
+      "W": 1
+    },
+    "colorIdentity": [
+      "W"
+    ],
+    "oracleText": "{T}: Add {W}.",
+    "supported": true
+  },
+  "island": {
+    "id": "island",
+    "name": "Island",
+    "typeLine": "Basic Land — Island",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "mana": {
+          "U": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": {
+      "U": 1
+    },
+    "colorIdentity": [
+      "U"
+    ],
+    "oracleText": "{T}: Add {U}.",
+    "supported": true
+  },
+  "swamp": {
+    "id": "swamp",
+    "name": "Swamp",
+    "typeLine": "Basic Land — Swamp",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "mana": {
+          "B": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": {
+      "B": 1
+    },
+    "colorIdentity": [
+      "B"
+    ],
+    "oracleText": "{T}: Add {B}.",
+    "supported": true
+  },
+  "mountain": {
+    "id": "mountain",
+    "name": "Mountain",
+    "typeLine": "Basic Land — Mountain",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "mana": {
+          "R": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": {
+      "R": 1
+    },
+    "colorIdentity": [
+      "R"
+    ],
+    "oracleText": "{T}: Add {R}.",
+    "supported": true
+  },
+  "forest": {
+    "id": "forest",
+    "name": "Forest",
+    "typeLine": "Basic Land — Forest",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "mana": {
+          "G": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": {
+      "G": 1
+    },
+    "colorIdentity": [
+      "G"
+    ],
+    "oracleText": "{T}: Add {G}.",
+    "supported": true
+  },
+  "command-tower": {
+    "id": "command-tower",
+    "name": "Command Tower",
+    "typeLine": "Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "anyColor": true,
+        "amount": 1
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [],
+    "oracleText": "{T}: Add one mana of any color in your commander's color identity.",
+    "supported": true
+  },
+  "sol-ring": {
+    "id": "sol-ring",
+    "name": "Sol Ring",
+    "typeLine": "Artifact",
+    "manaCost": "{1}",
+    "manaValue": 1,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "mana": {
+          "C": 2
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [],
+    "oracleText": "{T}: Add {C}{C}.",
+    "supported": true
+  },
+  "arcane-signet": {
+    "id": "arcane-signet",
+    "name": "Arcane Signet",
+    "typeLine": "Artifact",
+    "manaCost": "{2}",
+    "manaValue": 2,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "anyColor": true,
+        "amount": 1
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [],
+    "oracleText": "{T}: Add one mana of any color in your commander's color identity.",
+    "supported": true
+  },
+  "grizzly-bears": {
+    "id": "grizzly-bears",
+    "name": "Grizzly Bears",
+    "typeLine": "Creature — Bear",
+    "manaCost": "{1}{G}",
+    "manaValue": 2,
+    "power": 2,
+    "toughness": 2,
+    "subtypes": [
+      "Bear"
+    ],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "G"
+    ],
+    "oracleText": "A straightforward 2/2 creature.",
+    "supported": true
+  },
+  "wind-drake": {
+    "id": "wind-drake",
+    "name": "Wind Drake",
+    "typeLine": "Creature — Drake",
+    "manaCost": "{2}{U}",
+    "manaValue": 3,
+    "power": 2,
+    "toughness": 2,
+    "subtypes": [
+      "Drake"
+    ],
+    "keywords": [
+      "flying"
+    ],
+    "abilities": [],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "oracleText": "Flying",
+    "supported": true
+  },
+  "giant-spider": {
+    "id": "giant-spider",
+    "name": "Giant Spider",
+    "typeLine": "Creature — Spider",
+    "manaCost": "{3}{G}",
+    "manaValue": 4,
+    "power": 2,
+    "toughness": 4,
+    "subtypes": [
+      "Spider"
+    ],
+    "keywords": [
+      "reach"
+    ],
+    "abilities": [],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "G"
+    ],
+    "oracleText": "Reach",
+    "supported": true
+  },
+  "vigilant-knight": {
+    "id": "vigilant-knight",
+    "name": "Vigilant Knight",
+    "typeLine": "Creature — Knight",
+    "manaCost": "{2}{W}",
+    "manaValue": 3,
+    "power": 2,
+    "toughness": 2,
+    "subtypes": [
+      "Knight"
+    ],
+    "keywords": [
+      "vigilance"
+    ],
+    "abilities": [],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "W"
+    ],
+    "oracleText": "Vigilance",
+    "supported": true
+  },
+  "trampling-rhino": {
+    "id": "trampling-rhino",
+    "name": "Trampling Rhino",
+    "typeLine": "Creature — Rhino",
+    "manaCost": "{4}{G}",
+    "manaValue": 5,
+    "power": 4,
+    "toughness": 4,
+    "subtypes": [
+      "Rhino"
+    ],
+    "keywords": [
+      "trample"
+    ],
+    "abilities": [],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "G"
+    ],
+    "oracleText": "Trample",
+    "supported": true
+  },
+  "vampire-nighthawk": {
+    "id": "vampire-nighthawk",
+    "name": "Vampire Nighthawk",
+    "typeLine": "Creature — Vampire Shaman",
+    "manaCost": "{1}{B}{B}",
+    "manaValue": 3,
+    "power": 2,
+    "toughness": 3,
+    "subtypes": [
+      "Vampire",
+      "Shaman"
+    ],
+    "keywords": [
+      "flying",
+      "deathtouch",
+      "lifelink"
+    ],
+    "abilities": [],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "B"
+    ],
+    "oracleText": "Flying, deathtouch, lifelink",
+    "supported": true
+  },
+  "firstblade": {
+    "id": "firstblade",
+    "name": "Firstblade",
+    "typeLine": "Creature — Human Soldier",
+    "manaCost": "{2}{R}",
+    "manaValue": 3,
+    "power": 2,
+    "toughness": 2,
+    "subtypes": [
+      "Human",
+      "Soldier"
+    ],
+    "keywords": [
+      "first strike"
+    ],
+    "abilities": [],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "R"
+    ],
+    "oracleText": "First strike",
+    "supported": true
+  },
+  "doubleblade": {
+    "id": "doubleblade",
+    "name": "Doubleblade",
+    "typeLine": "Creature — Human Warrior",
+    "manaCost": "{3}{R}",
+    "manaValue": 4,
+    "power": 2,
+    "toughness": 2,
+    "subtypes": [
+      "Human",
+      "Warrior"
+    ],
+    "keywords": [
+      "double strike"
+    ],
+    "abilities": [],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "R"
+    ],
+    "oracleText": "Double strike",
+    "supported": true
+  },
+  "menace-ogre": {
+    "id": "menace-ogre",
+    "name": "Menace Ogre",
+    "typeLine": "Creature — Ogre",
+    "manaCost": "{3}{B}",
+    "manaValue": 4,
+    "power": 3,
+    "toughness": 3,
+    "subtypes": [
+      "Ogre"
+    ],
+    "keywords": [
+      "menace"
+    ],
+    "abilities": [],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "B"
+    ],
+    "oracleText": "Menace",
+    "supported": true
+  },
+  "indestructible-god": {
+    "id": "indestructible-god",
+    "name": "Indestructible God",
+    "typeLine": "Legendary Enchantment Creature — God",
+    "manaCost": "{3}{W}",
+    "manaValue": 4,
+    "power": 4,
+    "toughness": 4,
+    "subtypes": [
+      "God"
+    ],
+    "keywords": [
+      "indestructible"
+    ],
+    "abilities": [],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "W"
+    ],
+    "oracleText": "Indestructible",
+    "supported": true
+  },
+  "divination": {
+    "id": "divination",
+    "name": "Divination",
+    "typeLine": "Sorcery",
+    "manaCost": "{2}{U}",
+    "manaValue": 3,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [
+      {
+        "type": "draw",
+        "amount": 2
+      }
+    ],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "oracleText": "Draw two cards.",
+    "supported": true
+  },
+  "healing-salve": {
+    "id": "healing-salve",
+    "name": "Healing Salve",
+    "typeLine": "Instant",
+    "manaCost": "{W}",
+    "manaValue": 1,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "producedMana": null,
+    "oracleText": "Choose one — target player gains 3 life; or prevent the next 3 damage that would be dealt to a legal target this turn.",
+    "modes": [
+      {
+        "id": "gain-life",
+        "label": "Target player gains 3 life.",
+        "targets": {
+          "kind": "player"
+        },
+        "effects": [
+          {
+            "type": "gainLifeTarget",
+            "amount": 3
+          }
+        ]
+      },
+      {
+        "id": "prevent-damage",
+        "label": "Prevent the next 3 damage that would be dealt to any target this turn.",
+        "targets": {
+          "kind": "playerOrPermanent",
+          "types": [
+            "Creature",
+            "Planeswalker",
+            "Battle"
+          ]
+        },
+        "effects": [
+          {
+            "type": "preventDamage",
+            "amount": 3
+          }
+        ]
+      }
+    ],
+    "colorIdentity": [
+      "W"
+    ],
+    "supported": true
+  },
+  "lightning-bolt": {
+    "id": "lightning-bolt",
+    "name": "Lightning Bolt",
+    "typeLine": "Instant",
+    "manaCost": "{R}",
+    "manaValue": 1,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [
+      {
+        "type": "damage",
+        "amount": 3
+      }
+    ],
+    "producedMana": null,
+    "targets": {
+      "kind": "playerOrPermanent",
+      "types": [
+        "Creature",
+        "Planeswalker"
+      ]
+    },
+    "colorIdentity": [
+      "R"
+    ],
+    "oracleText": "Deal 3 damage to any legal target.",
+    "supported": true
+  },
+  "murder": {
+    "id": "murder",
+    "name": "Murder",
+    "typeLine": "Instant",
+    "manaCost": "{1}{B}{B}",
+    "manaValue": 3,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [
+      {
+        "type": "destroy"
+      }
+    ],
+    "producedMana": null,
+    "targets": {
+      "kind": "permanent",
+      "type": "Creature"
+    },
+    "colorIdentity": [
+      "B"
+    ],
+    "oracleText": "Destroy target creature.",
+    "supported": true
+  },
+  "cultivate": {
+    "id": "cultivate",
+    "name": "Cultivate",
+    "typeLine": "Sorcery",
+    "manaCost": "{2}{G}",
+    "manaValue": 3,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [
+      {
+        "type": "cultivate"
+      }
+    ],
+    "producedMana": null,
+    "oracleText": "Search for up to two basic lands; put one onto the battlefield tapped and the other into your hand, then shuffle.",
+    "colorIdentity": [
+      "G"
+    ],
+    "supported": true
+  },
+  "proliferate-spell": {
+    "id": "proliferate-spell",
+    "name": "Steady Progress",
+    "typeLine": "Instant",
+    "manaCost": "{2}{U}",
+    "manaValue": 3,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [
+      {
+        "type": "proliferate"
+      },
+      {
+        "type": "draw"
+      }
+    ],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "oracleText": "Proliferate, then draw a card.",
+    "supported": true
+  },
+  "treasure-maker": {
+    "id": "treasure-maker",
+    "name": "Prosperous Pirates",
+    "typeLine": "Creature — Human Pirate",
+    "manaCost": "{4}{U}",
+    "manaValue": 5,
+    "power": 3,
+    "toughness": 4,
+    "subtypes": [
+      "Human",
+      "Pirate"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "ENTER_BATTLEFIELD",
+        "condition": {
+          "controllerEvent": true,
+          "sourceEvent": true
+        },
+        "effect": {
+          "type": "createToken",
+          "token": {
+            "name": "Treasure",
+            "typeLine": "Artifact — Treasure"
+          },
+          "amount": 2
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "oracleText": "When this enters the battlefield, create two Treasure tokens.",
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true
+  },
+  "hardened-scales": {
+    "id": "hardened-scales",
+    "name": "Hardened Scales",
+    "typeLine": "Enchantment",
+    "manaCost": "{G}",
+    "manaValue": 1,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "replacement",
+        "event": "COUNTERS_ADDED",
+        "counterType": "+1/+1",
+        "effect": "addOne",
+        "filter": {
+          "controller": "you",
+          "type": "Creature"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "G"
+    ],
+    "oracleText": "If one or more +1/+1 counters would be put on a creature you control, put that many plus one instead.",
+    "supported": true
+  },
+  "branching-evolution": {
+    "id": "branching-evolution",
+    "name": "Branching Evolution",
+    "typeLine": "Enchantment",
+    "manaCost": "{2}{G}",
+    "manaValue": 3,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "replacement",
+        "event": "COUNTERS_ADDED",
+        "counterType": "+1/+1",
+        "effect": "double",
+        "filter": {
+          "controller": "you",
+          "type": "Creature"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "G"
+    ],
+    "oracleText": "If one or more +1/+1 counters would be put on a creature you control, twice that many are put on it instead.",
+    "supported": true
+  },
+  "doubling-season": {
+    "id": "doubling-season",
+    "name": "Doubling Season",
+    "typeLine": "Enchantment",
+    "manaCost": "{4}{G}",
+    "manaValue": 5,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "replacement",
+        "event": "COUNTERS_ADDED",
+        "effect": "double",
+        "filter": {
+          "controller": "you"
+        }
+      },
+      {
+        "type": "replacement",
+        "event": "TOKEN_CREATED",
+        "effect": "double"
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "G"
+    ],
+    "oracleText": "If an effect would create tokens under your control, it creates twice as many. Counter-placing effects you control also place twice as many counters.",
+    "supported": true
+  },
+  "parallel-lives": {
+    "id": "parallel-lives",
+    "name": "Parallel Lives",
+    "typeLine": "Enchantment",
+    "manaCost": "{3}{G}",
+    "manaValue": 4,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "replacement",
+        "event": "TOKEN_CREATED",
+        "effect": "double"
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "G"
+    ],
+    "oracleText": "If an effect would create one or more tokens under your control, it creates twice that many instead.",
+    "supported": true
+  },
+  "academy-manufactor": {
+    "id": "academy-manufactor",
+    "name": "Academy Manufactor",
+    "typeLine": "Artifact Creature — Assembly-Worker",
+    "manaCost": "{3}",
+    "manaValue": 3,
+    "power": 1,
+    "toughness": 3,
+    "subtypes": [
+      "Assembly-Worker"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "replacement",
+        "event": "TOKEN_CREATED",
+        "effect": "manufactor"
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [],
+    "oracleText": "If you would create a Clue, Food, or Treasure token, create one of each instead.",
+    "supported": true
+  },
+  "evolution-sage": {
+    "id": "evolution-sage",
+    "name": "Evolution Sage",
+    "typeLine": "Creature — Elf Druid",
+    "manaCost": "{2}{G}",
+    "manaValue": 3,
+    "power": 3,
+    "toughness": 2,
+    "subtypes": [
+      "Elf",
+      "Druid"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "ENTER_BATTLEFIELD",
+        "condition": {
+          "controllerEvent": true,
+          "type": "Land"
+        },
+        "effect": {
+          "type": "proliferate"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "oracleText": "Landfall — whenever a land enters the battlefield under your control, proliferate.",
+    "colorIdentity": [
+      "G"
+    ],
+    "supported": true
+  },
+  "deeproot-waters": {
+    "id": "deeproot-waters",
+    "name": "Deeproot Waters",
+    "typeLine": "Enchantment",
+    "manaCost": "{2}{U}",
+    "manaValue": 3,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "SPELL_CAST",
+        "condition": {
+          "controllerEvent": true,
+          "spellSubtype": "Merfolk"
+        },
+        "effect": {
+          "type": "createToken",
+          "token": {
+            "name": "Merfolk Hexproof",
+            "typeLine": "Creature — Merfolk",
+            "power": 1,
+            "toughness": 1,
+            "subtypes": [
+              "Merfolk"
+            ],
+            "keywords": [
+              "hexproof"
+            ]
+          }
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "oracleText": "Whenever you cast a Merfolk spell, create a 1/1 blue Merfolk creature token with hexproof.",
+    "supported": true
+  },
+  "hakbal": {
+    "id": "hakbal",
+    "name": "Hakbal of the Surging Soul",
+    "typeLine": "Legendary Creature — Merfolk Scout",
+    "manaCost": "{2}{G}{U}",
+    "manaValue": 4,
+    "power": 3,
+    "toughness": 3,
+    "subtypes": [
+      "Merfolk",
+      "Scout"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "BEGIN_COMBAT",
+        "condition": {
+          "controllerEvent": true
+        },
+        "effect": {
+          "type": "exploreAll",
+          "filter": {
+            "type": "Creature",
+            "subtype": "Merfolk"
+          }
+        }
+      },
+      {
+        "type": "triggered",
+        "event": "DECLARE_ATTACKERS",
+        "condition": {
+          "sourceAttacking": true
+        },
+        "effect": {
+          "type": "hakbalAttack"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "oracleText": "At the beginning of combat on your turn, each Merfolk you control explores. Whenever Hakbal attacks, you may put a land from your hand onto the battlefield; if you do not, draw a card.",
+    "colorIdentity": [
+      "G",
+      "U"
+    ],
+    "supported": true
+  },
+  "merfolk-scout": {
+    "id": "merfolk-scout",
+    "name": "River Herald Scout",
+    "typeLine": "Creature — Merfolk Scout",
+    "manaCost": "{1}{U}",
+    "manaValue": 2,
+    "power": 1,
+    "toughness": 2,
+    "subtypes": [
+      "Merfolk",
+      "Scout"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "ENTER_BATTLEFIELD",
+        "condition": {
+          "controllerEvent": true,
+          "sourceEvent": true
+        },
+        "effect": {
+          "type": "explore"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "oracleText": "When this enters the battlefield, it explores.",
+    "supported": true
+  },
+  "merfolk-mistbinder": {
+    "id": "merfolk-mistbinder",
+    "name": "Merfolk Mistbinder",
+    "typeLine": "Creature — Merfolk Shaman",
+    "manaCost": "{G}{U}",
+    "manaValue": 2,
+    "power": 2,
+    "toughness": 2,
+    "subtypes": [
+      "Merfolk",
+      "Shaman"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "static",
+        "filter": {
+          "controller": "you",
+          "subtype": "Merfolk",
+          "notSelf": true
+        },
+        "effect": {
+          "power": 1,
+          "toughness": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "G",
+      "U"
+    ],
+    "oracleText": "Other Merfolk you control get +1/+1.",
+    "supported": true
+  },
+  "blech": {
+    "id": "blech",
+    "name": "Blech, Loafing Pest",
+    "typeLine": "Legendary Creature — Pest",
+    "manaCost": "{1}{B}{G}",
+    "manaValue": 3,
+    "power": 3,
+    "toughness": 4,
+    "subtypes": [
+      "Pest"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "LIFE_GAIN",
+        "condition": {
+          "controllerEvent": true
+        },
+        "effect": {
+          "type": "addCounter",
+          "filter": {
+            "type": "Creature",
+            "subtypes": [
+              "Pest",
+              "Bat",
+              "Insect",
+              "Snake",
+              "Spider"
+            ]
+          },
+          "counter": "+1/+1",
+          "amount": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "oracleText": "Whenever you gain life, put a +1/+1 counter on each Pest, Bat, Insect, Snake, and Spider you control.",
+    "colorIdentity": [
+      "B",
+      "G"
+    ],
+    "supported": true
+  },
+  "pest-summoner": {
+    "id": "pest-summoner",
+    "name": "Pest Summoner",
+    "typeLine": "Creature — Human Warlock",
+    "manaCost": "{2}{B}",
+    "manaValue": 3,
+    "power": 2,
+    "toughness": 2,
+    "subtypes": [
+      "Human",
+      "Warlock"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "ENTER_BATTLEFIELD",
+        "condition": {
+          "controllerEvent": true,
+          "sourceEvent": true
+        },
+        "effect": {
+          "type": "createToken",
+          "token": {
+            "name": "Pest",
+            "typeLine": "Creature — Pest",
+            "power": 1,
+            "toughness": 1,
+            "subtypes": [
+              "Pest"
+            ]
+          },
+          "amount": 2
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "B"
+    ],
+    "oracleText": "When this enters the battlefield, create two 1/1 Pest creature tokens.",
+    "supported": true
+  },
+  "esika": {
+    "id": "esika",
+    "name": "Esika, God of the Tree",
+    "typeLine": "Legendary Creature — God",
+    "manaCost": "{1}{G}{G}",
+    "manaValue": 3,
+    "power": 1,
+    "toughness": 4,
+    "subtypes": [
+      "God"
+    ],
+    "keywords": [
+      "vigilance"
+    ],
+    "abilities": [
+      {
+        "type": "mana",
+        "anyColor": true,
+        "colors": [
+          "W",
+          "U",
+          "B",
+          "R",
+          "G"
+        ],
+        "amount": 1
+      },
+      {
+        "type": "static",
+        "filter": {
+          "controller": "you",
+          "notSelf": true,
+          "typesAll": [
+            "Legendary",
+            "Creature"
+          ]
+        },
+        "effect": {
+          "keyword": "vigilance",
+          "grantAbility": {
+            "type": "mana",
+            "anyColor": true,
+            "colors": [
+              "W",
+              "U",
+              "B",
+              "R",
+              "G"
+            ],
+            "amount": 1,
+            "grantedBy": "esika"
+          }
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "oracleText": "Vigilance. {T}: Add one mana of any color. Other legendary creatures you control have vigilance and the same mana ability. The Prismatic Bridge face is explicitly unsupported by the trainer.",
+    "alternateFace": {
+      "name": "The Prismatic Bridge",
+      "manaCost": "{W}{U}{B}{R}{G}",
+      "typeLine": "Legendary Enchantment",
+      "oracleText": "At the beginning of your upkeep, reveal cards from the top of your library until you reveal a creature or planeswalker card. Put that card onto the battlefield and the rest on the bottom of your library in a random order.",
+      "supported": false,
+      "unsupportedReason": "Modal double-faced casting is not implemented in the trainer yet; only Esika, God of the Tree may be cast."
+    },
+    "colorIdentity": [
+      "W",
+      "U",
+      "B",
+      "R",
+      "G"
+    ],
+    "supported": true
+  },
+  "sisay": {
+    "id": "sisay",
+    "name": "Sisay, Weatherlight Captain",
+    "typeLine": "Legendary Creature — Human Soldier",
+    "manaCost": "{2}{W}",
+    "manaValue": 3,
+    "power": 2,
+    "toughness": 2,
+    "subtypes": [
+      "Human",
+      "Soldier"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "static",
+        "filter": {
+          "self": true
+        },
+        "effect": {
+          "powerToughnessPerLegendaryColor": true
+        }
+      },
+      {
+        "type": "activated",
+        "cost": {
+          "mana": "{W}{U}{B}{R}{G}"
+        },
+        "effect": {
+          "type": "sisayTutor"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "oracleText": "Sisay gets +1/+1 for each color among other legendary permanents you control. {W}{U}{B}{R}{G}: Search for a legendary permanent card with mana value less than Sisay’s power and put it onto the battlefield.",
+    "colorIdentity": [
+      "W",
+      "U",
+      "B",
+      "R",
+      "G"
+    ],
+    "supported": true
+  },
+  "thassa": {
+    "id": "thassa",
+    "name": "Thassa, God of the Sea",
+    "typeLine": "Legendary Enchantment Creature — God",
+    "manaCost": "{2}{U}",
+    "manaValue": 3,
+    "power": 5,
+    "toughness": 5,
+    "subtypes": [
+      "God"
+    ],
+    "keywords": [
+      "indestructible"
+    ],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "PHASE_BEGIN",
+        "condition": {
+          "controllerEvent": true,
+          "phase": "UPKEEP"
+        },
+        "effect": {
+          "type": "scry",
+          "amount": 1
+        }
+      },
+      {
+        "type": "activated",
+        "cost": {
+          "mana": "{1}{U}"
+        },
+        "targets": {
+          "kind": "permanent",
+          "type": "Creature",
+          "controller": "you"
+        },
+        "effect": {
+          "type": "cantBeBlocked"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "oracleText": "Indestructible. Devotion can make Thassa not a creature. At your upkeep, scry 1. {1}{U}: Target creature you control cannot be blocked this turn.",
+    "creatureUnlessDevotion": {
+      "colors": [
+        "U"
+      ],
+      "threshold": 5
+    },
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true
+  },
+  "keranos": {
+    "id": "keranos",
+    "name": "Keranos, God of Storms",
+    "typeLine": "Legendary Enchantment Creature — God",
+    "manaCost": "{3}{U}{R}",
+    "manaValue": 5,
+    "power": 6,
+    "toughness": 5,
+    "subtypes": [
+      "God"
+    ],
+    "keywords": [
+      "indestructible"
+    ],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "CARD_DRAWN",
+        "condition": {
+          "controllerEvent": true,
+          "yourTurn": true,
+          "firstDrawThisTurn": true,
+          "cardType": "Land"
+        },
+        "effect": {
+          "type": "draw",
+          "amount": 1
+        }
+      },
+      {
+        "type": "triggered",
+        "event": "CARD_DRAWN",
+        "condition": {
+          "controllerEvent": true,
+          "yourTurn": true,
+          "firstDrawThisTurn": true,
+          "cardTypeNot": "Land"
+        },
+        "targets": {
+          "kind": "playerOrPermanent",
+          "types": [
+            "Creature",
+            "Planeswalker",
+            "Battle"
+          ]
+        },
+        "effect": {
+          "type": "damage",
+          "amount": 3
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "oracleText": "Indestructible. Devotion can make Keranos not a creature. On your first draw each turn, a land causes an extra draw; a nonland causes 3 damage to a legal target.",
+    "creatureUnlessDevotion": {
+      "colors": [
+        "U",
+        "R"
+      ],
+      "threshold": 7
+    },
+    "colorIdentity": [
+      "U",
+      "R"
+    ],
+    "supported": true
+  },
+  "erebos": {
+    "id": "erebos",
+    "name": "Erebos, God of the Dead",
+    "typeLine": "Legendary Enchantment Creature — God",
+    "manaCost": "{3}{B}",
+    "manaValue": 4,
+    "power": 5,
+    "toughness": 7,
+    "subtypes": [
+      "God"
+    ],
+    "keywords": [
+      "indestructible"
+    ],
+    "abilities": [
+      {
+        "type": "static",
+        "filter": {
+          "self": true
+        },
+        "effect": {
+          "opponentsCantGainLife": true
+        }
+      },
+      {
+        "type": "activated",
+        "cost": {
+          "mana": "{1}{B}",
+          "life": 2
+        },
+        "effect": {
+          "type": "draw",
+          "amount": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "oracleText": "Indestructible. Devotion can make Erebos not a creature. Opponents cannot gain life. {1}{B}, pay 2 life: Draw a card.",
+    "creatureUnlessDevotion": {
+      "colors": [
+        "B"
+      ],
+      "threshold": 5
+    },
+    "colorIdentity": [
+      "B"
+    ],
+    "supported": true
+  },
+  "smaug": {
+    "id": "smaug",
+    "name": "Smaug, the Golden",
+    "typeLine": "Legendary Creature — Dragon",
+    "manaCost": "{4}{B}{R}",
+    "manaValue": 6,
+    "power": 6,
+    "toughness": 6,
+    "subtypes": [
+      "Dragon"
+    ],
+    "keywords": [
+      "flying",
+      "trample"
+    ],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "CREATURE_DIED",
+        "condition": {
+          "controllerEvent": true
+        },
+        "effect": {
+          "type": "createToken",
+          "token": {
+            "name": "Treasure",
+            "typeLine": "Artifact — Treasure"
+          },
+          "amount": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "B",
+      "R"
+    ],
+    "oracleText": "Flying, trample. Whenever a creature you control dies, create a Treasure token.",
+    "supported": true
+  },
+  "aang": {
+    "id": "aang",
+    "name": "Aang, Last Airbender",
+    "typeLine": "Legendary Creature — Human Monk",
+    "manaCost": "{W}{U}{R}{G}",
+    "manaValue": 4,
+    "power": 4,
+    "toughness": 4,
+    "subtypes": [
+      "Human",
+      "Monk"
+    ],
+    "keywords": [
+      "flying",
+      "vigilance"
+    ],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "SPELL_CAST",
+        "condition": {
+          "controllerEvent": true
+        },
+        "effect": {
+          "type": "addCounter",
+          "filter": {
+            "type": "Creature"
+          },
+          "counter": "+1/+1",
+          "amount": 1,
+          "maxTargets": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "W",
+      "U",
+      "R",
+      "G"
+    ],
+    "oracleText": "Flying, vigilance. Whenever you cast a spell, put a +1/+1 counter on a creature you control.",
+    "supported": true
+  },
+  "lcc-benthic-biomancer": {
+    "id": "lcc-benthic-biomancer",
+    "name": "Benthic Biomancer",
+    "typeLine": "Creature — Merfolk Wizard Mutant",
+    "manaCost": "{U}",
+    "manaValue": 1,
+    "power": 1,
+    "toughness": 1,
+    "subtypes": [
+      "Merfolk",
+      "Wizard",
+      "Mutant"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "activated",
+        "cost": {
+          "mana": "{1}{U}"
+        },
+        "condition": {
+          "noPlusOneCounters": true
+        },
+        "effect": {
+          "type": "adapt",
+          "amount": 1
+        }
+      },
+      {
+        "type": "triggered",
+        "event": "COUNTERS_ADDED",
+        "condition": {
+          "sourceEvent": true,
+          "eventCounterType": "+1/+1"
+        },
+        "effect": {
+          "type": "drawDiscard",
+          "draw": 1,
+          "discard": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Adapt 1. Whenever one or more +1/+1 counters are put on Benthic Biomancer, draw a card, then discard a card."
+  },
+  "lcc-cold-eyed-selkie": {
+    "id": "lcc-cold-eyed-selkie",
+    "name": "Cold-Eyed Selkie",
+    "typeLine": "Creature — Merfolk Rogue",
+    "manaCost": "{1}{G/U}{G/U}",
+    "manaValue": 3,
+    "power": 1,
+    "toughness": 1,
+    "subtypes": [
+      "Merfolk",
+      "Rogue"
+    ],
+    "keywords": [
+      "islandwalk"
+    ],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "COMBAT_DAMAGE_PLAYER",
+        "condition": {
+          "sourceEvent": true
+        },
+        "effect": {
+          "type": "drawEventAmount"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U",
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Islandwalk. Whenever Cold-Eyed Selkie deals combat damage to a player, draw that many cards."
+  },
+  "lcc-coralhelm-commander": {
+    "id": "lcc-coralhelm-commander",
+    "name": "Coralhelm Commander",
+    "typeLine": "Creature — Merfolk Soldier",
+    "manaCost": "{U}{U}",
+    "manaValue": 2,
+    "power": 2,
+    "toughness": 2,
+    "subtypes": [
+      "Merfolk",
+      "Soldier"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "activated",
+        "cost": {
+          "mana": "{1}"
+        },
+        "sorcerySpeed": true,
+        "effect": {
+          "type": "levelUp",
+          "amount": 1
+        }
+      },
+      {
+        "type": "static",
+        "filter": {
+          "self": true
+        },
+        "effect": {
+          "power": 1,
+          "toughness": 1,
+          "keyword": "flying"
+        },
+        "when": {
+          "sourceCounterMin": 2,
+          "sourceCounterMax": 3,
+          "counterType": "level"
+        }
+      },
+      {
+        "type": "static",
+        "filter": {
+          "self": true
+        },
+        "effect": {
+          "power": 2,
+          "toughness": 2,
+          "keyword": "flying"
+        },
+        "when": {
+          "sourceCounterMin": 4,
+          "counterType": "level"
+        }
+      },
+      {
+        "type": "static",
+        "filter": {
+          "controller": "you",
+          "other": true,
+          "subtype": "Merfolk"
+        },
+        "effect": {
+          "power": 1,
+          "toughness": 1
+        },
+        "when": {
+          "sourceCounterMin": 4,
+          "counterType": "level"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Level up {1}. LEVEL 2-3: 3/3 flying. LEVEL 4+: 4/4 flying; other Merfolk creatures you control get +1/+1."
+  },
+  "lcc-deeproot-elite": {
+    "id": "lcc-deeproot-elite",
+    "name": "Deeproot Elite",
+    "typeLine": "Creature — Merfolk Warrior",
+    "manaCost": "{1}{G}",
+    "manaValue": 2,
+    "power": 1,
+    "toughness": 1,
+    "subtypes": [
+      "Merfolk",
+      "Warrior"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "ENTER_BATTLEFIELD",
+        "condition": {
+          "controllerEvent": true,
+          "sourceSubtype": "Merfolk",
+          "notSelfEvent": true
+        },
+        "targets": {
+          "kind": "permanent",
+          "type": "Creature",
+          "subtype": "Merfolk",
+          "controller": "you"
+        },
+        "effect": {
+          "type": "addCounter",
+          "counter": "+1/+1",
+          "amount": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Whenever another Merfolk enters the battlefield under your control, put a +1/+1 counter on target Merfolk you control."
+  },
+  "lcc-deeproot-historian": {
+    "id": "lcc-deeproot-historian",
+    "name": "Deeproot Historian",
+    "typeLine": "Creature — Merfolk Druid",
+    "manaCost": "{3}{G}",
+    "manaValue": 4,
+    "power": 3,
+    "toughness": 3,
+    "subtypes": [
+      "Merfolk",
+      "Druid"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "static",
+        "filter": {
+          "controller": "you",
+          "subtypes": [
+            "Merfolk",
+            "Druid"
+          ]
+        },
+        "effect": {
+          "grantRetrace": true
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Merfolk and Druid cards in your graveyard have retrace."
+  },
+  "lcc-emperor-mihail-ii": {
+    "id": "lcc-emperor-mihail-ii",
+    "name": "Emperor Mihail II",
+    "typeLine": "Legendary Creature — Merfolk Noble",
+    "manaCost": "{1}{U}{U}",
+    "manaValue": 3,
+    "power": 3,
+    "toughness": 3,
+    "subtypes": [
+      "Merfolk",
+      "Noble"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "static",
+        "filter": {
+          "controller": "you",
+          "subtype": "Merfolk"
+        },
+        "effect": {
+          "castFromTop": true
+        }
+      },
+      {
+        "type": "triggered",
+        "event": "SPELL_CAST",
+        "condition": {
+          "controllerEvent": true,
+          "spellSubtype": "Merfolk"
+        },
+        "effect": {
+          "type": "optionalPayManaThen",
+          "mana": "{1}",
+          "then": {
+            "type": "createToken",
+            "token": {
+              "name": "Merfolk",
+              "typeLine": "Creature — Merfolk",
+              "power": 1,
+              "toughness": 1,
+              "subtypes": [
+                "Merfolk"
+              ],
+              "colors": [
+                "U"
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "You may look at the top card of your library any time. You may cast Merfolk spells from the top of your library. Whenever you cast a Merfolk spell, you may pay {1}. If you do, create a 1/1 blue Merfolk creature token."
+  },
+  "lcc-herald-of-secret-streams": {
+    "id": "lcc-herald-of-secret-streams",
+    "name": "Herald of Secret Streams",
+    "typeLine": "Creature — Merfolk Warrior",
+    "manaCost": "{3}{U}",
+    "manaValue": 4,
+    "power": 2,
+    "toughness": 3,
+    "subtypes": [
+      "Merfolk",
+      "Warrior"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "static",
+        "filter": {
+          "controller": "you",
+          "type": "Creature",
+          "hasCounter": "+1/+1"
+        },
+        "effect": {
+          "keyword": "unblockable"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Creatures you control with +1/+1 counters on them can't be blocked."
+  },
+  "lcc-kiora-s-follower": {
+    "id": "lcc-kiora-s-follower",
+    "name": "Kiora's Follower",
+    "typeLine": "Creature — Merfolk",
+    "manaCost": "{G}{U}",
+    "manaValue": 2,
+    "power": 2,
+    "toughness": 2,
+    "subtypes": [
+      "Merfolk"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "activated",
+        "tap": true,
+        "targets": {
+          "kind": "permanent",
+          "notSelf": true
+        },
+        "effect": {
+          "type": "untap"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U",
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "{T}: Untap another target permanent."
+  },
+  "lcc-kopala-warden-of-waves": {
+    "id": "lcc-kopala-warden-of-waves",
+    "name": "Kopala, Warden of Waves",
+    "typeLine": "Legendary Creature — Merfolk Wizard",
+    "manaCost": "{1}{U}{U}",
+    "manaValue": 3,
+    "power": 2,
+    "toughness": 2,
+    "subtypes": [
+      "Merfolk",
+      "Wizard"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "static",
+        "filter": {
+          "controller": "you",
+          "subtype": "Merfolk"
+        },
+        "effect": {
+          "targetingTax": 2
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Spells your opponents cast that target a Merfolk you control cost {2} more to cast. Abilities your opponents activate that target a Merfolk you control cost {2} more to activate."
+  },
+  "lcc-kumena-tyrant-of-orazca": {
+    "id": "lcc-kumena-tyrant-of-orazca",
+    "name": "Kumena, Tyrant of Orazca",
+    "typeLine": "Legendary Creature — Merfolk Shaman",
+    "manaCost": "{1}{G}{U}",
+    "manaValue": 3,
+    "power": 2,
+    "toughness": 4,
+    "subtypes": [
+      "Merfolk",
+      "Shaman"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "activated",
+        "selection": {
+          "count": 1,
+          "other": true,
+          "subtype": "Merfolk"
+        },
+        "effect": {
+          "type": "addKeywordSource",
+          "keyword": "unblockable"
+        }
+      },
+      {
+        "type": "activated",
+        "selection": {
+          "count": 3,
+          "subtype": "Merfolk"
+        },
+        "effect": {
+          "type": "draw",
+          "amount": 1
+        }
+      },
+      {
+        "type": "activated",
+        "selection": {
+          "count": 5,
+          "subtype": "Merfolk"
+        },
+        "effect": {
+          "type": "addCountersAll",
+          "filter": {
+            "controller": "you",
+            "subtype": "Merfolk"
+          },
+          "counter": "+1/+1",
+          "amount": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U",
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Tap another untapped Merfolk you control: Kumena can't be blocked this turn. Tap three untapped Merfolk you control: Draw a card. Tap five untapped Merfolk you control: Put a +1/+1 counter on each Merfolk you control."
+  },
+  "lcc-master-of-the-pearl-trident": {
+    "id": "lcc-master-of-the-pearl-trident",
+    "name": "Master of the Pearl Trident",
+    "typeLine": "Creature — Merfolk",
+    "manaCost": "{U}{U}",
+    "manaValue": 2,
+    "power": 2,
+    "toughness": 2,
+    "subtypes": [
+      "Merfolk"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "static",
+        "filter": {
+          "controller": "you",
+          "other": true,
+          "subtype": "Merfolk"
+        },
+        "effect": {
+          "power": 1,
+          "toughness": 1,
+          "keyword": "islandwalk"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Other Merfolk creatures you control get +1/+1 and have islandwalk."
+  },
+  "lcc-merfolk-cave-diver": {
+    "id": "lcc-merfolk-cave-diver",
+    "name": "Merfolk Cave-Diver",
+    "typeLine": "Creature — Merfolk Scout",
+    "manaCost": "{2}{U}",
+    "manaValue": 3,
+    "power": 2,
+    "toughness": 4,
+    "subtypes": [
+      "Merfolk",
+      "Scout"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "EXPLORED",
+        "condition": {
+          "controllerEvent": true
+        },
+        "effect": {
+          "type": "pumpEventObject",
+          "power": 1,
+          "keywords": [
+            "unblockable"
+          ]
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Whenever a creature you control explores, it gets +1/+0 and can't be blocked this turn."
+  },
+  "lcc-merfolk-skydiver": {
+    "id": "lcc-merfolk-skydiver",
+    "name": "Merfolk Skydiver",
+    "typeLine": "Creature — Merfolk Mutant",
+    "manaCost": "{G}{U}",
+    "manaValue": 2,
+    "power": 1,
+    "toughness": 1,
+    "subtypes": [
+      "Merfolk",
+      "Mutant"
+    ],
+    "keywords": [
+      "flying"
+    ],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "ENTER_BATTLEFIELD",
+        "condition": {
+          "sourceEvent": true
+        },
+        "targets": {
+          "kind": "permanent",
+          "type": "Creature",
+          "controller": "you"
+        },
+        "effect": {
+          "type": "addCounter",
+          "counter": "+1/+1",
+          "amount": 1
+        }
+      },
+      {
+        "type": "activated",
+        "cost": {
+          "mana": "{3}{G}{U}"
+        },
+        "effect": {
+          "type": "proliferate"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U",
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Flying. When Merfolk Skydiver enters the battlefield, put a +1/+1 counter on target creature you control. {3}{G}{U}: Proliferate."
+  },
+  "lcc-merfolk-sovereign": {
+    "id": "lcc-merfolk-sovereign",
+    "name": "Merfolk Sovereign",
+    "typeLine": "Creature — Merfolk Noble",
+    "manaCost": "{1}{U}{U}",
+    "manaValue": 3,
+    "power": 2,
+    "toughness": 2,
+    "subtypes": [
+      "Merfolk",
+      "Noble"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "static",
+        "filter": {
+          "controller": "you",
+          "other": true,
+          "subtype": "Merfolk"
+        },
+        "effect": {
+          "power": 1,
+          "toughness": 1
+        }
+      },
+      {
+        "type": "activated",
+        "tap": true,
+        "targets": {
+          "kind": "permanent",
+          "type": "Creature",
+          "subtype": "Merfolk",
+          "controller": "you"
+        },
+        "effect": {
+          "type": "cantBeBlocked"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Other Merfolk creatures you control get +1/+1. {T}: Target Merfolk creature can't be blocked this turn."
+  },
+  "lcc-merrow-reejerey": {
+    "id": "lcc-merrow-reejerey",
+    "name": "Merrow Reejerey",
+    "typeLine": "Creature — Merfolk Soldier",
+    "manaCost": "{2}{U}",
+    "manaValue": 3,
+    "power": 2,
+    "toughness": 2,
+    "subtypes": [
+      "Merfolk",
+      "Soldier"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "static",
+        "filter": {
+          "controller": "you",
+          "other": true,
+          "subtype": "Merfolk"
+        },
+        "effect": {
+          "power": 1,
+          "toughness": 1
+        }
+      },
+      {
+        "type": "triggered",
+        "event": "SPELL_CAST",
+        "condition": {
+          "controllerEvent": true,
+          "spellSubtype": "Merfolk"
+        },
+        "targets": {
+          "kind": "permanent"
+        },
+        "effect": {
+          "type": "tapOrUntap"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Other Merfolk creatures you control get +1/+1. Whenever you cast a Merfolk spell, you may tap or untap target permanent."
+  },
+  "lcc-metallic-mimic": {
+    "id": "lcc-metallic-mimic",
+    "name": "Metallic Mimic",
+    "typeLine": "Artifact Creature — Shapeshifter",
+    "manaCost": "{2}",
+    "manaValue": 2,
+    "power": 2,
+    "toughness": 1,
+    "subtypes": [
+      "Shapeshifter"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "static",
+        "filter": {
+          "controller": "you",
+          "other": true,
+          "chosenTypeOfSource": true
+        },
+        "effect": {
+          "entersWithCounter": "+1/+1",
+          "amount": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [],
+    "supported": true,
+    "oracleText": "As Metallic Mimic enters the battlefield, choose a creature type. Metallic Mimic is the chosen type in addition to its other types. Each other creature you control of the chosen type enters with an additional +1/+1 counter.",
+    "asEntersChooseType": true,
+    "chosenTypeAddsSubtype": true
+  },
+  "lcc-mist-dancer": {
+    "id": "lcc-mist-dancer",
+    "name": "Mist Dancer",
+    "typeLine": "Creature — Merfolk Wizard",
+    "manaCost": "{4}{U}",
+    "manaValue": 5,
+    "power": 3,
+    "toughness": 3,
+    "subtypes": [
+      "Merfolk",
+      "Wizard"
+    ],
+    "keywords": [
+      "flying"
+    ],
+    "abilities": [
+      {
+        "type": "static",
+        "filter": {
+          "controller": "you",
+          "other": true,
+          "subtype": "Merfolk"
+        },
+        "effect": {
+          "power": 1,
+          "keyword": "flying"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Flying. Other Merfolk creatures you control get +1/+0 and have flying. Encore {5}{U}{U}.",
+    "encoreCost": "{5}{U}{U}"
+  },
+  "lcc-nicanzil-current-conductor": {
+    "id": "lcc-nicanzil-current-conductor",
+    "name": "Nicanzil, Current Conductor",
+    "typeLine": "Legendary Creature — Merfolk Scout",
+    "manaCost": "{G}{U}",
+    "manaValue": 2,
+    "power": 2,
+    "toughness": 3,
+    "subtypes": [
+      "Merfolk",
+      "Scout"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "EXPLORED",
+        "condition": {
+          "controllerEvent": true,
+          "exploredLand": true
+        },
+        "effect": {
+          "type": "putLandFromHandIfExploredLand"
+        }
+      },
+      {
+        "type": "triggered",
+        "event": "EXPLORED",
+        "condition": {
+          "controllerEvent": true,
+          "exploredLand": false
+        },
+        "effect": {
+          "type": "addCounterSource",
+          "counter": "+1/+1",
+          "amount": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U",
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Whenever a creature you control explores a land card, you may put a land card from your hand onto the battlefield tapped. Whenever a creature you control explores a nonland card, put a +1/+1 counter on Nicanzil."
+  },
+  "lcc-prime-speaker-zegana": {
+    "id": "lcc-prime-speaker-zegana",
+    "name": "Prime Speaker Zegana",
+    "typeLine": "Legendary Creature — Merfolk Wizard",
+    "manaCost": "{2}{G}{G}{U}{U}",
+    "manaValue": 6,
+    "power": 1,
+    "toughness": 1,
+    "subtypes": [
+      "Merfolk",
+      "Wizard"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "ENTER_BATTLEFIELD",
+        "condition": {
+          "sourceEvent": true
+        },
+        "effect": {
+          "type": "drawSourcePower"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U",
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Prime Speaker Zegana enters the battlefield with X +1/+1 counters on it, where X is the greatest power among other creatures you control. When it enters, draw cards equal to its power.",
+    "entersWithCounters": {
+      "counter": "+1/+1",
+      "amount": "greatestPowerOther"
+    }
+  },
+  "lcc-realmwalker": {
+    "id": "lcc-realmwalker",
+    "name": "Realmwalker",
+    "typeLine": "Creature — Shapeshifter",
+    "manaCost": "{2}{G}",
+    "manaValue": 3,
+    "power": 2,
+    "toughness": 3,
+    "subtypes": [
+      "Shapeshifter"
+    ],
+    "keywords": [
+      "changeling"
+    ],
+    "abilities": [
+      {
+        "type": "static",
+        "filter": {
+          "controller": "you",
+          "chosenTypeOfSource": true
+        },
+        "effect": {
+          "castFromTop": true
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Changeling. As Realmwalker enters the battlefield, choose a creature type. You may look at the top card of your library any time. You may cast creature spells of the chosen type from the top of your library.",
+    "asEntersChooseType": true
+  },
+  "lcc-sage-of-fables": {
+    "id": "lcc-sage-of-fables",
+    "name": "Sage of Fables",
+    "typeLine": "Creature — Merfolk Wizard",
+    "manaCost": "{2}{U}",
+    "manaValue": 3,
+    "power": 2,
+    "toughness": 2,
+    "subtypes": [
+      "Merfolk",
+      "Wizard"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "static",
+        "filter": {
+          "controller": "you",
+          "other": true,
+          "subtype": "Wizard"
+        },
+        "effect": {
+          "entersWithCounter": "+1/+1",
+          "amount": 1
+        }
+      },
+      {
+        "type": "activated",
+        "cost": {
+          "mana": "{2}",
+          "removeCounterFromSelection": {
+            "counter": "+1/+1",
+            "amount": 1
+          }
+        },
+        "selection": {
+          "count": 1,
+          "tap": false,
+          "type": "Creature",
+          "hasCounter": "+1/+1"
+        },
+        "effect": {
+          "type": "draw",
+          "amount": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Each other Wizard creature you control enters with an additional +1/+1 counter. {2}, Remove a +1/+1 counter from a creature you control: Draw a card."
+  },
+  "lcc-seafloor-oracle": {
+    "id": "lcc-seafloor-oracle",
+    "name": "Seafloor Oracle",
+    "typeLine": "Creature — Merfolk Wizard",
+    "manaCost": "{2}{U}{U}",
+    "manaValue": 4,
+    "power": 2,
+    "toughness": 3,
+    "subtypes": [
+      "Merfolk",
+      "Wizard"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "COMBAT_DAMAGE_PLAYER",
+        "condition": {
+          "controllerEvent": true,
+          "sourceSubtype": "Merfolk"
+        },
+        "effect": {
+          "type": "draw",
+          "amount": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Whenever a Merfolk you control deals combat damage to a player, draw a card."
+  },
+  "lcc-singer-of-swift-rivers": {
+    "id": "lcc-singer-of-swift-rivers",
+    "name": "Singer of Swift Rivers",
+    "typeLine": "Creature — Merfolk Shaman",
+    "manaCost": "{1}{G}{U}",
+    "manaValue": 3,
+    "power": 3,
+    "toughness": 2,
+    "subtypes": [
+      "Merfolk",
+      "Shaman"
+    ],
+    "keywords": [
+      "flash"
+    ],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "ENTER_BATTLEFIELD",
+        "condition": {
+          "sourceEvent": true
+        },
+        "targets": {
+          "kind": "permanent",
+          "type": "Creature",
+          "controller": "you",
+          "notSelf": true
+        },
+        "effect": {
+          "type": "addCounter",
+          "counter": "shield",
+          "amount": 1
+        }
+      },
+      {
+        "type": "static",
+        "filter": {
+          "controller": "you",
+          "subtype": "Merfolk"
+        },
+        "effect": {
+          "castAsFlash": true
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U",
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Flash. When Singer of Swift Rivers enters, put a shield counter on another target creature you control. You may cast Merfolk spells as though they had flash."
+  },
+  "lcc-stonybrook-banneret": {
+    "id": "lcc-stonybrook-banneret",
+    "name": "Stonybrook Banneret",
+    "typeLine": "Creature — Merfolk Wizard",
+    "manaCost": "{1}{U}",
+    "manaValue": 2,
+    "power": 1,
+    "toughness": 1,
+    "subtypes": [
+      "Merfolk",
+      "Wizard"
+    ],
+    "keywords": [
+      "islandwalk"
+    ],
+    "abilities": [
+      {
+        "type": "static",
+        "filter": {
+          "controller": "you",
+          "subtypes": [
+            "Merfolk",
+            "Wizard"
+          ]
+        },
+        "effect": {
+          "spellCostReduction": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Islandwalk. Merfolk spells and Wizard spells you cast cost {1} less to cast."
+  },
+  "lcc-surgespanner": {
+    "id": "lcc-surgespanner",
+    "name": "Surgespanner",
+    "typeLine": "Creature — Merfolk Wizard",
+    "manaCost": "{2}{U}{U}",
+    "manaValue": 4,
+    "power": 2,
+    "toughness": 2,
+    "subtypes": [
+      "Merfolk",
+      "Wizard"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "BECAME_TAPPED",
+        "condition": {
+          "sourceEvent": true
+        },
+        "targets": {
+          "kind": "permanent"
+        },
+        "effect": {
+          "type": "optionalPayManaThen",
+          "mana": "{1}{U}",
+          "then": {
+            "type": "returnToHand"
+          }
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Whenever Surgespanner becomes tapped, you may pay {1}{U}. If you do, return target permanent to its owner’s hand."
+  },
+  "lcc-svyelun-of-sea-and-sky": {
+    "id": "lcc-svyelun-of-sea-and-sky",
+    "name": "Svyelun of Sea and Sky",
+    "typeLine": "Legendary Creature — Merfolk God",
+    "manaCost": "{1}{U}{U}",
+    "manaValue": 3,
+    "power": 3,
+    "toughness": 4,
+    "subtypes": [
+      "Merfolk",
+      "God"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "static",
+        "filter": {
+          "self": true
+        },
+        "effect": {
+          "keyword": "indestructible"
+        },
+        "when": {
+          "controllerPermanents": {
+            "subtype": "Merfolk",
+            "other": true,
+            "min": 2
+          }
+        }
+      },
+      {
+        "type": "triggered",
+        "event": "CREATURE_ATTACKED",
+        "condition": {
+          "sourceEvent": true
+        },
+        "effect": {
+          "type": "draw",
+          "amount": 1
+        }
+      },
+      {
+        "type": "static",
+        "filter": {
+          "controller": "you",
+          "other": true,
+          "subtype": "Merfolk"
+        },
+        "effect": {
+          "keyword": "ward {1}"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Svyelun has indestructible as long as you control at least two other Merfolk. Whenever Svyelun attacks, draw a card. Other Merfolk you control have ward {1}."
+  },
+  "lcc-tatyova-benthic-druid": {
+    "id": "lcc-tatyova-benthic-druid",
+    "name": "Tatyova, Benthic Druid",
+    "typeLine": "Legendary Creature — Merfolk Druid",
+    "manaCost": "{3}{G}{U}",
+    "manaValue": 5,
+    "power": 3,
+    "toughness": 3,
+    "subtypes": [
+      "Merfolk",
+      "Druid"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "ENTER_BATTLEFIELD",
+        "condition": {
+          "controllerEvent": true,
+          "type": "Land"
+        },
+        "effect": {
+          "type": "sequence",
+          "effects": [
+            {
+              "type": "gainLife",
+              "amount": 1
+            },
+            {
+              "type": "draw",
+              "amount": 1
+            }
+          ]
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U",
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Landfall — Whenever a land enters the battlefield under your control, you gain 1 life and draw a card."
+  },
+  "lcc-thieving-skydiver": {
+    "id": "lcc-thieving-skydiver",
+    "name": "Thieving Skydiver",
+    "typeLine": "Creature — Merfolk Rogue",
+    "manaCost": "{1}{U}",
+    "manaValue": 2,
+    "power": 2,
+    "toughness": 1,
+    "subtypes": [
+      "Merfolk",
+      "Rogue"
+    ],
+    "keywords": [
+      "flying"
+    ],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "ENTER_BATTLEFIELD",
+        "condition": {
+          "sourceEvent": true,
+          "castModePrefix": "kicker-"
+        },
+        "targets": {
+          "kind": "permanent",
+          "type": "Artifact",
+          "manaValueMaxFromSourceCastMode": true,
+          "optional": false
+        },
+        "effect": {
+          "type": "gainControl",
+          "attachIfEquipment": true
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Flying. Kicker {X}. X can’t be 0. When Thieving Skydiver enters the battlefield, if it was kicked, gain control of target artifact with mana value X or less. If that artifact is Equipment, attach it to Thieving Skydiver.",
+    "modes": [
+      {
+        "id": "normal",
+        "label": "Cast without kicker.",
+        "manaCost": "{1}{U}",
+        "effects": []
+      }
+    ],
+    "xMode": {
+      "prefix": "kicker-",
+      "min": 1,
+      "label": "Kicker X={X}",
+      "manaCost": "{1}{U}",
+      "extraGenericFromX": true,
+      "effects": []
+    }
+  },
+  "lcc-tishana-voice-of-thunder": {
+    "id": "lcc-tishana-voice-of-thunder",
+    "name": "Tishana, Voice of Thunder",
+    "typeLine": "Legendary Creature — Merfolk Shaman",
+    "manaCost": "{5}{G}{U}",
+    "manaValue": 7,
+    "power": 0,
+    "toughness": 0,
+    "subtypes": [
+      "Merfolk",
+      "Shaman"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "ENTER_BATTLEFIELD",
+        "condition": {
+          "sourceEvent": true
+        },
+        "effect": {
+          "type": "drawPerCreatures"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U",
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Tishana’s power and toughness are each equal to the number of cards in your hand. You have no maximum hand size. When Tishana enters the battlefield, draw a card for each creature you control.",
+    "dynamicPowerToughness": "handSize",
+    "noMaximumHandSize": true
+  },
+  "lcc-topography-tracker": {
+    "id": "lcc-topography-tracker",
+    "name": "Topography Tracker",
+    "typeLine": "Creature — Merfolk Scout",
+    "manaCost": "{2}{G}",
+    "manaValue": 3,
+    "power": 2,
+    "toughness": 2,
+    "subtypes": [
+      "Merfolk",
+      "Scout"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "ENTER_BATTLEFIELD",
+        "condition": {
+          "sourceEvent": true
+        },
+        "effect": {
+          "type": "makeMap"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "When Topography Tracker enters the battlefield, create a Map token. If a creature you control would explore, instead it explores, then it explores again."
+  },
+  "lcc-tributary-instructor": {
+    "id": "lcc-tributary-instructor",
+    "name": "Tributary Instructor",
+    "typeLine": "Creature — Merfolk Shaman",
+    "manaCost": "{3}{G}",
+    "manaValue": 4,
+    "power": 4,
+    "toughness": 4,
+    "subtypes": [
+      "Merfolk",
+      "Shaman"
+    ],
+    "keywords": [
+      "mentor"
+    ],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "CREATURE_ATTACKED",
+        "condition": {
+          "sourceEvent": true
+        },
+        "targets": {
+          "kind": "permanent",
+          "type": "Creature",
+          "controller": "you",
+          "attacking": true,
+          "notSelf": true,
+          "powerLessThanSource": true
+        },
+        "effect": {
+          "type": "mentor"
+        }
+      },
+      {
+        "type": "triggered",
+        "event": "CREATURE_DIED",
+        "condition": {
+          "controllerEvent": true,
+          "eventTargetHasCounter": "+1/+1"
+        },
+        "effect": {
+          "type": "draw",
+          "amount": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Mentor. Whenever a creature you control with a +1/+1 counter on it dies, draw a card."
+  },
+  "lcc-vorel-of-the-hull-clade": {
+    "id": "lcc-vorel-of-the-hull-clade",
+    "name": "Vorel of the Hull Clade",
+    "typeLine": "Legendary Creature — Human Merfolk",
+    "manaCost": "{1}{G}{U}",
+    "manaValue": 3,
+    "power": 1,
+    "toughness": 4,
+    "subtypes": [
+      "Human",
+      "Merfolk"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "activated",
+        "cost": {
+          "mana": "{G}{U}"
+        },
+        "tap": true,
+        "targets": {
+          "kind": "permanent",
+          "types": [
+            "Artifact",
+            "Creature",
+            "Land"
+          ]
+        },
+        "effect": {
+          "type": "doubleCounters"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U",
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "{G}{U}, {T}: Double the number of each kind of counter on target artifact, creature, or land."
+  },
+  "lcc-xolatoyac-the-smiling-flood": {
+    "id": "lcc-xolatoyac-the-smiling-flood",
+    "name": "Xolatoyac, the Smiling Flood",
+    "typeLine": "Legendary Creature — Salamander Serpent",
+    "manaCost": "{4}{G}{U}",
+    "manaValue": 6,
+    "power": 6,
+    "toughness": 6,
+    "subtypes": [
+      "Salamander",
+      "Serpent"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "ENTER_BATTLEFIELD",
+        "condition": {
+          "sourceEvent": true
+        },
+        "targets": {
+          "kind": "permanent",
+          "type": "Land"
+        },
+        "effect": {
+          "type": "addCounter",
+          "counter": "flood",
+          "amount": 1
+        }
+      },
+      {
+        "type": "triggered",
+        "event": "CREATURE_ATTACKED",
+        "condition": {
+          "sourceEvent": true
+        },
+        "targets": {
+          "kind": "permanent",
+          "type": "Land"
+        },
+        "effect": {
+          "type": "addCounter",
+          "counter": "flood",
+          "amount": 1
+        }
+      },
+      {
+        "type": "triggered",
+        "event": "PHASE_BEGIN",
+        "condition": {
+          "controllerEvent": true,
+          "phase": "END_STEP"
+        },
+        "effect": {
+          "type": "untapPermanentsWithCounters"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U",
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Whenever Xolatoyac enters the battlefield or attacks, put a flood counter on target land. That land is an Island in addition to its other types for as long as it has a flood counter. At the beginning of your end step, untap each permanent you control with a counter on it."
+  },
+  "lcc-zegana-utopian-speaker": {
+    "id": "lcc-zegana-utopian-speaker",
+    "name": "Zegana, Utopian Speaker",
+    "typeLine": "Legendary Creature — Merfolk Wizard",
+    "manaCost": "{2}{G}{U}",
+    "manaValue": 4,
+    "power": 4,
+    "toughness": 4,
+    "subtypes": [
+      "Merfolk",
+      "Wizard"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "ENTER_BATTLEFIELD",
+        "condition": {
+          "sourceEvent": true,
+          "controllerOtherCreatureWithCounter": "+1/+1"
+        },
+        "effect": {
+          "type": "conditionalDraw",
+          "condition": {
+            "otherCreatureWithCounter": "+1/+1"
+          },
+          "amount": 1
+        }
+      },
+      {
+        "type": "activated",
+        "cost": {
+          "mana": "{4}{G}{U}"
+        },
+        "condition": {
+          "noPlusOneCounters": true
+        },
+        "effect": {
+          "type": "adapt",
+          "amount": 4
+        }
+      },
+      {
+        "type": "static",
+        "filter": {
+          "controller": "you",
+          "type": "Creature",
+          "hasCounter": "+1/+1"
+        },
+        "effect": {
+          "keyword": "trample"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U",
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "When Zegana enters the battlefield, if you control another creature with a +1/+1 counter on it, draw a card. {4}{G}{U}: Adapt 4. Each creature you control with a +1/+1 counter on it has trample."
+  },
+  "lcc-aetherize": {
+    "id": "lcc-aetherize",
+    "name": "Aetherize",
+    "typeLine": "Instant",
+    "manaCost": "{3}{U}",
+    "manaValue": 4,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [
+      {
+        "type": "returnAttackers"
+      }
+    ],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Return all attacking creatures to their owners’ hands."
+  },
+  "lcc-beast-within": {
+    "id": "lcc-beast-within",
+    "name": "Beast Within",
+    "typeLine": "Instant",
+    "manaCost": "{2}{G}",
+    "manaValue": 3,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [
+      {
+        "type": "replaceWithToken",
+        "token": {
+          "name": "Beast",
+          "typeLine": "Creature — Beast",
+          "power": 3,
+          "toughness": 3,
+          "subtypes": [
+            "Beast"
+          ],
+          "colors": [
+            "G"
+          ]
+        }
+      }
+    ],
+    "producedMana": null,
+    "colorIdentity": [
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Destroy target permanent. Its controller creates a 3/3 green Beast creature token.",
+    "targets": {
+      "kind": "permanent"
+    }
+  },
+  "lcc-commit-memory": {
+    "id": "lcc-commit-memory",
+    "name": "Commit // Memory",
+    "typeLine": "Instant // Sorcery",
+    "manaCost": "{3}{U} // {4}{U}{U}",
+    "manaValue": 4,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Commit: Put target spell or nonland permanent into its owner’s library second from the top. Memory: Each player shuffles their hand and graveyard into their library, then draws seven cards. Aftermath.",
+    "modes": [
+      {
+        "id": "commit",
+        "label": "Commit — target spell or nonland permanent goes second from top.",
+        "fromZone": "hand",
+        "manaCost": "{3}{U}",
+        "targets": {
+          "kind": "spellOrPermanent",
+          "nonland": true
+        },
+        "effects": [
+          {
+            "type": "commit"
+          }
+        ],
+        "timing": "instant"
+      },
+      {
+        "id": "memory",
+        "label": "Memory — shuffle hands and graveyards into libraries, then draw seven.",
+        "fromZone": "graveyard",
+        "manaCost": "{4}{U}{U}",
+        "effects": [
+          {
+            "type": "memory"
+          }
+        ],
+        "afterResolutionZone": "exile",
+        "timing": "sorcery"
+      }
+    ]
+  },
+  "lcc-growth-spiral": {
+    "id": "lcc-growth-spiral",
+    "name": "Growth Spiral",
+    "typeLine": "Instant",
+    "manaCost": "{G}{U}",
+    "manaValue": 2,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [
+      {
+        "type": "sequence",
+        "effects": [
+          {
+            "type": "draw",
+            "amount": 1
+          },
+          {
+            "type": "putLandFromHand",
+            "optional": true
+          }
+        ]
+      }
+    ],
+    "producedMana": null,
+    "colorIdentity": [
+      "U",
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Draw a card. You may put a land card from your hand onto the battlefield."
+  },
+  "lcc-inspiring-call": {
+    "id": "lcc-inspiring-call",
+    "name": "Inspiring Call",
+    "typeLine": "Instant",
+    "manaCost": "{2}{G}",
+    "manaValue": 3,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [
+      {
+        "type": "sequence",
+        "effects": [
+          {
+            "type": "drawPerCreaturesWithCounter",
+            "counter": "+1/+1"
+          },
+          {
+            "type": "pump",
+            "filter": {
+              "controller": "you",
+              "type": "Creature",
+              "hasCounter": "+1/+1"
+            },
+            "keywords": [
+              "indestructible"
+            ]
+          }
+        ]
+      }
+    ],
+    "producedMana": null,
+    "colorIdentity": [
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Draw a card for each creature you control with a +1/+1 counter on it. Those creatures gain indestructible until end of turn."
+  },
+  "lcc-quandrix-command": {
+    "id": "lcc-quandrix-command",
+    "name": "Quandrix Command",
+    "typeLine": "Instant",
+    "manaCost": "{1}{G}{U}",
+    "manaValue": 3,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U",
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Choose two — return target creature or planeswalker; counter target artifact or enchantment spell; put two +1/+1 counters on target creature; target player shuffles up to three target cards from their graveyard into their library.",
+    "modes": [
+      {
+        "id": "pair-1",
+        "label": "Return creature/planeswalker + counter artifact/enchantment spell.",
+        "targets": [
+          {
+            "kind": "permanent",
+            "types": [
+              "Creature",
+              "Planeswalker"
+            ]
+          },
+          {
+            "kind": "spell",
+            "types": [
+              "Artifact",
+              "Enchantment"
+            ],
+            "zone": "stack"
+          }
+        ],
+        "effects": [
+          {
+            "type": "returnTarget",
+            "index": 0
+          },
+          {
+            "type": "counterSpellTarget",
+            "index": 1
+          }
+        ]
+      },
+      {
+        "id": "pair-2",
+        "label": "Return creature/planeswalker + put two +1/+1 counters on a creature.",
+        "targets": [
+          {
+            "kind": "permanent",
+            "types": [
+              "Creature",
+              "Planeswalker"
+            ]
+          },
+          {
+            "kind": "permanent",
+            "type": "Creature"
+          }
+        ],
+        "effects": [
+          {
+            "type": "returnTarget",
+            "index": 0
+          },
+          {
+            "type": "addCounterTarget",
+            "index": 1,
+            "counter": "+1/+1",
+            "amount": 2
+          }
+        ]
+      },
+      {
+        "id": "pair-3",
+        "label": "Return creature/planeswalker + target player shuffles up to three target cards from their graveyard into their library.",
+        "targets": [
+          {
+            "kind": "permanent",
+            "types": [
+              "Creature",
+              "Planeswalker"
+            ]
+          },
+          {
+            "kind": "player"
+          },
+          {
+            "kind": "card",
+            "zone": "graveyard",
+            "ownerFromTargetIndex": 1,
+            "optional": true
+          }
+        ],
+        "effects": [
+          {
+            "type": "returnTarget",
+            "index": 0
+          },
+          {
+            "type": "shuffleGraveTargets",
+            "startIndex": 2
+          }
+        ],
+        "minTargets": 2,
+        "maxTargets": 5
+      },
+      {
+        "id": "pair-4",
+        "label": "Counter artifact/enchantment spell + put two +1/+1 counters on a creature.",
+        "targets": [
+          {
+            "kind": "spell",
+            "types": [
+              "Artifact",
+              "Enchantment"
+            ],
+            "zone": "stack"
+          },
+          {
+            "kind": "permanent",
+            "type": "Creature"
+          }
+        ],
+        "effects": [
+          {
+            "type": "counterSpellTarget",
+            "index": 0
+          },
+          {
+            "type": "addCounterTarget",
+            "index": 1,
+            "counter": "+1/+1",
+            "amount": 2
+          }
+        ]
+      },
+      {
+        "id": "pair-5",
+        "label": "Counter artifact/enchantment spell + target player shuffles up to three target cards from their graveyard into their library.",
+        "targets": [
+          {
+            "kind": "spell",
+            "types": [
+              "Artifact",
+              "Enchantment"
+            ],
+            "zone": "stack"
+          },
+          {
+            "kind": "player"
+          },
+          {
+            "kind": "card",
+            "zone": "graveyard",
+            "ownerFromTargetIndex": 1,
+            "optional": true
+          }
+        ],
+        "effects": [
+          {
+            "type": "counterSpellTarget",
+            "index": 0
+          },
+          {
+            "type": "shuffleGraveTargets",
+            "startIndex": 2
+          }
+        ],
+        "minTargets": 2,
+        "maxTargets": 5
+      },
+      {
+        "id": "pair-6",
+        "label": "Put two +1/+1 counters on a creature + target player shuffles up to three target cards from their graveyard into their library.",
+        "targets": [
+          {
+            "kind": "permanent",
+            "type": "Creature"
+          },
+          {
+            "kind": "player"
+          },
+          {
+            "kind": "card",
+            "zone": "graveyard",
+            "ownerFromTargetIndex": 1,
+            "optional": true
+          }
+        ],
+        "effects": [
+          {
+            "type": "addCounterTarget",
+            "index": 0,
+            "counter": "+1/+1",
+            "amount": 2
+          },
+          {
+            "type": "shuffleGraveTargets",
+            "startIndex": 2
+          }
+        ],
+        "minTargets": 2,
+        "maxTargets": 5
+      }
+    ]
+  },
+  "lcc-rapid-hybridization": {
+    "id": "lcc-rapid-hybridization",
+    "name": "Rapid Hybridization",
+    "typeLine": "Instant",
+    "manaCost": "{U}",
+    "manaValue": 1,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [
+      {
+        "type": "replaceWithToken",
+        "token": {
+          "name": "Frog Lizard",
+          "typeLine": "Creature — Frog Lizard",
+          "power": 3,
+          "toughness": 3,
+          "subtypes": [
+            "Frog",
+            "Lizard"
+          ],
+          "colors": [
+            "G"
+          ]
+        }
+      }
+    ],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Destroy target creature. It can’t be regenerated. That creature’s controller creates a 3/3 green Frog Lizard creature token.",
+    "targets": {
+      "kind": "permanent",
+      "type": "Creature"
+    }
+  },
+  "lcc-ripples-of-potential": {
+    "id": "lcc-ripples-of-potential",
+    "name": "Ripples of Potential",
+    "typeLine": "Instant",
+    "manaCost": "{1}{U}",
+    "manaValue": 2,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [
+      {
+        "type": "proliferate",
+        "after": {
+          "type": "phaseOutProliferated"
+        }
+      }
+    ],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Proliferate, then choose any number of permanents you control that had a counter put on them this way. Those permanents phase out."
+  },
+  "lcc-ruinous-intrusion": {
+    "id": "lcc-ruinous-intrusion",
+    "name": "Ruinous Intrusion",
+    "typeLine": "Instant",
+    "manaCost": "{3}{G}",
+    "manaValue": 4,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [
+      {
+        "type": "ruinousIntrusion"
+      }
+    ],
+    "producedMana": null,
+    "colorIdentity": [
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Exile target artifact or enchantment. Put X +1/+1 counters on target creature you control, where X is the mana value of the permanent exiled this way.",
+    "targets": [
+      {
+        "kind": "permanent",
+        "types": [
+          "Artifact",
+          "Enchantment"
+        ]
+      },
+      {
+        "kind": "permanent",
+        "type": "Creature",
+        "controller": "you"
+      }
+    ]
+  },
+  "lcc-bygone-marvels": {
+    "id": "lcc-bygone-marvels",
+    "name": "Bygone Marvels",
+    "typeLine": "Sorcery",
+    "manaCost": "{G}{G}",
+    "manaValue": 2,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Descend 8 — When you cast this spell, if there are eight or more permanent cards in your graveyard, copy it twice. You may choose new targets for the copies. Return target permanent card from your graveyard to your hand. Exile Bygone Marvels.",
+    "modes": [
+      {
+        "id": "normal",
+        "label": "Return one permanent card from your graveyard.",
+        "fromZone": "hand",
+        "manaCost": "{G}{G}",
+        "targets": {
+          "kind": "card",
+          "zone": "graveyard",
+          "owner": "you",
+          "nonland": false
+        },
+        "effects": [
+          {
+            "type": "returnPermanentCard"
+          }
+        ],
+        "afterResolutionZone": "exile"
+      }
+    ],
+    "castCopyCondition": {
+      "permanentCardsMin": 8,
+      "copies": 2
+    }
+  },
+  "lcc-curse-of-the-swine": {
+    "id": "lcc-curse-of-the-swine",
+    "name": "Curse of the Swine",
+    "typeLine": "Sorcery",
+    "manaCost": "{X}{U}{U}",
+    "manaValue": 2,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Exile X target creatures. For each creature exiled this way, its controller creates a 2/2 green Boar creature token.",
+    "xMode": {
+      "prefix": "x-",
+      "min": 0,
+      "label": "X={X}: exile {X} target creature(s); create Boars.",
+      "manaCost": "{U}{U}",
+      "extraGenericFromX": true,
+      "target": {
+        "kind": "permanent",
+        "type": "Creature"
+      },
+      "targetCountFromX": true,
+      "effects": [
+        {
+          "type": "replaceWithToken",
+          "exile": true,
+          "token": {
+            "name": "Boar",
+            "typeLine": "Creature — Boar",
+            "power": 2,
+            "toughness": 2,
+            "subtypes": [
+              "Boar"
+            ],
+            "colors": [
+              "G"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "lcc-explore": {
+    "id": "lcc-explore",
+    "name": "Explore",
+    "typeLine": "Sorcery",
+    "manaCost": "{1}{G}",
+    "manaValue": 2,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [
+      {
+        "type": "sequence",
+        "effects": [
+          {
+            "type": "additionalLandPlay",
+            "amount": 1
+          },
+          {
+            "type": "draw",
+            "amount": 1
+          }
+        ]
+      }
+    ],
+    "producedMana": null,
+    "colorIdentity": [
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "You may play an additional land this turn. Draw a card."
+  },
+  "lcc-kodama-s-reach": {
+    "id": "lcc-kodama-s-reach",
+    "name": "Kodama's Reach",
+    "typeLine": "Sorcery — Arcane",
+    "manaCost": "{2}{G}",
+    "manaValue": 3,
+    "power": null,
+    "toughness": null,
+    "subtypes": [
+      "Arcane"
+    ],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [
+      {
+        "type": "cultivate"
+      }
+    ],
+    "producedMana": null,
+    "colorIdentity": [
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Search your library for up to two basic land cards, reveal them, put one onto the battlefield tapped and the other into your hand, then shuffle."
+  },
+  "lcc-ravenform": {
+    "id": "lcc-ravenform",
+    "name": "Ravenform",
+    "typeLine": "Sorcery",
+    "manaCost": "{2}{U}",
+    "manaValue": 3,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [
+      {
+        "type": "replaceWithToken",
+        "exile": true,
+        "token": {
+          "name": "Bird",
+          "typeLine": "Creature — Bird",
+          "power": 1,
+          "toughness": 1,
+          "subtypes": [
+            "Bird"
+          ],
+          "colors": [
+            "U"
+          ],
+          "keywords": [
+            "flying"
+          ]
+        }
+      }
+    ],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Exile target artifact or creature. Its controller creates a 1/1 blue Bird creature token with flying. Foretell {U}.",
+    "targets": {
+      "kind": "permanent",
+      "types": [
+        "Artifact",
+        "Creature"
+      ]
+    },
+    "foretellCost": "{U}"
+  },
+  "lcc-wave-goodbye": {
+    "id": "lcc-wave-goodbye",
+    "name": "Wave Goodbye",
+    "typeLine": "Sorcery",
+    "manaCost": "{2}{U}{U}",
+    "manaValue": 4,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [
+      {
+        "type": "returnCreaturesWithoutCounter",
+        "counter": "+1/+1"
+      }
+    ],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Return each creature without a +1/+1 counter on it to its owner’s hand."
+  },
+  "lcc-commander-s-sphere": {
+    "id": "lcc-commander-s-sphere",
+    "name": "Commander's Sphere",
+    "typeLine": "Artifact",
+    "manaCost": "{3}",
+    "manaValue": 3,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "anyColor": true,
+        "amount": 1
+      },
+      {
+        "type": "activated",
+        "cost": {
+          "sacrificeSelf": true
+        },
+        "effect": {
+          "type": "draw",
+          "amount": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [],
+    "supported": true,
+    "oracleText": "{T}: Add one mana of any color in your commander's color identity. Sacrifice Commander's Sphere: Draw a card."
+  },
+  "lcc-simic-signet": {
+    "id": "lcc-simic-signet",
+    "name": "Simic Signet",
+    "typeLine": "Artifact",
+    "manaCost": "{2}",
+    "manaValue": 2,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "tap": true,
+        "cost": {
+          "mana": "{1}"
+        },
+        "mana": {
+          "G": 1,
+          "U": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [],
+    "supported": true,
+    "oracleText": "{1}, {T}: Add {G}{U}."
+  },
+  "lcc-swiftfoot-boots": {
+    "id": "lcc-swiftfoot-boots",
+    "name": "Swiftfoot Boots",
+    "typeLine": "Artifact — Equipment",
+    "manaCost": "{2}",
+    "manaValue": 2,
+    "power": null,
+    "toughness": null,
+    "subtypes": [
+      "Equipment"
+    ],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "static",
+        "filter": {
+          "controller": "you",
+          "attachedToSource": true
+        },
+        "effect": {
+          "keywords": [
+            "hexproof",
+            "haste"
+          ]
+        }
+      },
+      {
+        "type": "activated",
+        "cost": {
+          "mana": "{1}"
+        },
+        "targets": {
+          "kind": "permanent",
+          "type": "Creature",
+          "controller": "you"
+        },
+        "sorcerySpeed": true,
+        "effect": {
+          "type": "attachEquipment"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [],
+    "supported": true,
+    "oracleText": "Equipped creature has hexproof and haste. Equip {1}."
+  },
+  "lcc-kindred-discovery": {
+    "id": "lcc-kindred-discovery",
+    "name": "Kindred Discovery",
+    "typeLine": "Enchantment",
+    "manaCost": "{3}{U}{U}",
+    "manaValue": 5,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "ENTER_BATTLEFIELD",
+        "condition": {
+          "controllerEvent": true,
+          "eventSharesChosenType": true
+        },
+        "effect": {
+          "type": "draw",
+          "amount": 1
+        }
+      },
+      {
+        "type": "triggered",
+        "event": "CREATURE_ATTACKED",
+        "condition": {
+          "controllerEvent": true,
+          "eventSharesChosenType": true
+        },
+        "effect": {
+          "type": "draw",
+          "amount": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "As Kindred Discovery enters the battlefield, choose a creature type. Whenever a creature you control of the chosen type enters the battlefield or attacks, draw a card.",
+    "asEntersChooseType": true
+  },
+  "lcc-reflections-of-littjara": {
+    "id": "lcc-reflections-of-littjara",
+    "name": "Reflections of Littjara",
+    "typeLine": "Enchantment",
+    "manaCost": "{4}{U}",
+    "manaValue": 5,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "SPELL_CAST",
+        "condition": {
+          "controllerEvent": true,
+          "spellSharesChosenType": true
+        },
+        "effect": {
+          "type": "copySpell"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "As Reflections of Littjara enters the battlefield, choose a creature type. Whenever you cast a spell of the chosen type, copy that spell. You may choose new targets for the copy.",
+    "asEntersChooseType": true
+  },
+  "lcc-simic-ascendancy": {
+    "id": "lcc-simic-ascendancy",
+    "name": "Simic Ascendancy",
+    "typeLine": "Enchantment",
+    "manaCost": "{G}{U}",
+    "manaValue": 2,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "triggered",
+        "event": "COUNTERS_ADDED",
+        "condition": {
+          "eventTargetController": "you",
+          "eventCounterType": "+1/+1",
+          "type": "Creature"
+        },
+        "effect": {
+          "type": "addCounterSource",
+          "counter": "growth",
+          "amountFromEvent": "amount"
+        }
+      },
+      {
+        "type": "activated",
+        "cost": {
+          "mana": "{1}{G}{U}"
+        },
+        "targets": {
+          "kind": "permanent",
+          "type": "Creature",
+          "controller": "you"
+        },
+        "effect": {
+          "type": "addCounter",
+          "counter": "+1/+1",
+          "amount": 1
+        }
+      },
+      {
+        "type": "triggered",
+        "event": "PHASE_BEGIN",
+        "condition": {
+          "controllerEvent": true,
+          "phase": "UPKEEP",
+          "sourceCounterAtLeast": {
+            "counter": "growth",
+            "amount": 20
+          }
+        },
+        "effect": {
+          "type": "winIfSourceCounterAtLeast",
+          "counter": "growth",
+          "amount": 20
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "U",
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Whenever one or more +1/+1 counters are put on a creature you control, put that many growth counters on Simic Ascendancy. {1}{G}{U}: Put a +1/+1 counter on target creature you control. At the beginning of your upkeep, if Simic Ascendancy has twenty or more growth counters on it, you win the game."
+  },
+  "lcc-alchemist-s-refuge": {
+    "id": "lcc-alchemist-s-refuge",
+    "name": "Alchemist's Refuge",
+    "typeLine": "Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "mana": {
+          "C": 1
+        }
+      },
+      {
+        "type": "activated",
+        "cost": {
+          "mana": "{G}{U}"
+        },
+        "tap": true,
+        "effect": {
+          "type": "castPermission",
+          "timing": "flash"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "G",
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "{T}: Add {C}. {G}{U}, {T}: You may cast spells this turn as though they had flash."
+  },
+  "lcc-hinterland-harbor": {
+    "id": "lcc-hinterland-harbor",
+    "name": "Hinterland Harbor",
+    "typeLine": "Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "anyColor": true,
+        "colors": [
+          "G",
+          "U"
+        ],
+        "amount": 1
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "G",
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Hinterland Harbor enters the battlefield tapped unless you control a Forest or an Island. {T}: Add {G} or {U}.",
+    "entersTappedUnless": {
+      "controlLandSubtypes": [
+        "Forest",
+        "Island"
+      ]
+    }
+  },
+  "lcc-karn-s-bastion": {
+    "id": "lcc-karn-s-bastion",
+    "name": "Karn's Bastion",
+    "typeLine": "Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "mana": {
+          "C": 1
+        }
+      },
+      {
+        "type": "activated",
+        "cost": {
+          "mana": "{4}"
+        },
+        "tap": true,
+        "effect": {
+          "type": "proliferate"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [],
+    "supported": true,
+    "oracleText": "{T}: Add {C}. {4}, {T}: Proliferate."
+  },
+  "lcc-llanowar-reborn": {
+    "id": "lcc-llanowar-reborn",
+    "name": "Llanowar Reborn",
+    "typeLine": "Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "mana": {
+          "G": 1
+        }
+      },
+      {
+        "type": "triggered",
+        "event": "ENTER_BATTLEFIELD",
+        "condition": {
+          "controllerEvent": true,
+          "type": "Creature",
+          "notSelfEvent": true
+        },
+        "effect": {
+          "type": "optionalEffect",
+          "prompt": "Move a +1/+1 counter from Llanowar Reborn onto the creature that just entered?",
+          "then": {
+            "type": "moveCounterToEvent",
+            "counter": "+1/+1"
+          }
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Llanowar Reborn enters the battlefield tapped. {T}: Add {G}. Graft 1.",
+    "entersTapped": true,
+    "entersWithCounters": {
+      "counter": "+1/+1",
+      "amount": 1
+    }
+  },
+  "lcc-mosswort-bridge": {
+    "id": "lcc-mosswort-bridge",
+    "name": "Mosswort Bridge",
+    "typeLine": "Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "mana": {
+          "G": 1
+        }
+      },
+      {
+        "type": "activated",
+        "cost": {
+          "mana": "{G}"
+        },
+        "tap": true,
+        "effect": {
+          "type": "playHideaway",
+          "powerThreshold": 10
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "G"
+    ],
+    "supported": true,
+    "oracleText": "Hideaway 4. Mosswort Bridge enters the battlefield tapped. {T}: Add {G}. {G}, {T}: You may play the exiled card without paying its mana cost if creatures you control have total power 10 or greater.",
+    "entersTapped": true,
+    "onEnterEffects": [
+      {
+        "type": "hideaway",
+        "count": 4
+      }
+    ]
+  },
+  "lcc-myriad-landscape": {
+    "id": "lcc-myriad-landscape",
+    "name": "Myriad Landscape",
+    "typeLine": "Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "mana": {
+          "C": 1
+        }
+      },
+      {
+        "type": "activated",
+        "cost": {
+          "mana": "{2}",
+          "sacrificeSelf": true
+        },
+        "tap": true,
+        "effect": {
+          "type": "myriadLandscape"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [],
+    "supported": true,
+    "oracleText": "Myriad Landscape enters the battlefield tapped. {T}: Add {C}. {2}, {T}, Sacrifice Myriad Landscape: Search your library for up to two basic land cards that share a land type, put them onto the battlefield tapped, then shuffle.",
+    "entersTapped": true
+  },
+  "lcc-path-of-ancestry": {
+    "id": "lcc-path-of-ancestry",
+    "name": "Path of Ancestry",
+    "typeLine": "Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "anyColor": true,
+        "amount": 1
+      },
+      {
+        "type": "triggered",
+        "event": "MANA_SPENT_TO_CAST",
+        "condition": {
+          "sourceManaSpent": true,
+          "spellSharesCommanderType": true,
+          "cardType": "Creature"
+        },
+        "effect": {
+          "type": "scry",
+          "amount": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [],
+    "supported": true,
+    "oracleText": "Path of Ancestry enters the battlefield tapped. {T}: Add one mana of any color in your commander's color identity. When that mana is spent to cast a creature spell that shares a creature type with your commander, scry 1.",
+    "entersTapped": true
+  },
+  "lcc-reliquary-tower": {
+    "id": "lcc-reliquary-tower",
+    "name": "Reliquary Tower",
+    "typeLine": "Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "mana": {
+          "C": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [],
+    "supported": true,
+    "oracleText": "You have no maximum hand size. {T}: Add {C}.",
+    "noMaximumHandSize": true
+  },
+  "lcc-rogue-s-passage": {
+    "id": "lcc-rogue-s-passage",
+    "name": "Rogue's Passage",
+    "typeLine": "Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "mana": {
+          "C": 1
+        }
+      },
+      {
+        "type": "activated",
+        "cost": {
+          "mana": "{4}"
+        },
+        "tap": true,
+        "targets": {
+          "kind": "permanent",
+          "type": "Creature"
+        },
+        "effect": {
+          "type": "cantBeBlocked"
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [],
+    "supported": true,
+    "oracleText": "{T}: Add {C}. {4}, {T}: Target creature can't be blocked this turn."
+  },
+  "lcc-secluded-courtyard": {
+    "id": "lcc-secluded-courtyard",
+    "name": "Secluded Courtyard",
+    "typeLine": "Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "mana": {
+          "C": 1
+        }
+      },
+      {
+        "type": "mana",
+        "anyColor": true,
+        "colors": [
+          "G",
+          "U"
+        ],
+        "amount": 1,
+        "spendRestriction": "chosenCreatureTypeSpellOrAbility",
+        "autoOnly": true
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [],
+    "supported": true,
+    "oracleText": "As Secluded Courtyard enters, choose a creature type. {T}: Add {C}. {T}: Add one mana of any color; spend it only to cast a creature spell of the chosen type or activate an ability of a creature of that type.",
+    "asEntersChooseType": true
+  },
+  "lcc-simic-growth-chamber": {
+    "id": "lcc-simic-growth-chamber",
+    "name": "Simic Growth Chamber",
+    "typeLine": "Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "mana": {
+          "G": 1,
+          "U": 1
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "G",
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Simic Growth Chamber enters the battlefield tapped. When it enters, return a land you control to its owner’s hand. {T}: Add {G}{U}.",
+    "entersTapped": true,
+    "onEnterEffects": [
+      {
+        "type": "returnLandYouControl"
+      }
+    ]
+  },
+  "lcc-temple-of-mystery": {
+    "id": "lcc-temple-of-mystery",
+    "name": "Temple of Mystery",
+    "typeLine": "Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "anyColor": true,
+        "colors": [
+          "G",
+          "U"
+        ],
+        "amount": 1
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "G",
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "Temple of Mystery enters the battlefield tapped. When it enters, scry 1. {T}: Add {G} or {U}.",
+    "entersTapped": true,
+    "onEnterEffects": [
+      {
+        "type": "scry",
+        "amount": 1
+      }
+    ]
+  },
+  "lcc-temple-of-the-false-god": {
+    "id": "lcc-temple-of-the-false-god",
+    "name": "Temple of the False God",
+    "typeLine": "Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "mana": {
+          "C": 2
+        },
+        "condition": {
+          "controlLandsMin": 5
+        }
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [],
+    "supported": true,
+    "oracleText": "{T}: Add {C}{C}. Activate only if you control five or more lands."
+  },
+  "lcc-unclaimed-territory": {
+    "id": "lcc-unclaimed-territory",
+    "name": "Unclaimed Territory",
+    "typeLine": "Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "mana": {
+          "C": 1
+        }
+      },
+      {
+        "type": "mana",
+        "anyColor": true,
+        "colors": [
+          "G",
+          "U"
+        ],
+        "amount": 1,
+        "spendRestriction": "chosenCreatureTypeSpell",
+        "autoOnly": true
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [],
+    "supported": true,
+    "oracleText": "As Unclaimed Territory enters the battlefield, choose a creature type. {T}: Add {C}. {T}: Add one mana of any color. Spend it only to cast a creature spell of the chosen type.",
+    "asEntersChooseType": true
+  },
+  "lcc-vineglimmer-snarl": {
+    "id": "lcc-vineglimmer-snarl",
+    "name": "Vineglimmer Snarl",
+    "typeLine": "Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": null,
+    "toughness": null,
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [
+      {
+        "type": "mana",
+        "anyColor": true,
+        "colors": [
+          "G",
+          "U"
+        ],
+        "amount": 1
+      }
+    ],
+    "spellEffects": [],
+    "producedMana": null,
+    "colorIdentity": [
+      "G",
+      "U"
+    ],
+    "supported": true,
+    "oracleText": "As Vineglimmer Snarl enters the battlefield, you may reveal a Forest or Island card from your hand. If you don’t, it enters tapped. {T}: Add {G} or {U}.",
+    "entersTappedUnless": {
+      "revealLandSubtypes": [
+        "Forest",
+        "Island"
+      ]
+    }
+  }
+}

@@ -1,0 +1,3 @@
+import test from'node:test';import assert from'node:assert/strict';import{engine,putBattlefield}from'./helpers.js';import{AIController}from'../src/ai/AIController.js';
+test('AI only chooses legal actions',()=>{const e=engine();e.state.priorityPlayer='ai';const ai=new AIController(e);const a=ai.choose();assert.ok(e.getLegalActions('ai').some(x=>x.type===a.type))});
+test('AI declares legal attackers',()=>{const e=engine();e.state.activePlayer='ai';e.state.priorityPlayer='ai';e.state.phase='DECLARE_ATTACKERS';e.state.phaseIndex=5;e.state.turnActionPending='DECLARE_ATTACKERS';putBattlefield(e,'ai','grizzly-bears');const ai=new AIController(e);const a=ai.choose();assert.equal(a.type,'DECLARE_ATTACKERS');assert.equal(a.attackers.length,1)});

@@ -1,0 +1,1266 @@
+{
+  "Sisay, Weatherlight Captain": {
+    "category": "commander",
+    "rulesSummary": "Gets +1/+1 for each color among other legendary permanents you control. For {W}{U}{B}{R}{G}, tap: search your library for a legendary permanent with mana value less than Sisay's power and put it onto the battlefield.",
+    "interactions": [
+      {
+        "event": "static_buff",
+        "affects": "self",
+        "condition": "other legendary permanents you control",
+        "effect": "+1/+1 per color represented"
+      },
+      {
+        "event": "activated_tutor",
+        "cost": "{W}{U}{B}{R}{G}, tap",
+        "target": "library",
+        "filter": "legendary permanent with mana value < Sisay power",
+        "destination": "battlefield"
+      },
+      {
+        "synergyTags": [
+          "legendary",
+          "five-color",
+          "toolbox",
+          "power-matters"
+        ]
+      }
+    ]
+  },
+  "Thassa, God of the Sea": {
+    "category": "pantheon",
+    "rulesSummary": "At upkeep, scry 1. Not a creature unless devotion to blue is at least five. Can make a creature unblockable for {1}{U}.",
+    "interactions": [
+      {
+        "event": "upkeep",
+        "effect": "scry 1"
+      },
+      {
+        "event": "devotion_check",
+        "color": "U",
+        "threshold": 5,
+        "effect": "creature status"
+      },
+      {
+        "event": "activated_evasion",
+        "cost": "{1}{U}",
+        "effect": "target creature can't be blocked this turn"
+      }
+    ]
+  },
+  "Heliod, Sun-Crowned": {
+    "category": "pantheon",
+    "rulesSummary": "Not a creature unless devotion to white is at least five. Whenever you gain life, put a +1/+1 counter on target creature or enchantment you control. Can give another creature lifelink.",
+    "interactions": [
+      {
+        "event": "life_gain",
+        "effect": "put +1/+1 counter",
+        "target": "creature or enchantment you control"
+      },
+      {
+        "event": "activated_keyword",
+        "cost": "{1}{W}",
+        "effect": "another target creature gains lifelink"
+      }
+    ]
+  },
+  "Purphoros, God of the Forge": {
+    "category": "pantheon",
+    "rulesSummary": "Not a creature unless devotion to red is at least five. Creatures entering under your control deal 2 damage to each opponent. Can pump your creatures.",
+    "interactions": [
+      {
+        "event": "creature_enters",
+        "effect": "2 damage to each opponent"
+      },
+      {
+        "event": "activated_team_buff",
+        "cost": "{2}{R}",
+        "effect": "creatures you control get +1/+0 until end of turn"
+      }
+    ]
+  },
+  "Nylea, God of the Hunt": {
+    "category": "pantheon",
+    "rulesSummary": "Not a creature unless devotion to green is at least five. Other creatures you control have trample. Can pump a target creature.",
+    "interactions": [
+      {
+        "event": "static_keyword",
+        "effect": "other creatures you control have trample"
+      },
+      {
+        "event": "activated_buff",
+        "cost": "{3}{G}",
+        "effect": "target creature gets +2/+2 until end of turn"
+      }
+    ]
+  },
+  "Erebos, God of the Dead": {
+    "category": "pantheon",
+    "rulesSummary": "Not a creature unless devotion to black is at least five. Opponents can't gain life. Pay life and mana to draw cards.",
+    "interactions": [
+      {
+        "event": "static_restriction",
+        "effect": "opponents can't gain life"
+      },
+      {
+        "event": "activated_draw",
+        "cost": "{1}{B}, pay 2 life",
+        "effect": "draw a card"
+      }
+    ]
+  },
+  "Ephara, God of the Polis": {
+    "category": "pantheon",
+    "rulesSummary": "Not a creature unless devotion to white and blue is at least seven. At each upkeep, draw a card if a creature entered under your control last turn.",
+    "interactions": [
+      {
+        "event": "upkeep",
+        "condition": "a creature entered under your control last turn",
+        "effect": "draw a card"
+      }
+    ]
+  },
+  "Kruphix, God of Horizons": {
+    "category": "pantheon",
+    "rulesSummary": "Not a creature unless devotion to green and blue is at least seven. You have no maximum hand size. Unspent mana becomes colorless instead of emptying.",
+    "interactions": [
+      {
+        "event": "static_hand_size",
+        "effect": "no maximum hand size"
+      },
+      {
+        "event": "mana_retention",
+        "effect": "unspent mana becomes colorless instead of emptying"
+      }
+    ]
+  },
+  "Karametra, God of Harvests": {
+    "category": "pantheon",
+    "rulesSummary": "Not a creature unless devotion to green and white is at least seven. Casting creature spells can tutor a Forest or Plains onto the battlefield tapped.",
+    "interactions": [
+      {
+        "event": "cast_creature",
+        "effect": "search for Forest or Plains card",
+        "destination": "battlefield tapped"
+      }
+    ]
+  },
+  "Xenagos, God of Revels": {
+    "category": "pantheon",
+    "rulesSummary": "Not a creature unless devotion to red and green is at least seven. At beginning of combat, another creature gets haste and +X/+X where X is its power.",
+    "interactions": [
+      {
+        "event": "begin_combat",
+        "target": "another creature you control",
+        "effect": "haste and +X/+X",
+        "x": "that creature's power"
+      }
+    ]
+  },
+  "Iroas, God of Victory": {
+    "category": "pantheon",
+    "rulesSummary": "Not a creature unless devotion to red and white is at least seven. Your creatures have menace-like blocking restriction and combat damage prevention while attacking.",
+    "interactions": [
+      {
+        "event": "static_evasion",
+        "effect": "creatures you control can't be blocked except by two or more creatures"
+      },
+      {
+        "event": "combat_prevention",
+        "effect": "prevent damage dealt to attacking creatures you control"
+      }
+    ]
+  },
+  "Athreos, God of Passage": {
+    "category": "pantheon",
+    "rulesSummary": "Not a creature unless devotion to white and black is at least seven. When another creature you own dies, an opponent may pay 3 life; otherwise return it to your hand.",
+    "interactions": [
+      {
+        "event": "creature_dies",
+        "filter": "another creature you own",
+        "effect": "opponent pays 3 life or return card to your hand"
+      }
+    ]
+  },
+  "Keranos, God of Storms": {
+    "category": "pantheon",
+    "rulesSummary": "Not a creature unless devotion to blue and red is at least seven. Revealing the first card you draw each turn either deals 3 damage if it's a land or draws an extra card if it's nonland.",
+    "interactions": [
+      {
+        "event": "first_draw_each_turn",
+        "condition": "revealed card is land",
+        "effect": "deal 3 damage"
+      },
+      {
+        "event": "first_draw_each_turn",
+        "condition": "revealed card is nonland",
+        "effect": "draw a card"
+      }
+    ]
+  },
+  "Pharika, God of Affliction": {
+    "category": "pantheon",
+    "rulesSummary": "Not a creature unless devotion to black and green is at least seven. Can exile creature cards from graveyards to create 1/1 deathtouch Snake enchantment creature tokens for that graveyard's owner.",
+    "interactions": [
+      {
+        "event": "activated_graveyard_exile",
+        "cost": "{B}{G}",
+        "target": "creature card in a graveyard",
+        "effect": "exile it; create 1/1 deathtouch Snake enchantment creature token"
+      }
+    ]
+  },
+  "Mogis, God of Slaughter": {
+    "category": "pantheon",
+    "rulesSummary": "Not a creature unless devotion to black and red is at least seven. On each opponent's upkeep, that player sacrifices a creature or takes 2 damage.",
+    "interactions": [
+      {
+        "event": "opponent_upkeep",
+        "effect": "that player sacrifices a creature unless they take 2 damage"
+      }
+    ]
+  },
+  "Phenax, God of Deception": {
+    "category": "pantheon",
+    "rulesSummary": "Not a creature unless devotion to blue and black is at least seven. Creatures you control can tap to mill cards equal to their toughness.",
+    "interactions": [
+      {
+        "event": "granted_activated_ability",
+        "affects": "creatures you control",
+        "cost": "tap",
+        "effect": "target player mills cards equal to this creature's toughness"
+      }
+    ]
+  },
+  "Kiora, Sovereign of the Deep": {
+    "category": "poseidon_domain",
+    "rulesSummary": "Vigilance and ward {3}. Whenever you cast a Kraken, Leviathan, Octopus, or Serpent spell from your hand, reveal the top X cards of your library where X is that spell's mana value; you may cast a spell with lesser mana value from among them for free.",
+    "interactions": [
+      {
+        "event": "cast_sea_creature",
+        "types": [
+          "Kraken",
+          "Leviathan",
+          "Octopus",
+          "Serpent"
+        ],
+        "effect": "reveal top X; free-cast lesser-MV spell"
+      }
+    ]
+  },
+  "Kiora's Follower": {
+    "category": "poseidon_domain",
+    "rulesSummary": "Tap: untap another target permanent.",
+    "interactions": [
+      {
+        "event": "activated_untap",
+        "cost": "tap",
+        "target": "another permanent",
+        "effect": "untap it"
+      }
+    ]
+  },
+  "Arixmethes, Slumbering Isle": {
+    "category": "poseidon_domain",
+    "rulesSummary": "Enters tapped with five slumber counters and is a land while it has a slumber counter. Casting spells removes slumber counters. Can tap for {G}{U}.",
+    "interactions": [
+      {
+        "event": "enters",
+        "effect": "enters tapped with five slumber counters"
+      },
+      {
+        "event": "static_type_change",
+        "condition": "has slumber counter",
+        "effect": "is a land"
+      },
+      {
+        "event": "cast_spell",
+        "effect": "remove a slumber counter"
+      },
+      {
+        "event": "mana_ability",
+        "effect": "add {G}{U}"
+      }
+    ]
+  },
+  "Serpent of Yawning Depths": {
+    "category": "poseidon_domain",
+    "rulesSummary": "Krakens, Leviathans, Octopuses, and Serpents you control can't be blocked except by creatures of those types.",
+    "interactions": [
+      {
+        "event": "static_evasion",
+        "affects": [
+          "Kraken",
+          "Leviathan",
+          "Octopus",
+          "Serpent"
+        ],
+        "effect": "can only be blocked by those creature types"
+      }
+    ]
+  },
+  "Koma, Cosmos Serpent": {
+    "category": "poseidon_domain",
+    "rulesSummary": "Can't be countered. At each upkeep, create a 3/3 Koma's Coil Serpent token. Sacrifice a Serpent to tap a permanent and shut off its activated abilities for the turn, or give Koma indestructible.",
+    "interactions": [
+      {
+        "event": "each_upkeep",
+        "effect": "create 3/3 Koma's Coil Serpent token"
+      },
+      {
+        "event": "sacrifice_serpent",
+        "mode": "tap/control",
+        "effect": "tap target permanent; its activated abilities can't be activated this turn"
+      },
+      {
+        "event": "sacrifice_serpent",
+        "mode": "protect",
+        "effect": "Koma gains indestructible until end of turn"
+      }
+    ]
+  },
+  "Koma, World-Eater": {
+    "category": "poseidon_domain",
+    "rulesSummary": "This spell can't be countered. Trample, ward {4}. Whenever Koma deals combat damage to a player, create four 3/3 blue Serpent creature tokens named Koma's Coil.",
+    "interactions": [
+      {
+        "event": "combat_damage_to_player",
+        "effect": "create four 3/3 Koma's Coil Serpent tokens"
+      }
+    ]
+  },
+  "Spawning Kraken": {
+    "category": "poseidon_domain",
+    "rulesSummary": "Whenever a Kraken, Leviathan, Octopus, or Serpent you control deals combat damage to a player, create a 9/9 blue Kraken creature token.",
+    "interactions": [
+      {
+        "event": "sea_creature_combat_damage_to_player",
+        "effect": "create 9/9 Kraken token"
+      }
+    ]
+  },
+  "Scourge of Fleets": {
+    "category": "poseidon_domain",
+    "rulesSummary": "When it enters, return each creature your opponents control with toughness X or less to its owner's hand, where X is the number of Islands you control.",
+    "interactions": [
+      {
+        "event": "enters",
+        "effect": "bounce opponent creatures with toughness <= number of Islands you control"
+      }
+    ]
+  },
+  "Jodah, the Unifier": {
+    "category": "heroes_legends",
+    "rulesSummary": "Legendary creatures you control get +X/+X, where X is the number of legendary creatures you control. Casting a legendary spell from hand cascades into a lower-mana-value legendary nonland card.",
+    "interactions": [
+      {
+        "event": "static_buff",
+        "affects": "legendary creatures you control",
+        "effect": "+X/+X",
+        "x": "number of legendary creatures you control"
+      },
+      {
+        "event": "cast_legendary_from_hand",
+        "effect": "exile until lower-MV legendary nonland; may cast free"
+      }
+    ]
+  },
+  "Esika, God of the Tree": {
+    "category": "heroes_legends",
+    "rulesSummary": "Other legendary creatures you control have vigilance and can tap for one mana of any color. Back face, The Prismatic Bridge, cheats a creature or planeswalker from library onto the battlefield each upkeep.",
+    "interactions": [
+      {
+        "event": "static_grant",
+        "affects": "other legendary creatures",
+        "effect": "vigilance and tap: add one mana of any color"
+      },
+      {
+        "event": "modal_dfc",
+        "backFace": "The Prismatic Bridge",
+        "effect": "upkeep permanent cheat from library"
+      }
+    ]
+  },
+  "Inga and Esika": {
+    "category": "heroes_legends",
+    "rulesSummary": "Creatures you control have vigilance and can tap for mana to cast creature spells. Whenever you cast a creature spell using three or more mana from creatures, draw a card.",
+    "interactions": [
+      {
+        "event": "static_grant",
+        "affects": "creatures you control",
+        "effect": "vigilance and creature-spell mana ability"
+      },
+      {
+        "event": "cast_creature",
+        "condition": "three or more mana from creatures spent",
+        "effect": "draw a card"
+      }
+    ]
+  },
+  "Shalai, Voice of Plenty": {
+    "category": "heroes_legends",
+    "rulesSummary": "You, planeswalkers you control, and other creatures you control have hexproof. Activated ability puts a +1/+1 counter on each creature you control.",
+    "interactions": [
+      {
+        "event": "static_protection",
+        "effect": "you, planeswalkers, and other creatures you control have hexproof"
+      },
+      {
+        "event": "activated_team_counters",
+        "cost": "{4}{G}{G}",
+        "effect": "+1/+1 counter on each creature you control"
+      }
+    ]
+  },
+  "Halana and Alena, Partners": {
+    "category": "heroes_legends",
+    "rulesSummary": "At beginning of combat on your turn, put X +1/+1 counters on another target creature, where X is Halana and Alena's power; it gains haste until end of turn.",
+    "interactions": [
+      {
+        "event": "begin_combat",
+        "target": "another creature you control",
+        "effect": "put X +1/+1 counters; gains haste",
+        "x": "Halana and Alena's power"
+      }
+    ]
+  },
+  "Reki, the History of Kamigawa": {
+    "category": "heroes_legends",
+    "rulesSummary": "Whenever you cast a legendary spell, draw a card.",
+    "interactions": [
+      {
+        "event": "cast_legendary",
+        "effect": "draw a card"
+      }
+    ]
+  },
+  "Kethis, the Hidden Hand": {
+    "category": "heroes_legends",
+    "rulesSummary": "Legendary spells you cast cost {1} less. Exile two legendary cards from your graveyard to let you play legendary cards from your graveyard this turn.",
+    "interactions": [
+      {
+        "event": "cost_reduction",
+        "affects": "legendary spells",
+        "effect": "cost {1} less"
+      },
+      {
+        "event": "activated_graveyard_permission",
+        "cost": "exile two legendary cards from your graveyard",
+        "effect": "play legendary cards from graveyard this turn"
+      }
+    ]
+  },
+  "Shanid, Sleepers' Scourge": {
+    "category": "heroes_legends",
+    "rulesSummary": "Other legendary creatures you control have menace. Whenever you play a legendary land or cast a legendary spell, draw a card and lose 1 life.",
+    "interactions": [
+      {
+        "event": "static_keyword",
+        "affects": "other legendary creatures",
+        "effect": "menace"
+      },
+      {
+        "event": "play_or_cast_legendary",
+        "effect": "draw a card and lose 1 life"
+      }
+    ]
+  },
+  "Heroes' Podium": {
+    "category": "growth",
+    "rulesSummary": "Legendary creatures you control get +1/+1 for each other legendary creature you control. Can look at the top X cards and put a legendary creature into your hand.",
+    "interactions": [
+      {
+        "event": "static_buff",
+        "affects": "legendary creatures",
+        "effect": "+1/+1 per other legendary creature"
+      },
+      {
+        "event": "activated_selection",
+        "cost": "{X}, tap",
+        "effect": "look at top X; reveal legendary creature into hand"
+      }
+    ]
+  },
+  "Flowering of the White Tree": {
+    "category": "growth",
+    "rulesSummary": "Legendary creatures you control get +2/+1 and ward {1}; nonlegendary creatures you control get +1/+1.",
+    "interactions": [
+      {
+        "event": "static_buff",
+        "affects": "legendary creatures",
+        "effect": "+2/+1 and ward {1}"
+      },
+      {
+        "event": "static_buff",
+        "affects": "nonlegendary creatures",
+        "effect": "+1/+1"
+      }
+    ]
+  },
+  "Day of Destiny": {
+    "category": "growth",
+    "rulesSummary": "Legendary creatures you control get +2/+2.",
+    "interactions": [
+      {
+        "event": "static_buff",
+        "affects": "legendary creatures",
+        "effect": "+2/+2"
+      }
+    ]
+  },
+  "The Great Henge": {
+    "category": "growth",
+    "rulesSummary": "Costs less based on the greatest power among creatures you control. Taps for {G}{G} and 2 life. Nontoken creatures entering under your control get a +1/+1 counter and draw you a card.",
+    "interactions": [
+      {
+        "event": "cost_reduction",
+        "x": "greatest power among creatures you control"
+      },
+      {
+        "event": "mana_ability",
+        "effect": "add {G}{G}; gain 2 life"
+      },
+      {
+        "event": "nontoken_creature_enters",
+        "effect": "put +1/+1 counter on it; draw a card"
+      }
+    ]
+  },
+  "Tribute to the World Tree": {
+    "category": "growth",
+    "rulesSummary": "Whenever a creature enters under your control, draw a card if its power is 3 or greater; otherwise put two +1/+1 counters on it.",
+    "interactions": [
+      {
+        "event": "creature_enters",
+        "condition": "power >= 3",
+        "effect": "draw a card"
+      },
+      {
+        "event": "creature_enters",
+        "condition": "power < 3",
+        "effect": "put two +1/+1 counters on it"
+      }
+    ]
+  },
+  "Branching Evolution": {
+    "category": "growth",
+    "rulesSummary": "If one or more +1/+1 counters would be put on a creature you control, twice that many are put on it instead.",
+    "interactions": [
+      {
+        "event": "counter_replacement",
+        "counterType": "+1/+1",
+        "affects": "creatures you control",
+        "effect": "double counters"
+      }
+    ]
+  },
+  "Bard Class": {
+    "category": "engine",
+    "rulesSummary": "Level-based legendary synergy: legendary creatures enter with an extra +1/+1 counter; higher levels reduce legendary spell costs and can generate exiled cards to play when you cast legendary spells.",
+    "interactions": [
+      {
+        "event": "class_level",
+        "level": 1,
+        "effect": "legendary creatures enter with +1/+1 counter"
+      },
+      {
+        "event": "class_level",
+        "level": 2,
+        "effect": "legendary spells cost {R}{G} less"
+      },
+      {
+        "event": "class_level",
+        "level": 3,
+        "effect": "casting legendary spell exiles top two; may play them this turn"
+      }
+    ]
+  },
+  "Relic of Legends": {
+    "category": "engine",
+    "rulesSummary": "Tap for one mana of any color. You may also tap an untapped legendary creature you control to add one mana of any color.",
+    "interactions": [
+      {
+        "event": "mana_ability",
+        "effect": "tap artifact for any color"
+      },
+      {
+        "event": "legendary_convoke_mana",
+        "effect": "tap untapped legendary creature you control for any color"
+      }
+    ]
+  },
+  "Primevals' Glorious Rebirth": {
+    "category": "engine",
+    "rulesSummary": "Return all legendary permanent cards from your graveyard to the battlefield.",
+    "interactions": [
+      {
+        "event": "resolve",
+        "zoneFrom": "graveyard",
+        "filter": "legendary permanent cards",
+        "destination": "battlefield"
+      }
+    ]
+  },
+  "Annie Joins Up": {
+    "category": "engine",
+    "rulesSummary": "Deals damage to a creature or planeswalker when it enters. If a triggered ability of a legendary creature you control triggers, it triggers an additional time.",
+    "interactions": [
+      {
+        "event": "enters",
+        "effect": "deal 5 damage to target creature or planeswalker an opponent controls"
+      },
+      {
+        "event": "trigger_multiplier",
+        "affects": "triggered abilities of legendary creatures you control",
+        "effect": "trigger an additional time"
+      }
+    ]
+  },
+  "Sol Ring": {
+    "category": "ramp",
+    "rulesSummary": "Artifact",
+    "interactions": "Tap: add {C}{C}."
+  },
+  "Arcane Signet": {
+    "category": "ramp",
+    "rulesSummary": "Artifact",
+    "interactions": "Tap: add one mana of any color in your commander's color identity."
+  },
+  "Chromatic Lantern": {
+    "category": "ramp",
+    "rulesSummary": "Artifact",
+    "interactions": "Lands you control can tap for one mana of any color. Lantern itself also taps for one mana of any color."
+  },
+  "Birds of Paradise": {
+    "category": "ramp",
+    "rulesSummary": [
+      "Flying"
+    ],
+    "interactions": "Tap: add one mana of any color."
+  },
+  "Delighted Halfling": {
+    "category": "ramp",
+    "rulesSummary": [],
+    "interactions": "Tap for colorless, or tap for one mana of any color that can only be spent to cast a legendary spell; legendary spells cast with it can't be countered."
+  },
+  "Faeburrow Elder": {
+    "category": "ramp",
+    "rulesSummary": [
+      "Vigilance"
+    ],
+    "interactions": "Gets +1/+1 for each color among permanents you control. Tap: for each color among permanents you control, add one mana of that color."
+  },
+  "Cultivate": {
+    "category": "ramp",
+    "rulesSummary": "Sorcery",
+    "interactions": []
+  },
+  "Three Visits": {
+    "category": "ramp",
+    "rulesSummary": "Sorcery",
+    "interactions": []
+  },
+  "Guardian Project": {
+    "category": "card_advantage",
+    "rulesSummary": "Whenever a nontoken creature enters under your control, if it doesn't share a name with another creature you control or in your graveyard, draw a card.",
+    "interactions": [
+      {
+        "event": "nontoken_creature_enters",
+        "condition": "unique name among battlefield/graveyard creatures",
+        "effect": "draw a card"
+      }
+    ]
+  },
+  "Garruk's Uprising": {
+    "category": "card_advantage",
+    "rulesSummary": "When it enters, draw a card if you control a creature with power 4 or greater. Creatures you control have trample. Creatures with power 4+ entering under your control draw a card.",
+    "interactions": [
+      {
+        "event": "enters",
+        "condition": "control power 4+ creature",
+        "effect": "draw a card"
+      },
+      {
+        "event": "static_keyword",
+        "effect": "creatures you control have trample"
+      },
+      {
+        "event": "creature_enters",
+        "condition": "power >= 4",
+        "effect": "draw a card"
+      }
+    ]
+  },
+  "Up the Beanstalk": {
+    "category": "card_advantage",
+    "rulesSummary": "Draw a card when it enters. Whenever you cast a spell with mana value 5 or greater, draw a card.",
+    "interactions": [
+      {
+        "event": "enters",
+        "effect": "draw a card"
+      },
+      {
+        "event": "cast_spell",
+        "condition": "mana value >= 5",
+        "effect": "draw a card"
+      }
+    ]
+  },
+  "Rhystic Study": {
+    "category": "card_advantage",
+    "rulesSummary": "Whenever an opponent casts a spell, you may draw a card unless that player pays {1}.",
+    "interactions": [
+      {
+        "event": "opponent_cast_spell",
+        "effect": "draw a card unless that player pays {1}"
+      }
+    ]
+  },
+  "Mystic Remora": {
+    "category": "card_advantage",
+    "rulesSummary": "Cumulative upkeep {1}. Whenever an opponent casts a noncreature spell, you may draw a card unless that player pays {4}.",
+    "interactions": [
+      {
+        "event": "cumulative_upkeep",
+        "cost": "{1}"
+      },
+      {
+        "event": "opponent_cast_noncreature",
+        "effect": "draw unless opponent pays {4}"
+      }
+    ]
+  },
+  "Swords to Plowshares": {
+    "category": "interaction",
+    "rulesSummary": "Exile target creature. Its controller gains life equal to its power.",
+    "interactions": [
+      {
+        "event": "resolve",
+        "target": "creature",
+        "effect": "exile; controller gains life equal to power"
+      }
+    ]
+  },
+  "Beast Within": {
+    "category": "interaction",
+    "rulesSummary": "Destroy target permanent. Its controller creates a 3/3 green Beast creature token.",
+    "interactions": [
+      {
+        "event": "resolve",
+        "target": "permanent",
+        "effect": "destroy; controller creates 3/3 Beast"
+      }
+    ]
+  },
+  "Anguished Unmaking": {
+    "category": "interaction",
+    "rulesSummary": "Exile target nonland permanent; you lose 3 life.",
+    "interactions": [
+      {
+        "event": "resolve",
+        "target": "nonland permanent",
+        "effect": "exile; you lose 3 life"
+      }
+    ]
+  },
+  "Assassin's Trophy": {
+    "category": "interaction",
+    "rulesSummary": "Destroy target permanent an opponent controls. Its controller may search for a basic land and put it onto the battlefield.",
+    "interactions": [
+      {
+        "event": "resolve",
+        "target": "opponent permanent",
+        "effect": "destroy; controller may tutor basic land to battlefield"
+      }
+    ]
+  },
+  "Cyclonic Rift": {
+    "category": "interaction",
+    "rulesSummary": "Return target nonland permanent you don't control to its owner's hand. Overload {6}{U} returns each nonland permanent you don't control.",
+    "interactions": [
+      {
+        "event": "resolve",
+        "mode": "normal",
+        "effect": "bounce target opposing nonland"
+      },
+      {
+        "event": "resolve",
+        "mode": "overload",
+        "cost": "{6}{U}",
+        "effect": "bounce every opposing nonland"
+      }
+    ]
+  },
+  "Heroic Intervention": {
+    "category": "interaction",
+    "rulesSummary": "Permanents you control gain hexproof and indestructible until end of turn.",
+    "interactions": [
+      {
+        "event": "resolve",
+        "effect": "your permanents gain hexproof and indestructible until end of turn"
+      }
+    ]
+  },
+  "Teferi's Protection": {
+    "category": "interaction",
+    "rulesSummary": "Your life total can't change, you gain protection from everything, and your permanents phase out until your next turn.",
+    "interactions": [
+      {
+        "event": "resolve",
+        "effect": "life total locked; protection from everything; permanents phase out"
+      }
+    ]
+  },
+  "Urza's Ruinous Blast": {
+    "category": "interaction",
+    "rulesSummary": "Exile all nonland permanents that aren't legendary.",
+    "interactions": [
+      {
+        "event": "resolve",
+        "effect": "exile all nonland nonlegendary permanents"
+      }
+    ]
+  },
+  "Farewell": {
+    "category": "interaction",
+    "rulesSummary": "Choose one or more: exile all artifacts, all creatures, all enchantments, and/or all graveyards.",
+    "interactions": [
+      {
+        "event": "resolve",
+        "modes": [
+          "exile artifacts",
+          "exile creatures",
+          "exile enchantments",
+          "exile graveyards"
+        ]
+      }
+    ]
+  },
+  "Command Tower": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "tap_any_commander_color"
+        ]
+      }
+    ]
+  },
+  "The World Tree": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "enters_tapped_unless_six_lands",
+          "tap_green",
+          "six_lands_all_lands_any_color",
+          "god_tutor_mass"
+        ]
+      }
+    ]
+  },
+  "Plaza of Heroes": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "legendary_mana_fixing",
+          "legendary_protection"
+        ]
+      }
+    ]
+  },
+  "Path of Ancestry": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "enters_tapped",
+          "commander_color_mana",
+          "scry_on_shared_type_cast"
+        ]
+      }
+    ]
+  },
+  "Exotic Orchard": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "opponent_land_color_mana"
+        ]
+      }
+    ]
+  },
+  "Reflecting Pool": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "reflect_other_land_mana"
+        ]
+      }
+    ]
+  },
+  "City of Brass": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "tap_any_color",
+          "deals_1_to_you_when_tapped"
+        ]
+      }
+    ]
+  },
+  "Mana Confluence": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "pay_1_life_tap_any_color"
+        ]
+      }
+    ]
+  },
+  "Breeding Pool": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "shock_land",
+          "green_blue"
+        ]
+      }
+    ]
+  },
+  "Temple Garden": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "shock_land",
+          "green_white"
+        ]
+      }
+    ]
+  },
+  "Hallowed Fountain": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "shock_land",
+          "white_blue"
+        ]
+      }
+    ]
+  },
+  "Watery Grave": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "shock_land",
+          "blue_black"
+        ]
+      }
+    ]
+  },
+  "Blood Crypt": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "shock_land",
+          "black_red"
+        ]
+      }
+    ]
+  },
+  "Stomping Ground": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "shock_land",
+          "red_green"
+        ]
+      }
+    ]
+  },
+  "Overgrown Tomb": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "shock_land",
+          "black_green"
+        ]
+      }
+    ]
+  },
+  "Sacred Foundry": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "shock_land",
+          "red_white"
+        ]
+      }
+    ]
+  },
+  "Steam Vents": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "shock_land",
+          "blue_red"
+        ]
+      }
+    ]
+  },
+  "Godless Shrine": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "shock_land",
+          "white_black"
+        ]
+      }
+    ]
+  },
+  "Spara's Headquarters": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "enters_tapped",
+          "green_white_blue",
+          "cycling"
+        ]
+      }
+    ]
+  },
+  "Raffine's Tower": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "enters_tapped",
+          "white_blue_black",
+          "cycling"
+        ]
+      }
+    ]
+  },
+  "Xander's Lounge": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "enters_tapped",
+          "blue_black_red",
+          "cycling"
+        ]
+      }
+    ]
+  },
+  "Ziatora's Proving Ground": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "enters_tapped",
+          "black_red_green",
+          "cycling"
+        ]
+      }
+    ]
+  },
+  "Jetmir's Garden": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "enters_tapped",
+          "red_green_white",
+          "cycling"
+        ]
+      }
+    ]
+  },
+  "Flooded Strand": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "fetch_plains_or_island",
+          "pay_1_life"
+        ]
+      }
+    ]
+  },
+  "Polluted Delta": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "fetch_island_or_swamp",
+          "pay_1_life"
+        ]
+      }
+    ]
+  },
+  "Bloodstained Mire": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "fetch_swamp_or_mountain",
+          "pay_1_life"
+        ]
+      }
+    ]
+  },
+  "Wooded Foothills": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "fetch_mountain_or_forest",
+          "pay_1_life"
+        ]
+      }
+    ]
+  },
+  "Windswept Heath": {
+    "category": "land",
+    "rulesSummary": "Mana-fixing land; see interaction tags for its primary battlefield behavior.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "fetch_forest_or_plains",
+          "pay_1_life"
+        ]
+      }
+    ]
+  },
+  "Forest": {
+    "category": "land",
+    "rulesSummary": "Tap: add {G}.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "tap_green"
+        ]
+      }
+    ]
+  },
+  "Island": {
+    "category": "land",
+    "rulesSummary": "Tap: add {U}.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "tap_blue"
+        ]
+      }
+    ]
+  },
+  "Plains": {
+    "category": "land",
+    "rulesSummary": "Tap: add {W}.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "tap_white"
+        ]
+      }
+    ]
+  },
+  "Mountain": {
+    "category": "land",
+    "rulesSummary": "Tap: add {R}.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "tap_red"
+        ]
+      }
+    ]
+  },
+  "Swamp": {
+    "category": "land",
+    "rulesSummary": "Tap: add {B}.",
+    "interactions": [
+      {
+        "event": "land",
+        "tags": [
+          "tap_black"
+        ]
+      }
+    ]
+  }
+}

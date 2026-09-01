@@ -1,0 +1,29 @@
+MTG AI TRAINER — EXPLORERS OF THE DEEP FINAL VERIFICATION
+Date: 2026-09-01
+
+Exact playable deck:
+- Explorers of the Deep
+- 100 total cards
+- Hakbal of the Surging Soul commander
+- 99-card library
+- 0 unsupported cards
+- 0 placeholder cards
+- 0 rules-bearing cards without an engine representation
+
+Automated tests: 155 / 155 PASSED
+Database validation: PASSED (114 cards, 6 decks)
+JavaScript syntax checks: PASSED
+
+Full seeded mirror-game simulations:
+seed 1 — 550 actions — turn 17 — player winner
+seed 2 — 677 actions — turn 20 — AI winner
+seed 3 — 617 actions — turn 20 — AI winner
+seed 4 — 408 actions — turn 15 — player winner
+seed 5 — 463 actions — turn 14 — AI winner
+All completed without deadlock or illegal action.
+
+Production build in this sandbox:
+NOT EXECUTED because npm dependencies were not available and npm ci stalled; vite was therefore not installed.
+For local verification:
+  npm ci
+  npm run verify

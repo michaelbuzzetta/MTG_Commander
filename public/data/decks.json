@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "decks": {
+    "explorers": {
+      "id": "explorers",
+      "name": "explorers",
+      "subtitle": "",
+      "icon": "\ud83c\udccf",
+      "commander": "",
+      "cards": []
+    },
+    "avatar": {
+      "id": "avatar",
+      "name": "avatar",
+      "subtitle": "",
+      "icon": "\ud83c\udccf",
+      "commander": "",
+      "cards": []
+    },
+    "olympus": {
+      "id": "olympus",
+      "name": "olympus",
+      "subtitle": "",
+      "icon": "\ud83c\udccf",
+      "commander": "",
+      "cards": []
+    },
+    "smaug": {
+      "id": "smaug",
+      "name": "smaug",
+      "subtitle": "",
+      "icon": "\ud83c\udccf",
+      "commander": "",
+      "cards": []
+    },
+    "poseidonOlympians": {
+      "id": "poseidonOlympians",
+      "name": "poseidonOlympians",
+      "subtitle": "",
+      "icon": "\ud83c\udccf",
+      "commander": "",
+      "cards": []
+    },
+    "blech": {
+      "id": "blech",
+      "name": "blech",
+      "subtitle": "",
+      "icon": "\ud83c\udccf",
+      "commander": "",
+      "cards": []
+    }
+  }
+}

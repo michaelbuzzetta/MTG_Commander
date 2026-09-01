@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "authoritativeSource": {
+    "cards": "src/data/source/cards.json",
+    "decks": "src/data/source/decks.json"
+  },
+  "runtimeGenerated": {
+    "cards": "src/data/generated/cards.json",
+    "decks": "src/data/generated/decks.json"
+  },
+  "cardSchema": {
+    "shape": "object keyed by card id",
+    "requiredFields": [
+      "id",
+      "name",
+      "typeLine",
+      "keywords",
+      "abilities",
+      "spellEffects",
+      "colorIdentity"
+    ],
+    "engineFields": [
+      "manaCost",
+      "manaValue",
+      "power",
+      "toughness",
+      "subtypes",
+      "keywords",
+      "abilities",
+      "spellEffects",
+      "producedMana",
+      "targets",
+      "minTargets",
+      "maxTargets",
+      "optionalTarget",
+      "wardCost"
+    ],
+    "optionalMetadataFields": [
+      "scryfallId",
+      "oracleId",
+      "image",
+      "artCrop",
+      "oracleText",
+      "colorIdentity",
+      "legalities",
+      "supported",
+      "unsupportedReason"
+    ],
+    "validationNotes": [
+      "supported cards must include non-empty local oracleText/rules text for UI readability",
+      "reference-only cards set supported=false and are rejected from playable decks"
+    ]
+  },
+  "deckSchema": {
+    "shape": "array of deck objects",
+    "requiredFields": [
+      "id",
+      "name",
+      "format",
+      "commander",
+      "colorIdentity",
+      "cards"
+    ],
+    "cardEntry": {
+      "requiredFields": [
+        "id",
+        "quantity"
+      ],
+      "quantity": "positive integer"
+    },
+    "buildValidation": [
+      "deck ids are unique",
+      "format is Commander",
+      "commander id resolves and is a legendary creature in the current trainer rules",
+      "deck colorIdentity exactly matches commander colorIdentity",
+      "every card id resolves in the card database",
+      "nonbasic cards appear at most once; repeated quantities are allowed only for basic lands",
+      "every card color identity is a subset of the commander color identity",
+      "playable decks contain no supported=false reference-only cards",
+      "commander entry appears exactly once",
+      "deck contains exactly 100 cards including commander",
+      "cardCount, when present, equals the calculated total"
+    ],
+    "optionalFields": [
+      "playable",
+      "unplayableReason",
+      "source",
+      "notes",
+      "cardCount"
+    ]
+  },
+  "pipeline": {
+    "defaultBuild": "npm run build-db",
+    "validationOnly": "npm run check-db",
+    "metadataRefresh": "npm run build-db:refresh",
+    "rule": "Runtime imports only src/data/generated. Generated files are produced only from the authoritative src/data/source schema; Scryfall refresh may add descriptive metadata but never replaces local machine-readable rules fields."
+  }
+}

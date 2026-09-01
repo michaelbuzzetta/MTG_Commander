@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "generatedFiles": [
+    "public/data/cards.json",
+    "public/data/decks.json"
+  ],
+  "cardFields": [
+    "name",
+    "image",
+    "artCrop",
+    "manaCost",
+    "manaValue",
+    "type",
+    "typeLine",
+    "power",
+    "toughness",
+    "loyalty",
+    "colors",
+    "colorIdentity",
+    "keywords",
+    "oracleText",
+    "producedMana",
+    "legalities",
+    "interactions"
+  ],
+  "interactionKinds": [
+    "KEYWORD",
+    "STATIC_MODIFIER",
+    "REPLACEMENT",
+    "ACTIVATED",
+    "TRIGGERED",
+    "RESOLVE"
+  ],
+  "effectOps": [
+    "DRAW",
+    "GAIN_LIFE",
+    "LOSE_LIFE",
+    "DAMAGE",
+    "CREATE_TOKEN",
+    "CREATE_CREATURE_TOKEN",
+    "ADD_COUNTER",
+    "DESTROY",
+    "EXILE",
+    "DESTROY_ALL",
+    "PROLIFERATE",
+    "EXPLORE",
+    "EXPLORE_EACH",
+    "SEARCH_LIBRARY"
+  ]
+}

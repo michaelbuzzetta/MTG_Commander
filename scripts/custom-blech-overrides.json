@@ -1,0 +1,1599 @@
+{
+  "Blech, Loafing Pest": {
+    "name": "Blech, Loafing Pest",
+    "quantity": 1,
+    "isCommander": true,
+    "category": "commander",
+    "manaCost": "{1}{B}{G}",
+    "manaValue": 3,
+    "typeLine": "Legendary Creature — Pest",
+    "power": "3",
+    "toughness": "4",
+    "keywordsOrTags": [
+      "lifegain",
+      "counter-distribution",
+      "tribal"
+    ],
+    "rulesSummary": "Whenever you gain life, put a +1/+1 counter on each Pest, Bat, Insect, Snake, and Spider you control.",
+    "interactions": [
+      {
+        "event": "life_gain",
+        "affects": [
+          "Pest",
+          "Bat",
+          "Insect",
+          "Snake",
+          "Spider"
+        ],
+        "effect": "put one +1/+1 counter on each qualifying creature you control"
+      }
+    ]
+  },
+  "Blex, Vexing Pest // Search for Blex": {
+    "name": "Blex, Vexing Pest // Search for Blex",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "creature",
+    "manaCost": "{2}{G}",
+    "manaValue": 3,
+    "typeLine": "Legendary Creature — Pest",
+    "power": "3",
+    "toughness": "2",
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Beledros Witherbloom": {
+    "name": "Beledros Witherbloom",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "creature",
+    "manaCost": "{5}{B}{G}",
+    "manaValue": 7,
+    "typeLine": "Legendary Creature — Elder Dragon",
+    "power": "4",
+    "toughness": "4",
+    "keywordsOrTags": [
+      "token_creation",
+      "Pest",
+      "mana"
+    ],
+    "rulesSummary": "Flying. At the beginning of each upkeep, create a 1/1 black and green Pest creature token with a death/lifegain trigger. Once each turn, you may pay 10 life to untap all lands you control.",
+    "interactions": [
+      {
+        "event": "each_upkeep",
+        "effect": "create 1/1 Pest token"
+      },
+      {
+        "event": "activated",
+        "cost": "pay 10 life",
+        "limit": "once each turn",
+        "effect": "untap all lands you control"
+      }
+    ]
+  },
+  "Bogwater Lumaret": {
+    "name": "Bogwater Lumaret",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "creature",
+    "manaCost": "{2}{B}",
+    "manaValue": 3,
+    "typeLine": "Creature — Frog",
+    "power": "3",
+    "toughness": "3",
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Overgrown Pest": {
+    "name": "Overgrown Pest",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "creature",
+    "manaCost": "{2}{G}",
+    "manaValue": 3,
+    "typeLine": "Creature — Pest",
+    "power": "2",
+    "toughness": "2",
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Pest Rescuer": {
+    "name": "Pest Rescuer",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "creature",
+    "manaCost": "{2}{G}",
+    "manaValue": 3,
+    "typeLine": "Creature — Human Druid",
+    "power": "3",
+    "toughness": "3",
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Caustic Caterpillar": {
+    "name": "Caustic Caterpillar",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "creature",
+    "manaCost": "{G}",
+    "manaValue": 1,
+    "typeLine": "Creature — Insect",
+    "power": "1",
+    "toughness": "1",
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Deep-Cavern Bat": {
+    "name": "Deep-Cavern Bat",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "creature",
+    "manaCost": "{1}{B}",
+    "manaValue": 2,
+    "typeLine": "Creature — Bat",
+    "power": "1",
+    "toughness": "1",
+    "keywordsOrTags": [
+      "Bat",
+      "lifelink",
+      "hand_disruption"
+    ],
+    "rulesSummary": "Flying, lifelink. When it enters, look at an opponent's hand and temporarily exile a nonland card until the Bat leaves the battlefield.",
+    "interactions": [
+      {
+        "event": "enters",
+        "effect": "look at target opponent hand; exile chosen nonland card until this leaves"
+      },
+      {
+        "event": "combat_damage",
+        "keyword": "lifelink",
+        "effect": "gain life equal to damage dealt"
+      }
+    ]
+  },
+  "Mirkwood Bats": {
+    "name": "Mirkwood Bats",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "creature",
+    "manaCost": "{3}{B}",
+    "manaValue": 4,
+    "typeLine": "Creature — Bat",
+    "power": "2",
+    "toughness": "3",
+    "keywordsOrTags": [
+      "Bat",
+      "token_payoff",
+      "life_loss"
+    ],
+    "rulesSummary": "Flying. Whenever you create or sacrifice a token, each opponent loses 1 life.",
+    "interactions": [
+      {
+        "event": "token_created_or_sacrificed",
+        "effect": "each opponent loses 1 life"
+      }
+    ]
+  },
+  "Starscape Cleric": {
+    "name": "Starscape Cleric",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "creature",
+    "manaCost": "{1}{B}",
+    "manaValue": 2,
+    "typeLine": "Creature — Bat Cleric",
+    "power": "2",
+    "toughness": "1",
+    "keywordsOrTags": [
+      "Bat",
+      "lifegain_payoff"
+    ],
+    "rulesSummary": "Lifelink. Can amplify opponents' life loss during your turn.",
+    "interactions": [
+      {
+        "event": "combat_damage",
+        "keyword": "lifelink",
+        "effect": "gain life equal to damage dealt"
+      },
+      {
+        "event": "life_loss_amplifier",
+        "effect": "increase opponent life loss when its condition/ability is active"
+      }
+    ]
+  },
+  "Scute Swarm": {
+    "name": "Scute Swarm",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "creature",
+    "manaCost": "{2}{G}",
+    "manaValue": 3,
+    "typeLine": "Creature — Insect",
+    "power": "1",
+    "toughness": "1",
+    "keywordsOrTags": [
+      "landfall",
+      "token_creation",
+      "Insect"
+    ],
+    "rulesSummary": "Landfall creates a 1/1 Insect while you control five or fewer lands; with six or more lands, creates a token copy of Scute Swarm.",
+    "interactions": [
+      {
+        "event": "land_enters",
+        "condition": "lands controlled <= 5",
+        "effect": "create 1/1 Insect token"
+      },
+      {
+        "event": "land_enters",
+        "condition": "lands controlled >= 6",
+        "effect": "create token copy of Scute Swarm"
+      }
+    ]
+  },
+  "Iridescent Hornbeetle": {
+    "name": "Iridescent Hornbeetle",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "creature",
+    "manaCost": "{4}{G}",
+    "manaValue": 5,
+    "typeLine": "Creature — Insect",
+    "power": "3",
+    "toughness": "4",
+    "keywordsOrTags": [
+      "Insect",
+      "token_creation",
+      "counters"
+    ],
+    "rulesSummary": "At your end step, create a 1/1 Insect token for each +1/+1 counter you put on creatures under your control this turn.",
+    "interactions": [
+      {
+        "event": "end_step",
+        "effect": "create X 1/1 Insect tokens",
+        "x": "+1/+1 counters put on your creatures this turn"
+      }
+    ]
+  },
+  "Hornet Queen": {
+    "name": "Hornet Queen",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "creature",
+    "manaCost": "{4}{G}{G}{G}",
+    "manaValue": 7,
+    "typeLine": "Creature — Insect",
+    "power": "2",
+    "toughness": "2",
+    "keywordsOrTags": [
+      "token_creation",
+      "flying",
+      "deathtouch",
+      "Insect"
+    ],
+    "rulesSummary": "Flying, deathtouch. When it enters, create four 1/1 green Insect creature tokens with flying and deathtouch.",
+    "interactions": [
+      {
+        "event": "enters",
+        "effect": "create four 1/1 flying deathtouch Insect tokens"
+      }
+    ]
+  },
+  "Haywire Mite": {
+    "name": "Haywire Mite",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "creature",
+    "manaCost": "{1}",
+    "manaValue": 1,
+    "typeLine": "Artifact Creature — Insect",
+    "power": "1",
+    "toughness": "1",
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Twitching Doll": {
+    "name": "Twitching Doll",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "creature",
+    "manaCost": "{1}{G}",
+    "manaValue": 2,
+    "typeLine": "Artifact Creature — Spider Toy",
+    "power": "2",
+    "toughness": "2",
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Arasta of the Endless Web": {
+    "name": "Arasta of the Endless Web",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "creature",
+    "manaCost": "{2}{G}{G}",
+    "manaValue": 4,
+    "typeLine": "Legendary Enchantment Creature — Spider",
+    "power": "3",
+    "toughness": "5",
+    "keywordsOrTags": [
+      "token_creation",
+      "Spider"
+    ],
+    "rulesSummary": "Reach. Whenever an opponent casts an instant or sorcery spell, create a 1/2 green Spider creature token with reach.",
+    "interactions": [
+      {
+        "event": "opponent_cast_instant_or_sorcery",
+        "effect": "create 1/2 Spider token with reach"
+      }
+    ]
+  },
+  "Ishkanah, Grafwidow": {
+    "name": "Ishkanah, Grafwidow",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "creature",
+    "manaCost": "{4}{G}",
+    "manaValue": 5,
+    "typeLine": "Legendary Creature — Spider",
+    "power": "3",
+    "toughness": "5",
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Nyx Weaver": {
+    "name": "Nyx Weaver",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "creature",
+    "manaCost": "{1}{B}{G}",
+    "manaValue": 3,
+    "typeLine": "Enchantment Creature — Spider",
+    "power": "2",
+    "toughness": "3",
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Ohran Frostfang": {
+    "name": "Ohran Frostfang",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "creature",
+    "manaCost": "{3}{G}{G}",
+    "manaValue": 5,
+    "typeLine": "Snow Creature — Snake",
+    "power": "2",
+    "toughness": "6",
+    "keywordsOrTags": [
+      "Snake",
+      "card_draw",
+      "deathtouch"
+    ],
+    "rulesSummary": "Attacking creatures you control have deathtouch. Whenever a creature you control deals combat damage to a player, draw a card.",
+    "interactions": [
+      {
+        "event": "static_keyword",
+        "condition": "your creature is attacking",
+        "effect": "deathtouch"
+      },
+      {
+        "event": "creature_combat_damage_to_player",
+        "effect": "draw a card"
+      }
+    ]
+  },
+  "Hooded Hydra": {
+    "name": "Hooded Hydra",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "creature",
+    "manaCost": "{X}{G}{G}",
+    "manaValue": 2,
+    "typeLine": "Creature — Snake Hydra",
+    "power": "0",
+    "toughness": "0",
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Winding Constrictor": {
+    "name": "Winding Constrictor",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "creature",
+    "manaCost": "{B}{G}",
+    "manaValue": 2,
+    "typeLine": "Creature — Snake",
+    "power": "2",
+    "toughness": "3",
+    "keywordsOrTags": [
+      "counter_multiplier",
+      "Snake"
+    ],
+    "rulesSummary": "If counters would be placed on an artifact or creature you control, that many plus one are placed instead.",
+    "interactions": [
+      {
+        "event": "counter_replacement",
+        "affects": "artifact or creature you control",
+        "effect": "add one additional counter of each applicable kind"
+      }
+    ]
+  },
+  "Sedgemoor Witch": {
+    "name": "Sedgemoor Witch",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "creature",
+    "manaCost": "{2}{B}",
+    "manaValue": 3,
+    "typeLine": "Creature — Human Warlock",
+    "power": "3",
+    "toughness": "2",
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Springheart Nantuko": {
+    "name": "Springheart Nantuko",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "creature",
+    "manaCost": "{1}{G}",
+    "manaValue": 2,
+    "typeLine": "Enchantment Creature — Insect Monk",
+    "power": "1",
+    "toughness": "1",
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Essence Warden": {
+    "name": "Essence Warden",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "lifegain",
+    "manaCost": "{G}",
+    "manaValue": 1,
+    "typeLine": "Creature — Elf Shaman",
+    "power": "1",
+    "toughness": "1",
+    "keywordsOrTags": [
+      "lifegain_engine"
+    ],
+    "rulesSummary": "Whenever another creature enters the battlefield, you gain 1 life.",
+    "interactions": [
+      {
+        "event": "creature_enters",
+        "filter": "another creature",
+        "effect": "gain 1 life"
+      }
+    ]
+  },
+  "Prosperous Innkeeper": {
+    "name": "Prosperous Innkeeper",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "lifegain",
+    "manaCost": "{1}{G}",
+    "manaValue": 2,
+    "typeLine": "Creature — Halfling Citizen",
+    "power": "1",
+    "toughness": "1",
+    "keywordsOrTags": [
+      "lifegain_engine",
+      "treasure"
+    ],
+    "rulesSummary": "Creates a Treasure when it enters. Whenever another creature enters under your control, gain 1 life.",
+    "interactions": [
+      {
+        "event": "enters",
+        "effect": "create Treasure token"
+      },
+      {
+        "event": "creature_enters_under_your_control",
+        "filter": "another creature",
+        "effect": "gain 1 life"
+      }
+    ]
+  },
+  "Kazandu Nectarpot": {
+    "name": "Kazandu Nectarpot",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "lifegain",
+    "manaCost": "{1}{G}",
+    "manaValue": 2,
+    "typeLine": "Creature — Insect",
+    "power": "1",
+    "toughness": "3",
+    "keywordsOrTags": [
+      "Insect",
+      "lifegain_engine",
+      "landfall"
+    ],
+    "rulesSummary": "Landfall — whenever a land enters under your control, gain 1 life.",
+    "interactions": [
+      {
+        "event": "land_enters_under_your_control",
+        "effect": "gain 1 life"
+      }
+    ]
+  },
+  "Pristine Talisman": {
+    "name": "Pristine Talisman",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "lifegain",
+    "manaCost": "{3}",
+    "manaValue": 3,
+    "typeLine": "Artifact",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Shadowspear": {
+    "name": "Shadowspear",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "lifegain",
+    "manaCost": "{1}",
+    "manaValue": 1,
+    "typeLine": "Legendary Artifact — Equipment",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "The Great Henge": {
+    "name": "The Great Henge",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "lifegain",
+    "manaCost": "{7}{G}{G}",
+    "manaValue": 9,
+    "typeLine": "Legendary Artifact",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [
+      "ramp",
+      "lifegain",
+      "draw",
+      "counters"
+    ],
+    "rulesSummary": "Costs less based on greatest creature power. Taps for green mana and gains life. Nontoken creatures entering under your control get a +1/+1 counter and draw you a card.",
+    "interactions": [
+      {
+        "event": "mana_ability",
+        "effect": "add {G}{G}; gain 2 life"
+      },
+      {
+        "event": "nontoken_creature_enters",
+        "effect": "put +1/+1 counter on it; draw a card"
+      }
+    ]
+  },
+  "Essence Pulse": {
+    "name": "Essence Pulse",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "lifegain",
+    "manaCost": "{3}{B}",
+    "manaValue": 4,
+    "typeLine": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Hardened Scales": {
+    "name": "Hardened Scales",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "counter_engine",
+    "manaCost": "{G}",
+    "manaValue": 1,
+    "typeLine": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [
+      "counter_multiplier"
+    ],
+    "rulesSummary": "If one or more +1/+1 counters would be put on a creature you control, put that many plus one instead.",
+    "interactions": [
+      {
+        "event": "counter_replacement",
+        "counterType": "+1/+1",
+        "effect": "add one additional +1/+1 counter"
+      }
+    ]
+  },
+  "Branching Evolution": {
+    "name": "Branching Evolution",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "counter_engine",
+    "manaCost": "{2}{G}",
+    "manaValue": 3,
+    "typeLine": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [
+      "counter_multiplier"
+    ],
+    "rulesSummary": "If one or more +1/+1 counters would be put on a creature you control, twice that many are put on it instead.",
+    "interactions": [
+      {
+        "event": "counter_replacement",
+        "counterType": "+1/+1",
+        "effect": "double +1/+1 counters"
+      }
+    ]
+  },
+  "Ozolith, the Shattered Spire": {
+    "name": "Ozolith, the Shattered Spire",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "counter_engine",
+    "manaCost": "{1}{G}",
+    "manaValue": 2,
+    "typeLine": "Legendary Artifact",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [
+      "counter_multiplier",
+      "activated_counter"
+    ],
+    "rulesSummary": "If one or more +1/+1 counters would be put on an artifact or creature you control, put that many plus one instead. Can put a +1/+1 counter on a target artifact or creature.",
+    "interactions": [
+      {
+        "event": "counter_replacement",
+        "counterType": "+1/+1",
+        "effect": "add one extra"
+      },
+      {
+        "event": "activated",
+        "effect": "put +1/+1 counter on target artifact or creature you control"
+      }
+    ]
+  },
+  "Corpsejack Menace": {
+    "name": "Corpsejack Menace",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "counter_engine",
+    "manaCost": "{2}{B}{G}",
+    "manaValue": 4,
+    "typeLine": "Creature — Fungus",
+    "power": "4",
+    "toughness": "4",
+    "keywordsOrTags": [
+      "counter_multiplier"
+    ],
+    "rulesSummary": "If one or more +1/+1 counters would be placed on a creature you control, twice that many are placed instead.",
+    "interactions": [
+      {
+        "event": "counter_replacement",
+        "counterType": "+1/+1",
+        "effect": "double counters"
+      }
+    ]
+  },
+  "Doubling Season": {
+    "name": "Doubling Season",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "counter_engine",
+    "manaCost": "{4}{G}",
+    "manaValue": 5,
+    "typeLine": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [
+      "counter_multiplier",
+      "token_multiplier"
+    ],
+    "rulesSummary": "If an effect would create tokens under your control, it creates twice as many. If an effect would put counters on a permanent you control, it puts twice as many.",
+    "interactions": [
+      {
+        "event": "token_replacement",
+        "effect": "double tokens created by effects"
+      },
+      {
+        "event": "counter_replacement",
+        "effect": "double counters placed by effects"
+      }
+    ]
+  },
+  "The Ozolith": {
+    "name": "The Ozolith",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "counter_engine",
+    "manaCost": "{1}",
+    "manaValue": 1,
+    "typeLine": "Legendary Artifact",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [
+      "counter_storage"
+    ],
+    "rulesSummary": "When a creature you control leaves the battlefield, move its counters conceptually onto The Ozolith; at combat on your turn, those counters can be moved onto a creature.",
+    "interactions": [
+      {
+        "event": "creature_leaves",
+        "effect": "store equivalent counters on The Ozolith"
+      },
+      {
+        "event": "begin_combat",
+        "effect": "move counters from The Ozolith to target creature"
+      }
+    ]
+  },
+  "Inspiring Call": {
+    "name": "Inspiring Call",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "counter_engine",
+    "manaCost": "{2}{G}",
+    "manaValue": 3,
+    "typeLine": "Instant",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Pest Infestation": {
+    "name": "Pest Infestation",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "token_engine",
+    "manaCost": "{X}{X}{G}",
+    "manaValue": 1,
+    "typeLine": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Pest Summoning": {
+    "name": "Pest Summoning",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "token_engine",
+    "manaCost": "{1}{B/G}{B/G}",
+    "manaValue": 3,
+    "typeLine": "Sorcery — Lesson",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Hunt for Specimens": {
+    "name": "Hunt for Specimens",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "token_engine",
+    "manaCost": "{1}{B}",
+    "manaValue": 2,
+    "typeLine": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Tend the Pests": {
+    "name": "Tend the Pests",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "token_engine",
+    "manaCost": "{B}{G}",
+    "manaValue": 2,
+    "typeLine": "Instant",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [
+      "Pest",
+      "token_creation",
+      "sacrifice"
+    ],
+    "rulesSummary": "As an additional cost, sacrifice a creature. Create X 1/1 Pest tokens, where X is the sacrificed creature's power.",
+    "interactions": [
+      {
+        "event": "cast_cost",
+        "effect": "sacrifice creature"
+      },
+      {
+        "event": "resolve",
+        "effect": "create X 1/1 Pest tokens",
+        "x": "sacrificed creature power"
+      }
+    ]
+  },
+  "Blight Mound": {
+    "name": "Blight Mound",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "token_engine",
+    "manaCost": "{2}{B}",
+    "manaValue": 3,
+    "typeLine": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [
+      "Pest",
+      "token_creation",
+      "death_payoff"
+    ],
+    "rulesSummary": "Attacking Pests you control get +1/+0 and have menace. Whenever a nontoken creature you control dies, create a 1/1 Pest token with a death/lifegain trigger.",
+    "interactions": [
+      {
+        "event": "static_attack_buff",
+        "affects": "Pest",
+        "effect": "+1/+0 and menace while attacking"
+      },
+      {
+        "event": "nontoken_creature_dies",
+        "effect": "create 1/1 Pest token"
+      }
+    ]
+  },
+  "Nuisance Engine": {
+    "name": "Nuisance Engine",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "token_engine",
+    "manaCost": "{3}",
+    "manaValue": 3,
+    "typeLine": "Artifact",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Pestilent Cauldron // Restorative Burst": {
+    "name": "Pestilent Cauldron // Restorative Burst",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "token_engine",
+    "manaCost": "{2}{B}",
+    "manaValue": 3,
+    "typeLine": "Artifact",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Skullclamp": {
+    "name": "Skullclamp",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "card_advantage",
+    "manaCost": "{1}",
+    "manaValue": 1,
+    "typeLine": "Artifact — Equipment",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Greater Good": {
+    "name": "Greater Good",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "card_advantage",
+    "manaCost": "{2}{G}{G}",
+    "manaValue": 4,
+    "typeLine": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Garruk's Uprising": {
+    "name": "Garruk's Uprising",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "card_advantage",
+    "manaCost": "{2}{G}",
+    "manaValue": 3,
+    "typeLine": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [
+      "draw",
+      "trample"
+    ],
+    "rulesSummary": "Creatures you control have trample. Power-4-or-greater creatures entering under your control draw cards.",
+    "interactions": [
+      {
+        "event": "static_keyword",
+        "effect": "creatures you control have trample"
+      },
+      {
+        "event": "creature_enters",
+        "condition": "power >= 4",
+        "effect": "draw a card"
+      }
+    ]
+  },
+  "Moldervine Reclamation": {
+    "name": "Moldervine Reclamation",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "card_advantage",
+    "manaCost": "{3}{B}{G}",
+    "manaValue": 5,
+    "typeLine": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Guardian Project": {
+    "name": "Guardian Project",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "card_advantage",
+    "manaCost": "{3}{G}",
+    "manaValue": 4,
+    "typeLine": "Enchantment",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [
+      "draw"
+    ],
+    "rulesSummary": "Appropriate nontoken creatures entering under your control draw a card.",
+    "interactions": [
+      {
+        "event": "nontoken_creature_enters",
+        "condition": "unique name among your battlefield/graveyard creatures",
+        "effect": "draw a card"
+      }
+    ]
+  },
+  "Return of the Wildspeaker": {
+    "name": "Return of the Wildspeaker",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "card_advantage",
+    "manaCost": "{4}{G}",
+    "manaValue": 5,
+    "typeLine": "Instant",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Well of Lost Dreams": {
+    "name": "Well of Lost Dreams",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "card_advantage",
+    "manaCost": "{4}",
+    "manaValue": 4,
+    "typeLine": "Artifact",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Sol Ring": {
+    "name": "Sol Ring",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "ramp",
+    "manaCost": "{1}",
+    "manaValue": 1,
+    "typeLine": "Artifact",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Arcane Signet": {
+    "name": "Arcane Signet",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "ramp",
+    "manaCost": "{2}",
+    "manaValue": 2,
+    "typeLine": "Artifact",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Nature's Lore": {
+    "name": "Nature's Lore",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "ramp",
+    "manaCost": "{1}{G}",
+    "manaValue": 2,
+    "typeLine": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Three Visits": {
+    "name": "Three Visits",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "ramp",
+    "manaCost": "{1}{G}",
+    "manaValue": 2,
+    "typeLine": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Farseek": {
+    "name": "Farseek",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "ramp",
+    "manaCost": "{1}{G}",
+    "manaValue": 2,
+    "typeLine": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Kodama's Reach": {
+    "name": "Kodama's Reach",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "ramp",
+    "manaCost": "{2}{G}",
+    "manaValue": 3,
+    "typeLine": "Sorcery — Arcane",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Sakura-Tribe Elder": {
+    "name": "Sakura-Tribe Elder",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "ramp",
+    "manaCost": "{1}{G}",
+    "manaValue": 2,
+    "typeLine": "Creature — Snake Shaman",
+    "power": "1",
+    "toughness": "1",
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Cultivate": {
+    "name": "Cultivate",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "ramp",
+    "manaCost": "{2}{G}",
+    "manaValue": 3,
+    "typeLine": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Assassin's Trophy": {
+    "name": "Assassin's Trophy",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "interaction",
+    "manaCost": "{B}{G}",
+    "manaValue": 2,
+    "typeLine": "Instant",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Beast Within": {
+    "name": "Beast Within",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "interaction",
+    "manaCost": "{2}{G}",
+    "manaValue": 3,
+    "typeLine": "Instant",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Tear Asunder": {
+    "name": "Tear Asunder",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "interaction",
+    "manaCost": "{1}{G}",
+    "manaValue": 2,
+    "typeLine": "Instant",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Heroic Intervention": {
+    "name": "Heroic Intervention",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "interaction",
+    "manaCost": "{1}{G}",
+    "manaValue": 2,
+    "typeLine": "Instant",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [
+      "protection"
+    ],
+    "rulesSummary": "Permanents you control gain hexproof and indestructible until end of turn.",
+    "interactions": [
+      {
+        "event": "resolve",
+        "effect": "your permanents gain hexproof and indestructible until end of turn"
+      }
+    ]
+  },
+  "Golgari Charm": {
+    "name": "Golgari Charm",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "interaction",
+    "manaCost": "{B}{G}",
+    "manaValue": 2,
+    "typeLine": "Instant",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Toxic Deluge": {
+    "name": "Toxic Deluge",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "interaction",
+    "manaCost": "{2}{B}",
+    "manaValue": 3,
+    "typeLine": "Sorcery",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Putrefy": {
+    "name": "Putrefy",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "interaction",
+    "manaCost": "{1}{B}{G}",
+    "manaValue": 3,
+    "typeLine": "Instant",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": []
+  },
+  "Command Tower": {
+    "name": "Command Tower",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "land",
+    "manaCost": "",
+    "manaValue": 0,
+    "typeLine": "Land",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": [
+      {
+        "event": "land",
+        "effect": "mana fixing and/or utility according to printed ability"
+      }
+    ]
+  },
+  "Overgrown Tomb": {
+    "name": "Overgrown Tomb",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "land",
+    "manaCost": "",
+    "manaValue": 0,
+    "typeLine": "Land — Swamp Forest",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": [
+      {
+        "event": "land",
+        "effect": "mana fixing and/or utility according to printed ability"
+      }
+    ]
+  },
+  "Woodland Cemetery": {
+    "name": "Woodland Cemetery",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "land",
+    "manaCost": "",
+    "manaValue": 0,
+    "typeLine": "Land",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": [
+      {
+        "event": "land",
+        "effect": "mana fixing and/or utility according to printed ability"
+      }
+    ]
+  },
+  "Deathcap Glade": {
+    "name": "Deathcap Glade",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "land",
+    "manaCost": "",
+    "manaValue": 0,
+    "typeLine": "Land",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": [
+      {
+        "event": "land",
+        "effect": "mana fixing and/or utility according to printed ability"
+      }
+    ]
+  },
+  "Llanowar Wastes": {
+    "name": "Llanowar Wastes",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "land",
+    "manaCost": "",
+    "manaValue": 0,
+    "typeLine": "Land",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": [
+      {
+        "event": "land",
+        "effect": "mana fixing and/or utility according to printed ability"
+      }
+    ]
+  },
+  "Undergrowth Stadium": {
+    "name": "Undergrowth Stadium",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "land",
+    "manaCost": "",
+    "manaValue": 0,
+    "typeLine": "Land",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": [
+      {
+        "event": "land",
+        "effect": "mana fixing and/or utility according to printed ability"
+      }
+    ]
+  },
+  "Necroblossom Snarl": {
+    "name": "Necroblossom Snarl",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "land",
+    "manaCost": "",
+    "manaValue": 0,
+    "typeLine": "Land",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": [
+      {
+        "event": "land",
+        "effect": "mana fixing and/or utility according to printed ability"
+      }
+    ]
+  },
+  "Temple of Malady": {
+    "name": "Temple of Malady",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "land",
+    "manaCost": "",
+    "manaValue": 0,
+    "typeLine": "Land",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": [
+      {
+        "event": "land",
+        "effect": "mana fixing and/or utility according to printed ability"
+      }
+    ]
+  },
+  "Golgari Rot Farm": {
+    "name": "Golgari Rot Farm",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "land",
+    "manaCost": "",
+    "manaValue": 0,
+    "typeLine": "Land",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": [
+      {
+        "event": "land",
+        "effect": "mana fixing and/or utility according to printed ability"
+      }
+    ]
+  },
+  "Tainted Wood": {
+    "name": "Tainted Wood",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "land",
+    "manaCost": "",
+    "manaValue": 0,
+    "typeLine": "Land",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": [
+      {
+        "event": "land",
+        "effect": "mana fixing and/or utility according to printed ability"
+      }
+    ]
+  },
+  "Underground Mortuary": {
+    "name": "Underground Mortuary",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "land",
+    "manaCost": "",
+    "manaValue": 0,
+    "typeLine": "Land — Swamp Forest",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": [
+      {
+        "event": "land",
+        "effect": "mana fixing and/or utility according to printed ability"
+      }
+    ]
+  },
+  "Festering Thicket": {
+    "name": "Festering Thicket",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "land",
+    "manaCost": "",
+    "manaValue": 0,
+    "typeLine": "Land",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": [
+      {
+        "event": "land",
+        "effect": "mana fixing and/or utility according to printed ability"
+      }
+    ]
+  },
+  "Swarmyard": {
+    "name": "Swarmyard",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "land",
+    "manaCost": "",
+    "manaValue": 0,
+    "typeLine": "Land",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": [
+      {
+        "event": "land",
+        "effect": "mana fixing and/or utility according to printed ability"
+      }
+    ]
+  },
+  "Three Tree City": {
+    "name": "Three Tree City",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "land",
+    "manaCost": "",
+    "manaValue": 0,
+    "typeLine": "Legendary Land",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": [
+      {
+        "event": "land",
+        "effect": "mana fixing and/or utility according to printed ability"
+      }
+    ]
+  },
+  "High Market": {
+    "name": "High Market",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "land",
+    "manaCost": "",
+    "manaValue": 0,
+    "typeLine": "Land",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": [
+      {
+        "event": "land",
+        "effect": "mana fixing and/or utility according to printed ability"
+      }
+    ]
+  },
+  "Rogue's Passage": {
+    "name": "Rogue's Passage",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "land",
+    "manaCost": "",
+    "manaValue": 0,
+    "typeLine": "Land",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": [
+      {
+        "event": "land",
+        "effect": "mana fixing and/or utility according to printed ability"
+      }
+    ]
+  },
+  "Reliquary Tower": {
+    "name": "Reliquary Tower",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "land",
+    "manaCost": "",
+    "manaValue": 0,
+    "typeLine": "Land",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": [
+      {
+        "event": "land",
+        "effect": "mana fixing and/or utility according to printed ability"
+      }
+    ]
+  },
+  "Bojuka Bog": {
+    "name": "Bojuka Bog",
+    "quantity": 1,
+    "isCommander": false,
+    "category": "land",
+    "manaCost": "",
+    "manaValue": 0,
+    "typeLine": "Land",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Card participates in the deck according to its printed rules; use the tags/category for engine routing.",
+    "interactions": [
+      {
+        "event": "land",
+        "effect": "mana fixing and/or utility according to printed ability"
+      }
+    ]
+  },
+  "Forest": {
+    "name": "Forest",
+    "quantity": 9,
+    "isCommander": false,
+    "category": "land",
+    "manaCost": "",
+    "manaValue": 0,
+    "typeLine": "Basic Land — Forest",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Basic land. Tap: add {G}.",
+    "interactions": [
+      {
+        "event": "mana_ability",
+        "effect": "add {G}"
+      }
+    ]
+  },
+  "Swamp": {
+    "name": "Swamp",
+    "quantity": 7,
+    "isCommander": false,
+    "category": "land",
+    "manaCost": "",
+    "manaValue": 0,
+    "typeLine": "Basic Land — Swamp",
+    "power": null,
+    "toughness": null,
+    "keywordsOrTags": [],
+    "rulesSummary": "Basic land. Tap: add {B}.",
+    "interactions": [
+      {
+        "event": "mana_ability",
+        "effect": "add {B}"
+      }
+    ]
+  }
+}
