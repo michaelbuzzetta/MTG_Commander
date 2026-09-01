@@ -1,5 +1,0 @@
-Fixed Scryfall API access:
-- Sends a custom User-Agent on every Scryfall request.
-- Sends Accept: application/json.
-- Keeps Content-Type: application/json for collection POSTs.
-- Protects card/commander resolution against undefined results.
