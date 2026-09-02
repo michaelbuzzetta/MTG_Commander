@@ -366,19 +366,19 @@ button{cursor:pointer;color:inherit}
 .attack-defender{flex:0 0 auto;margin:3px 5px 0;padding:4px 6px;border:1px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(28,20,20,.8);color:#d9b0aa;font-size:8px;font-weight:850}
 .attack-defender:hover,.attack-defender.selected{border-color:#f28e7e;background:rgba(126,46,39,.55);color:#fff}
 .attack-defender.selected{box-shadow:inset 0 0 0 1px rgba(255,177,162,.12)}
-.opponent-play-area{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 55px;gap:2px;position:relative}
-.opponent-seat .battle-zone{padding:0 2px;border:0;border-radius:0 0 0 9px;min-width:0}
+.opponent-play-area{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:55px minmax(0,1fr);gap:2px;position:relative}
+.opponent-seat .battle-zone{padding:0 2px;border:0;border-radius:0 0 9px 0;min-width:0}
 .opponent-seat .battlefield{justify-content:center;gap:1px}
 .opponent-seat .permanent-row{min-height:36px}
 .opponent-seat .permanent-row.land-row{min-height:32px}
 .opponent-seat .permanent-cards{padding:0 20px 0 28px;gap:2px;align-content:center}
 .opponent-seat .row-label{left:3px;width:28px;font-size:5px;letter-spacing:.08em}
-.seat-command-slot{min-width:0;padding:4px 3px;text-align:center;border-left:1px solid rgba(255,255,255,.07);background:rgba(4,7,9,.24);border-radius:0 0 9px 0}
+.seat-command-slot{min-width:0;padding:4px 3px;text-align:center;border-right:1px solid rgba(255,255,255,.07);background:rgba(4,7,9,.24);border-radius:0 0 0 9px}
 .seat-command-slot>span{display:block;font-size:5px;font-weight:950;letter-spacing:.08em;color:#8d989b;margin-bottom:3px;overflow:hidden}
 .seat-command-slot .card{width:43px;height:60px;margin:auto}
 .opponents-2 .opponent-seat .card{width:47px;height:66px}.opponents-2 .opponent-seat .land-row .card{width:41px;height:57px}
 .opponents-3 .opponent-seat .card{width:42px;height:59px}.opponents-3 .opponent-seat .land-row .card{width:36px;height:51px;margin-left:-7px}.opponents-3 .opponent-seat .card.tapped{margin:0 9px}
-.opponents-3 .opponent-seat .permanent-cards{padding-left:25px;padding-right:8px;gap:1px}.opponents-3 .seat-command-slot{width:49px}.opponents-3 .opponent-play-area{grid-template-columns:minmax(0,1fr) 49px}.opponents-3 .seat-command-slot .card{width:39px;height:55px}
+.opponents-3 .opponent-seat .permanent-cards{padding-left:25px;padding-right:8px;gap:1px}.opponents-3 .seat-command-slot{width:49px}.opponents-3 .opponent-play-area{grid-template-columns:49px minmax(0,1fr)}.opponents-3 .seat-command-slot .card{width:39px;height:55px}
 .player-play-area{min-height:0;position:relative;display:block}
 .player-play-area>.battle-zone{height:100%}
 .player-play-area .player-command{bottom:5px}
@@ -411,4 +411,3 @@ button{cursor:pointer;color:inherit}
 @media(max-width:900px){
   .automation-controls label{font-size:6px;padding:3px 4px}.automation-controls button{max-width:104px;overflow:hidden;text-overflow:ellipsis}.resources{display:none}
 }
-

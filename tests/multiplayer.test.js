@@ -126,6 +126,13 @@ test('home UI exposes 2/3/4 player selection and per-opponent combat targeting',
   assert.match(app, /s\.combat\.currentDefender === 'player'/);
 });
 
+test('opponent commander column precedes a flexible full-width battlefield column', () => {
+  const css = fs.readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8');
+  assert.match(css, /\.opponent-play-area\{[^}]*grid-template-columns:55px minmax\(0,1fr\)/);
+  assert.match(css, /\.opponents-3 \.opponent-play-area\{grid-template-columns:49px minmax\(0,1fr\)\}/);
+  assert.doesNotMatch(css, /\.opponent-play-area\{[^}]*grid-template-columns:minmax\(0,1fr\) 55px/);
+});
+
 test('deterministic four-player AI simulation reaches a legal last-player-standing result', async () => {
   const { AIController } = await import('../src/ai/AIController.js');
   const e = multiplayerEngine(4);

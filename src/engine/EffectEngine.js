@@ -219,6 +219,66 @@ export class EffectEngine {
         e.emit(EVENT.ENTER_BATTLEFIELD, { controller: targetPlayerId, target: card });
         break;
       }
+      case 'jhoiraSuspend': {
+        const targetId = this._targetId(ctx);
+        const found = targetId ? ZoneManager.find(s, targetId) : null;
+        if (!found || found.zone !== 'hand' || found.card.owner !== pid || isType(e.db[found.card.cardId], 'Land')) break;
+        const card = e._moveZoneNow(found.card, 'exile', pid);
+        card.suspended = true;
+        card.counters.time = Number(effect.counters || 4);
+        e.log('CARD_SUSPENDED', { controller: pid, card: card.cardId, counters: card.counters.time });
+        break;
+      }
+      case 'adjustTimeCounters': {
+        const targetId = this._targetId(ctx);
+        const found = targetId ? ZoneManager.find(s, targetId) : null;
+        if (!found || found.zone !== 'exile' || !found.card.suspended) break;
+        found.card.counters.time = Math.max(0, Number(found.card.counters?.time || 0) + Number(effect.amount || 0));
+        e.log('TIME_COUNTERS_ADJUSTED', { controller: pid, card: found.card.cardId, remaining: found.card.counters.time });
+        if (found.card.counters.time === 0) e._castSuspendedCard(found.card, found.card.owner);
+        break;
+      }
+      case 'extraTurn': {
+        s.extraTurns[pid] = Number(s.extraTurns[pid] || 0) + this._amount(effect, ctx, 1);
+        e.log('EXTRA_TURN_CREATED', { controller: pid, amount: this._amount(effect, ctx, 1) });
+        break;
+      }
+      case 'resolveSagaChapter': {
+        const liveSaga = ctx.source?.instanceId ? e.findPermanent(ctx.source.instanceId) : null;
+        if (!liveSaga) break;
+        const chapter = effect.chapter || {};
+        const targetSource = chapter.targets ? { targets: chapter.targets } : null;
+        let targets = [];
+        if (targetSource) {
+          const candidates = e.targeting.getCandidates(pid, targetSource, [], { sourceObject: liveSaga });
+          const harmful = ['destroy','exile','damage','returnToHand'].includes(chapter.effect?.type);
+          candidates.sort((a, b) => Number((b.card?.controller !== pid) && harmful) - Number((a.card?.controller !== pid) && harmful));
+          if (candidates[0]) targets = [candidates[0].id];
+        }
+        this.resolve(chapter.effect, { controller: pid, source: liveSaga, targets, targeted: !!targetSource });
+        e.log('SAGA_CHAPTER_RESOLVED', { controller: pid, card: liveSaga.cardId, chapter: chapter.number });
+        const definition = e.db[liveSaga.cardId] || {};
+        const finalChapter = Math.max(0, ...(definition.sagaChapters || []).map(item => Number(item.number || 0)));
+        if (Number(chapter.number) === finalChapter) {
+          e.emit(EVENT.SAGA_FINAL_RESOLVED, { controller: pid, source: liveSaga, chapter: chapter.number });
+          const stillThere = e.findPermanent(liveSaga.instanceId);
+          if (stillThere) e.sacrifice(stillThere);
+        }
+        break;
+      }
+      case 'tomBombadilCascade': {
+        const tom = ctx.source?.instanceId ? e.findPermanent(ctx.source.instanceId) : null;
+        if (!tom || Number(tom.tomCascadeTurn) === Number(s.turn)) break;
+        tom.tomCascadeTurn = s.turn;
+        const sagaIndex = p.library.findIndex(card => hasSubtype(e.db[card.cardId], 'Saga'));
+        if (sagaIndex < 0) break;
+        const revealed = p.library.splice(0, sagaIndex + 1);
+        const saga = revealed.pop();
+        p.library.push(...shuffle(revealed, e.rng));
+        e._finishPermanentResolution({ card: saga, controller: pid, mode: null, castOption: 'tom-bombadil' }, []);
+        e.log('TOM_BOMBADIL_FOUND_SAGA', { controller: pid, card: saga.cardId, revealed: sagaIndex + 1 });
+        break;
+      }
       case 'encore': {
         const original = e.db[effect.cardId || ctx.source?.cardId] || {};
         const tokenDefinition = {
@@ -778,8 +838,10 @@ export class EffectEngine {
 
   _commitCounters(pid, permanent, type, amount) {
     if (!permanent || amount <= 0) return 0;
+    const prior = Number(permanent.counters[type] || 0);
     permanent.counters[type] = (permanent.counters[type] || 0) + amount;
     this.engine.emit(EVENT.COUNTERS_ADDED, { controller: pid, target: permanent, counterType: type, amount });
+    if (type === 'lore' && this.engine.static.hasSubtype(permanent, 'Saga')) this.engine._queueSagaChapters(permanent, prior + 1, prior + amount);
     return amount;
   }
 

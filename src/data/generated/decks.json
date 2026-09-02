@@ -2833,5 +2833,784 @@
         "quantity": 1
       }
     ]
+  },
+  {
+    "id": "temporal-paradox",
+    "name": "Temporal Paradox",
+    "format": "Commander",
+    "commander": "user-jhoira-of-the-ghitu",
+    "colorIdentity": [
+      "R",
+      "U"
+    ],
+    "playable": true,
+    "cardCount": 100,
+    "source": "User-supplied Commander deck list",
+    "notes": "Suspend impossible threats with Jhoira, manipulate time counters, and take extra turns while the future crashes into the present.",
+    "cards": [
+      {
+        "id": "user-jhoira-of-the-ghitu",
+        "quantity": 1
+      },
+      {
+        "id": "user-artisan-of-kozilek",
+        "quantity": 1
+      },
+      {
+        "id": "user-pathrazer-of-ulamog",
+        "quantity": 1
+      },
+      {
+        "id": "user-triplicate-titan",
+        "quantity": 1
+      },
+      {
+        "id": "user-ulamog-s-crusher",
+        "quantity": 1
+      },
+      {
+        "id": "user-it-that-betrays",
+        "quantity": 1
+      },
+      {
+        "id": "user-jin-gitaxias-progress-tyrant",
+        "quantity": 1
+      },
+      {
+        "id": "user-sphinx-of-the-second-sun",
+        "quantity": 1
+      },
+      {
+        "id": "user-consecrated-sphinx",
+        "quantity": 1
+      },
+      {
+        "id": "user-jhoira-s-timebug",
+        "quantity": 1
+      },
+      {
+        "id": "user-rift-elemental",
+        "quantity": 1
+      },
+      {
+        "id": "user-deep-sea-kraken",
+        "quantity": 1
+      },
+      {
+        "id": "sol-ring",
+        "quantity": 1
+      },
+      {
+        "id": "arcane-signet",
+        "quantity": 1
+      },
+      {
+        "id": "user-izzet-signet",
+        "quantity": 1
+      },
+      {
+        "id": "user-talisman-of-creativity",
+        "quantity": 1
+      },
+      {
+        "id": "user-fellwar-stone",
+        "quantity": 1
+      },
+      {
+        "id": "arch-mind-stone",
+        "quantity": 1
+      },
+      {
+        "id": "arch-thought-vessel",
+        "quantity": 1
+      },
+      {
+        "id": "user-basalt-monolith",
+        "quantity": 1
+      },
+      {
+        "id": "user-thran-dynamo",
+        "quantity": 1
+      },
+      {
+        "id": "user-gilded-lotus",
+        "quantity": 1
+      },
+      {
+        "id": "user-clockspinning",
+        "quantity": 1
+      },
+      {
+        "id": "user-fury-charm",
+        "quantity": 1
+      },
+      {
+        "id": "user-timecrafting",
+        "quantity": 1
+      },
+      {
+        "id": "user-delay",
+        "quantity": 1
+      },
+      {
+        "id": "user-ancestral-vision",
+        "quantity": 1
+      },
+      {
+        "id": "user-wheel-of-fate",
+        "quantity": 1
+      },
+      {
+        "id": "user-paradox-haze",
+        "quantity": 1
+      },
+      {
+        "id": "user-as-foretold",
+        "quantity": 1
+      },
+      {
+        "id": "user-omniscience",
+        "quantity": 1
+      },
+      {
+        "id": "user-time-stretch",
+        "quantity": 1
+      },
+      {
+        "id": "user-temporal-mastery",
+        "quantity": 1
+      },
+      {
+        "id": "user-temporal-trespass",
+        "quantity": 1
+      },
+      {
+        "id": "user-nexus-of-fate",
+        "quantity": 1
+      },
+      {
+        "id": "user-beacon-of-tomorrows",
+        "quantity": 1
+      },
+      {
+        "id": "user-evacuation",
+        "quantity": 1
+      },
+      {
+        "id": "arch-chaos-warp",
+        "quantity": 1
+      },
+      {
+        "id": "user-pongify",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-rapid-hybridization",
+        "quantity": 1
+      },
+      {
+        "id": "user-reality-shift",
+        "quantity": 1
+      },
+      {
+        "id": "user-resculpt",
+        "quantity": 1
+      },
+      {
+        "id": "user-vandalblast",
+        "quantity": 1
+      },
+      {
+        "id": "user-blasphemous-act",
+        "quantity": 1
+      },
+      {
+        "id": "user-counterspell",
+        "quantity": 1
+      },
+      {
+        "id": "user-arcane-denial",
+        "quantity": 1
+      },
+      {
+        "id": "user-negate",
+        "quantity": 1
+      },
+      {
+        "id": "user-wash-away",
+        "quantity": 1
+      },
+      {
+        "id": "arch-swan-song",
+        "quantity": 1
+      },
+      {
+        "id": "user-an-offer-you-can-t-refuse",
+        "quantity": 1
+      },
+      {
+        "id": "user-flusterstorm",
+        "quantity": 1
+      },
+      {
+        "id": "user-pact-of-negation",
+        "quantity": 1
+      },
+      {
+        "id": "user-bolt-bend",
+        "quantity": 1
+      },
+      {
+        "id": "user-narset-s-reversal",
+        "quantity": 1
+      },
+      {
+        "id": "user-mystic-remora",
+        "quantity": 1
+      },
+      {
+        "id": "user-fact-or-fiction",
+        "quantity": 1
+      },
+      {
+        "id": "user-brainstorm",
+        "quantity": 1
+      },
+      {
+        "id": "user-ponder",
+        "quantity": 1
+      },
+      {
+        "id": "user-preordain",
+        "quantity": 1
+      },
+      {
+        "id": "user-jeska-s-will",
+        "quantity": 1
+      },
+      {
+        "id": "user-dig-through-time",
+        "quantity": 1
+      },
+      {
+        "id": "user-treasure-cruise",
+        "quantity": 1
+      },
+      {
+        "id": "user-frantic-search",
+        "quantity": 1
+      },
+      {
+        "id": "user-lightning-greaves",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-swiftfoot-boots",
+        "quantity": 1
+      },
+      {
+        "id": "command-tower",
+        "quantity": 1
+      },
+      {
+        "id": "arch-steam-vents",
+        "quantity": 1
+      },
+      {
+        "id": "arch-training-center",
+        "quantity": 1
+      },
+      {
+        "id": "user-spirebluff-canal",
+        "quantity": 1
+      },
+      {
+        "id": "user-stormcarved-coast",
+        "quantity": 1
+      },
+      {
+        "id": "user-shivan-reef",
+        "quantity": 1
+      },
+      {
+        "id": "user-sulfur-falls",
+        "quantity": 1
+      },
+      {
+        "id": "user-riverglide-pathway",
+        "quantity": 1
+      },
+      {
+        "id": "user-cascade-bluffs",
+        "quantity": 1
+      },
+      {
+        "id": "user-fiery-islet",
+        "quantity": 1
+      },
+      {
+        "id": "user-temple-of-epiphany",
+        "quantity": 1
+      },
+      {
+        "id": "user-frostboil-snarl",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-myriad-landscape",
+        "quantity": 1
+      },
+      {
+        "id": "user-desolate-lighthouse",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-reliquary-tower",
+        "quantity": 1
+      },
+      {
+        "id": "user-otawara-soaring-city",
+        "quantity": 1
+      },
+      {
+        "id": "arch-exotic-orchard",
+        "quantity": 1
+      },
+      {
+        "id": "arch-reflecting-pool",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-temple-of-the-false-god",
+        "quantity": 1
+      },
+      {
+        "id": "island",
+        "quantity": 10
+      },
+      {
+        "id": "mountain",
+        "quantity": 6
+      }
+    ]
+  },
+  {
+    "id": "never-ending-story",
+    "name": "Never Ending Story",
+    "format": "Commander",
+    "commander": "user-tom-bombadil",
+    "colorIdentity": [
+      "B",
+      "G",
+      "R",
+      "U",
+      "W"
+    ],
+    "playable": true,
+    "cardCount": 100,
+    "source": "User-supplied Commander deck list",
+    "notes": "Tell an endless five-color chain of Sagas with Tom Bombadil, moving lore counters and turning every final chapter into the next story.",
+    "cards": [
+      {
+        "id": "arcane-signet",
+        "quantity": 1
+      },
+      {
+        "id": "user-archon-of-sun-s-grace",
+        "quantity": 1
+      },
+      {
+        "id": "arch-arid-mesa",
+        "quantity": 1
+      },
+      {
+        "id": "user-barbara-wright",
+        "quantity": 1
+      },
+      {
+        "id": "user-binding-the-old-gods",
+        "quantity": 1
+      },
+      {
+        "id": "user-birds-of-paradise",
+        "quantity": 1
+      },
+      {
+        "id": "user-birth-of-the-imperium",
+        "quantity": 1
+      },
+      {
+        "id": "user-blood-crypt",
+        "quantity": 1
+      },
+      {
+        "id": "user-bloodstained-mire",
+        "quantity": 1
+      },
+      {
+        "id": "user-bloom-tender",
+        "quantity": 1
+      },
+      {
+        "id": "user-boseiju-who-endures",
+        "quantity": 1
+      },
+      {
+        "id": "user-breeding-pool",
+        "quantity": 1
+      },
+      {
+        "id": "user-chromatic-lantern",
+        "quantity": 1
+      },
+      {
+        "id": "user-city-of-brass",
+        "quantity": 1
+      },
+      {
+        "id": "command-tower",
+        "quantity": 1
+      },
+      {
+        "id": "user-cyclonic-rift",
+        "quantity": 1
+      },
+      {
+        "id": "user-demonic-tutor",
+        "quantity": 1
+      },
+      {
+        "id": "user-destiny-spinner",
+        "quantity": 1
+      },
+      {
+        "id": "user-dryad-of-the-ilysian-grove",
+        "quantity": 1
+      },
+      {
+        "id": "arch-eidolon-of-blossoms",
+        "quantity": 1
+      },
+      {
+        "id": "user-elspeth-conquers-death",
+        "quantity": 1
+      },
+      {
+        "id": "user-enchantress-s-presence",
+        "quantity": 1
+      },
+      {
+        "id": "user-enlightened-tutor",
+        "quantity": 1
+      },
+      {
+        "id": "user-estrid-s-invocation",
+        "quantity": 1
+      },
+      {
+        "id": "arch-exotic-orchard",
+        "quantity": 1
+      },
+      {
+        "id": "user-fable-of-the-mirror-breaker-reflection-of-kiki-jiki",
+        "quantity": 1
+      },
+      {
+        "id": "user-farseek",
+        "quantity": 1
+      },
+      {
+        "id": "user-fierce-guardianship",
+        "quantity": 1
+      },
+      {
+        "id": "arch-flooded-strand",
+        "quantity": 1
+      },
+      {
+        "id": "forest",
+        "quantity": 1
+      },
+      {
+        "id": "user-godless-shrine",
+        "quantity": 1
+      },
+      {
+        "id": "user-goldberry-river-daughter",
+        "quantity": 1
+      },
+      {
+        "id": "user-hall-of-heliod-s-generosity",
+        "quantity": 1
+      },
+      {
+        "id": "arch-hallowed-fountain",
+        "quantity": 1
+      },
+      {
+        "id": "user-heroic-intervention",
+        "quantity": 1
+      },
+      {
+        "id": "user-historian-s-boon",
+        "quantity": 1
+      },
+      {
+        "id": "user-in-the-darkness-bind-them",
+        "quantity": 1
+      },
+      {
+        "id": "user-indatha-triome",
+        "quantity": 1
+      },
+      {
+        "id": "user-jugan-defends-the-temple-remnant-of-the-rising-star",
+        "quantity": 1
+      },
+      {
+        "id": "user-jukai-naturalist",
+        "quantity": 1
+      },
+      {
+        "id": "user-ketria-triome",
+        "quantity": 1
+      },
+      {
+        "id": "user-kiora-bests-the-sea-god",
+        "quantity": 1
+      },
+      {
+        "id": "arch-mana-confluence",
+        "quantity": 1
+      },
+      {
+        "id": "user-marsh-flats",
+        "quantity": 1
+      },
+      {
+        "id": "user-misty-rainforest",
+        "quantity": 1
+      },
+      {
+        "id": "user-narci-fable-singer",
+        "quantity": 1
+      },
+      {
+        "id": "arch-nature-s-lore",
+        "quantity": 1
+      },
+      {
+        "id": "arch-nesting-grounds",
+        "quantity": 1
+      },
+      {
+        "id": "user-one-ring-to-rule-them-all",
+        "quantity": 1
+      },
+      {
+        "id": "user-otawara-soaring-city",
+        "quantity": 1
+      },
+      {
+        "id": "user-overgrown-tomb",
+        "quantity": 1
+      },
+      {
+        "id": "user-polluted-delta",
+        "quantity": 1
+      },
+      {
+        "id": "arch-power-conduit",
+        "quantity": 1
+      },
+      {
+        "id": "arch-reflecting-pool",
+        "quantity": 1
+      },
+      {
+        "id": "user-resurgent-belief",
+        "quantity": 1
+      },
+      {
+        "id": "user-rhystic-study",
+        "quantity": 1
+      },
+      {
+        "id": "arch-sacred-foundry",
+        "quantity": 1
+      },
+      {
+        "id": "arch-sanctum-weaver",
+        "quantity": 1
+      },
+      {
+        "id": "user-satsuki-the-living-lore",
+        "quantity": 1
+      },
+      {
+        "id": "arch-scalding-tarn",
+        "quantity": 1
+      },
+      {
+        "id": "user-scroll-of-isildur",
+        "quantity": 1
+      },
+      {
+        "id": "arch-setessan-champion",
+        "quantity": 1
+      },
+      {
+        "id": "user-sigurd-jarl-of-ravensthorpe",
+        "quantity": 1
+      },
+      {
+        "id": "sol-ring",
+        "quantity": 1
+      },
+      {
+        "id": "user-spara-s-headquarters",
+        "quantity": 1
+      },
+      {
+        "id": "user-starfield-of-nyx",
+        "quantity": 1
+      },
+      {
+        "id": "arch-steam-vents",
+        "quantity": 1
+      },
+      {
+        "id": "user-sterling-grove",
+        "quantity": 1
+      },
+      {
+        "id": "user-stomping-ground",
+        "quantity": 1
+      },
+      {
+        "id": "user-summon-bahamut",
+        "quantity": 1
+      },
+      {
+        "id": "user-summon-knights-of-round",
+        "quantity": 1
+      },
+      {
+        "id": "user-summon-primal-odin",
+        "quantity": 1
+      },
+      {
+        "id": "user-summon-yojimbo",
+        "quantity": 1
+      },
+      {
+        "id": "arch-swan-song",
+        "quantity": 1
+      },
+      {
+        "id": "arch-swords-to-plowshares",
+        "quantity": 1
+      },
+      {
+        "id": "user-sythis-harvest-s-hand",
+        "quantity": 1
+      },
+      {
+        "id": "user-teferi-s-protection",
+        "quantity": 1
+      },
+      {
+        "id": "user-temple-garden",
+        "quantity": 1
+      },
+      {
+        "id": "user-the-akroan-war",
+        "quantity": 1
+      },
+      {
+        "id": "user-the-cruelty-of-gix",
+        "quantity": 1
+      },
+      {
+        "id": "user-the-eldest-reborn",
+        "quantity": 1
+      },
+      {
+        "id": "user-the-first-iroan-games",
+        "quantity": 1
+      },
+      {
+        "id": "user-the-horus-heresy",
+        "quantity": 1
+      },
+      {
+        "id": "user-the-kami-war-o-kagachi-made-manifest",
+        "quantity": 1
+      },
+      {
+        "id": "user-the-restoration-of-eiganjo-architect-of-restoration",
+        "quantity": 1
+      },
+      {
+        "id": "user-the-weatherseed-treaty",
+        "quantity": 1
+      },
+      {
+        "id": "user-the-world-tree",
+        "quantity": 1
+      },
+      {
+        "id": "user-there-and-back-again",
+        "quantity": 1
+      },
+      {
+        "id": "user-three-visits",
+        "quantity": 1
+      },
+      {
+        "id": "user-tom-bombadil",
+        "quantity": 1
+      },
+      {
+        "id": "user-urza-s-saga",
+        "quantity": 1
+      },
+      {
+        "id": "user-vampiric-tutor",
+        "quantity": 1
+      },
+      {
+        "id": "user-verdant-catacombs",
+        "quantity": 1
+      },
+      {
+        "id": "user-war-of-the-last-alliance",
+        "quantity": 1
+      },
+      {
+        "id": "arch-watery-grave",
+        "quantity": 1
+      },
+      {
+        "id": "user-weaver-of-harmony",
+        "quantity": 1
+      },
+      {
+        "id": "user-windswept-heath",
+        "quantity": 1
+      },
+      {
+        "id": "user-wooded-foothills",
+        "quantity": 1
+      },
+      {
+        "id": "user-yenna-redtooth-regent",
+        "quantity": 1
+      },
+      {
+        "id": "user-zagoth-triome",
+        "quantity": 1
+      }
+    ]
   }
 ]

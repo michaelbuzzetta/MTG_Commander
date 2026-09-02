@@ -36,6 +36,7 @@ npm run build-db          # deterministic local build
 npm run check-db          # validate without writing
 npm run build-db:refresh  # build + Scryfall descriptive metadata refresh
 npm run import-archidekt  # rebuild the five bundled Archidekt decks from captured public data
+npm run import-user-decks # rebuild Temporal Paradox and Never Ending Story from captured card data
 ```
 
 ## Bundled Archidekt decks
@@ -50,6 +51,13 @@ Five public 100-card Commander main decks are bundled as playable choices. Sideb
 
 Their exact public card records and section configuration are retained in `archidekt-selected-decks.json` and `archidekt-category-config.json`. The deterministic importer merges shared cards by name, retains card text and art metadata, compiles common draw/removal/ramp/token/Aura/Equipment/Myriad/manifest behavior, and installs explicit rules for each deck's defining commander mechanic.
 
+## Added user decks
+
+- **Temporal Paradox** — Jhoira of the Ghitu suspends nonland cards with four time counters; upkeep and time-counter effects count them down and cast them for free. Its Time Stretch family also schedules real extra turns.
+- **Never Ending Story** — Tom Bombadil advances 24 Sagas through lore-counter chapter triggers, gains hexproof and indestructible at four total lore, and finds the next Saga when a final chapter resolves (once each turn).
+
+The exact supplied lists are retained in `user-decks.json`; the matching Scryfall oracle/art capture is retained in `user-deck-card-data.json`. Together they expand the deterministic local database to 647 cards and 13 selectable Commander decks.
+
 ## Verification
 
 ```bash
@@ -60,7 +68,7 @@ npm run verify
 
 ## Scope
 
-This is a training simulator implementing the mechanics represented by its structured card database, not a complete implementation of every rule/card ever printed in Magic. The exact stock Explorers of the Deep deck and all five Archidekt decks are selectable. The Archidekt importer models reusable common effects and the five central commander engines; unusually specialized individual-card clauses outside those primitives remain simplified to the closest supported behavior. All selectable decks pass Commander singleton, color-identity, resolvability, and 100-card validation.
+This is a training simulator implementing the mechanics represented by its structured card database, not a complete implementation of every rule/card ever printed in Magic. The exact stock Explorers of the Deep deck, all five Archidekt decks, Temporal Paradox, and Never Ending Story are selectable. The importers model reusable common effects and each deck's central commander engine; unusually specialized individual-card clauses outside those primitives remain simplified to the closest supported behavior. All selectable decks pass Commander singleton, color-identity, resolvability, and 100-card validation.
 
 ## Custom Commander deck import
 

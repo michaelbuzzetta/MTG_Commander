@@ -518,6 +518,7 @@ export class GameEngine {
     if (action.type === 'CAST_COMMANDER' && (f.zone !== 'command' || !f.card.isCommander)) throw new Error('CAST_COMMANDER requires your commander in the command zone');
     if (action.type === 'CAST_SPELL' && f.zone === 'command') throw new Error('Use CAST_COMMANDER for a commander in the command zone');
     if (!d || isType(d, 'Land')) throw new Error('Lands are not cast as spells');
+    if (d.castOnlyFromSuspend && !f.card.suspended) throw new Error('This card has no mana cost and must be cast from suspend');
     if (hideaway && mode?.fromZone && mode.fromZone !== 'hand') throw new Error('That face of the card cannot be cast from hideaway');
     if (foretold && Number(f.card.foretoldTurn ?? s.turn) >= Number(s.turn)) throw new Error('A foretold card may only be cast on a later turn');
     if (((Array.isArray(d.modes) && d.modes.length) || d.xMode) && !mode) throw new Error('A valid spell mode is required');
@@ -770,6 +771,12 @@ export class GameEngine {
         this.draw(s.activePlayer);
         s.priorityPlayer = s.activePlayer;
         break;
+      case 'UPKEEP':
+        this._processSuspendUpkeep(s.activePlayer);
+        break;
+      case 'PRECOMBAT_MAIN':
+        this._advanceSagas(s.activePlayer);
+        break;
       case 'BEGIN_COMBAT':
         this.emit(EVENT.BEGIN_COMBAT, { controller: s.activePlayer });
         break;
@@ -838,8 +845,14 @@ export class GameEngine {
     const s = this.state;
     if (s.winner) { s.priorityPlayer = null; return; }
     for (const p of Object.values(s.players)) this.mana.clear(p);
+    const finishingPlayer = s.activePlayer;
     s.turn++;
-    s.activePlayer = this.nextPlayer(s.activePlayer);
+    if (Number(s.extraTurns?.[finishingPlayer] || 0) > 0) {
+      s.extraTurns[finishingPlayer]--;
+      s.activePlayer = finishingPlayer;
+    } else {
+      s.activePlayer = this.nextPlayer(finishingPlayer);
+    }
     s.phaseIndex = 0;
     s.phase = PHASES[0];
     s.passes = 0;
@@ -847,6 +860,50 @@ export class GameEngine {
     s.turnActionPending = null;
     s.cleanupPriority = false;
     this._beginPhase(INTERNAL);
+  }
+
+  _castSuspendedCard(card, controller) {
+    const found = ZoneManager.find(this.state, card?.instanceId);
+    if (!found || found.zone !== 'exile' || !card.suspended) return false;
+    found.player?.exile.splice(found.index, 1);
+    card.zone = 'stack';
+    card.controller = controller;
+    card.suspended = false;
+    delete card.counters.time;
+    const item = { id: `suspend-${card.instanceId}`, type: 'spell', controller, card, targets: [], mode: null, castOption: 'suspend' };
+    this.state.stack.push(item);
+    this.emit(EVENT.SPELL_CAST, { controller, card, targets: [], castOption: 'suspend' });
+    this.log('SUSPEND_CAST', { controller, card: card.cardId, instanceId: card.instanceId });
+    return true;
+  }
+
+  _processSuspendUpkeep(playerId) {
+    const player = this.state.players[playerId];
+    for (const card of [...(player?.exile || [])]) {
+      if (!card.suspended || Number(card.counters?.time || 0) <= 0) continue;
+      card.counters.time--;
+      this.log('TIME_COUNTER_REMOVED', { controller: playerId, card: card.cardId, remaining: card.counters.time });
+      if (card.counters.time <= 0) this._castSuspendedCard(card, playerId);
+    }
+  }
+
+  _advanceSagas(playerId) {
+    const sagas = [...(this.state.players[playerId]?.battlefield || [])].filter(card => this.static.hasSubtype(card, 'Saga'));
+    for (const saga of sagas) this.effects.addCounters(playerId, saga, 'lore', 1);
+  }
+
+  _queueSagaChapters(saga, fromChapter, throughChapter) {
+    const definition = this.db[saga?.cardId] || {};
+    const chapters = definition.sagaChapters || [];
+    for (const chapter of chapters.filter(item => item.number >= fromChapter && item.number <= throughChapter)) {
+      this.state.stack.push({
+        id: `saga-${saga.instanceId}-${chapter.number}-${Date.now()}-${Math.random()}`,
+        type: 'trigger', controller: saga.controller, source: structuredClone(saga),
+        ability: { type: 'triggered', event: 'LORE_COUNTER_ADDED' },
+        effect: { type: 'resolveSagaChapter', chapter: structuredClone(chapter) }, targets: []
+      });
+      this.log('SAGA_CHAPTER_TRIGGERED', { controller: saga.controller, card: saga.cardId, chapter: chapter.number });
+    }
   }
 
   _beginCleanup(token) {

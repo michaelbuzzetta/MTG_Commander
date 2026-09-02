@@ -95,6 +95,7 @@ export function createGameState(deckA, deckBOrDecks, db, rng = Math.random) {
     turnActionPending: null,
     cleanupPriority: false,
     cardsDrawnThisTurn: keyed(0),
+    extraTurns: keyed(0),
     castingPermissions: [],
     pendingResolution: null,
     turnMemory: keyed(() => ({})),

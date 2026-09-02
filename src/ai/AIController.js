@@ -580,6 +580,8 @@ export class AIController {
     if (effects.has('counterSpellTarget')) value += s.stack.length ? 14 + this.stackThreat(s.stack[s.stack.length - 1]) * 0.35 : -18;
     if (effects.has('createToken')) value += 5;
     if (effects.has('createSpiritsPerPermanent') || effects.has('stanggTwin')) value += 12;
+    if (effects.has('extraTurn')) value += 28;
+    if (effects.has('tomBombadilCascade')) value += 18;
     if (effects.has('ertaiCounterOrDestroy')) value += s.stack.length ? 18 : 10;
     if (effects.has('proliferate')) {
       const countered = p.battlefield.filter(permanent => Object.values(permanent.counters || {}).some(Number)).length;
@@ -650,6 +652,8 @@ export class AIController {
     if (effects.has('stationCharge')) value += Number(source.counters?.charge || 0) < 8 ? 16 : 3;
     if (effects.has('createSpiritsPerPermanent')) value += Math.max(10, s.players[this.id].battlefield.length * 3);
     if (effects.has('bulliesDonate')) value += 18;
+    if (effects.has('jhoiraSuspend')) value += 20;
+    if (effects.has('adjustTimeCounters')) value += 11;
     if (action.ability?.cost?.life) value -= Number(action.ability.cost.life) * (s.players[this.id].life < 10 ? 3 : 0.5);
     if (action.ability?.tap && s.activePlayer === this.id && s.phase === 'PRECOMBAT_MAIN' && e.static.isType(source, 'Creature') && this.attackScore(source, this.chooseDefender()) > 0) value -= 9;
     return value;

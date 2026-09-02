@@ -75,6 +75,12 @@ export class StaticEngine {
     const when = ability.when || ability.conditionStatic || {};
     if (when.sourceCounterMin != null && counterCount(source, when.counterType || 'level') < Number(when.sourceCounterMin)) return false;
     if (when.sourceCounterMax != null && counterCount(source, when.counterType || 'level') > Number(when.sourceCounterMax)) return false;
+    if (when.controllerSagaLoreMin != null) {
+      const lore = (this.engine.state.players[source.controller]?.battlefield || [])
+        .filter(permanent => this.hasSubtype(permanent, 'Saga'))
+        .reduce((sum, permanent) => sum + counterCount(permanent, 'lore'), 0);
+      if (lore < Number(when.controllerSagaLoreMin)) return false;
+    }
     if (when.controllerPermanents) {
       const spec = when.controllerPermanents;
       const count = (this.engine.state.players[source.controller]?.battlefield || []).filter(target => {
