@@ -64,7 +64,12 @@ export class AIController {
           .map(replacement => replacement.id);
         return { type: 'ORDER_REPLACEMENTS', replacementIds: replacementIds.length ? replacementIds : [...choice.replacementIds] };
       }
-      if (choice.type === 'EXPLORE_NONLAND') return { type: 'CHOOSE_EXPLORE', putInGraveyard: true };
+      if (choice.type === 'EXPLORE_NONLAND') {
+        const card = s.players[this.id].library.find(item => item.instanceId === choice.cardInstanceId) || s.players[this.id].library[0];
+        const def = card ? e.db[card.cardId] : null;
+        const keep = def ? this.cardStrategicValue(def, { zone: 'library' }) : 0;
+        return { type: 'CHOOSE_EXPLORE', putInGraveyard: keep < 8 };
+      }
       if (choice.type === 'EXPLORE_ORDER') return { type: 'ORDER_EXPLORES', permanentIds: [...choice.permanentIds] };
       if (choice.type === 'HAKBAL_ATTACK') return { type: 'CHOOSE_HAKBAL_ATTACK', landInstanceId: choice.landInstanceIds[0] || null };
       if (choice.type === 'CULTIVATE_SEARCH') return { type: 'CHOOSE_CULTIVATE', cardInstanceIds: choice.eligibleIds.slice(0, 2) };
@@ -76,16 +81,15 @@ export class AIController {
         return { type: 'CHOOSE_SISAY_TUTOR', cardInstanceId: best?.id || null };
       }
       if (choice.type === 'SCRY') {
-        const top = s.players[this.id].library[0];
-        return { type: 'CHOOSE_SCRY', putOnBottom: !!top && !isType(e.db[top.cardId], 'Land') };
+        const top = s.players[this.id].library.find(item => item.instanceId === choice.cardInstanceId) || s.players[this.id].library[0];
+        const def = top ? e.db[top.cardId] : null;
+        const putOnBottom = !!def && this.shouldBottomTopCard(def);
+        return { type: 'CHOOSE_SCRY', putOnBottom };
       }
       if (choice.type === 'TRIGGER_TARGET') {
-        const count = Math.max(choice.minTargets || 0, Math.min(choice.maxTargets || 1, 1));
-        const preferred = [...choice.candidateIds].sort((a,b) => {
-          const ao = s.players[a] ? (a === this.id ? 1 : 0) : (e.findPermanent(a)?.controller === this.id ? 1 : 0);
-          const bo = s.players[b] ? (b === this.id ? 1 : 0) : (e.findPermanent(b)?.controller === this.id ? 1 : 0);
-          return ao - bo;
-        }).slice(0,count);
+        const trigger = s.pendingTriggers.find(item => item.id === choice.triggerId);
+        const count = Math.max(choice.minTargets || 0, Math.min(choice.maxTargets || 1, choice.candidateIds.length));
+        const preferred = this.rankTargetIds(choice.candidateIds, trigger?.effect, trigger?.ability).slice(0, count);
         return { type: 'CHOOSE_TRIGGER_TARGET', targetIds: preferred };
       }
       if (choice.type === 'CREATURE_TYPE') return { type: 'CHOOSE_CREATURE_TYPE', creatureType: choice.options.includes('Merfolk') ? 'Merfolk' : choice.options[0] };
@@ -105,7 +109,7 @@ export class AIController {
           }
           return { type: 'CHOOSE_EFFECT_CARDS', cardInstanceIds: best.slice(0, Math.max(choice.min || 0, Math.min(choice.max || 0, best.length))) };
         }
-        return { type: 'CHOOSE_EFFECT_CARDS', cardInstanceIds: choice.candidateIds.slice(0, take) };
+        return { type: 'CHOOSE_EFFECT_CARDS', cardInstanceIds: this.rankCardChoiceIds(choice.candidateIds).slice(0, take) };
       }
       if (choice.type === 'COPY_TARGETS') return { type: 'CHOOSE_COPY_TARGETS', targetIds: [...choice.originalTargets] };
       if (choice.type === 'ENTRY_REVEAL') return { type: 'CHOOSE_ENTRY_REVEAL', cardInstanceId: choice.candidateIds[0] || null };
@@ -138,15 +142,7 @@ export class AIController {
     // Mandatory turn-based actions come before any optional resource action. This
     // prevents the AI from tapping creatures for speculative mana before combat.
     if (s.turnActionPending === 'DECLARE_ATTACKERS' && s.activePlayer === this.id) {
-      const defender = this.chooseDefender();
-      const attackers = defender
-        ? e.combat.legalAttackers(this.id).filter(attacker => this.attackScore(attacker, defender) > 0).map(attacker => attacker.instanceId)
-        : [];
-      const action = {
-        type: 'DECLARE_ATTACKERS',
-        attackers,
-        attackTargets: Object.fromEntries(attackers.map(id => [id, defender]))
-      };
+      const action = this.chooseAttackPlan();
       return e.isActionLegal(this.id, action) ? action : { type: 'DECLARE_ATTACKERS', attackers: [], attackTargets: {} };
     }
     if (s.turnActionPending === 'DECLARE_BLOCKERS' && s.activePlayer !== this.id) {
@@ -158,9 +154,9 @@ export class AIController {
 
     const castables = acts.filter(action => ['CAST_SPELL', 'CAST_COMMANDER'].includes(action.type));
     if (castables.length) {
-      const ranked = [...castables].sort((a, b) => this.score(b) - this.score(a));
+      const ranked = castables.map(action => ({ action, value: this.score(action) })).sort((a, b) => b.value - a.value);
       const best = ranked[0];
-      if (this.score(best) >= this.castThreshold(best)) return best;
+      if (best && best.value >= this.castThreshold(best.action)) return best.action;
     }
 
     // Casting already uses the engine's deterministic payment plan. A standalone
@@ -176,6 +172,169 @@ export class AIController {
 
 
 
+  cardStrategicValue(definition, { zone = 'hand' } = {}) {
+    if (!definition) return 0;
+    const effects = this.effectTypes([definition.spellEffects, definition.onEnterEffects, ...(definition.abilities || []).map(a => a.effect)]);
+    let value = 4 + Number(definition.manaValue || 0) * 1.1;
+    if (isType(definition, 'Land')) return this.handNeedsLand() ? 14 : 3;
+    if (isType(definition, 'Creature')) value += 5 + Number(definition.power || 0) + Number(definition.toughness || 0) * 0.45;
+    if (this.isRamp(definition, effects)) value += this.engine.state.players[this.id].battlefield.filter(p => this.engine.static.isType(p, 'Land')).length < 5 ? 12 : 3;
+    if (['draw','drawDiscard','drawEventAmount','conditionalDraw','drawPerCreatures','drawPerCreaturesWithCounter'].some(x => effects.has(x))) value += 10;
+    if (['destroy','damage','returnToHand','returnTarget','gainControl','counterSpellTarget','ruinousIntrusion'].some(x => effects.has(x))) value += 11;
+    if (effects.has('createToken')) value += 5;
+    if (effects.has('proliferate') || effects.has('doubleCounters') || effects.has('addCountersAll')) value += 5;
+    if (zone === 'library' && Number(definition.manaValue || 0) > 7 && this.availableManaEstimate() < 5) value -= 5;
+    return value;
+  }
+
+  shouldBottomTopCard(definition) {
+    const p = this.engine.state.players[this.id];
+    const landsInHand = p.hand.filter(card => isType(this.engine.db[card.cardId], 'Land')).length;
+    const landsInPlay = p.battlefield.filter(card => this.engine.static.isType(card, 'Land')).length;
+    if (isType(definition, 'Land')) return landsInHand >= 3 || landsInPlay >= 7;
+    if (landsInPlay < 3 && landsInHand === 0 && Number(definition.manaValue || 0) >= 4) return true;
+    return this.cardStrategicValue(definition, { zone: 'library' }) < 7;
+  }
+
+  handNeedsLand() {
+    const p = this.engine.state.players[this.id];
+    const landsInHand = p.hand.filter(card => isType(this.engine.db[card.cardId], 'Land')).length;
+    const landsInPlay = p.battlefield.filter(card => this.engine.static.isType(card, 'Land')).length;
+    return landsInPlay < 5 && landsInHand < 2;
+  }
+
+  availableManaEstimate() {
+    const e = this.engine, p = e.state.players[this.id];
+    let total = Object.values(p.manaPool || {}).reduce((sum, n) => sum + Number(n || 0), 0);
+    for (const permanent of p.battlefield) {
+      if (permanent.tapped || permanent.phasedOut) continue;
+      const abilities = e.static.effectiveAbilities(permanent) || [];
+      if (abilities.some(ability => ability.type === 'mana')) total += 1;
+    }
+    return total;
+  }
+
+  rankCardChoiceIds(ids) {
+    const p = this.engine.state.players[this.id];
+    const zones = ['library','hand','graveyard','exile'];
+    return [...ids].map(id => {
+      const card = zones.flatMap(z => p[z] || []).find(item => item.instanceId === id);
+      return { id, value: this.cardStrategicValue(card ? this.engine.db[card.cardId] : null, { zone: card?.zone || 'library' }) };
+    }).sort((a, b) => b.value - a.value || a.id.localeCompare(b.id)).map(item => item.id);
+  }
+
+  rankTargetIds(ids, effect = null, source = null) {
+    const effects = this.effectTypes([effect, source?.effect]);
+    const harmful = ['damage','destroy','returnToHand','returnTarget','returnAttackers','returnCreaturesWithoutCounter','ruinousIntrusion','gainControl','counterSpellTarget'];
+    const helpful = ['gainLife','gainLifeTarget','addCounter','addCounterSource','addCounterTarget','addCountersAll','pump','pumpEventObject','untap','doubleCounters','attachEquipment','preventDamage'];
+    const hostile = harmful.some(type => effects.has(type));
+    const friendly = helpful.some(type => effects.has(type));
+    return [...ids].map(id => {
+      let value = 0;
+      const player = this.engine.state.players[id];
+      if (player) {
+        const mine = id === this.id;
+        if (hostile) value += mine ? -100 : this.playerThreat(id) + (40 - player.life) * 2;
+        if (friendly) value += mine ? 80 : -50;
+      } else {
+        const permanent = this.engine.findPermanent(id);
+        if (permanent) {
+          const mine = permanent.controller === this.id;
+          const threat = this.permanentThreat(permanent);
+          if (hostile) value += mine ? -100 - threat : threat * 2.2 + this.playerThreat(permanent.controller) * 0.25;
+          if (friendly) value += mine ? 30 + threat : -60 - threat;
+        }
+      }
+      return { id, value };
+    }).sort((a, b) => b.value - a.value || a.id.localeCompare(b.id)).map(item => item.id);
+  }
+
+  playerThreat(pid) {
+    const e = this.engine, p = e.state.players[pid];
+    if (!p || p.lost) return -Infinity;
+    const board = p.battlefield.filter(card => !card.phasedOut);
+    const permanents = board.reduce((sum, card) => sum + this.permanentThreat(card), 0);
+    const mana = board.filter(card => e.static.isType(card, 'Land')).length + Object.values(p.manaPool || {}).reduce((sum, n) => sum + Number(n || 0), 0);
+    const hand = Math.min(10, p.hand.length) * 2.25;
+    const life = Math.max(0, p.life) * 0.18;
+    return permanents + mana * 2 + hand + life;
+  }
+
+  chooseAttackPlan() {
+    const e = this.engine;
+    const opponents = e.opponents(this.id);
+    const attackers = e.combat.legalAttackers(this.id);
+    if (!opponents.length || !attackers.length) return { type: 'DECLARE_ATTACKERS', attackers: [], attackTargets: {} };
+
+    const chosen = [];
+    const targets = {};
+    const projectedDamage = Object.fromEntries(opponents.map(pid => [pid, 0]));
+
+    // First spend attackers on attacks that are individually profitable. Each attacker
+    // chooses its own defender, which lets multiplayer AI finish a weak player while
+    // sending evasive/commander pressure at a different threat.
+    const ordered = [...attackers].sort((a, b) => this.permanentThreat(b) - this.permanentThreat(a));
+    for (const attacker of ordered) {
+      let bestTarget = null;
+      let bestScore = -Infinity;
+      for (const pid of opponents) {
+        const score = this.attackTargetScore(attacker, pid, projectedDamage[pid] || 0);
+        if (score > bestScore) { bestScore = score; bestTarget = pid; }
+      }
+      if (bestTarget && bestScore > 0) {
+        chosen.push(attacker.instanceId);
+        targets[attacker.instanceId] = bestTarget;
+        const blockers = e.state.players[bestTarget].battlefield.filter(blocker => !blocker.tapped && !blocker.phasedOut && e.static.isType(blocker, 'Creature') && e.combat.canBlock(blocker, attacker));
+        if (!blockers.length) projectedDamage[bestTarget] += Math.max(0, e.static.derivedStats(attacker).power);
+      }
+    }
+    return { type: 'DECLARE_ATTACKERS', attackers: chosen, attackTargets: targets };
+  }
+
+  attackTargetScore(attacker, defenderId, alreadyProjected = 0) {
+    const e = this.engine, defender = e.state.players[defenderId];
+    if (!defender || defender.lost) return -Infinity;
+    const st = e.static.derivedStats(attacker);
+    let value = this.attackScore(attacker, defenderId);
+    if (!Number.isFinite(value)) return value;
+    const legalBlockers = defender.battlefield.filter(blocker => !blocker.tapped && !blocker.phasedOut && e.static.isType(blocker, 'Creature') && e.combat.canBlock(blocker, attacker));
+    if (!legalBlockers.length) {
+      const damage = Math.max(0, st.power);
+      if (alreadyProjected >= defender.life) value -= 220;
+      else if (defender.life - alreadyProjected <= damage) value += 250;
+      if (attacker.isCommander) {
+        const current = Number(defender.commanderDamage?.[attacker.instanceId] || 0);
+        if (21 - current <= damage) value += 300;
+        else value += current * 1.4;
+      }
+    }
+    const leader = Math.max(...e.opponents(this.id).map(pid => this.playerThreat(pid)));
+    const threat = this.playerThreat(defenderId);
+    if (threat >= leader - 0.001) value += 14;
+    value += Math.max(0, 15 - defender.life) * 1.2;
+    return value;
+  }
+
+  stackItemForTarget(targetId) {
+    return [...this.engine.state.stack].reverse().find(item => item?.card?.instanceId === targetId || item?.id === targetId) || null;
+  }
+
+  stackThreat(item) {
+    if (!item) return 0;
+    const e = this.engine;
+    const def = item.card ? e.db[item.card.cardId] : null;
+    const effects = this.effectTypes([item.effect, def?.spellEffects, item.mode && (def?.modes || []).find(mode => mode.id === item.mode)?.effects]);
+    let value = def ? this.cardStrategicValue(def) : 8;
+    if (item.controller === this.id) return -100;
+    const targetsUs = (item.targets || []).some(id => id === this.id || e.findPermanent(id)?.controller === this.id);
+    if (targetsUs) value += 25;
+    if (['destroy','damage','returnToHand','returnTarget','gainControl','ruinousIntrusion','returnAttackers','returnCreaturesWithoutCounter'].some(x => effects.has(x))) value += targetsUs ? 28 : 10;
+    if (['draw','createToken','cultivate','doubleCounters','addCountersAll','proliferate'].some(x => effects.has(x))) value += 10 + this.playerThreat(item.controller) * 0.12;
+    if (effects.has('winIfSourceCounterAtLeast')) value += 100;
+    return value;
+  }
+
+
   chooseDefender() {
     const opponents = this.engine.opponents(this.id);
     if (!opponents.length) return null;
@@ -187,11 +346,12 @@ export class AIController {
     if (!player || player.lost) return -Infinity;
     const creatures = player.battlefield.filter(card => e.static.isType(card, 'Creature') && !card.phasedOut);
     const untappedBlockers = creatures.filter(card => !card.tapped);
-    const boardThreat = creatures.reduce((sum, card) => sum + this.permanentThreat(card), 0);
-    const commanderDamage = Number(e.state.players[this.id]?.commanderDamageReceived?.[pid] || 0);
-    // Prefer a vulnerable / low-life player, but avoid needlessly charging into
-    // the strongest open battlefield in multiplayer.
-    return (40 - player.life) * 1.8 + commanderDamage * 1.2 - untappedBlockers.length * 4 - boardThreat * 0.12;
+    const leaderThreat = this.playerThreat(pid);
+    const lowestLife = Math.min(...e.opponents(this.id).map(id => e.state.players[id].life));
+    const finishBonus = player.life === lowestLife ? Math.max(0, 22 - player.life) * 3 : 0;
+    // Attack dangerous opponents when nobody is immediately killable, but convert
+    // low-life players into eliminations instead of spreading damage aimlessly.
+    return leaderThreat * 0.32 + finishBonus + (40 - player.life) * 1.1 - untappedBlockers.length * 3.5;
   }
 
   chooseBlockers() {
@@ -312,29 +472,58 @@ export class AIController {
   }
 
   targetScore(action, effects = this.actionEffects(action)) {
-    const e = this.engine, s = e.state;
-    const harmful = ['damage', 'destroy', 'returnToHand', 'returnAttackers', 'returnCreaturesWithoutCounter', 'ruinousIntrusion', 'gainControl'];
-    const helpful = ['gainLife', 'gainLifeTarget', 'addCounter', 'addCounterSource', 'addCountersAll', 'pump', 'pumpEventObject', 'untap', 'doubleCounters', 'attachEquipment'];
-    const isHarmful = harmful.some(type => effects.has(type));
-    const isHelpful = helpful.some(type => effects.has(type));
+    const e = this.engine, s = e.state, d = this.definitionForAction(action);
+    const mode = action?.mode ? (d?.modes || []).find(item => item.id === action.mode) : null;
+    const rawEffects = mode?.effects || d?.spellEffects || action?.ability?.effect || [];
+    const indexed = [];
+    const walk = value => {
+      if (Array.isArray(value)) return value.forEach(walk);
+      if (!value || typeof value !== 'object') return;
+      if (typeof value.type === 'string') indexed.push(value);
+      for (const nested of Object.values(value)) if (nested && typeof nested === 'object') walk(nested);
+    };
+    walk(rawEffects);
+
+    const harmfulTypes = new Set(['damage','destroy','returnToHand','returnTarget','returnAttackers','returnCreaturesWithoutCounter','ruinousIntrusion','gainControl','counterSpellTarget','ertaiCounterOrDestroy','bulliesDonate']);
+    const helpfulTypes = new Set(['gainLife','gainLifeTarget','addCounter','addCounterSource','addCounterTarget','addCountersAll','pump','pumpEventObject','untap','doubleCounters','attachEquipment','preventDamage','stationCharge']);
     let score = 0;
 
-    for (const id of action.targets || []) {
+    for (let index = 0; index < (action.targets || []).length; index++) {
+      const id = action.targets[index];
+      const specific = indexed.filter(effect => effect.index == null || Number(effect.index) === index);
+      const harmful = specific.some(effect => harmfulTypes.has(effect.type)) || (!specific.length && [...effects].some(type => harmfulTypes.has(type)));
+      const helpful = specific.some(effect => helpfulTypes.has(effect.type)) || (!specific.length && [...effects].some(type => helpfulTypes.has(type)));
+      const countering = specific.some(effect => effect.type === 'counterSpellTarget');
+
+      if (countering) {
+        score += this.stackThreat(this.stackItemForTarget(id)) * 2.2;
+        continue;
+      }
+
       const targetPlayer = s.players[id];
       if (targetPlayer) {
         const mine = id === this.id;
-        if (isHarmful) score += mine ? -35 : 10 + (40 - targetPlayer.life) * 0.5;
-        else if (isHelpful) score += mine ? 18 : -18;
-        else score += mine ? 1 : 3;
+        if (harmful) {
+          score += mine ? -120 : 12 + (40 - targetPlayer.life) * 0.8 + this.playerThreat(id) * 0.12;
+          if (!mine && ['damage'].some(type => effects.has(type)) && targetPlayer.life <= 5) score += 80;
+        }
+        if (helpful) score += mine ? 28 : -70;
+        if (!harmful && !helpful) score += mine ? 2 : this.playerThreat(id) * 0.05;
         continue;
       }
+
       const permanent = e.findPermanent(id);
-      if (!permanent) continue;
-      const mine = permanent.controller === this.id;
-      const threat = this.permanentThreat(permanent);
-      if (isHarmful) score += mine ? -25 - threat : 8 + threat * 1.7;
-      else if (isHelpful) score += mine ? 6 + threat * 0.7 : -12 - threat;
-      else score += mine ? 2 : threat * 0.25;
+      if (permanent) {
+        const mine = permanent.controller === this.id;
+        const threat = this.permanentThreat(permanent);
+        if (harmful) score += mine ? -100 - threat * 2 : 12 + threat * 2.2 + this.playerThreat(permanent.controller) * 0.12;
+        if (helpful) score += mine ? 12 + threat * 1.15 : -80 - threat;
+        if (!harmful && !helpful) score += mine ? 3 : threat * 0.3;
+        continue;
+      }
+
+      const stackItem = this.stackItemForTarget(id);
+      if (stackItem) score += this.stackThreat(stackItem) * (harmful ? 1.8 : 0.4);
     }
     return score;
   }
@@ -387,8 +576,11 @@ export class AIController {
       value += 8 + Math.max(0, 5 - p.hand.length) * 3;
     }
     if (effects.has('cultivate')) value += lands < 5 ? 14 : 2;
-    if (effects.has('destroy') || effects.has('damage') || effects.has('returnToHand') || effects.has('gainControl')) value += 6;
+    if (effects.has('destroy') || effects.has('damage') || effects.has('returnToHand') || effects.has('returnTarget') || effects.has('gainControl')) value += 8;
+    if (effects.has('counterSpellTarget')) value += s.stack.length ? 14 + this.stackThreat(s.stack[s.stack.length - 1]) * 0.35 : -18;
     if (effects.has('createToken')) value += 5;
+    if (effects.has('createSpiritsPerPermanent') || effects.has('stanggTwin')) value += 12;
+    if (effects.has('ertaiCounterOrDestroy')) value += s.stack.length ? 18 : 10;
     if (effects.has('proliferate')) {
       const countered = p.battlefield.filter(permanent => Object.values(permanent.counters || {}).some(Number)).length;
       value += countered * 2.5 - (countered ? 0 : 5);
@@ -415,10 +607,21 @@ export class AIController {
     if (s.activePlayer !== this.id) {
       const nextIsUs = e.nextPlayer(s.activePlayer) === this.id;
       const interaction = this.targetScore(action, effects);
-      if (s.phase === 'END_STEP' && nextIsUs) value += effects.has('draw') ? 12 : 2;
-      else if (interaction < 15 && !s.stack.length && !['DECLARE_ATTACKERS', 'DECLARE_BLOCKERS', 'COMBAT_DAMAGE'].includes(s.phase)) value -= 20;
+      const topThreat = s.stack.length ? this.stackThreat(s.stack[s.stack.length - 1]) : 0;
+      if (s.stack.length && interaction > 0) value += Math.min(50, topThreat);
+      if (s.phase === 'END_STEP' && nextIsUs) value += effects.has('draw') ? 14 : 3;
+      else if (interaction < 15 && !s.stack.length && !['DECLARE_ATTACKERS', 'DECLARE_BLOCKERS', 'COMBAT_DAMAGE'].includes(s.phase)) value -= 28;
     } else if (['PRECOMBAT_MAIN', 'POSTCOMBAT_MAIN'].includes(s.phase) && s.stack.length === 0) {
       value += 5;
+      // Preserve some instant-speed interaction when a dangerous opponent is about
+      // to untap, unless the proactive play is itself high impact.
+      const interactionInHand = p.hand.some(c => {
+        const def = e.db[c.cardId];
+        const fx = this.effectTypes([def?.spellEffects, ...(def?.modes || []).map(m => m.effects)]);
+        return isType(def, 'Instant') && ['destroy','damage','returnToHand','returnTarget','counterSpellTarget'].some(type => fx.has(type));
+      });
+      const nextOpponent = e.nextPlayer(this.id);
+      if (interactionInHand && nextOpponent && this.playerThreat(nextOpponent) > this.playerThreat(this.id) * 0.85 && mv >= Math.max(2, this.availableManaEstimate() - 1)) value -= 7;
     }
 
     return value;
@@ -442,7 +645,11 @@ export class AIController {
     if (effects.has('sisayTutor')) value += 20;
     if (effects.has('adapt') || effects.has('addCounter') || effects.has('addCounterSource')) value += 9;
     if (effects.has('proliferate')) value += s.players[this.id].battlefield.filter(permanent => Object.keys(permanent.counters || {}).length).length * 2;
-    if (effects.has('damage') || effects.has('destroy') || effects.has('returnToHand')) value += 8;
+    if (effects.has('damage') || effects.has('destroy') || effects.has('returnToHand') || effects.has('returnTarget') || effects.has('gainControl')) value += 10;
+    if (effects.has('counterSpellTarget')) value += s.stack.length ? 20 : -20;
+    if (effects.has('stationCharge')) value += Number(source.counters?.charge || 0) < 8 ? 16 : 3;
+    if (effects.has('createSpiritsPerPermanent')) value += Math.max(10, s.players[this.id].battlefield.length * 3);
+    if (effects.has('bulliesDonate')) value += 18;
     if (action.ability?.cost?.life) value -= Number(action.ability.cost.life) * (s.players[this.id].life < 10 ? 3 : 0.5);
     if (action.ability?.tap && s.activePlayer === this.id && s.phase === 'PRECOMBAT_MAIN' && e.static.isType(source, 'Creature') && this.attackScore(source, this.chooseDefender()) > 0) value -= 9;
     return value;

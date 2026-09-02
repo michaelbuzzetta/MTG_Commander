@@ -99,6 +99,126 @@ export class EffectEngine {
       }
       case 'addMana': e.mana.add(p, effect.mana || {}); break;
       case 'createToken': this.createToken(pid, effect.token, effect.amount || 1); break;
+      case 'ertaiCounterOrDestroy': {
+        const targetId = this._targetId(ctx);
+        const found = targetId ? ZoneManager.find(s, targetId) : null;
+        const fallbackIndex = !found ? s.stack.length - 1 : -1;
+        const fallbackItem = fallbackIndex >= 0 ? s.stack[fallbackIndex] : null;
+        if (!found && !fallbackItem) break;
+        const beneficiary = found?.card?.controller || found?.card?.owner || fallbackItem?.controller;
+        if (found?.zone === 'stack') {
+          const [item] = s.stack.splice(found.index, 1);
+          if (item?.card) ZoneManager.place(s, item.card, 'graveyard', item.card.owner);
+        } else if (found?.zone === 'battlefield') {
+          const targetDef = e.db[found.card.cardId] || {};
+          if (isType(targetDef, 'Creature') || isType(targetDef, 'Planeswalker')) e.destroy(found.card);
+        } else if (fallbackItem) {
+          const [item] = s.stack.splice(fallbackIndex, 1);
+          if (item?.card) ZoneManager.place(s, item.card, 'graveyard', item.card.owner);
+        }
+        if (beneficiary && s.players[beneficiary]) e.draw(beneficiary);
+        break;
+      }
+      case 'createSpiritsPerPermanent': {
+        const amount = p.battlefield.length;
+        this.createTokenRaw(pid, { name: 'Spirit Token', typeLine: 'Token Creature — Spirit', subtypes: ['Spirit'], power: 1, toughness: 1, keywords: [], abilities: [] }, amount);
+        break;
+      }
+      case 'stationCharge': {
+        const source = e.findPermanent(ctx.source?.instanceId);
+        const crew = e.findPermanent((ctx.selections || [])[0]);
+        if (source && crew) this.addCounters(pid, source, 'charge', Math.max(0, e.static.derivedStats(crew).power));
+        break;
+      }
+      case 'stanggTwin': {
+        const source = e.findPermanent(ctx.source?.instanceId);
+        if (!source) break;
+        const [twin] = this.createTokenRaw(pid, {
+          name: 'Stangg Twin', typeLine: 'Legendary Token Creature — Human Warrior', subtypes: ['Human','Warrior'],
+          colors: ['R','G'], power: 3, toughness: 4, keywords: ['haste'], abilities: []
+        }, 1);
+        if (!twin) break;
+        const attachments = p.battlefield.filter(card => card.attachedTo === source.instanceId);
+        for (const attachment of attachments) {
+          const attachmentDef = e.db[attachment.cardId] || {};
+          for (const ability of attachmentDef.abilities || []) {
+            if (ability.type !== 'static' || !ability.filter?.attachedToSource) continue;
+            twin.modifiers.power += Number(ability.effect?.power || 0);
+            twin.modifiers.toughness += Number(ability.effect?.toughness || 0);
+            for (const keyword of ability.effect?.keywords || (ability.effect?.keyword ? [ability.effect.keyword] : [])) {
+              if (!twin.modifiers.keywords.includes(keyword)) twin.modifiers.keywords.push(keyword);
+            }
+          }
+        }
+        twin.summoningSick = false;
+        twin.tapped = true;
+        twin.attacking = true;
+        twin.attackTarget = ctx.eventPayload?.defendingPlayer || source.attackTarget || e.opponent(pid);
+        twin.sacrificeAtEndTurn = s.turn;
+        if (!s.combat.attackers.includes(twin.instanceId)) s.combat.attackers.push(twin.instanceId);
+        s.combat.attackTargets[twin.instanceId] = twin.attackTarget;
+        if (twin.attackTarget && !s.combat.defendingPlayers.includes(twin.attackTarget)) s.combat.defendingPlayers.push(twin.attackTarget);
+        break;
+      }
+      case 'myriad': {
+        const source = e.findPermanent(ctx.source?.instanceId);
+        if (!source) break;
+        const original = e.db[source.cardId] || {};
+        const defending = ctx.eventPayload?.defendingPlayer || source.attackTarget;
+        for (const opponentId of e.opponents(pid).filter(id => id !== defending)) {
+          const [copy] = this.createTokenRaw(pid, {
+            name: `${original.name || 'Myriad'} Token`, typeLine: original.typeLine || 'Token Creature',
+            subtypes: [...(original.subtypes || [])], colors: [...(original.colors || [])],
+            power: original.power ?? 0, toughness: original.toughness ?? 0,
+            keywords: [...new Set([...(original.keywords || []), 'haste'])], abilities: structuredClone(original.abilities || [])
+          }, 1);
+          if (!copy) continue;
+          copy.summoningSick = false;
+          copy.tapped = true;
+          copy.attacking = true;
+          copy.attackTarget = opponentId;
+          copy.sacrificeAtEndTurn = s.turn;
+          s.combat.attackers.push(copy.instanceId);
+          s.combat.attackTargets[copy.instanceId] = opponentId;
+          if (!s.combat.defendingPlayers.includes(opponentId)) s.combat.defendingPlayers.push(opponentId);
+        }
+        break;
+      }
+      case 'manifestDread': {
+        const revealed = p.library.slice(0, 2);
+        if (!revealed.length) break;
+        const manifested = revealed[0];
+        const other = revealed[1];
+        const moved = e._moveZoneNow(manifested, 'battlefield', pid);
+        if (moved) {
+          moved.faceDown = true;
+          moved.summoningSick = true;
+          moved.createdTurn = s.turn;
+          moved.controlledSinceTurn = s.turn;
+          e.emit(EVENT.ENTER_BATTLEFIELD, { controller: pid, target: moved, faceDown: true });
+        }
+        if (other && ZoneManager.find(s, other.instanceId)?.zone === 'library') e._moveZoneNow(other, 'graveyard', other.owner);
+        break;
+      }
+      case 'turnFaceUp': {
+        const source = e.findPermanent(ctx.source?.instanceId);
+        if (source?.faceDown) source.faceDown = false;
+        break;
+      }
+      case 'bulliesDonate': {
+        const [targetPlayerId, cardId] = ctx.targets || [];
+        const found = cardId ? ZoneManager.find(s, cardId) : null;
+        if (!s.players[targetPlayerId] || found?.zone !== 'graveyard') break;
+        const card = e._moveZoneNow(found.card, 'battlefield', targetPlayerId);
+        if (!card) break;
+        card.summoningSick = false;
+        if (!card.modifiers.keywords.includes('haste')) card.modifiers.keywords.push('haste');
+        card.exileAtEndTurn = s.turn;
+        const forcedTargets = e.opponents(targetPlayerId).filter(opponentId => opponentId !== pid);
+        card.mustAttackPlayer = forcedTargets[0] || e.opponents(targetPlayerId)[0] || null;
+        e.emit(EVENT.ENTER_BATTLEFIELD, { controller: targetPlayerId, target: card });
+        break;
+      }
       case 'encore': {
         const original = e.db[effect.cardId || ctx.source?.cardId] || {};
         const tokenDefinition = {

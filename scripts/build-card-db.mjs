@@ -105,7 +105,7 @@ function validateDecks(deckEntries, cards) {
     assert(Array.isArray(deck.cards) && deck.cards.length > 0, `${label} must contain a cards array.`);
 
     const commander = cards[deck.commander];
-    assert(/Legendary/i.test(commander.typeLine || '') && /Creature/i.test(commander.typeLine || ''), `${label} commander ${deck.commander} must be a legendary creature in the current trainer rules.`);
+    assert(/Legendary/i.test(commander.typeLine || '') && (/Creature/i.test(commander.typeLine || '') || commander.creatureAtCounter), `${label} commander ${deck.commander} must be a legendary creature or a supported creature-transforming commander in the current trainer rules.`);
     assert(sameColorIdentity(deck.colorIdentity, commander.colorIdentity), `${label} color identity must exactly match commander ${deck.commander}.`);
 
     let total = 0;

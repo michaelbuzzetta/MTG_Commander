@@ -35,7 +35,20 @@ On Windows, `start.bat` performs the locked install when needed, validates the d
 npm run build-db          # deterministic local build
 npm run check-db          # validate without writing
 npm run build-db:refresh  # build + Scryfall descriptive metadata refresh
+npm run import-archidekt  # rebuild the five bundled Archidekt decks from captured public data
 ```
+
+## Bundled Archidekt decks
+
+Five public 100-card Commander main decks are bundled as playable choices. Sideboard, maybeboard, and token/extra sections are deliberately excluded according to Archidekt's primary-category configuration.
+
+- **I'll Just Counter My Own Shit Then** — Ertai Resurrected self-countering triggers and Myriad value.
+- **Most Fun Commanders #7: Challenge Accepted** — Myojin of Blooming Dawn indestructible counters, proliferate, and Spirit tokens.
+- **Stangg, Echo Warrior [100€ budget]** — Aura/Equipment Voltron with an attacking Stangg Twin.
+- **“Battlecruiser” Magic (Inspirit, Flagship Vessel)** — charge counters, Station, artifacts, and a spacecraft commander that becomes a creature.
+- **2/2s For Flinching** — a contest-winning Beamtown Bullies face-down/donation strategy.
+
+Their exact public card records and section configuration are retained in `archidekt-selected-decks.json` and `archidekt-category-config.json`. The deterministic importer merges shared cards by name, retains card text and art metadata, compiles common draw/removal/ramp/token/Aura/Equipment/Myriad/manifest behavior, and installs explicit rules for each deck's defining commander mechanic.
 
 ## Verification
 
@@ -47,7 +60,7 @@ npm run verify
 
 ## Scope
 
-This is a training simulator implementing the mechanics represented by its structured card database, not a complete implementation of every rule/card ever printed in Magic. The published Explorers of the Deep 100-card list is preserved as a non-playable reference record; cards whose mechanics are not yet modeled are explicitly marked unsupported rather than silently simplified. A separate fully supported Hakbal training deck remains selectable for gameplay. All selectable decks pass Commander singleton, color-identity, resolvability, and support validation.
+This is a training simulator implementing the mechanics represented by its structured card database, not a complete implementation of every rule/card ever printed in Magic. The exact stock Explorers of the Deep deck and all five Archidekt decks are selectable. The Archidekt importer models reusable common effects and the five central commander engines; unusually specialized individual-card clauses outside those primitives remain simplified to the closest supported behavior. All selectable decks pass Commander singleton, color-identity, resolvability, and 100-card validation.
 
 ## Custom Commander deck import
 
@@ -74,4 +87,3 @@ Combat is defender-aware. When you attack in a 3- or 4-player game, choose an op
 AI opponents now evaluate opening hands, mana development, normal spells, commanders, activated abilities, targets, attacks, and blocks instead of following a simple "land, then highest-mana-value card" rule. The heuristics prioritize early ramp and curve development, value card draw more when the hand is small, prefer removal against meaningful opposing threats, reduce the priority of repeatedly taxed commanders, hold flexible interaction when there is no useful target, and avoid obviously bad attacks or blocks. This remains a deterministic rules-based game AI rather than a machine-learning model, so its decisions stay testable and reproducible.
 
 Opponent seats also show the AI's latest meaningful action. A normal land play is explicitly labeled **land play costs 0 mana**; the engine records `manaSpent: 0` on `LAND_PLAYED` events and never taps mana sources or deducts from a mana pool simply to play a land. Lands that enter tapped because of their own card text may still appear tapped.
-

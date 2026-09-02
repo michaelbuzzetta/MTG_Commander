@@ -35,7 +35,7 @@ test('Category 10 BUG-056/057: every deck is Commander-legal and every playable 
     assert.equal(deck.cards.reduce((sum, entry) => sum + entry.quantity, 0), 100);
     assert.equal(deck.cards.filter(entry => entry.id === deck.commander).reduce((n, entry) => n + entry.quantity, 0), 1);
     assert.ok(db[deck.commander]);
-    assert.match(db[deck.commander].typeLine, /Legendary.*Creature|Creature.*Legendary/i);
+    assert.ok(/Legendary.*Creature|Creature.*Legendary/i.test(db[deck.commander].typeLine) || db[deck.commander].creatureAtCounter, `${deck.id}: commander must be a legendary creature or a supported creature-transforming commander`);
     assert.ok(sameIdentity(deck.colorIdentity, db[deck.commander].colorIdentity));
 
     const entryIds = new Set();

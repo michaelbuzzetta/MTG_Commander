@@ -803,6 +803,12 @@ export class GameEngine {
         break;
       case 'END_STEP':
         this.emit(EVENT.END_STEP, { controller: s.activePlayer });
+        for (const player of Object.values(s.players)) {
+          for (const permanent of [...player.battlefield]) {
+            if (Number(permanent.exileAtEndTurn) === Number(s.turn)) this.exile(permanent);
+            else if (Number(permanent.sacrificeAtEndTurn) === Number(s.turn)) this.sacrifice(permanent);
+          }
+        }
         break;
       case 'CLEANUP':
         this._beginCleanup(INTERNAL);
@@ -1062,6 +1068,7 @@ export class GameEngine {
     card.summoningSick = isType(d, 'Creature') && !hasKeyword(d, 'Haste');
     card.createdTurn = this.state.turn;
     card.controlledSinceTurn = this.state.turn;
+    if (this.static.hasSubtype(card, 'Aura') && resolutionTargets[0]) card.attachedTo = resolutionTargets[0];
     card.tapped = this._permanentEntersTapped(card, item.controller);
     this._applyEntryCounters(card, item.controller);
     this.emit(EVENT.ENTER_BATTLEFIELD, { controller: item.controller, target: card, castMode: card.castMode });

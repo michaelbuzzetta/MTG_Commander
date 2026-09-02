@@ -78,3 +78,91 @@ test('opponent UI explicitly identifies land plays as zero-mana actions',()=>{
   assert.match(app,/land play costs 0 mana/);
   assert.match(app,/latestActionFor/);
 });
+
+test('advanced AI keeps a useful nonland on top with scry instead of automatically bottoming it',()=>{
+  const e=engine();
+  setPhase(e,'PRECOMBAT_MAIN',{activePlayer:'ai',priorityPlayer:'ai'});
+  const p=e.state.players.ai;
+  p.hand=[
+    {instanceId:'land-a',cardId:'forest',owner:'ai',controller:'ai',zone:'hand'},
+    {instanceId:'land-b',cardId:'island',owner:'ai',controller:'ai',zone:'hand'}
+  ];
+  const top={instanceId:'scry-good',cardId:'grizzly-bears',owner:'ai',controller:'ai',zone:'library'};
+  p.library.unshift(top);
+  e.state.pendingChoice={type:'SCRY',playerId:'ai',cardInstanceId:top.instanceId};
+  const action=new AIController(e,'ai').choose();
+  assert.equal(action.type,'CHOOSE_SCRY');
+  assert.equal(action.putOnBottom,false);
+});
+
+test('advanced AI bottoms an excess land with scry when already flooded',()=>{
+  const e=engine();
+  setPhase(e,'PRECOMBAT_MAIN',{activePlayer:'ai',priorityPlayer:'ai'});
+  const p=e.state.players.ai;
+  p.hand=[0,1,2].map(i=>({instanceId:`hand-land-${i}`,cardId:'forest',owner:'ai',controller:'ai',zone:'hand'}));
+  for(let i=0;i<7;i++) putBattlefield(e,'ai',i%2?'island':'forest');
+  const top={instanceId:'scry-land',cardId:'forest',owner:'ai',controller:'ai',zone:'library'};
+  p.library.unshift(top);
+  e.state.pendingChoice={type:'SCRY',playerId:'ai',cardInstanceId:top.instanceId};
+  const action=new AIController(e,'ai').choose();
+  assert.equal(action.putOnBottom,true);
+});
+
+test('advanced AI removal targets the highest-value opposing creature',()=>{
+  const e=engine();
+  setPhase(e,'PRECOMBAT_MAIN',{activePlayer:'ai',priorityPlayer:'ai'});
+  const p=e.state.players.ai;
+  p.landPlaysRemaining=0;
+  p.hand=[{instanceId:'kill-spell',cardId:'murder',owner:'ai',controller:'ai',zone:'hand'}];
+  for(let i=0;i<3;i++) putBattlefield(e,'ai','swamp');
+  const small=putBattlefield(e,'player','grizzly-bears');
+  const large=putBattlefield(e,'player','smaug');
+  const action=new AIController(e,'ai').choose();
+  assert.equal(action.type,'CAST_SPELL');
+  assert.equal(action.cardInstanceId,'kill-spell');
+  assert.deepEqual(action.targets,[large.instanceId]);
+  assert.notDeepEqual(action.targets,[small.instanceId]);
+});
+
+test('advanced multiplayer AI avoids wasting a second unblocked attacker on an already lethal opponent',()=>{
+  const playable=decks.filter(deck=>deck.playable!==false).slice(0,3);
+  const e=new GameEngine(playable[0],playable.slice(1),db,{rng:()=>0.42});
+  e.start();
+  for(const id of e.state.playerOrder) e.perform(id,{type:'KEEP_HAND'});
+  e.state.players.player.life=2;
+  e.state.players.ai2.life=40;
+  const a1=putBattlefield(e,'ai','grizzly-bears');
+  const a2=putBattlefield(e,'ai','grizzly-bears');
+  setPhase(e,'DECLARE_ATTACKERS',{activePlayer:'ai',priorityPlayer:'ai',turnActionPending:'DECLARE_ATTACKERS'});
+  const action=new AIController(e,'ai').choose();
+  assert.equal(action.type,'DECLARE_ATTACKERS');
+  assert.equal(action.attackers.length,2);
+  const defenders=Object.values(action.attackTargets);
+  assert.ok(defenders.includes('player'));
+  assert.ok(defenders.includes('ai2'));
+  assert.equal(e.isActionLegal('ai',action),true);
+});
+
+test('advanced AI uses Quandrix Command to counter a high-value opposing enchantment on the stack',()=>{
+  const e=engine('explorers','explorers');
+  setPhase(e,'PRECOMBAT_MAIN',{activePlayer:'player',priorityPlayer:'player'});
+  const human=e.state.players.player, ai=e.state.players.ai;
+  human.landPlaysRemaining=0;
+  ai.landPlaysRemaining=0;
+  human.hand=[{instanceId:'danger-enchantment',cardId:'doubling-season',owner:'player',controller:'player',zone:'hand'}];
+  ai.hand=[{instanceId:'answer-command',cardId:'lcc-quandrix-command',owner:'ai',controller:'ai',zone:'hand'}];
+  for(let i=0;i<5;i++) putBattlefield(e,'player','forest');
+  putBattlefield(e,'player','grizzly-bears');
+  putBattlefield(e,'ai','forest');
+  putBattlefield(e,'ai','island');
+  putBattlefield(e,'ai','forest');
+  const ownCreature=putBattlefield(e,'ai','grizzly-bears');
+  e.perform('player',{type:'CAST_SPELL',cardInstanceId:'danger-enchantment'});
+  e.perform('player',{type:'PASS_PRIORITY'});
+  assert.equal(e.state.priorityPlayer,'ai');
+  const action=new AIController(e,'ai').choose();
+  assert.equal(action.type,'CAST_SPELL');
+  assert.equal(action.cardInstanceId,'answer-command');
+  assert.ok(action.targets.includes('danger-enchantment'));
+  assert.ok(action.targets.includes(ownCreature.instanceId) || action.mode==='pair-1' || action.mode==='pair-5');
+});

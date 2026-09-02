@@ -1028,5 +1028,1810 @@
       }
     ],
     "cardCount": 100
+  },
+  {
+    "id": "ertai-self-counter",
+    "name": "I'll Just Counter My Own Shit Then",
+    "format": "Commander",
+    "commander": "arch-ertai-resurrected",
+    "colorIdentity": [
+      "U",
+      "B"
+    ],
+    "playable": true,
+    "cardCount": 100,
+    "source": "https://archidekt.com/decks/18980560/ill_just_counter_my_own_shit_then?sort=cmc&stack=types",
+    "notes": "Imported from Archidekt. Creator: Market_Gnome. Public deck 18980560; bracket 3. Main deck is exact as retrieved; sideboard and maybeboard entries are excluded.",
+    "cards": [
+      {
+        "id": "arch-bojuka-bog",
+        "quantity": 1
+      },
+      {
+        "id": "arch-shipwreck-marsh",
+        "quantity": 1
+      },
+      {
+        "id": "arch-sunken-hollow",
+        "quantity": 1
+      },
+      {
+        "id": "arch-darkwater-catacombs",
+        "quantity": 1
+      },
+      {
+        "id": "arch-sunken-ruins",
+        "quantity": 1
+      },
+      {
+        "id": "arch-temple-of-deceit",
+        "quantity": 1
+      },
+      {
+        "id": "arch-coral-atoll",
+        "quantity": 1
+      },
+      {
+        "id": "arch-ertai-resurrected",
+        "quantity": 1
+      },
+      {
+        "id": "swamp",
+        "quantity": 4
+      },
+      {
+        "id": "arch-desert-of-the-glorified",
+        "quantity": 1
+      },
+      {
+        "id": "arch-soured-springs",
+        "quantity": 1
+      },
+      {
+        "id": "arch-lotus-field",
+        "quantity": 1
+      },
+      {
+        "id": "arch-everglades",
+        "quantity": 1
+      },
+      {
+        "id": "arch-dimir-aqueduct",
+        "quantity": 1
+      },
+      {
+        "id": "arch-discontinuity",
+        "quantity": 1
+      },
+      {
+        "id": "arch-sundial-of-the-infinite",
+        "quantity": 1
+      },
+      {
+        "id": "arch-mystic-reflection",
+        "quantity": 1
+      },
+      {
+        "id": "arch-discovery-dispersal",
+        "quantity": 1
+      },
+      {
+        "id": "arch-arid-archway",
+        "quantity": 1
+      },
+      {
+        "id": "arch-triskaidekaphile",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-reliquary-tower",
+        "quantity": 1
+      },
+      {
+        "id": "arch-thought-vessel",
+        "quantity": 1
+      },
+      {
+        "id": "arch-identity-thief",
+        "quantity": 1
+      },
+      {
+        "id": "arch-polymorphist-s-jest",
+        "quantity": 1
+      },
+      {
+        "id": "arch-watery-grave",
+        "quantity": 1
+      },
+      {
+        "id": "arch-drowned-catacomb",
+        "quantity": 1
+      },
+      {
+        "id": "island",
+        "quantity": 8
+      },
+      {
+        "id": "arch-guildless-commons",
+        "quantity": 1
+      },
+      {
+        "id": "arch-fetid-pools",
+        "quantity": 1
+      },
+      {
+        "id": "arch-desert-of-the-mindful",
+        "quantity": 1
+      },
+      {
+        "id": "command-tower",
+        "quantity": 1
+      },
+      {
+        "id": "arch-clearwater-pathway-murkwater-pathway",
+        "quantity": 1
+      },
+      {
+        "id": "arch-defabricate",
+        "quantity": 1
+      },
+      {
+        "id": "arch-blade-of-selves",
+        "quantity": 1
+      },
+      {
+        "id": "arch-auton-soldier",
+        "quantity": 1
+      },
+      {
+        "id": "arch-cybermen-squadron",
+        "quantity": 1
+      },
+      {
+        "id": "arch-broodbirth-viper",
+        "quantity": 1
+      },
+      {
+        "id": "arch-wizards-of-thay",
+        "quantity": 1
+      },
+      {
+        "id": "arch-banshee-of-the-dread-choir",
+        "quantity": 1
+      },
+      {
+        "id": "arch-dalek-squadron",
+        "quantity": 1
+      },
+      {
+        "id": "arch-displacer-kitten",
+        "quantity": 1
+      },
+      {
+        "id": "arch-consign-to-memory",
+        "quantity": 1
+      },
+      {
+        "id": "arch-katara-s-reversal",
+        "quantity": 1
+      },
+      {
+        "id": "arch-sister-of-silence",
+        "quantity": 1
+      },
+      {
+        "id": "arch-sublime-epiphany",
+        "quantity": 1
+      },
+      {
+        "id": "arch-blur",
+        "quantity": 1
+      },
+      {
+        "id": "arch-demonic-pact",
+        "quantity": 1
+      },
+      {
+        "id": "arch-come-back-wrong",
+        "quantity": 1
+      },
+      {
+        "id": "arch-foggy-swamp-visions",
+        "quantity": 1
+      },
+      {
+        "id": "arch-mirror-match",
+        "quantity": 1
+      },
+      {
+        "id": "arch-mirror-mockery",
+        "quantity": 1
+      },
+      {
+        "id": "arch-phantom-steed",
+        "quantity": 1
+      },
+      {
+        "id": "arch-ideas-unbound",
+        "quantity": 1
+      },
+      {
+        "id": "arch-slaughter-pact",
+        "quantity": 1
+      },
+      {
+        "id": "arch-deadeye-navigator",
+        "quantity": 1
+      },
+      {
+        "id": "arch-hunted-horror",
+        "quantity": 1
+      },
+      {
+        "id": "arch-essence-flux",
+        "quantity": 1
+      },
+      {
+        "id": "arch-riptide-laboratory",
+        "quantity": 1
+      },
+      {
+        "id": "arch-gruesome-encore",
+        "quantity": 1
+      },
+      {
+        "id": "arch-hide-on-the-ceiling",
+        "quantity": 1
+      },
+      {
+        "id": "arch-mystifying-maze",
+        "quantity": 1
+      },
+      {
+        "id": "arch-rot-curse-rakshasa",
+        "quantity": 1
+      },
+      {
+        "id": "arch-undying-evil",
+        "quantity": 1
+      },
+      {
+        "id": "arch-not-dead-after-all",
+        "quantity": 1
+      },
+      {
+        "id": "arch-feign-death",
+        "quantity": 1
+      },
+      {
+        "id": "arch-undying-malice",
+        "quantity": 1
+      },
+      {
+        "id": "arch-malakir-rebirth-malakir-mire",
+        "quantity": 1
+      },
+      {
+        "id": "arch-supernatural-stamina",
+        "quantity": 1
+      },
+      {
+        "id": "arch-fake-your-own-death",
+        "quantity": 1
+      },
+      {
+        "id": "arch-umbral-collar-zealot",
+        "quantity": 1
+      },
+      {
+        "id": "arch-viscera-seer",
+        "quantity": 1
+      },
+      {
+        "id": "arch-village-rites",
+        "quantity": 1
+      },
+      {
+        "id": "arch-corrupted-conviction",
+        "quantity": 1
+      },
+      {
+        "id": "arch-baleful-strix",
+        "quantity": 1
+      },
+      {
+        "id": "arch-sink-into-stupor-soporific-springs",
+        "quantity": 1
+      },
+      {
+        "id": "arch-hydroelectric-specimen-hydroelectric-laboratory",
+        "quantity": 1
+      },
+      {
+        "id": "arch-boggart-trawler-boggart-bog",
+        "quantity": 1
+      },
+      {
+        "id": "arch-naban-dean-of-iteration",
+        "quantity": 1
+      },
+      {
+        "id": "arch-waterlogged-teachings-inundated-archive",
+        "quantity": 1
+      },
+      {
+        "id": "arch-fell-the-profane-fell-mire",
+        "quantity": 1
+      },
+      {
+        "id": "arch-candlekeep-sage",
+        "quantity": 1
+      },
+      {
+        "id": "arch-talisman-of-dominance",
+        "quantity": 1
+      },
+      {
+        "id": "arcane-signet",
+        "quantity": 1
+      },
+      {
+        "id": "sol-ring",
+        "quantity": 1
+      },
+      {
+        "id": "arch-mind-stone",
+        "quantity": 1
+      },
+      {
+        "id": "arch-dimir-signet",
+        "quantity": 1
+      },
+      {
+        "id": "arch-wonder",
+        "quantity": 1
+      },
+      {
+        "id": "arch-levitation",
+        "quantity": 1
+      },
+      {
+        "id": "arch-chorale-of-the-void",
+        "quantity": 1
+      },
+      {
+        "id": "arch-topaz-dragon-entropic-cloud",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "myojin-challenge",
+    "name": "Most Fun Commanders #7: Challenge Accepted",
+    "format": "Commander",
+    "commander": "arch-myojin-of-blooming-dawn",
+    "colorIdentity": [
+      "W"
+    ],
+    "playable": true,
+    "cardCount": 100,
+    "source": "https://archidekt.com/decks/19466301/most_fun_commanders_7_challenge_accepted",
+    "notes": "Imported from Archidekt. Creator: DavidthePsalmist. Public deck 19466301; bracket unrated. Main deck is exact as retrieved; sideboard and maybeboard entries are excluded.",
+    "cards": [
+      {
+        "id": "arch-quicksilver-amulet",
+        "quantity": 1
+      },
+      {
+        "id": "arch-command-beacon",
+        "quantity": 1
+      },
+      {
+        "id": "arch-skyclave-relic",
+        "quantity": 1
+      },
+      {
+        "id": "arch-light-the-way",
+        "quantity": 1
+      },
+      {
+        "id": "arch-metastatic-evangel",
+        "quantity": 1
+      },
+      {
+        "id": "arch-grateful-apparition",
+        "quantity": 1
+      },
+      {
+        "id": "arch-whitemane-lion",
+        "quantity": 1
+      },
+      {
+        "id": "arch-wand-of-the-worldsoul",
+        "quantity": 1
+      },
+      {
+        "id": "arch-rescuer-chwinga",
+        "quantity": 1
+      },
+      {
+        "id": "arch-solemn-simulacrum",
+        "quantity": 1
+      },
+      {
+        "id": "arch-campfire",
+        "quantity": 1
+      },
+      {
+        "id": "arch-jeskai-barricade",
+        "quantity": 1
+      },
+      {
+        "id": "arch-contagion-clasp",
+        "quantity": 1
+      },
+      {
+        "id": "arch-swords-to-plowshares",
+        "quantity": 1
+      },
+      {
+        "id": "arch-keeper-of-the-accord",
+        "quantity": 1
+      },
+      {
+        "id": "arch-divine-visitation",
+        "quantity": 1
+      },
+      {
+        "id": "arch-shepherd-of-the-flock-usher-to-safety",
+        "quantity": 1
+      },
+      {
+        "id": "sol-ring",
+        "quantity": 1
+      },
+      {
+        "id": "arch-alley-evasion",
+        "quantity": 1
+      },
+      {
+        "id": "arch-secret-rendezvous",
+        "quantity": 1
+      },
+      {
+        "id": "arch-path-to-exile",
+        "quantity": 1
+      },
+      {
+        "id": "arch-unbounded-potential",
+        "quantity": 1
+      },
+      {
+        "id": "arch-loyal-warhound",
+        "quantity": 1
+      },
+      {
+        "id": "arch-defiler-of-faith",
+        "quantity": 1
+      },
+      {
+        "id": "arch-elspeth-sun-s-champion",
+        "quantity": 1
+      },
+      {
+        "id": "arch-weathered-wayfarer",
+        "quantity": 1
+      },
+      {
+        "id": "arch-geode-golem",
+        "quantity": 1
+      },
+      {
+        "id": "arch-meticulous-excavation",
+        "quantity": 1
+      },
+      {
+        "id": "arch-everything-comes-to-dust",
+        "quantity": 1
+      },
+      {
+        "id": "arch-intangible-virtue",
+        "quantity": 1
+      },
+      {
+        "id": "arch-kor-skyfisher",
+        "quantity": 1
+      },
+      {
+        "id": "arch-stonecloaker",
+        "quantity": 1
+      },
+      {
+        "id": "arch-oketra-s-monument",
+        "quantity": 1
+      },
+      {
+        "id": "arch-generous-gift",
+        "quantity": 1
+      },
+      {
+        "id": "arch-rumor-gatherer",
+        "quantity": 1
+      },
+      {
+        "id": "arch-welcoming-vampire",
+        "quantity": 1
+      },
+      {
+        "id": "arch-tenuous-truce",
+        "quantity": 1
+      },
+      {
+        "id": "arch-court-of-grace",
+        "quantity": 1
+      },
+      {
+        "id": "arch-cut-a-deal",
+        "quantity": 1
+      },
+      {
+        "id": "arch-reprieve",
+        "quantity": 1
+      },
+      {
+        "id": "arch-mondrak-glory-dominus",
+        "quantity": 1
+      },
+      {
+        "id": "arch-hour-of-reckoning",
+        "quantity": 1
+      },
+      {
+        "id": "arch-patrolling-peacemaker",
+        "quantity": 1
+      },
+      {
+        "id": "arch-exalted-sunborn",
+        "quantity": 1
+      },
+      {
+        "id": "arch-inspiring-leader",
+        "quantity": 1
+      },
+      {
+        "id": "arch-farewell",
+        "quantity": 1
+      },
+      {
+        "id": "arch-mangara-the-diplomat",
+        "quantity": 1
+      },
+      {
+        "id": "arch-narrow-escape",
+        "quantity": 1
+      },
+      {
+        "id": "arch-skullclamp",
+        "quantity": 1
+      },
+      {
+        "id": "arch-anointed-procession",
+        "quantity": 1
+      },
+      {
+        "id": "arch-your-temple-is-under-attack",
+        "quantity": 1
+      },
+      {
+        "id": "arch-eagle-of-deliverance",
+        "quantity": 1
+      },
+      {
+        "id": "arch-wanderer-s-strike",
+        "quantity": 1
+      },
+      {
+        "id": "arch-austere-command",
+        "quantity": 1
+      },
+      {
+        "id": "arch-kor-cartographer",
+        "quantity": 1
+      },
+      {
+        "id": "arch-lae-zel-vlaakith-s-champion",
+        "quantity": 1
+      },
+      {
+        "id": "arch-stroke-of-midnight",
+        "quantity": 1
+      },
+      {
+        "id": "arch-tyrite-sanctum",
+        "quantity": 1
+      },
+      {
+        "id": "arch-sun-titan",
+        "quantity": 1
+      },
+      {
+        "id": "arch-disenchant",
+        "quantity": 1
+      },
+      {
+        "id": "arch-war-room",
+        "quantity": 1
+      },
+      {
+        "id": "arch-guildless-commons",
+        "quantity": 1
+      },
+      {
+        "id": "arch-loran-of-the-third-path",
+        "quantity": 1
+      },
+      {
+        "id": "arch-nykthos-shrine-to-nyx",
+        "quantity": 1
+      },
+      {
+        "id": "arch-myojin-of-blooming-dawn",
+        "quantity": 1
+      },
+      {
+        "id": "arch-terrain-generator",
+        "quantity": 1
+      },
+      {
+        "id": "arch-minas-tirith",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-temple-of-the-false-god",
+        "quantity": 1
+      },
+      {
+        "id": "arch-castle-ardenvale",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-karn-s-bastion",
+        "quantity": 1
+      },
+      {
+        "id": "arch-sanctum-of-eternity",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-reliquary-tower",
+        "quantity": 1
+      },
+      {
+        "id": "plains",
+        "quantity": 26
+      },
+      {
+        "id": "arch-sandstone-oracle",
+        "quantity": 1
+      },
+      {
+        "id": "arch-norn-s-choirmaster",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "stangg-twin",
+    "name": "Stangg, Echo Warrior [100€ budget]",
+    "format": "Commander",
+    "commander": "arch-stangg-echo-warrior",
+    "colorIdentity": [
+      "R",
+      "G"
+    ],
+    "playable": true,
+    "cardCount": 100,
+    "source": "https://archidekt.com/decks/16918228/stangg_echo_warrior_100_budget",
+    "notes": "Imported from Archidekt. Creator: Lennbous. Public deck 16918228; bracket 2. Main deck is exact as retrieved; sideboard and maybeboard entries are excluded.",
+    "cards": [
+      {
+        "id": "arch-ancestral-mask",
+        "quantity": 1
+      },
+      {
+        "id": "arcane-signet",
+        "quantity": 1
+      },
+      {
+        "id": "arch-audacity",
+        "quantity": 1
+      },
+      {
+        "id": "arch-beamtown-beatstick",
+        "quantity": 1
+      },
+      {
+        "id": "arch-bequeathal",
+        "quantity": 1
+      },
+      {
+        "id": "forest",
+        "quantity": 21
+      },
+      {
+        "id": "arch-eidolon-of-blossoms",
+        "quantity": 1
+      },
+      {
+        "id": "arch-fling",
+        "quantity": 1
+      },
+      {
+        "id": "arch-galvanic-arc",
+        "quantity": 1
+      },
+      {
+        "id": "arch-kessig-wolf-run",
+        "quantity": 1
+      },
+      {
+        "id": "arch-gruul-signet",
+        "quantity": 1
+      },
+      {
+        "id": "arch-ordeal-of-nylea",
+        "quantity": 1
+      },
+      {
+        "id": "arch-rune-of-speed",
+        "quantity": 1
+      },
+      {
+        "id": "arch-rampant-growth",
+        "quantity": 1
+      },
+      {
+        "id": "arch-setessan-training",
+        "quantity": 1
+      },
+      {
+        "id": "arch-cinder-glade",
+        "quantity": 1
+      },
+      {
+        "id": "arch-mossfire-valley",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-rogue-s-passage",
+        "quantity": 1
+      },
+      {
+        "id": "arch-gruul-turf",
+        "quantity": 1
+      },
+      {
+        "id": "arch-game-trail",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-swiftfoot-boots",
+        "quantity": 1
+      },
+      {
+        "id": "arch-chishiro-the-shattered-blade",
+        "quantity": 1
+      },
+      {
+        "id": "arch-fruit-of-the-first-tree",
+        "quantity": 1
+      },
+      {
+        "id": "arch-setessan-champion",
+        "quantity": 1
+      },
+      {
+        "id": "arch-thran-power-suit",
+        "quantity": 1
+      },
+      {
+        "id": "arch-hunter-s-bow",
+        "quantity": 1
+      },
+      {
+        "id": "arch-llanowar-elves",
+        "quantity": 1
+      },
+      {
+        "id": "arch-basilisk-collar",
+        "quantity": 1
+      },
+      {
+        "id": "arch-gilded-pinions",
+        "quantity": 1
+      },
+      {
+        "id": "arch-skullclamp",
+        "quantity": 1
+      },
+      {
+        "id": "arch-chandra-s-ignition",
+        "quantity": 1
+      },
+      {
+        "id": "arch-demonic-ruckus",
+        "quantity": 1
+      },
+      {
+        "id": "arch-tanglespan-lookout",
+        "quantity": 1
+      },
+      {
+        "id": "arch-sticky-fingers",
+        "quantity": 1
+      },
+      {
+        "id": "arch-mantle-of-the-wolf",
+        "quantity": 1
+      },
+      {
+        "id": "arch-most-wanted",
+        "quantity": 1
+      },
+      {
+        "id": "arch-storm-herald",
+        "quantity": 1
+      },
+      {
+        "id": "arch-snakeskin-veil",
+        "quantity": 1
+      },
+      {
+        "id": "arch-elvish-archivist",
+        "quantity": 1
+      },
+      {
+        "id": "arch-gold-pan",
+        "quantity": 1
+      },
+      {
+        "id": "arch-goblin-anarchomancer",
+        "quantity": 1
+      },
+      {
+        "id": "arch-etali-s-favor",
+        "quantity": 1
+      },
+      {
+        "id": "arch-fertile-ground",
+        "quantity": 1
+      },
+      {
+        "id": "mountain",
+        "quantity": 8
+      },
+      {
+        "id": "arch-temple-of-abandon",
+        "quantity": 1
+      },
+      {
+        "id": "arch-lion-umbra",
+        "quantity": 1
+      },
+      {
+        "id": "arch-one-with-the-kami",
+        "quantity": 1
+      },
+      {
+        "id": "arch-snake-umbra",
+        "quantity": 1
+      },
+      {
+        "id": "arch-rune-of-might",
+        "quantity": 1
+      },
+      {
+        "id": "arch-wild-growth",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-beast-within",
+        "quantity": 1
+      },
+      {
+        "id": "command-tower",
+        "quantity": 1
+      },
+      {
+        "id": "cultivate",
+        "quantity": 1
+      },
+      {
+        "id": "sol-ring",
+        "quantity": 1
+      },
+      {
+        "id": "arch-loxodon-warhammer",
+        "quantity": 1
+      },
+      {
+        "id": "arch-gaea-s-gift",
+        "quantity": 1
+      },
+      {
+        "id": "arch-cartouche-of-strength",
+        "quantity": 1
+      },
+      {
+        "id": "arch-bushwhack",
+        "quantity": 1
+      },
+      {
+        "id": "arch-helm-of-the-gods",
+        "quantity": 1
+      },
+      {
+        "id": "arch-crystalline-armor",
+        "quantity": 1
+      },
+      {
+        "id": "arch-pain-for-all",
+        "quantity": 1
+      },
+      {
+        "id": "arch-strong-back",
+        "quantity": 1
+      },
+      {
+        "id": "arch-alpha-authority",
+        "quantity": 1
+      },
+      {
+        "id": "arch-red-xiii-proud-warrior",
+        "quantity": 1
+      },
+      {
+        "id": "arch-kediss-emberclaw-familiar",
+        "quantity": 1
+      },
+      {
+        "id": "arch-herald-of-the-pantheon",
+        "quantity": 1
+      },
+      {
+        "id": "arch-royal-treatment",
+        "quantity": 1
+      },
+      {
+        "id": "arch-sanctum-weaver",
+        "quantity": 1
+      },
+      {
+        "id": "arch-trailblazer-s-boots",
+        "quantity": 1
+      },
+      {
+        "id": "arch-bear-umbra",
+        "quantity": 1
+      },
+      {
+        "id": "arch-stangg-echo-warrior",
+        "quantity": 1
+      },
+      {
+        "id": "arch-knickknack-ouphe",
+        "quantity": 1
+      },
+      {
+        "id": "arch-akki-battle-squad",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "inspirit-spacecraft",
+    "name": "\"Battlecruiser\" Magic (Inspirit, Flagship Vessel)",
+    "format": "Commander",
+    "commander": "arch-inspirit-flagship-vessel",
+    "colorIdentity": [
+      "W",
+      "U",
+      "R"
+    ],
+    "playable": true,
+    "cardCount": 100,
+    "source": "https://archidekt.com/decks/14529919/battlecruiser_magic",
+    "notes": "Imported from Archidekt. Creator: Indraga. Public deck 14529919; bracket 3. Main deck is exact as retrieved; sideboard and maybeboard entries are excluded.",
+    "cards": [
+      {
+        "id": "arch-dance-of-the-manse",
+        "quantity": 1
+      },
+      {
+        "id": "arch-castle-doom",
+        "quantity": 1
+      },
+      {
+        "id": "arch-vision-quest",
+        "quantity": 1
+      },
+      {
+        "id": "arch-everflowing-chalice",
+        "quantity": 1
+      },
+      {
+        "id": "arch-astral-cornucopia",
+        "quantity": 1
+      },
+      {
+        "id": "arch-kilo-apogee-mind",
+        "quantity": 1
+      },
+      {
+        "id": "sol-ring",
+        "quantity": 1
+      },
+      {
+        "id": "arcane-signet",
+        "quantity": 1
+      },
+      {
+        "id": "arch-pentad-prism",
+        "quantity": 1
+      },
+      {
+        "id": "arch-insight-engine",
+        "quantity": 1
+      },
+      {
+        "id": "arch-titan-forge",
+        "quantity": 1
+      },
+      {
+        "id": "arch-uthros-research-craft",
+        "quantity": 1
+      },
+      {
+        "id": "arch-solar-array",
+        "quantity": 1
+      },
+      {
+        "id": "arch-lux-cannon",
+        "quantity": 1
+      },
+      {
+        "id": "arch-marketback-walker",
+        "quantity": 1
+      },
+      {
+        "id": "arch-coretapper",
+        "quantity": 1
+      },
+      {
+        "id": "arch-hangarback-walker",
+        "quantity": 1
+      },
+      {
+        "id": "arch-enthusiastic-mechanaut",
+        "quantity": 1
+      },
+      {
+        "id": "arch-walking-ballista",
+        "quantity": 1
+      },
+      {
+        "id": "arch-etherium-sculptor",
+        "quantity": 1
+      },
+      {
+        "id": "arch-surge-conductor",
+        "quantity": 1
+      },
+      {
+        "id": "arch-jhoira-weatherlight-captain",
+        "quantity": 1
+      },
+      {
+        "id": "arch-phyrexian-metamorph",
+        "quantity": 1
+      },
+      {
+        "id": "arch-thought-monitor",
+        "quantity": 1
+      },
+      {
+        "id": "arch-swan-song",
+        "quantity": 1
+      },
+      {
+        "id": "arch-pull-from-tomorrow",
+        "quantity": 1
+      },
+      {
+        "id": "arch-power-depot",
+        "quantity": 1
+      },
+      {
+        "id": "arch-chaos-warp",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-ripples-of-potential",
+        "quantity": 1
+      },
+      {
+        "id": "arch-organic-extinction",
+        "quantity": 1
+      },
+      {
+        "id": "arch-kavaron-memorial-world",
+        "quantity": 1
+      },
+      {
+        "id": "command-tower",
+        "quantity": 1
+      },
+      {
+        "id": "arch-adagia-windswept-bastion",
+        "quantity": 1
+      },
+      {
+        "id": "arch-uthros-titanic-godcore",
+        "quantity": 1
+      },
+      {
+        "id": "arch-ancient-den",
+        "quantity": 1
+      },
+      {
+        "id": "arch-glittering-massif",
+        "quantity": 1
+      },
+      {
+        "id": "arch-academy-ruins",
+        "quantity": 1
+      },
+      {
+        "id": "arch-great-furnace",
+        "quantity": 1
+      },
+      {
+        "id": "island",
+        "quantity": 2
+      },
+      {
+        "id": "mountain",
+        "quantity": 1
+      },
+      {
+        "id": "plains",
+        "quantity": 2
+      },
+      {
+        "id": "arch-raugrin-triome",
+        "quantity": 1
+      },
+      {
+        "id": "arch-radiant-summit",
+        "quantity": 1
+      },
+      {
+        "id": "arch-rustvale-bridge",
+        "quantity": 1
+      },
+      {
+        "id": "arch-razortide-bridge",
+        "quantity": 1
+      },
+      {
+        "id": "arch-seat-of-the-synod",
+        "quantity": 1
+      },
+      {
+        "id": "arch-silverbluff-bridge",
+        "quantity": 1
+      },
+      {
+        "id": "arch-spire-of-industry",
+        "quantity": 1
+      },
+      {
+        "id": "arch-steam-vents",
+        "quantity": 1
+      },
+      {
+        "id": "arch-sacred-foundry",
+        "quantity": 1
+      },
+      {
+        "id": "arch-hallowed-fountain",
+        "quantity": 1
+      },
+      {
+        "id": "arch-arid-mesa",
+        "quantity": 1
+      },
+      {
+        "id": "arch-flooded-strand",
+        "quantity": 1
+      },
+      {
+        "id": "arch-scalding-tarn",
+        "quantity": 1
+      },
+      {
+        "id": "arch-nesting-grounds",
+        "quantity": 1
+      },
+      {
+        "id": "arch-reflecting-pool",
+        "quantity": 1
+      },
+      {
+        "id": "arch-inventors-fair",
+        "quantity": 1
+      },
+      {
+        "id": "arch-esper-sentinel",
+        "quantity": 1
+      },
+      {
+        "id": "arch-culling-dais",
+        "quantity": 1
+      },
+      {
+        "id": "arch-lost-jitte",
+        "quantity": 1
+      },
+      {
+        "id": "arch-torpor-orb",
+        "quantity": 1
+      },
+      {
+        "id": "arch-ethersworn-canonist",
+        "quantity": 1
+      },
+      {
+        "id": "arch-mendicant-core-guidelight",
+        "quantity": 1
+      },
+      {
+        "id": "arch-power-conduit",
+        "quantity": 1
+      },
+      {
+        "id": "arch-clock-of-omens",
+        "quantity": 1
+      },
+      {
+        "id": "arch-dreamtide-whale",
+        "quantity": 1
+      },
+      {
+        "id": "arch-the-seriema",
+        "quantity": 1
+      },
+      {
+        "id": "arch-transmogrifying-wand",
+        "quantity": 1
+      },
+      {
+        "id": "arch-all-will-be-one",
+        "quantity": 1
+      },
+      {
+        "id": "arch-training-center",
+        "quantity": 1
+      },
+      {
+        "id": "arch-urza-lord-protector",
+        "quantity": 1
+      },
+      {
+        "id": "arch-spectator-seating",
+        "quantity": 1
+      },
+      {
+        "id": "arch-sea-of-clouds",
+        "quantity": 1
+      },
+      {
+        "id": "arch-patrolling-peacemaker",
+        "quantity": 1
+      },
+      {
+        "id": "arch-arcbound-ravager",
+        "quantity": 1
+      },
+      {
+        "id": "arch-memnite",
+        "quantity": 1
+      },
+      {
+        "id": "arch-magda-brazen-outlaw",
+        "quantity": 1
+      },
+      {
+        "id": "arch-tezzeret-cruel-captain",
+        "quantity": 1
+      },
+      {
+        "id": "arch-ironsoul-enforcer",
+        "quantity": 1
+      },
+      {
+        "id": "arch-mana-confluence",
+        "quantity": 1
+      },
+      {
+        "id": "arch-plaza-of-heroes",
+        "quantity": 1
+      },
+      {
+        "id": "arch-illustrious-wanderglyph",
+        "quantity": 1
+      },
+      {
+        "id": "arch-gold-forged-thopteryx",
+        "quantity": 1
+      },
+      {
+        "id": "arch-thopter-spy-network",
+        "quantity": 1
+      },
+      {
+        "id": "arch-extinguisher-battleship",
+        "quantity": 1
+      },
+      {
+        "id": "arch-starwinder",
+        "quantity": 1
+      },
+      {
+        "id": "arch-dawnsire-sunstar-dreadnought",
+        "quantity": 1
+      },
+      {
+        "id": "arch-the-mightstone-and-weakstone",
+        "quantity": 1
+      },
+      {
+        "id": "arch-cryptothrall",
+        "quantity": 1
+      },
+      {
+        "id": "arch-nibelheim-aflame",
+        "quantity": 1
+      },
+      {
+        "id": "arch-thousand-moons-smithy-barracks-of-the-thousand",
+        "quantity": 1
+      },
+      {
+        "id": "arch-liberator-urza-s-battlethopter",
+        "quantity": 1
+      },
+      {
+        "id": "arch-hidden-hideout",
+        "quantity": 1
+      },
+      {
+        "id": "arch-technodrome",
+        "quantity": 1
+      },
+      {
+        "id": "arch-weather-maker",
+        "quantity": 1
+      },
+      {
+        "id": "arch-iron-spider-stark-upgrade",
+        "quantity": 1
+      },
+      {
+        "id": "arch-the-mycosynth-gardens",
+        "quantity": 1
+      },
+      {
+        "id": "arch-inspirit-flagship-vessel",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "bullies-face-down",
+    "name": "2/2s For Flinching",
+    "format": "Commander",
+    "commander": "arch-the-beamtown-bullies",
+    "colorIdentity": [
+      "B",
+      "R",
+      "G"
+    ],
+    "playable": true,
+    "cardCount": 100,
+    "source": "https://archidekt.com/decks/9127641/22s_for_flinching",
+    "notes": "Imported from Archidekt. Creator: ratorasniki. Public deck 9127641; bracket unrated. Main deck is exact as retrieved; sideboard and maybeboard entries are excluded.",
+    "cards": [
+      {
+        "id": "arch-fog",
+        "quantity": 1
+      },
+      {
+        "id": "arch-ohran-frostfang",
+        "quantity": 1
+      },
+      {
+        "id": "arch-toski-bearer-of-secrets",
+        "quantity": 1
+      },
+      {
+        "id": "arch-hauntwoods-shrieker",
+        "quantity": 1
+      },
+      {
+        "id": "arch-disciple-of-freyalise-garden-of-freyalise",
+        "quantity": 1
+      },
+      {
+        "id": "arch-smoldering-marsh",
+        "quantity": 1
+      },
+      {
+        "id": "arch-fell-the-profane-fell-mire",
+        "quantity": 1
+      },
+      {
+        "id": "arch-pinnacle-monk-mystic-peak",
+        "quantity": 1
+      },
+      {
+        "id": "arch-sundering-eruption-volcanic-fissure",
+        "quantity": 1
+      },
+      {
+        "id": "arch-killer-s-mask",
+        "quantity": 1
+      },
+      {
+        "id": "arch-manifest-dread",
+        "quantity": 1
+      },
+      {
+        "id": "mountain",
+        "quantity": 2
+      },
+      {
+        "id": "arch-lively-dirge",
+        "quantity": 1
+      },
+      {
+        "id": "arch-the-gitrog-ravenous-ride",
+        "quantity": 1
+      },
+      {
+        "id": "arch-bridgeworks-battle-tanglespan-bridgeworks",
+        "quantity": 1
+      },
+      {
+        "id": "arch-hedge-shredder",
+        "quantity": 1
+      },
+      {
+        "id": "arch-pyrotechnic-performer",
+        "quantity": 1
+      },
+      {
+        "id": "arch-threats-around-every-corner",
+        "quantity": 1
+      },
+      {
+        "id": "arch-under-the-skin",
+        "quantity": 1
+      },
+      {
+        "id": "arch-hide-in-plain-sight",
+        "quantity": 1
+      },
+      {
+        "id": "arch-experiment-twelve",
+        "quantity": 1
+      },
+      {
+        "id": "arch-curator-beastie",
+        "quantity": 1
+      },
+      {
+        "id": "arch-scroll-of-fate",
+        "quantity": 1
+      },
+      {
+        "id": "arch-whisperwood-elemental",
+        "quantity": 1
+      },
+      {
+        "id": "arch-saryth-the-viper-s-fang",
+        "quantity": 1
+      },
+      {
+        "id": "arch-faithless-looting",
+        "quantity": 1
+      },
+      {
+        "id": "arch-despotic-scepter",
+        "quantity": 1
+      },
+      {
+        "id": "arch-nature-s-lore",
+        "quantity": 1
+      },
+      {
+        "id": "arch-palanti-r-of-orthanc",
+        "quantity": 1
+      },
+      {
+        "id": "arch-boldwyr-heavyweights",
+        "quantity": 1
+      },
+      {
+        "id": "arch-eater-of-days",
+        "quantity": 1
+      },
+      {
+        "id": "arch-leveler",
+        "quantity": 1
+      },
+      {
+        "id": "arch-yargle-and-multani",
+        "quantity": 1
+      },
+      {
+        "id": "command-tower",
+        "quantity": 1
+      },
+      {
+        "id": "arch-bitter-reunion",
+        "quantity": 1
+      },
+      {
+        "id": "arch-twisted-landscape",
+        "quantity": 1
+      },
+      {
+        "id": "arch-exotic-orchard",
+        "quantity": 1
+      },
+      {
+        "id": "arch-savage-lands",
+        "quantity": 1
+      },
+      {
+        "id": "lcc-myriad-landscape",
+        "quantity": 1
+      },
+      {
+        "id": "arch-rakdos-carnarium",
+        "quantity": 1
+      },
+      {
+        "id": "arch-golgari-rot-farm",
+        "quantity": 1
+      },
+      {
+        "id": "arch-revitalizing-repast-old-growth-grove",
+        "quantity": 1
+      },
+      {
+        "id": "arch-thespian-s-stage",
+        "quantity": 1
+      },
+      {
+        "id": "sol-ring",
+        "quantity": 1
+      },
+      {
+        "id": "arch-valgavoth-s-onslaught",
+        "quantity": 1
+      },
+      {
+        "id": "arch-disorienting-choice",
+        "quantity": 1
+      },
+      {
+        "id": "arch-culling-ritual",
+        "quantity": 1
+      },
+      {
+        "id": "arch-dance-of-the-dead",
+        "quantity": 1
+      },
+      {
+        "id": "arch-worldgorger-dragon",
+        "quantity": 1
+      },
+      {
+        "id": "arch-brawn",
+        "quantity": 1
+      },
+      {
+        "id": "arch-reanimate",
+        "quantity": 1
+      },
+      {
+        "id": "arch-festering-gulch",
+        "quantity": 1
+      },
+      {
+        "id": "arch-jagged-barrens",
+        "quantity": 1
+      },
+      {
+        "id": "arch-bristling-backwoods",
+        "quantity": 1
+      },
+      {
+        "id": "arch-undergrowth-stadium",
+        "quantity": 1
+      },
+      {
+        "id": "forest",
+        "quantity": 4
+      },
+      {
+        "id": "arch-dragonskull-summit",
+        "quantity": 1
+      },
+      {
+        "id": "arch-rootbound-crag",
+        "quantity": 1
+      },
+      {
+        "id": "swamp",
+        "quantity": 2
+      },
+      {
+        "id": "arch-yarus-roar-of-the-old-gods",
+        "quantity": 1
+      },
+      {
+        "id": "arch-sunscorched-desert",
+        "quantity": 1
+      },
+      {
+        "id": "arch-soulgorger-orgg",
+        "quantity": 1
+      },
+      {
+        "id": "arch-thieving-amalgam",
+        "quantity": 1
+      },
+      {
+        "id": "arch-coastline-marauders",
+        "quantity": 1
+      },
+      {
+        "id": "arch-ripples-of-undeath",
+        "quantity": 1
+      },
+      {
+        "id": "arch-hostile-negotiations",
+        "quantity": 1
+      },
+      {
+        "id": "arch-bojuka-bog",
+        "quantity": 1
+      },
+      {
+        "id": "arch-master-of-cruelties",
+        "quantity": 1
+      },
+      {
+        "id": "arch-cinder-glade",
+        "quantity": 1
+      },
+      {
+        "id": "arch-demand-answers",
+        "quantity": 1
+      },
+      {
+        "id": "arch-slaughter-pact",
+        "quantity": 1
+      },
+      {
+        "id": "arch-zoyowa-s-justice",
+        "quantity": 1
+      },
+      {
+        "id": "arch-inverter-of-truth",
+        "quantity": 1
+      },
+      {
+        "id": "arch-unstoppable-slasher",
+        "quantity": 1
+      },
+      {
+        "id": "arch-skullwinder",
+        "quantity": 1
+      },
+      {
+        "id": "arch-sadistic-shell-game",
+        "quantity": 1
+      },
+      {
+        "id": "arch-ash-barrens",
+        "quantity": 1
+      },
+      {
+        "id": "arch-troll-of-khazad-du-m",
+        "quantity": 1
+      },
+      {
+        "id": "arch-oliphaunt",
+        "quantity": 1
+      },
+      {
+        "id": "arch-experimental-lab-staff-room",
+        "quantity": 1
+      },
+      {
+        "id": "arch-ticket-booth-tunnel-of-hate",
+        "quantity": 1
+      },
+      {
+        "id": "arch-hellcarver-demon",
+        "quantity": 1
+      },
+      {
+        "id": "arch-brass-s-tunnel-grinder-tecutlan-the-searing-rift",
+        "quantity": 1
+      },
+      {
+        "id": "arch-formless-genesis",
+        "quantity": 1
+      },
+      {
+        "id": "arch-fauna-shaman",
+        "quantity": 1
+      },
+      {
+        "id": "arch-hagra-mauling-hagra-broodpit",
+        "quantity": 1
+      },
+      {
+        "id": "arch-chandra-s-ignition",
+        "quantity": 1
+      },
+      {
+        "id": "arch-hermit-druid",
+        "quantity": 1
+      },
+      {
+        "id": "arch-gruul-turf",
+        "quantity": 1
+      },
+      {
+        "id": "arch-animate-dead",
+        "quantity": 1
+      },
+      {
+        "id": "arch-kazuul-s-fury-kazuul-s-cliffs",
+        "quantity": 1
+      },
+      {
+        "id": "arch-the-beamtown-bullies",
+        "quantity": 1
+      },
+      {
+        "id": "arch-zhur-taa-druid",
+        "quantity": 1
+      },
+      {
+        "id": "arch-demonic-gifts",
+        "quantity": 1
+      },
+      {
+        "id": "arch-undying-evil",
+        "quantity": 1
+      }
+    ]
   }
 ]

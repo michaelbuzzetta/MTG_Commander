@@ -40,8 +40,14 @@ export class StaticEngine {
   isType(permanent, type) {
     if (!permanent || permanent.phasedOut) return false;
     const definition = this.engine.db[permanent.cardId];
-    if (!isType(definition, type)) return false;
-    if (String(type).toLowerCase() !== 'creature') return true;
+    const requestedCreature = String(type).toLowerCase() === 'creature';
+    if (permanent.faceDown) return requestedCreature;
+    const stationRule = definition?.creatureAtCounter;
+    const stationed = requestedCreature && stationRule
+      && counterCount(permanent, stationRule.counter || 'charge') >= Number(stationRule.amount || 1);
+    if (!isType(definition, type) && !stationed) return false;
+    if (!requestedCreature) return true;
+    if (stationRule && !stationed) return false;
     const devotionRule = definition?.creatureUnlessDevotion;
     if (!devotionRule || permanent.zone !== 'battlefield') return true;
     return this.devotion(permanent.controller, devotionRule.colors || []) >= Number(devotionRule.threshold || 0);
@@ -119,8 +125,8 @@ export class StaticEngine {
 
   derivedStats(permanent) {
     const definition = this.engine.db[permanent.cardId] || {};
-    let basePower = Number(definition?.power || 0);
-    let baseToughness = Number(definition?.toughness || 0);
+    let basePower = permanent.faceDown ? 2 : Number(definition?.power || 0);
+    let baseToughness = permanent.faceDown ? 2 : Number(definition?.toughness || 0);
     if (definition.dynamicPowerToughness === 'handSize') {
       const count = this.engine.state.players[permanent.controller]?.hand?.length || 0;
       basePower = count;
@@ -128,7 +134,7 @@ export class StaticEngine {
     }
     let power = basePower + counterCount(permanent, '+1/+1') - counterCount(permanent, '-1/-1') + Number(permanent.modifiers?.power || 0);
     let toughness = baseToughness + counterCount(permanent, '+1/+1') - counterCount(permanent, '-1/-1') + Number(permanent.modifiers?.toughness || 0);
-    const keywords = new Set([...(definition?.keywords || []), ...(permanent.modifiers?.keywords || [])]);
+    const keywords = new Set([...(permanent.faceDown ? [] : (definition?.keywords || [])), ...(permanent.modifiers?.keywords || [])]);
 
     for (const player of Object.values(this.engine.state.players)) {
       for (const source of player.battlefield) {
@@ -154,6 +160,10 @@ export class StaticEngine {
 
   effectiveAbilities(permanent) {
     const definition = this.engine.db[permanent?.cardId];
+    if (permanent?.faceDown) {
+      const cost = definition?.manaCost || '';
+      return cost ? [{ type: 'activated', cost: { mana: cost }, sorcerySpeed: true, effect: { type: 'turnFaceUp' } }] : [];
+    }
     const abilities = structuredClone(definition?.abilities || []).filter(ability => ability.type !== 'static' && ability.type !== 'replacement');
     if (!permanent || permanent.zone !== 'battlefield' || permanent.phasedOut) return abilities;
 

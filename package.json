@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "import-archidekt": "node scripts/import-archidekt-decks.mjs",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
