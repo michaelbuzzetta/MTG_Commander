@@ -5,7 +5,7 @@ import { GameEngine } from './engine/GameEngine.js';
 import { AIController } from './ai/AIController.js';
 import { Battlefield } from './components/Battlefield.jsx';
 import { Card } from './components/Card.jsx';
-import { buildCustomDeck, parseMassEntry } from './utils/deckImport.js';
+import { buildCustomDeck, fetchMissingCardDefinitions, parseMassEntry } from './utils/deckImport.js';
 import { automationActor, humanAutomationDecision } from './utils/turnAutomation.js';
 import './styles.css';
 
@@ -17,7 +17,7 @@ function loadCustomDecks() {
   if (typeof window === 'undefined') return [];
   try {
     const saved = JSON.parse(window.localStorage.getItem(CUSTOM_DECKS_KEY) || '[]');
-    return Array.isArray(saved) ? saved.filter(deck => deck?.custom && deck?.cardCount === 100 && db0[deck.commander]) : [];
+    return Array.isArray(saved) ? saved.filter(deck => deck?.custom && deck?.cardCount === 100 && (db0[deck.commander] || deck.cardDefinitions?.[deck.commander])) : [];
   } catch {
     return [];
   }
@@ -62,6 +62,8 @@ function PhaseBanner({ state, attackers, blockTarget }) {
 
 export default function App() {
   const [customDecks, setCustomDecks] = useState(loadCustomDecks);
+  const customCardDb = Object.assign({}, ...customDecks.map(deck => deck.cardDefinitions || {}));
+  const runtimeDb = { ...db0, ...customCardDb };
   const selectableDecks = [...playableDecks, ...customDecks];
   const [choice, setChoice] = useState(playableDecks[0]?.id || '');
   const [playerCount, setPlayerCount] = useState(2);
@@ -70,6 +72,7 @@ export default function App() {
   const [commanderName, setCommanderName] = useState('');
   const [deckList, setDeckList] = useState('');
   const [deckImportError, setDeckImportError] = useState('');
+  const [deckImporting, setDeckImporting] = useState(false);
   const [engine, setEngine] = useState(null);
   const [renderTick, redraw] = useState(0);
   const [attackers, setAttackers] = useState([]);
@@ -105,7 +108,7 @@ export default function App() {
     if (aiPool.length < playerCount - 1) throw new Error(`At least ${playerCount} distinct playable decks are required for a ${playerCount}-player match.`);
     const shuffled = [...aiPool].sort(() => Math.random() - 0.5);
     const aiDecks = shuffled.slice(0, playerCount - 1);
-    const e = new GameEngine(mine, aiDecks, db0);
+    const e = new GameEngine(mine, aiDecks, runtimeDb);
     e.start();
     setEngine(e);
     setAttackers([]);
@@ -134,9 +137,16 @@ export default function App() {
 
   const importedCardCount = parseMassEntry(deckList).count;
 
-  const importDeck = () => {
+  const importDeck = async () => {
+    setDeckImporting(true);
     try {
-      const deck = buildCustomDeck({ name: deckName, commander: commanderName, list: deckList }, db0, selectableDecks);
+      const parsed = parseMassEntry(deckList);
+      if (parsed.errors.length) throw new Error(parsed.errors.slice(0, 5).join('\n'));
+      if (parsed.count !== 99) throw new Error(`The main deck must contain exactly 99 cards. Your pasted list contains ${parsed.count}.`);
+      const downloaded = await fetchMissingCardDefinitions([commanderName, ...parsed.entries.map(entry => entry.name)], runtimeDb);
+      const importDb = { ...runtimeDb, ...downloaded };
+      const deck = buildCustomDeck({ name: deckName, commander: commanderName, list: deckList }, importDb, selectableDecks);
+      deck.cardDefinitions = Object.fromEntries(deck.cards.filter(entry => !db0[entry.id]).map(entry => [entry.id, importDb[entry.id]]));
       const next = [...customDecks, deck];
       setCustomDecks(next);
       saveCustomDecks(next);
@@ -148,6 +158,8 @@ export default function App() {
       setShowDeckImporter(false);
     } catch (err) {
       setDeckImportError(err.message);
+    } finally {
+      setDeckImporting(false);
     }
   };
 
@@ -237,7 +249,7 @@ export default function App() {
         <button className="modal-close" aria-label="Close deck importer" onClick={() => setShowDeckImporter(false)}>×</button>
         <div className="modal-kicker">CUSTOM COMMANDER DECK</div>
         <h2 id="deck-import-title">Add Your Own Deck</h2>
-        <p className="modal-copy">Paste the 99-card main deck in TCGPlayer Mass Entry format. Cards must already exist in this trainer’s local card database so their game mechanics can run correctly.</p>
+        <p className="modal-copy">Paste the 99-card main deck in TCGPlayer or Archidekt format. Missing card records are downloaded during import and saved with your deck for future games.</p>
         <div className="import-grid">
           <label>Deck name<input value={deckName} onChange={e => setDeckName(e.target.value)} placeholder="My Commander Deck" /></label>
           <label>Commander<input value={commanderName} onChange={e => setCommanderName(e.target.value)} placeholder="Hakbal of the Surging Soul" /></label>
@@ -245,11 +257,11 @@ export default function App() {
         <label className="deck-list-label"><span>99 other cards <b className={importedCardCount === 99 ? 'count-good' : ''}>{importedCardCount} / 99</b></span>
           <textarea value={deckList} onChange={e => { setDeckList(e.target.value); if (deckImportError) setDeckImportError(''); }} placeholder={'1 Sol Ring\n1 Arcane Signet\n1 Command Tower\n13 Island\n...'} spellCheck="false" />
         </label>
-        <div className="format-hint"><b>Accepted examples:</b> <code>1 Sol Ring</code>, <code>1x Sol Ring</code>, <code>13 Island</code>, <code>1 Sol Ring [CMM] 396</code></div>
+        <div className="format-hint"><b>Accepted examples:</b> <code>1 Sol Ring</code>, <code>1x Sol Ring</code>, <code>13 Island</code>, <code>1 Sol Ring [CMM] 396</code>, <code>1x Sol Ring (cmm) 396 [Ramp]</code></div>
         {deckImportError && <div className="import-error" role="alert">{deckImportError}</div>}
         <div className="modal-actions">
           <button className="secondary" onClick={() => setShowDeckImporter(false)}>Cancel</button>
-          <button className="primary" onClick={importDeck}>Save Deck</button>
+          <button className="primary" onClick={importDeck} disabled={deckImporting}>{deckImporting ? 'Importing cards…' : 'Save Deck'}</button>
         </div>
       </section>
     </div>}

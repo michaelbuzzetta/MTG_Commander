@@ -81,9 +81,9 @@ From the home screen, choose **Add Your Own Deck** to save a custom Commander de
 13 Island
 ```
 
-`1x Card Name` and common set/collector decorations such as `1 Sol Ring [CMM] 396` are also accepted. The importer validates the 99-card count, local card availability/support, Commander color identity, and duplicate-card rules. Imported decks are stored in `localStorage`, appear in the normal deck selector, and can be removed from the home screen.
+`1x Card Name`, TCGPlayer decorations such as `1 Sol Ring [CMM] 396`, and Archidekt lines such as `1x Sol Ring (cmm) 396 [Ramp]` are accepted. The importer removes set, collector-number, category, and `Commander{top}` decorations before matching names. It validates the 99-card count, Commander color identity, and duplicate-card rules.
 
-Because the trainer executes card mechanics locally, a custom deck can only be imported when every card already exists in the trainer's local card database and is marked supported.
+Cards not already bundled with the trainer are retrieved from Scryfall during import. Their card image, Oracle text, color identity, type line, printed keywords, mana production, and common reusable effects are compiled into local rules records and saved alongside the custom deck in `localStorage`, so later games can use the deck without downloading those records again. Imported decks appear in the normal deck selector and can be removed from the home screen.
 
 ## Multiplayer Commander
 
