@@ -1,4 +1,3 @@
-
 export class CombatEngine {
   #internalToken;
   constructor(engine, internalToken) { this.engine = engine; this.#internalToken = internalToken; }
@@ -19,39 +18,81 @@ export class CombatEngine {
     });
   }
 
-  declareAttackers(pid, ids, token) {
+  legalDefenders(pid) {
+    return this.engine.opponents(pid);
+  }
+
+  normalizeAttackTargets(pid, ids, attackTargets = {}) {
+    const defenders = this.legalDefenders(pid);
+    if (!defenders.length && ids.length) throw new Error('There is no legal defending player');
+    const fallback = defenders[0] || null;
+    const normalized = {};
+    for (const id of ids) {
+      const target = attackTargets?.[id] || fallback;
+      if (!target || !defenders.includes(target)) throw new Error('Each attacker must attack a living opponent');
+      normalized[id] = target;
+    }
+    return normalized;
+  }
+
+  declareAttackers(pid, ids, attackTargets, token) {
+    // Backward compatibility: old callers pass (pid, ids, token).
+    if (token === undefined && attackTargets === this.#internalToken) { token = attackTargets; attackTargets = {}; }
     this.#assertInternal(token);
     if (!Array.isArray(ids) || new Set(ids).size !== ids.length) throw new Error('Duplicate attacker');
     const legalAttackers = this.legalAttackers(pid);
     const legal = new Set(legalAttackers.map(x => x.instanceId));
     if (ids.some(x => !legal.has(x))) throw new Error('Illegal attacker');
-    const required = legalAttackers.filter(permanent => permanent.mustAttackPlayer === this.engine.opponent(pid)).map(permanent => permanent.instanceId);
-    if (required.some(id => !ids.includes(id))) throw new Error('A creature that must attack this opponent this turn must attack if able');
+    const targets = this.normalizeAttackTargets(pid, ids, attackTargets || {});
 
-    for (const player of Object.values(this.engine.state.players)) {
-      for (const permanent of player.battlefield) permanent.attacking = false;
+    for (const permanent of legalAttackers) {
+      if (!permanent.mustAttackPlayer) continue;
+      if (!this.engine.state.players[permanent.mustAttackPlayer] || this.engine.state.players[permanent.mustAttackPlayer].lost) {
+        permanent.mustAttackPlayer = null;
+        continue;
+      }
+      if (!ids.includes(permanent.instanceId)) throw new Error('A creature that must attack this opponent this turn must attack if able');
+      if (targets[permanent.instanceId] !== permanent.mustAttackPlayer) throw new Error('A creature that must attack a specific opponent must attack that opponent');
     }
 
-    this.engine.state.combat.attackers = [];
-    this.engine.state.combat.blockers = {};
-    this.engine.state.combat.blocked = {};
-    this.engine.state.combat.damageAssignments = {};
+    for (const player of Object.values(this.engine.state.players)) {
+      for (const permanent of player.battlefield) {
+        permanent.attacking = false;
+        permanent.attackTarget = null;
+      }
+    }
+
+    const combat = this.engine.state.combat;
+    combat.attackers = [];
+    combat.attackTargets = {};
+    combat.blockers = {};
+    combat.blocked = {};
+    combat.damageAssignments = {};
+    combat.defendingPlayers = [];
+    combat.blockerQueue = [];
+    combat.currentDefender = null;
 
     for (const id of ids) {
       const p = this.engine.findPermanent(id);
       p.attacking = true;
+      p.attackTarget = targets[id];
       if (p.mustAttackPlayer) p.mustAttackPlayer = null;
       const ks = this.#keywords(p);
       if (!ks.includes('vigilance')) this.engine.tapPermanent(p);
-      this.engine.state.combat.attackers.push(id);
-      this.engine.emit('CREATURE_ATTACKED', { controller: pid, target: p, object: p });
+      combat.attackers.push(id);
+      combat.attackTargets[id] = targets[id];
+      this.engine.emit('CREATURE_ATTACKED', { controller: pid, target: p, object: p, defendingPlayer: targets[id] });
     }
-    this.engine.emit('DECLARE_ATTACKERS', { controller: pid, attackers: [...ids] });
+
+    combat.defendingPlayers = this.engine.playerIds().filter(id => Object.values(targets).includes(id) && !this.engine.state.players[id].lost);
+    this.engine.emit('DECLARE_ATTACKERS', { controller: pid, attackers: [...ids], attackTargets: structuredClone(targets) });
     return ids;
   }
 
   canBlock(blocker, attacker) {
     if (!this.#isCreature(blocker) || !this.#isCreature(attacker) || blocker.tapped) return false;
+    const defender = this.engine.state.combat.attackTargets?.[attacker.instanceId] || attacker.attackTarget || this.engine.opponent(attacker.controller);
+    if (defender && blocker.controller !== defender) return false;
     const bk = this.#keywords(blocker);
     const ak = this.#keywords(attacker);
     if (ak.includes('unblockable') || ak.includes("can't be blocked")) return false;
@@ -63,14 +104,21 @@ export class CombatEngine {
     return true;
   }
 
+  attackersForDefender(pid) {
+    return this.engine.state.combat.attackers.filter(aid => {
+      const attacker = this.engine.findPermanent(aid);
+      return attacker && (this.engine.state.combat.attackTargets?.[aid] || attacker.attackTarget || this.engine.opponent(attacker.controller)) === pid;
+    });
+  }
+
   validateBlockers(pid, map) {
     const player = this.engine.state.players[pid];
-    if (!player || map == null || typeof map !== 'object' || Array.isArray(map)) throw new Error('Invalid blocker map');
+    if (!player || player.lost || map == null || typeof map !== 'object' || Array.isArray(map)) throw new Error('Invalid blocker map');
 
-    const attackers = new Set(this.engine.state.combat.attackers);
+    const attackers = new Set(this.attackersForDefender(pid));
     const used = new Set();
     for (const [aid, bids0] of Object.entries(map)) {
-      if (!attackers.has(aid)) throw new Error('Blocking nonattacker');
+      if (!attackers.has(aid)) throw new Error('Blocking nonattacker or attacker aimed at another player');
       const attacker = this.engine.findPermanent(aid);
       if (!attacker?.attacking || !this.#isCreature(attacker)) throw new Error('Blocking nonattacker');
       const bids = Array.isArray(bids0) ? bids0 : [bids0];
@@ -92,23 +140,19 @@ export class CombatEngine {
 
     for (const p of this.engine.state.players[pid].battlefield) p.blocking = null;
 
-    const normalized = {};
-    const blocked = {};
-    const damageAssignments = {};
-    for (const aid of this.engine.state.combat.attackers) {
+    const combat = this.engine.state.combat;
+    const defenderAttackers = this.attackersForDefender(pid);
+    for (const aid of defenderAttackers) {
       const raw = map?.[aid];
       const bids = raw == null ? [] : (Array.isArray(raw) ? [...raw] : [raw]);
-      normalized[aid] = bids;
-      blocked[aid] = bids.length > 0;
-      if (bids.length <= 1) damageAssignments[aid] = [...bids];
+      combat.blockers[aid] = bids;
+      combat.blocked[aid] = bids.length > 0;
+      if (bids.length <= 1) combat.damageAssignments[aid] = [...bids];
       for (const id of bids) this.engine.findPermanent(id).blocking = aid;
     }
 
-    this.engine.state.combat.blockers = normalized;
-    this.engine.state.combat.blocked = blocked;
-    this.engine.state.combat.damageAssignments = damageAssignments;
-    this.engine.emit('DECLARE_BLOCKERS', { controller: pid, blockers: structuredClone(normalized) });
-    return normalized;
+    this.engine.emit('DECLARE_BLOCKERS', { controller: pid, blockers: structuredClone(map || {}), defendingPlayer: pid });
+    return structuredClone(map || {});
   }
 
   requiredDamageAssignmentOrders() {
@@ -169,6 +213,7 @@ export class CombatEngine {
 
   #assignAttackerDamage(attacker, defenderId, firstStrike, damageEvents) {
     if (!this.#participatesInDamageStep(attacker, firstStrike)) return;
+    if (!defenderId || this.engine.state.players[defenderId]?.lost) return;
 
     const stats = this.engine.static.derivedStats(attacker);
     let remaining = Math.max(0, stats.power);
@@ -187,8 +232,6 @@ export class CombatEngine {
     }
 
     if (!liveBlockers.length) {
-      // A blocked creature remains blocked for the rest of combat. Only trample can
-      // carry damage through when every declared blocker has left combat.
       if (keywords.includes('trample')) damageEvents.push(this.engine.dealDamageToPlayer(defenderId, remaining, attacker, { combat: true }));
       return;
     }
@@ -196,13 +239,9 @@ export class CombatEngine {
     for (let index = 0; index < liveBlockers.length && remaining > 0; index++) {
       const blocker = liveBlockers[index];
       const blockerStats = this.engine.static.derivedStats(blocker);
-      const lethal = keywords.includes('deathtouch')
-        ? 1
-        : Math.max(0, blockerStats.toughness - blocker.damageMarked);
+      const lethal = keywords.includes('deathtouch') ? 1 : Math.max(0, blockerStats.toughness - blocker.damageMarked);
       const isLast = index === liveBlockers.length - 1;
-      const amount = isLast && !keywords.includes('trample')
-        ? remaining
-        : Math.min(remaining, lethal);
+      const amount = isLast && !keywords.includes('trample') ? remaining : Math.min(remaining, lethal);
       if (amount > 0) damageEvents.push(this.engine.dealDamageToPermanent(blocker, amount, attacker, { combat: true }));
       remaining -= amount;
     }
@@ -221,18 +260,14 @@ export class CombatEngine {
     return this.engine._withDeferredTriggers(() => {
       const state = this.engine.state;
       const attackerPlayer = state.activePlayer;
-      const defenderPlayer = this.engine.opponent(attackerPlayer);
       const damageEvents = [];
 
       for (const aid of state.combat.attackers) {
         const attacker = this.engine.findPermanent(aid);
         if (!attacker) continue;
-
+        const defenderPlayer = state.combat.attackTargets?.[aid] || attacker.attackTarget || this.engine.opponent(attackerPlayer);
         const declared = state.combat.damageAssignments?.[aid] || state.combat.blockers?.[aid] || [];
         const liveBlockers = declared.map(id => this.engine.findPermanent(id)).filter(Boolean);
-
-        // Combat damage is simultaneous. We therefore mark all attacker/blocker
-        // damage for this combat pair before state-based actions are checked.
         this.#assignAttackerDamage(attacker, defenderPlayer, firstStrike, damageEvents);
         for (const blocker of liveBlockers) this.#assignBlockerDamage(attacker, blocker, firstStrike, damageEvents);
       }
@@ -252,9 +287,10 @@ export class CombatEngine {
     for (const p of Object.values(this.engine.state.players)) {
       for (const c of p.battlefield) {
         c.attacking = false;
+        c.attackTarget = null;
         c.blocking = null;
       }
     }
-    this.engine.state.combat = { attackers: [], blockers: {}, blocked: {}, damageAssignments: {} };
+    this.engine.state.combat = { attackers: [], attackTargets: {}, blockers: {}, blocked: {}, damageAssignments: {}, defendingPlayers: [], blockerQueue: [], currentDefender: null };
   }
 }

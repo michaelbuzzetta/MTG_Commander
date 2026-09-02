@@ -114,7 +114,7 @@ export class EffectEngine {
             { type: 'triggered', event: EVENT.END_STEP, condition: { encoreSacrificeDue: true }, effect: { type: 'sacrificeSelf' } }
           ]
         };
-        for (const opponentId of Object.keys(s.players).filter(id => id !== pid)) {
+        for (const opponentId of e.opponents(pid)) {
           const [token] = this.createToken(pid, tokenDefinition, 1);
           if (token) {
             token.summoningSick = false;
@@ -512,7 +512,7 @@ export class EffectEngine {
         const source = e.findPermanent(ctx.source?.instanceId);
         if (source && Number(source.counters?.[effect.counter || 'growth'] || 0) >= Number(effect.amount || 20)) {
           s.winner = pid;
-          s.players[e.opponent(pid)].lost = true;
+          for (const opponentId of e.opponents(pid)) s.players[opponentId].lost = true;
         }
         break;
       }
@@ -559,14 +559,15 @@ export class EffectEngine {
         break;
       }
       case 'memory': {
-        for (const [playerId, player] of Object.entries(s.players)) {
+        for (const playerId of e.livingPlayerIds()) {
+          const player = s.players[playerId];
           const all = [...player.hand, ...player.graveyard];
           player.hand = [];
           player.graveyard = [];
           for (const card of all) ZoneManager.place(s, card, 'library', playerId);
           player.library = shuffle(player.library, e.rng);
         }
-        for (const playerId of Object.keys(s.players)) e.draw(playerId, 7);
+        for (const playerId of e.livingPlayerIds()) e.draw(playerId, 7);
         break;
       }
       case 'phaseOut': {

@@ -31,15 +31,34 @@ export class GameEngine {
     this._triggerDeferral = 0;
   }
 
-  opponent = id => id === 'player' ? 'ai' : 'player';
+  playerIds = () => [...(this.state.playerOrder || Object.keys(this.state.players))];
+
+  livingPlayerIds = () => this.playerIds().filter(id => this.state.players[id] && !this.state.players[id].lost);
+
+  opponents = id => this.livingPlayerIds().filter(other => other !== id);
+
+  opponent = id => this.opponents(id)[0] || null;
+
+  nextPlayer = id => {
+    const order = this.playerIds();
+    if (!order.length) return null;
+    const start = Math.max(0, order.indexOf(id));
+    for (let offset = 1; offset <= order.length; offset++) {
+      const candidate = order[(start + offset) % order.length];
+      if (this.state.players[candidate] && !this.state.players[candidate].lost) return candidate;
+    }
+    return null;
+  };
+
+  nextPriorityPlayer = id => this.nextPlayer(id);
 
   start() {
     if (this.state.started) throw new Error('Game already started; use reset() to begin a new match');
     this.state.started = true;
     this.state.pregame.active = true;
-    this.state.pregame.currentPlayer = 'player';
-    this.state.priorityPlayer = 'player';
-    for (const id of ['player', 'ai']) this.draw(id, 7);
+    this.state.pregame.currentPlayer = this.state.playerOrder[0];
+    this.state.priorityPlayer = this.state.pregame.currentPlayer;
+    for (const id of this.state.playerOrder) this.draw(id, 7);
     this.emit(EVENT.GAME_START, { controller: this.state.activePlayer, turn: this.state.turn, stage: 'pregame' });
     return this.state;
   }
@@ -98,6 +117,7 @@ export class GameEngine {
     if (!s.started) throw new Error('Game has not started');
     if (s.winner) throw new Error('Game is over');
     if (!s.players[pid]) throw new Error('Unknown acting player');
+    if (s.players[pid].lost) throw new Error('Eliminated players cannot take actions');
     if (!action?.type) throw new Error('Action type is required');
 
     if (s.pendingChoice) return this._validateChoiceAction(pid, action);
@@ -132,6 +152,7 @@ export class GameEngine {
 
   perform(pid, action) {
     this.validateAction(pid, action);
+    if (action.type !== 'PASS_PRIORITY') this.state.passes = 0;
     const result = this._applyValidatedAction(pid, action, INTERNAL);
     if (this.state.pendingChoice) this.state.priorityPlayer = this.state.pendingChoice.playerId;
     return result;
@@ -181,7 +202,7 @@ export class GameEngine {
       case 'FORETELL_CARD': return this._applyForetell(pid, action.cardInstanceId);
       case 'ENCORE_CARD': return this._applyEncore(pid, action.cardInstanceId);
       case 'PASS_PRIORITY': return this._applyPassPriority(pid);
-      case 'DECLARE_ATTACKERS': return this._applyDeclareAttackers(pid, action.attackers || []);
+      case 'DECLARE_ATTACKERS': return this._applyDeclareAttackers(pid, action.attackers || [], action.attackTargets || {});
       case 'DECLARE_BLOCKERS': return this._applyDeclareBlockers(pid, action.blockers || {});
       default: throw new Error(`Unknown action ${action.type}`);
     }
@@ -642,12 +663,14 @@ export class GameEngine {
     if (!Array.isArray(ids) || new Set(ids).size !== ids.length) throw new Error('Invalid attacker list');
     const legal = new Set(this.combat.legalAttackers(pid).map(x => x.instanceId));
     if (ids.some(id => !legal.has(id))) throw new Error('Illegal attacker');
+    this.combat.normalizeAttackTargets(pid, ids, action.attackTargets || {});
     return true;
   }
 
   _validateDeclareBlockers(pid, action) {
     if (action.type !== 'DECLARE_BLOCKERS') throw new Error('Blockers must be declared before priority is given');
     if (this.state.phase !== 'DECLARE_BLOCKERS' || pid === this.state.activePlayer) throw new Error('Not time to declare blockers');
+    if (this.state.combat.currentDefender && pid !== this.state.combat.currentDefender) throw new Error('It is not this defending player’s blocker declaration');
     this.combat.validateBlockers(pid, action.blockers || {});
     return true;
   }
@@ -689,7 +712,7 @@ export class GameEngine {
     if (token !== INTERNAL) throw new Error('Pregame transition is internal');
     const s = this.state;
     s.pregame.kept[pid] = true;
-    const next = ['player', 'ai'].find(id => !s.pregame.kept[id]);
+    const next = s.playerOrder.find(id => !s.pregame.kept[id]);
     if (next) {
       s.pregame.currentPlayer = next;
       s.priorityPlayer = next;
@@ -701,7 +724,7 @@ export class GameEngine {
     s.phaseIndex = 0;
     s.phase = PHASES[0];
     s.turn = 1;
-    s.activePlayer = 'player';
+    s.activePlayer = s.playerOrder.find(id => !s.players[id].lost) || 'player';
     this._beginPhase(INTERNAL);
   }
 
@@ -754,17 +777,26 @@ export class GameEngine {
         s.turnActionPending = 'DECLARE_ATTACKERS';
         s.priorityPlayer = s.activePlayer;
         break;
-      case 'DECLARE_BLOCKERS':
-        s.turnActionPending = 'DECLARE_BLOCKERS';
-        s.priorityPlayer = this.opponent(s.activePlayer);
+      case 'DECLARE_BLOCKERS': {
+        const declaredDefenders = (s.combat.defendingPlayers || []).filter(id => s.players[id] && !s.players[id].lost);
+        s.combat.blockerQueue = [...declaredDefenders];
+        s.combat.currentDefender = s.combat.blockerQueue[0] || null;
+        if (s.combat.currentDefender) {
+          s.turnActionPending = 'DECLARE_BLOCKERS';
+          s.priorityPlayer = s.combat.currentDefender;
+        } else {
+          s.turnActionPending = null;
+          s.priorityPlayer = s.activePlayer;
+        }
         break;
+      }
       case 'FIRST_STRIKE_DAMAGE':
         this.combat.damageStep(true, INTERNAL);
-        s.priorityPlayer = s.activePlayer;
+        s.priorityPlayer = s.winner ? null : s.activePlayer;
         break;
       case 'COMBAT_DAMAGE':
         this.combat.damageStep(false, INTERNAL);
-        s.priorityPlayer = s.activePlayer;
+        s.priorityPlayer = s.winner ? null : s.activePlayer;
         break;
       case 'END_COMBAT':
         this.combat.cleanup(INTERNAL);
@@ -783,6 +815,7 @@ export class GameEngine {
   _advancePhase(token) {
     if (token !== INTERNAL) throw new Error('Phase transitions are internal; pass priority instead');
     const s = this.state;
+    if (s.winner) { s.priorityPlayer = null; return; }
     for (const p of Object.values(s.players)) this.mana.clear(p);
     s.passes = 0;
     s.priorityPlayer = null;
@@ -797,9 +830,10 @@ export class GameEngine {
   _finishTurn(token) {
     if (token !== INTERNAL) throw new Error('Turn transition is internal');
     const s = this.state;
+    if (s.winner) { s.priorityPlayer = null; return; }
     for (const p of Object.values(s.players)) this.mana.clear(p);
     s.turn++;
-    s.activePlayer = this.opponent(s.activePlayer);
+    s.activePlayer = this.nextPlayer(s.activePlayer);
     s.phaseIndex = 0;
     s.phase = PHASES[0];
     s.passes = 0;
@@ -856,8 +890,9 @@ export class GameEngine {
   _applyPassPriority(pid) {
     const s = this.state;
     s.passes++;
-    if (s.passes < 2) {
-      s.priorityPlayer = this.opponent(pid);
+    const requiredPasses = this.livingPlayerIds().length;
+    if (s.passes < requiredPasses) {
+      s.priorityPlayer = this.nextPriorityPlayer(pid);
       return true;
     }
     s.passes = 0;
@@ -1340,7 +1375,7 @@ export class GameEngine {
       c.tapped = entersTapped;
       this._applyEntryCounters(c, pid);
       p.landPlaysRemaining--;
-      this.emit(EVENT.LAND_PLAYED, { controller: pid, target: c });
+      this.emit(EVENT.LAND_PLAYED, { controller: pid, target: c, manaSpent: 0 });
       this.emit(EVENT.ENTER_BATTLEFIELD, { controller: pid, target: c });
       for (const eff of definition.onEnterEffects || []) {
         this.effects.resolve(eff, { controller: pid, source: c });
@@ -1742,8 +1777,8 @@ export class GameEngine {
     return result;
   }
 
-  _applyDeclareAttackers(pid, ids) {
-    const result = this.combat.declareAttackers(pid, ids, INTERNAL);
+  _applyDeclareAttackers(pid, ids, attackTargets = {}) {
+    const result = this.combat.declareAttackers(pid, ids, attackTargets, INTERNAL);
     this.state.turnActionPending = null;
     this.state.priorityPlayer = this.state.activePlayer;
     this.state.passes = 0;
@@ -1752,8 +1787,21 @@ export class GameEngine {
 
   _applyDeclareBlockers(pid, map) {
     const result = this.combat.declareBlockers(pid, map, INTERNAL);
-    this.state.turnActionPending = null;
     this.state.passes = 0;
+    const queue = this.state.combat.blockerQueue || [];
+    if (queue[0] === pid) queue.shift();
+    else {
+      const index = queue.indexOf(pid);
+      if (index >= 0) queue.splice(index, 1);
+    }
+    this.state.combat.currentDefender = queue[0] || null;
+    if (this.state.combat.currentDefender) {
+      this.state.turnActionPending = 'DECLARE_BLOCKERS';
+      this.state.priorityPlayer = this.state.combat.currentDefender;
+      return result;
+    }
+
+    this.state.turnActionPending = null;
     const requiredOrders = this.combat.requiredDamageAssignmentOrders();
     if (Object.keys(requiredOrders).length) {
       this.state.pendingChoice = {
@@ -1761,10 +1809,8 @@ export class GameEngine {
         playerId: this.state.activePlayer,
         attackers: requiredOrders
       };
-      this.state.priorityPlayer = this.state.activePlayer;
-    } else {
-      this.state.priorityPlayer = this.state.activePlayer;
     }
+    this.state.priorityPlayer = this.state.activePlayer;
     return result;
   }
 
@@ -2029,6 +2075,8 @@ export class GameEngine {
   }
 
   _runStateBasedActionLoop() {
+    this.checkWinner();
+    this._cleanupEliminatedPlayers();
     if (this.state.pendingChoice) {
       this.checkWinner();
       return false;
@@ -2108,17 +2156,87 @@ export class GameEngine {
       }
     }
     this.checkWinner();
+    this._cleanupEliminatedPlayers();
     return changed;
   }
 
+  _cleanupEliminatedPlayers() {
+    const state = this.state;
+    const eliminated = new Set(this.playerIds().filter(id => state.players[id]?.lost));
+    if (!eliminated.size) return;
+
+    // When a player leaves a Commander game, every card/token that player owns
+    // leaves with them. Permanents owned by a surviving player but controlled by
+    // the eliminated player return to their owner so no object remains attached
+    // to a player who is no longer in the game.
+    const returnToOwner = [];
+    for (const player of Object.values(state.players)) {
+      for (const zone of ['library','hand','graveyard','exile','command']) {
+        player[zone] = (player[zone] || []).filter(card => !eliminated.has(card.owner));
+      }
+      const keptBattlefield = [];
+      for (const card of player.battlefield || []) {
+        if (eliminated.has(card.owner)) continue;
+        if (eliminated.has(card.controller)) {
+          card.controller = card.owner;
+          card.controlledSinceTurn = state.turn;
+          card.attacking = false;
+          card.attackTarget = null;
+          card.blocking = null;
+          returnToOwner.push(card);
+          continue;
+        }
+        keptBattlefield.push(card);
+      }
+      player.battlefield = keptBattlefield;
+    }
+    for (const card of returnToOwner) {
+      const owner = state.players[card.owner];
+      if (owner && !owner.lost && !owner.battlefield.some(existing => existing.instanceId === card.instanceId)) owner.battlefield.push(card);
+    }
+
+    state.stack = state.stack.filter(item => {
+      const controller = item.controller || item.card?.controller;
+      const owner = item.card?.owner;
+      return !eliminated.has(controller) && !eliminated.has(owner);
+    });
+    state.pendingTriggers = (state.pendingTriggers || []).filter(trigger => !eliminated.has(trigger.controller));
+    if (state.pendingChoice?.playerId && eliminated.has(state.pendingChoice.playerId)) state.pendingChoice = null;
+
+    if (state.combat) {
+      state.combat.attackers = (state.combat.attackers || []).filter(id => !!this.findPermanent(id));
+      state.combat.attackTargets = Object.fromEntries(Object.entries(state.combat.attackTargets || {}).filter(([aid, defender]) => this.findPermanent(aid) && !eliminated.has(defender)));
+      state.combat.blockers = Object.fromEntries(Object.entries(state.combat.blockers || {}).filter(([aid]) => this.findPermanent(aid)).map(([aid, ids]) => [aid, (ids || []).filter(id => !!this.findPermanent(id))]));
+      state.combat.defendingPlayers = (state.combat.defendingPlayers || []).filter(id => !eliminated.has(id));
+      state.combat.blockerQueue = (state.combat.blockerQueue || []).filter(id => !eliminated.has(id));
+      if (state.combat.currentDefender && eliminated.has(state.combat.currentDefender)) state.combat.currentDefender = state.combat.blockerQueue[0] || null;
+    }
+  }
+
   checkWinner() {
-    for (const [id, p] of Object.entries(this.state.players)) {
-      if (p.life <= 0 || p.lost || Object.values(p.commanderDamage).some(x => x >= 21)) {
-        this.state.winner = this.opponent(id);
-        this.state.priorityPlayer = null;
-        return this.state.winner;
+    const state = this.state;
+    for (const [id, p] of Object.entries(state.players)) {
+      if (p.lost) continue;
+      if (p.life <= 0 || Object.values(p.commanderDamage).some(x => x >= 21)) {
+        p.lost = true;
+        p.eliminatedAtTurn = state.turn;
+        this.log('PLAYER_ELIMINATED', { playerId: id });
       }
     }
+
+    const alive = this.livingPlayerIds();
+    if (alive.length === 1 && this.playerIds().length > 1) {
+      state.winner = alive[0];
+      state.priorityPlayer = null;
+      return state.winner;
+    }
+    if (alive.length === 0) {
+      state.winner = 'draw';
+      state.priorityPlayer = null;
+      return state.winner;
+    }
+
+    if (state.priorityPlayer && state.players[state.priorityPlayer]?.lost) state.priorityPlayer = this.nextPriorityPlayer(state.priorityPlayer);
     return null;
   }
 }

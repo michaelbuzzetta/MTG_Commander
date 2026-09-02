@@ -12,6 +12,7 @@ export function makePlayer(id, deck, db, rng = Math.random) {
   }
   return {
     id,
+    name: id === 'player' ? 'Player' : `Opponent ${id === 'ai' ? 1 : Number(id.replace('ai', '')) || 1}`,
     colorIdentity: [...(deck.colorIdentity || [])],
     life: 40,
     manaPool: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 },
@@ -29,7 +30,8 @@ export function makePlayer(id, deck, db, rng = Math.random) {
     maxHandSize: 7,
     additionalLandPlays: 0,
     damagePrevention: 0,
-    lost: false
+    lost: false,
+    eliminatedAtTurn: null
   };
 }
 
@@ -46,6 +48,7 @@ export function makeCardInstance(cardId, owner, zone, extra = {}) {
     damageMarked: 0,
     damagePrevention: 0,
     attacking: false,
+    attackTarget: null,
     blocking: null,
     modifiers: { power: 0, toughness: 0, keywords: [] },
     createdTurn: null,
@@ -61,7 +64,20 @@ export function makeCardInstance(cardId, owner, zone, extra = {}) {
   };
 }
 
-export function createGameState(deckA, deckB, db, rng = Math.random) {
+function normalizeDecks(deckA, deckBOrDecks) {
+  const opponents = Array.isArray(deckBOrDecks) ? deckBOrDecks : [deckBOrDecks];
+  const decks = [deckA, ...opponents].filter(Boolean);
+  if (decks.length < 2 || decks.length > 4) throw new Error('Commander games support between 2 and 4 players');
+  return decks;
+}
+
+export function createGameState(deckA, deckBOrDecks, db, rng = Math.random) {
+  const decks = normalizeDecks(deckA, deckBOrDecks);
+  const playerOrder = decks.map((_, index) => index === 0 ? 'player' : (index === 1 ? 'ai' : `ai${index}`));
+  const players = {};
+  playerOrder.forEach((id, index) => { players[id] = makePlayer(id, decks[index], db, rng); });
+  const keyed = initial => Object.fromEntries(playerOrder.map(id => [id, typeof initial === 'function' ? initial(id) : structuredClone(initial)]));
+
   return {
     turn: 1,
     activePlayer: 'player',
@@ -70,24 +86,22 @@ export function createGameState(deckA, deckB, db, rng = Math.random) {
     phaseIndex: -1,
     passes: 0,
     stack: [],
-    players: {
-      player: makePlayer('player', deckA, db, rng),
-      ai: makePlayer('ai', deckB, db, rng)
-    },
-    combat: { attackers: [], blockers: {}, blocked: {}, damageAssignments: {} },
+    players,
+    playerOrder,
+    combat: { attackers: [], attackTargets: {}, blockers: {}, blocked: {}, damageAssignments: {}, defendingPlayers: [], blockerQueue: [], currentDefender: null },
     pendingTriggers: [],
     continuousEffects: [],
     pendingChoice: null,
     turnActionPending: null,
     cleanupPriority: false,
-    cardsDrawnThisTurn: { player: 0, ai: 0 },
+    cardsDrawnThisTurn: keyed(0),
     castingPermissions: [],
     pendingResolution: null,
-    turnMemory: { player: {}, ai: {} },
+    turnMemory: keyed(() => ({})),
     pregame: {
       active: false,
       currentPlayer: 'player',
-      kept: { player: false, ai: false }
+      kept: keyed(false)
     },
     history: [],
     winner: null,

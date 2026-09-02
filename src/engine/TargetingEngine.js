@@ -27,7 +27,7 @@ function normalizedSpec(raw) {
 function relationMatches(engine, actorPid, targetPid, relation) {
   if (!relation) return true;
   if (relation === 'you' || relation === 'self') return targetPid === actorPid;
-  if (relation === 'opponent') return targetPid === engine.opponent(actorPid);
+  if (relation === 'opponent') return actorPid !== targetPid && !!engine.state.players[targetPid] && !engine.state.players[targetPid].lost;
   return true;
 }
 
@@ -106,6 +106,7 @@ export class TargetingEngine {
     const isPlayer = !!e.state.players[targetId];
 
     if (isPlayer) {
+      if (e.state.players[targetId].lost) throw new Error('An eliminated player cannot be targeted');
       if (!supportsPlayer) throw new Error('Target must be a card or permanent, not a player');
       if (!relationMatches(e, actorPid, targetId, spec.controller || spec.player)) throw new Error('Illegal player relationship for this target');
       if (typeof spec.predicate === 'function' && !spec.predicate({ engine: e, actorPid, targetId, player: e.state.players[targetId], context })) {
@@ -205,7 +206,7 @@ export class TargetingEngine {
     const supportsStack = ['spell', 'spellOrPermanent', 'spell-or-permanent'].includes(kind);
 
     if (supportsPlayer) {
-      for (const id of Object.keys(this.engine.state.players)) {
+      for (const id of this.engine.livingPlayerIds()) {
         if (!used.has(id) && this.isLegalTarget(actorPid, id, spec, { ...context, selectedTargets: selected })) candidates.push({ id, kind: 'player', player: this.engine.state.players[id] });
       }
     }

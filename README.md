@@ -48,3 +48,30 @@ npm run verify
 ## Scope
 
 This is a training simulator implementing the mechanics represented by its structured card database, not a complete implementation of every rule/card ever printed in Magic. The published Explorers of the Deep 100-card list is preserved as a non-playable reference record; cards whose mechanics are not yet modeled are explicitly marked unsupported rather than silently simplified. A separate fully supported Hakbal training deck remains selectable for gameplay. All selectable decks pass Commander singleton, color-identity, resolvability, and support validation.
+
+## Custom Commander deck import
+
+From the home screen, choose **Add Your Own Deck** to save a custom Commander deck in the browser. Enter a deck name and commander, then paste the other 99 cards in TCGPlayer Mass Entry style, for example:
+
+```text
+1 Sol Ring
+1 Arcane Signet
+1 Command Tower
+13 Island
+```
+
+`1x Card Name` and common set/collector decorations such as `1 Sol Ring [CMM] 396` are also accepted. The importer validates the 99-card count, local card availability/support, Commander color identity, and duplicate-card rules. Imported decks are stored in `localStorage`, appear in the normal deck selector, and can be removed from the home screen.
+
+Because the trainer executes card mechanics locally, a custom deck can only be imported when every card already exists in the trainer's local card database and is marked supported.
+
+## Multiplayer Commander
+
+The home screen supports **2-player, 3-player, and 4-player** matches. The human player keeps the selected deck and the remaining seats are filled with distinct playable AI decks. Multiplayer games use a shared turn order and priority ring, skip eliminated players, and end only when one player remains (or all remaining players lose simultaneously).
+
+Combat is defender-aware. When you attack in a 3- or 4-player game, choose an opponent seat and then select the creatures attacking that opponent; you can switch seats and split attackers across multiple opponents in the same combat. Only the player being attacked by a given creature may block that creature. Commander damage and normal combat damage are tracked against the correct defending player.
+## Human-like AI decision policy
+
+AI opponents now evaluate opening hands, mana development, normal spells, commanders, activated abilities, targets, attacks, and blocks instead of following a simple "land, then highest-mana-value card" rule. The heuristics prioritize early ramp and curve development, value card draw more when the hand is small, prefer removal against meaningful opposing threats, reduce the priority of repeatedly taxed commanders, hold flexible interaction when there is no useful target, and avoid obviously bad attacks or blocks. This remains a deterministic rules-based game AI rather than a machine-learning model, so its decisions stay testable and reproducible.
+
+Opponent seats also show the AI's latest meaningful action. A normal land play is explicitly labeled **land play costs 0 mana**; the engine records `manaSpent: 0` on `LAND_PLAYED` events and never taps mana sources or deducts from a mana pool simply to play a land. Lands that enter tapped because of their own card text may still appear tapped.
+

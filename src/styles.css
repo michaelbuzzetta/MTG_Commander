@@ -323,3 +323,92 @@ button{cursor:pointer;color:inherit}
   .phase-main>span:last-child{display:none}.phase-main{grid-template-columns:auto auto}
   .player-strip{width:700px}.zone-counts span,.mana span{padding:4px 5px}
 }
+
+/* ---------- Custom deck importer ---------- */
+.secondary{
+  border:1px solid rgba(255,255,255,.2);background:linear-gradient(180deg,#1c272b,#121a1d);
+  color:#edf4f6;font-weight:800;border-radius:8px;padding:8px 15px;box-shadow:inset 0 1px rgba(255,255,255,.06)
+}
+.secondary:hover{background:linear-gradient(180deg,#253438,#182326);border-color:rgba(255,255,255,.32)}
+.setup-secondary{margin-top:9px}
+.text-button{border:0;background:transparent;color:#9fabad;padding:7px;font-size:10px;text-decoration:underline;text-underline-offset:3px}
+.text-button:hover{color:#fff}.remove-deck{width:auto!important;margin-top:2px}
+.modal-backdrop{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:24px;background:rgba(2,5,6,.82);backdrop-filter:blur(8px)}
+.deck-import-modal{position:relative;width:min(720px,94vw);max-height:calc(100vh - 40px);overflow:auto;padding:28px;border:1px solid rgba(255,255,255,.18);border-radius:16px;background:linear-gradient(180deg,#11191c,#0b1012);box-shadow:0 28px 90px rgba(0,0,0,.72);text-align:left}
+.deck-import-modal h2{margin:3px 0 8px;font-family:Georgia,"Times New Roman",serif;font-size:29px}.modal-kicker{font-size:9px;font-weight:950;letter-spacing:.16em;color:#6dd7a1}.modal-copy{margin:0 38px 20px 0;color:#9da9ac;font-size:11px;line-height:1.48}.modal-close{position:absolute;right:14px;top:12px;width:34px;height:34px;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:rgba(255,255,255,.04);font-size:24px;line-height:1;color:#cbd3d5}.modal-close:hover{background:rgba(255,255,255,.1);color:#fff}
+.import-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}.deck-import-modal label{display:block;color:#b8c2c4;font-size:10px;font-weight:850;letter-spacing:.04em}.deck-import-modal input,.deck-import-modal textarea{display:block;width:100%;margin-top:6px;border:1px solid rgba(255,255,255,.16);border-radius:8px;background:#080d0f;color:#f5f7f8;font:inherit;outline:none}.deck-import-modal input{height:40px;padding:0 11px}.deck-import-modal textarea{height:280px;resize:vertical;padding:11px 12px;font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-size:11px;line-height:1.48}.deck-import-modal input:focus,.deck-import-modal textarea:focus{border-color:#53aefc;box-shadow:0 0 0 2px rgba(83,174,252,.12)}
+.deck-list-label>span{display:flex;align-items:center;justify-content:space-between}.deck-list-label b{font-size:10px;color:#9aa7a9}.deck-list-label b.count-good{color:#65dda3}.format-hint{margin:8px 0 0;color:#869396;font-size:9px;line-height:1.5}.format-hint code{color:#dbe4e6;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.09);border-radius:4px;padding:2px 4px}.import-error{white-space:pre-line;margin-top:12px;padding:10px 11px;border:1px solid rgba(232,106,96,.48);border-radius:8px;background:rgba(114,34,30,.24);color:#ffb3ac;font-size:10px;line-height:1.45;max-height:150px;overflow:auto}.modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:17px}.modal-actions button{min-width:105px}
+@media(max-width:760px){.import-grid{grid-template-columns:1fr}.deck-import-modal textarea{height:230px}}
+
+/* ---------- Multiplayer Commander table ---------- */
+.player-count-picker{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:0 0 8px}
+.player-count-picker button{padding:9px 6px;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:#11191c;color:#aab5b8;font-size:10px;font-weight:850}
+.player-count-picker button:hover{border-color:rgba(83,174,252,.55);color:#eef7fb}
+.player-count-picker button.selected{border-color:#62b8ff;background:linear-gradient(180deg,rgba(46,137,213,.42),rgba(21,77,126,.52));color:#fff;box-shadow:inset 0 0 0 1px rgba(122,196,255,.12)}
+.setup-match-note{margin:-1px 0 11px;color:#8f9da0;font-size:9px;letter-spacing:.03em}
+
+.multiplayer-table{grid-template-rows:minmax(0,1.12fr) 30px minmax(0,.88fr) 35px;gap:0}
+.opponent-arena{min-height:0;display:grid;gap:6px;align-items:stretch;position:relative;z-index:5;padding:1px 0 2px}
+.opponent-arena.opponents-1{grid-template-columns:1fr}
+.opponent-arena.opponents-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.opponent-arena.opponents-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.opponent-seat{min-width:0;min-height:0;position:relative;display:flex;flex-direction:column;border:1px solid rgba(228,108,97,.13);border-radius:10px;background:linear-gradient(180deg,rgba(52,27,28,.40),rgba(20,22,23,.20));transition:border-color .14s ease,background .14s ease,opacity .14s ease}
+.opponent-seat:hover{z-index:18}
+.opponent-seat.active-seat{border-color:rgba(230,180,91,.52);box-shadow:inset 0 0 0 1px rgba(230,180,91,.08)}
+.opponent-seat.priority-seat{border-color:rgba(83,174,252,.56)}
+.opponent-seat.defending-seat{border-color:rgba(97,213,157,.58)}
+.opponent-seat.eliminated{opacity:.42;filter:grayscale(.75)}
+.eliminated-label{position:absolute;inset:50% auto auto 50%;transform:translate(-50%,-50%) rotate(-5deg);z-index:22;padding:4px 8px;border:2px solid rgba(236,113,99,.75);border-radius:5px;background:rgba(16,7,7,.83);color:#ffb0a7;font-size:10px;font-weight:950;letter-spacing:.14em;pointer-events:none}
+.opponent-seat-header{height:33px;flex:0 0 33px;display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:5px;padding:2px 5px;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(4,7,9,.32);border-radius:9px 9px 0 0}
+.identity.compact{min-width:0;gap:5px;overflow:hidden}.identity.compact .avatar{width:25px;height:25px;flex:0 0 25px;font-size:7px}.identity.compact>div{min-width:0}.identity.compact b,.identity.compact small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.identity.compact b{display:block;font-size:9px}.identity.compact small{font-size:7px}
+.compact-life{min-width:48px;height:25px;font-size:17px}.compact-life span{font-size:8px}
+.seat-zone-counts{display:flex;gap:2px}.seat-zone-counts span{font-size:7px;color:#aab4b6;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:3px 4px;white-space:nowrap}
+.attack-defender{flex:0 0 auto;margin:3px 5px 0;padding:4px 6px;border:1px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(28,20,20,.8);color:#d9b0aa;font-size:8px;font-weight:850}
+.attack-defender:hover,.attack-defender.selected{border-color:#f28e7e;background:rgba(126,46,39,.55);color:#fff}
+.attack-defender.selected{box-shadow:inset 0 0 0 1px rgba(255,177,162,.12)}
+.opponent-play-area{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 55px;gap:2px;position:relative}
+.opponent-seat .battle-zone{padding:0 2px;border:0;border-radius:0 0 0 9px;min-width:0}
+.opponent-seat .battlefield{justify-content:center;gap:1px}
+.opponent-seat .permanent-row{min-height:36px}
+.opponent-seat .permanent-row.land-row{min-height:32px}
+.opponent-seat .permanent-cards{padding:0 20px 0 28px;gap:2px;align-content:center}
+.opponent-seat .row-label{left:3px;width:28px;font-size:5px;letter-spacing:.08em}
+.seat-command-slot{min-width:0;padding:4px 3px;text-align:center;border-left:1px solid rgba(255,255,255,.07);background:rgba(4,7,9,.24);border-radius:0 0 9px 0}
+.seat-command-slot>span{display:block;font-size:5px;font-weight:950;letter-spacing:.08em;color:#8d989b;margin-bottom:3px;overflow:hidden}
+.seat-command-slot .card{width:43px;height:60px;margin:auto}
+.opponents-2 .opponent-seat .card{width:47px;height:66px}.opponents-2 .opponent-seat .land-row .card{width:41px;height:57px}
+.opponents-3 .opponent-seat .card{width:42px;height:59px}.opponents-3 .opponent-seat .land-row .card{width:36px;height:51px;margin-left:-7px}.opponents-3 .opponent-seat .card.tapped{margin:0 9px}
+.opponents-3 .opponent-seat .permanent-cards{padding-left:25px;padding-right:8px;gap:1px}.opponents-3 .seat-command-slot{width:49px}.opponents-3 .opponent-play-area{grid-template-columns:minmax(0,1fr) 49px}.opponents-3 .seat-command-slot .card{width:39px;height:55px}
+.player-play-area{min-height:0;position:relative;display:block}
+.player-play-area>.battle-zone{height:100%}
+.player-play-area .player-command{bottom:5px}
+
+@media(max-height:760px){
+  .multiplayer-table{grid-template-rows:minmax(0,1.15fr) 26px minmax(0,.85fr) 31px}
+  .opponent-seat-header{height:29px;flex-basis:29px}.identity.compact .avatar{width:22px;height:22px;flex-basis:22px}.compact-life{height:22px;font-size:15px}
+  .opponent-seat .card{width:39px;height:55px}.opponent-seat .land-row .card{width:34px;height:48px}.seat-command-slot .card{width:37px;height:52px}
+  .opponent-seat .permanent-row{min-height:31px}.opponent-seat .permanent-row.land-row{min-height:28px}
+  .player-play-area .player-command{bottom:3px}
+}
+
+.ai-last-action{margin:3px 8px 5px;padding:4px 7px;border:1px solid var(--line,#334155);border-radius:7px;background:rgba(15,23,42,.46);font-size:10px;line-height:1.25;color:#b8c5d6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.opponent-seat.active-seat .ai-last-action{color:#dbeafe}
+
+/* ---------- AI turn automation ---------- */
+.action-right{display:flex;align-items:center;justify-content:flex-end;gap:10px;min-width:0}
+.automation-controls{display:flex;align-items:center;justify-content:flex-end;gap:5px;min-width:0}
+.automation-controls label{display:flex;align-items:center;gap:4px;padding:4px 7px;border:1px solid rgba(255,255,255,.11);border-radius:7px;background:rgba(255,255,255,.035);font-size:8px;font-weight:800;color:#aeb9bc;white-space:nowrap;cursor:pointer}
+.automation-controls input{margin:0;accent-color:#3899eb}
+.automation-controls button{padding:4px 7px;border:1px solid rgba(255,255,255,.14);border-radius:7px;background:#162025;color:#c8d3d6;font-size:8px;font-weight:800;white-space:nowrap}
+.automation-controls button.hold-active{border-color:#d9aa57;background:rgba(128,83,22,.45);color:#ffe1a3}
+.response-window-banner{border-color:rgba(87,182,255,.55);background:linear-gradient(180deg,rgba(18,43,61,.97),rgba(8,17,24,.97));box-shadow:0 5px 18px rgba(18,116,185,.18)}
+.response-window-banner b{color:#9bd4ff}
+.automation-error{border-color:rgba(238,116,104,.55);color:#ffd0ca}
+
+@media(max-width:1180px){
+  .action-bar{grid-template-columns:minmax(150px,1fr) auto minmax(210px,1fr)}
+  .automation-controls label{font-size:7px}.automation-controls button{font-size:7px;padding:4px 5px}.action-right{gap:5px}
+}
+@media(max-width:900px){
+  .automation-controls label{font-size:6px;padding:3px 4px}.automation-controls button{max-width:104px;overflow:hidden;text-overflow:ellipsis}.resources{display:none}
+}
+

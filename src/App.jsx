@@ -1,14 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import db0 from './data/generated/cards.json' with { type: 'json' };
 import decks from './data/generated/decks.json' with { type: 'json' };
 import { GameEngine } from './engine/GameEngine.js';
 import { AIController } from './ai/AIController.js';
 import { Battlefield } from './components/Battlefield.jsx';
 import { Card } from './components/Card.jsx';
+import { buildCustomDeck, parseMassEntry } from './utils/deckImport.js';
+import { automationActor, humanAutomationDecision } from './utils/turnAutomation.js';
 import './styles.css';
 
 const playableDecks = decks.filter(deck => deck.playable !== false);
 const referenceDecks = decks.filter(deck => deck.playable === false);
+const CUSTOM_DECKS_KEY = 'mtg-ai-trainer.custom-decks.v1';
+
+function loadCustomDecks() {
+  if (typeof window === 'undefined') return [];
+  try {
+    const saved = JSON.parse(window.localStorage.getItem(CUSTOM_DECKS_KEY) || '[]');
+    return Array.isArray(saved) ? saved.filter(deck => deck?.custom && deck?.cardCount === 100 && db0[deck.commander]) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveCustomDecks(customDecks) {
+  if (typeof window === 'undefined') return;
+  window.localStorage.setItem(CUSTOM_DECKS_KEY, JSON.stringify(customDecks));
+}
 
 const PHASE_UI = {
   UNTAP: { label: 'Untap', mode: 'TURN', help: 'Permanents untap. Players do not receive priority in this step.' },
@@ -29,22 +47,34 @@ const PHASE_UI = {
 function PhaseBanner({ state, attackers, blockTarget }) {
   const ui = PHASE_UI[state.phase] || { label: state.phase.replaceAll('_', ' '), mode: 'TURN', help: 'Continue the current step.' };
   const yours = state.activePlayer === 'player';
+  const activeName = yours ? 'YOUR TURN' : `${state.players[state.activePlayer]?.name?.toUpperCase() || 'OPPONENT'} TURN`;
   let detail = ui.help;
-  if (state.turnActionPending === 'DECLARE_ATTACKERS' && yours) detail = `${attackers.length} attacker${attackers.length === 1 ? '' : 's'} selected. Confirm attackers before priority opens.`;
-  else if (state.turnActionPending === 'DECLARE_BLOCKERS' && !yours) detail = blockTarget ? 'Now click one of your creatures to assign it as a blocker.' : 'Select an attacker, then assign your blockers.';
+  if (state.turnActionPending === 'DECLARE_ATTACKERS' && yours) detail = `${attackers.length} attacker${attackers.length === 1 ? '' : 's'} selected. Choose an opponent, select creatures, then confirm attackers.`;
+  else if (state.turnActionPending === 'DECLARE_BLOCKERS' && state.combat.currentDefender === 'player') detail = blockTarget ? 'Now click one of your creatures to assign it as a blocker.' : 'Select an attacker aimed at you, then assign your blockers.';
+  else if (state.turnActionPending === 'DECLARE_BLOCKERS' && state.combat.currentDefender) detail = `${state.players[state.combat.currentDefender]?.name || 'An opponent'} is declaring blockers.`;
   else if (['DECLARE_ATTACKERS', 'DECLARE_BLOCKERS'].includes(state.phase) && !state.turnActionPending) detail = 'Declarations are complete. Players may now act with priority.';
   return <section className={`phase-banner mode-${ui.mode.toLowerCase()} ${yours ? 'turn-player' : 'turn-opponent'}`}>
-    <div className="phase-owner">{yours ? 'YOUR TURN' : 'OPPONENT TURN'}</div>
+    <div className="phase-owner">{activeName}</div>
     <div className="phase-main"><span className="phase-kicker">{ui.mode}</span><strong>{ui.label}</strong><span>{detail}</span></div>
     <div className="turn-chip">TURN {state.turn}</div>
   </section>;
 }
 
 export default function App() {
+  const [customDecks, setCustomDecks] = useState(loadCustomDecks);
+  const selectableDecks = [...playableDecks, ...customDecks];
   const [choice, setChoice] = useState(playableDecks[0]?.id || '');
+  const [playerCount, setPlayerCount] = useState(2);
+  const [showDeckImporter, setShowDeckImporter] = useState(false);
+  const [deckName, setDeckName] = useState('');
+  const [commanderName, setCommanderName] = useState('');
+  const [deckList, setDeckList] = useState('');
+  const [deckImportError, setDeckImportError] = useState('');
   const [engine, setEngine] = useState(null);
-  const [, redraw] = useState(0);
+  const [renderTick, redraw] = useState(0);
   const [attackers, setAttackers] = useState([]);
+  const [attackTargets, setAttackTargets] = useState({});
+  const [attackDefender, setAttackDefender] = useState(null);
   const [blockTarget, setBlockTarget] = useState(null);
   const [blockers, setBlockers] = useState({});
   const [choiceCards, setChoiceCards] = useState([]);
@@ -61,17 +91,26 @@ export default function App() {
   const [effectChoices, setEffectChoices] = useState([]);
   const [copyTargets, setCopyTargets] = useState([]);
   const [abilitySelection, setAbilitySelection] = useState(null);
+  const [autoPassAITurns, setAutoPassAITurns] = useState(true);
+  const [holdPriority, setHoldPriority] = useState(false);
+  const [skipNextHumanPriority, setSkipNextHumanPriority] = useState(false);
+  const [automationError, setAutomationError] = useState('');
   const refresh = () => redraw(x => x + 1);
 
   const start = () => {
-    const mine = playableDecks.find(d => d.id === choice);
+    const mine = selectableDecks.find(d => d.id === choice);
     if (!mine) throw new Error('Choose a playable deck before starting.');
-    const others = playableDecks.filter(d => d.id !== choice);
-    const aiDeck = others[Math.floor(Math.random() * others.length)];
-    const e = new GameEngine(mine, aiDeck, db0);
+    const others = selectableDecks.filter(d => d.id !== choice);
+    const aiPool = others.length ? others : playableDecks.filter(d => d.id !== choice);
+    if (aiPool.length < playerCount - 1) throw new Error(`At least ${playerCount} distinct playable decks are required for a ${playerCount}-player match.`);
+    const shuffled = [...aiPool].sort(() => Math.random() - 0.5);
+    const aiDecks = shuffled.slice(0, playerCount - 1);
+    const e = new GameEngine(mine, aiDecks, db0);
     e.start();
     setEngine(e);
     setAttackers([]);
+    setAttackTargets({});
+    setAttackDefender(null);
     setBlockTarget(null);
     setBlockers({});
     setChoiceCards([]);
@@ -88,24 +127,158 @@ export default function App() {
     setEffectChoices([]);
     setCopyTargets([]);
     setAbilitySelection(null);
+    setHoldPriority(false);
+    setSkipNextHumanPriority(false);
+    setAutomationError('');
   };
 
-  if (!engine) return <main className="setup"><div className="setup-panel"><div className="brand-mark">✦</div><h1>MTG AI Trainer</h1><p>Commander practice table</p><label>Choose your deck</label><select value={choice} onChange={e => setChoice(e.target.value)}>{playableDecks.map(d => <option value={d.id} key={d.id}>{d.name}</option>)}</select><button className="primary" onClick={start}>Start Match</button>{referenceDecks.length > 0 && <div className="reference-note"><b>Published deck reference preserved</b><span>{referenceDecks.map(d => d.name).join(', ')} is stored with its exact 100-card list but is disabled until every card mechanic is implemented. The supported trainer version remains playable.</span></div>}</div></main>;
+  const importedCardCount = parseMassEntry(deckList).count;
 
-  const s = engine.state, p = s.players.player, a = s.players.ai;
-
-  const runAI = () => {
-    let guard = 0;
-    while (!s.winner && s.priorityPlayer === 'ai' && guard++ < 100) {
-      const ai = new AIController(engine);
-      const action = ai.choose();
-      if (!action) break;
-      engine.perform('ai', action);
+  const importDeck = () => {
+    try {
+      const deck = buildCustomDeck({ name: deckName, commander: commanderName, list: deckList }, db0, selectableDecks);
+      const next = [...customDecks, deck];
+      setCustomDecks(next);
+      saveCustomDecks(next);
+      setChoice(deck.id);
+      setDeckName('');
+      setCommanderName('');
+      setDeckList('');
+      setDeckImportError('');
+      setShowDeckImporter(false);
+    } catch (err) {
+      setDeckImportError(err.message);
     }
+  };
+
+  const removeSelectedCustomDeck = () => {
+    const selected = customDecks.find(deck => deck.id === choice);
+    if (!selected) return;
+    const next = customDecks.filter(deck => deck.id !== choice);
+    setCustomDecks(next);
+    saveCustomDecks(next);
+    setChoice(playableDecks[0]?.id || next[0]?.id || '');
+  };
+
+  useEffect(() => {
+    if (!engine || automationError) return undefined;
+    const s = engine.state;
+    if (s.winner) return undefined;
+    const actor = automationActor(engine);
+    if (!actor) return undefined;
+
+    if (actor === 'player') {
+      const decision = humanAutomationDecision(engine, {
+        playerId: 'player',
+        autoPass: autoPassAITurns,
+        holdPriority,
+        skipNextPriority: skipNextHumanPriority
+      });
+      if (decision.mode !== 'AUTO_PASS') return undefined;
+      const timer = window.setTimeout(() => {
+        try {
+          engine.perform('player', { type: 'PASS_PRIORITY' });
+          if (skipNextHumanPriority) setSkipNextHumanPriority(false);
+          refresh();
+        } catch (err) {
+          setAutomationError(`Automatic priority pass failed: ${err.message}`);
+        }
+      }, 70);
+      return () => window.clearTimeout(timer);
+    }
+
+    if (s.players[actor]?.lost) return undefined;
+    let action = null;
+    try {
+      action = new AIController(engine, actor).choose();
+    } catch (err) {
+      setAutomationError(`AI decision failed for ${s.players[actor]?.name || actor}: ${err.message}`);
+      return undefined;
+    }
+    if (!action) {
+      setAutomationError(`${s.players[actor]?.name || actor} could not choose a legal action.`);
+      return undefined;
+    }
+
+    const quietAction = action.type === 'PASS_PRIORITY' || action.type.startsWith('CHOOSE_') || action.type === 'KEEP_HAND' || action.type === 'BOTTOM_CARDS';
+    const delay = quietAction ? 70 : 300;
+    const timer = window.setTimeout(() => {
+      try {
+        engine.perform(actor, action);
+        refresh();
+      } catch (err) {
+        setAutomationError(`AI action ${action.type} failed for ${s.players[actor]?.name || actor}: ${err.message}`);
+      }
+    }, delay);
+    return () => window.clearTimeout(timer);
+  }, [engine, renderTick, autoPassAITurns, holdPriority, skipNextHumanPriority, automationError]);
+
+  if (!engine) return <main className="setup">
+    <div className="setup-panel">
+      <div className="brand-mark">✦</div>
+      <h1>MTG AI Trainer</h1>
+      <p>Commander practice table</p>
+      <label>Choose your deck</label>
+      <select value={choice} onChange={e => setChoice(e.target.value)}>
+        {selectableDecks.map(d => <option value={d.id} key={d.id}>{d.name}{d.custom ? ' — Custom' : ''}</option>)}
+      </select>
+      <label>Number of players</label>
+      <div className="player-count-picker" role="group" aria-label="Number of players">
+        {[2,3,4].map(count => <button key={count} type="button" className={playerCount === count ? 'selected' : ''} onClick={() => setPlayerCount(count)}>{count} Players</button>)}
+      </div>
+      <div className="setup-match-note">You + {playerCount - 1} AI opponent{playerCount === 2 ? '' : 's'}</div>
+      <button className="primary" onClick={start}>Start {playerCount}-Player Match</button>
+      <button className="secondary setup-secondary" onClick={() => { setDeckImportError(''); setShowDeckImporter(true); }}>+ Add Your Own Deck</button>
+      {customDecks.some(deck => deck.id === choice) && <button className="text-button remove-deck" onClick={removeSelectedCustomDeck}>Remove selected custom deck</button>}
+      {referenceDecks.length > 0 && <div className="reference-note"><b>Published deck reference preserved</b><span>{referenceDecks.map(d => d.name).join(', ')} is stored with its exact 100-card list but is disabled until every card mechanic is implemented. The supported trainer version remains playable.</span></div>}
+    </div>
+    {showDeckImporter && <div className="modal-backdrop" onMouseDown={e => e.target === e.currentTarget && setShowDeckImporter(false)}>
+      <section className="deck-import-modal" role="dialog" aria-modal="true" aria-labelledby="deck-import-title">
+        <button className="modal-close" aria-label="Close deck importer" onClick={() => setShowDeckImporter(false)}>×</button>
+        <div className="modal-kicker">CUSTOM COMMANDER DECK</div>
+        <h2 id="deck-import-title">Add Your Own Deck</h2>
+        <p className="modal-copy">Paste the 99-card main deck in TCGPlayer Mass Entry format. Cards must already exist in this trainer’s local card database so their game mechanics can run correctly.</p>
+        <div className="import-grid">
+          <label>Deck name<input value={deckName} onChange={e => setDeckName(e.target.value)} placeholder="My Commander Deck" /></label>
+          <label>Commander<input value={commanderName} onChange={e => setCommanderName(e.target.value)} placeholder="Hakbal of the Surging Soul" /></label>
+        </div>
+        <label className="deck-list-label"><span>99 other cards <b className={importedCardCount === 99 ? 'count-good' : ''}>{importedCardCount} / 99</b></span>
+          <textarea value={deckList} onChange={e => { setDeckList(e.target.value); if (deckImportError) setDeckImportError(''); }} placeholder={'1 Sol Ring\n1 Arcane Signet\n1 Command Tower\n13 Island\n...'} spellCheck="false" />
+        </label>
+        <div className="format-hint"><b>Accepted examples:</b> <code>1 Sol Ring</code>, <code>1x Sol Ring</code>, <code>13 Island</code>, <code>1 Sol Ring [CMM] 396</code></div>
+        {deckImportError && <div className="import-error" role="alert">{deckImportError}</div>}
+        <div className="modal-actions">
+          <button className="secondary" onClick={() => setShowDeckImporter(false)}>Cancel</button>
+          <button className="primary" onClick={importDeck}>Save Deck</button>
+        </div>
+      </section>
+    </div>}
+  </main>;
+
+  const s = engine.state, p = s.players.player;
+  const opponentEntries = s.playerOrder.filter(id => id !== 'player').map(id => [id, s.players[id]]);
+  const livingOpponents = opponentEntries.filter(([, player]) => !player.lost);
+  const playerLabel = id => id === 'player' ? 'You' : (s.players[id]?.name || 'Opponent');
+  const latestActionFor = id => {
+    const entry = [...(s.history || [])].reverse().find(item => item.controller === id && ['LAND_PLAYED', 'SPELL_CAST', 'DECLARE_ATTACKERS', 'DECLARE_BLOCKERS'].includes(item.type));
+    if (!entry) return 'Waiting for first action';
+    if (entry.type === 'LAND_PLAYED') {
+      const name = engine.db[entry.target?.cardId]?.name || 'a land';
+      return `Played ${name} · land play costs 0 mana`;
+    }
+    if (entry.type === 'SPELL_CAST') {
+      const name = engine.db[entry.card?.cardId]?.name || 'a spell';
+      return `Cast ${name}`;
+    }
+    if (entry.type === 'DECLARE_ATTACKERS') return 'Declared attackers';
+    if (entry.type === 'DECLARE_BLOCKERS') return 'Declared blockers';
+    return entry.type;
   };
 
   const act = action => {
     try {
+      const onOpponentTurn = !s.pregame.active && s.activePlayer !== 'player';
+      const voluntaryResponse = onOpponentTurn && ['CAST_SPELL', 'CAST_COMMANDER', 'ACTIVATE_ABILITY'].includes(action.type);
       engine.perform('player', action);
       setChoiceCards([]);
       setTargetingAction(null);
@@ -119,7 +292,9 @@ export default function App() {
       setEffectChoices([]);
       setCopyTargets([]);
       setAbilitySelection(null);
-      runAI();
+      setHoldPriority(false);
+      setSkipNextHumanPriority(voluntaryResponse && autoPassAITurns);
+      setAutomationError('');
       refresh();
     } catch (err) { alert(err.message); }
   };
@@ -176,7 +351,7 @@ export default function App() {
     ? engine.combat.legalAttackers('player').map(x => x.instanceId)
     : []);
   const blockersValid = (() => {
-    if (!(s.turnActionPending === 'DECLARE_BLOCKERS' && s.activePlayer === 'ai')) return true;
+    if (!(s.turnActionPending === 'DECLARE_BLOCKERS' && s.combat.currentDefender === 'player')) return true;
     try { engine.combat.validateBlockers('player', blockers); return true; }
     catch { return false; }
   })();
@@ -232,7 +407,7 @@ export default function App() {
         if (card) return engine.db[card.cardId]?.name || card.cardId;
       }
     }
-    if (s.players[id]) return id === 'player' ? 'You' : 'Opponent';
+    if (s.players[id]) return playerLabel(id);
     return id;
   };
   const hideawayPlayCard = pendingHideawayPlay ? p.exile.find(card => card.instanceId === pendingHideawayPlay.cardInstanceId) : null;
@@ -404,11 +579,23 @@ export default function App() {
         setCombatMessage('That permanent is not a legal attacker. Only untapped creatures that can attack may be selected.');
         return;
       }
+      if (attackers.includes(perm.instanceId)) {
+        setCombatMessage('');
+        setAttackers(xs => xs.filter(x => x !== perm.instanceId));
+        setAttackTargets(current => { const next = { ...current }; delete next[perm.instanceId]; return next; });
+        return;
+      }
+      const defender = attackDefender && !s.players[attackDefender]?.lost ? attackDefender : livingOpponents[0]?.[0];
+      if (!defender) {
+        setCombatMessage('There is no living opponent to attack.');
+        return;
+      }
       setCombatMessage('');
-      setAttackers(xs => xs.includes(perm.instanceId) ? xs.filter(x => x !== perm.instanceId) : [...xs, perm.instanceId]);
+      setAttackers(xs => [...xs, perm.instanceId]);
+      setAttackTargets(current => ({ ...current, [perm.instanceId]: defender }));
       return;
     }
-    if (s.turnActionPending === 'DECLARE_BLOCKERS' && s.activePlayer === 'ai' && blockTarget) {
+    if (s.turnActionPending === 'DECLARE_BLOCKERS' && s.combat.currentDefender === 'player' && blockTarget) {
       const attacker = engine.findPermanent(blockTarget);
       const existingAid = Object.entries(blockers).find(([, ids]) => ids.includes(perm.instanceId))?.[0];
       if (existingAid === blockTarget) {
@@ -447,7 +634,7 @@ export default function App() {
     }
   };
 
-  const clickAI = perm => {
+  const clickOpponent = (opponentId, perm) => {
     if (pendingProliferate) { toggleProliferateTarget(perm.instanceId); return; }
     if (targetingAction) { selectTarget(perm.instanceId); return; }
     if (pendingDamageOrder) {
@@ -462,7 +649,10 @@ export default function App() {
       });
       return;
     }
-    if (s.turnActionPending === 'DECLARE_BLOCKERS' && s.activePlayer === 'ai' && s.combat.attackers.includes(perm.instanceId)) {
+    if (s.turnActionPending === 'DECLARE_BLOCKERS'
+      && s.combat.currentDefender === 'player'
+      && s.combat.attackers.includes(perm.instanceId)
+      && s.combat.attackTargets?.[perm.instanceId] === 'player') {
       setCombatMessage('');
       setBlockTarget(perm.instanceId);
     }
@@ -516,11 +706,13 @@ export default function App() {
       return;
     }
     if (s.turnActionPending === 'DECLARE_ATTACKERS' && s.activePlayer === 'player') {
-      act({ type: 'DECLARE_ATTACKERS', attackers });
+      act({ type: 'DECLARE_ATTACKERS', attackers, attackTargets });
       setAttackers([]);
+      setAttackTargets({});
+      setAttackDefender(null);
       return;
     }
-    if (s.turnActionPending === 'DECLARE_BLOCKERS' && s.activePlayer === 'ai') {
+    if (s.turnActionPending === 'DECLARE_BLOCKERS' && s.combat.currentDefender === 'player') {
       act({ type: 'DECLARE_BLOCKERS', blockers });
       setBlockers({});
       setBlockTarget(null);
@@ -552,7 +744,8 @@ export default function App() {
                       : s.turnActionPending === 'DECLARE_ATTACKERS' ? 'Confirm Attackers'
                         : s.turnActionPending === 'DECLARE_BLOCKERS' ? 'Confirm Blockers'
                           : pendingLegend || pendingCommander ? 'Make Required Choice'
-                            : 'Pass Priority';
+                            : (!s.pregame.active && s.activePlayer !== 'player' && s.priorityPlayer === 'player') ? 'Pass & Resume AI'
+                              : 'Pass Priority';
   const buttonDisabled = !!targetingAction
     || (!!abilitySelection && abilitySelection.selectedIds.length !== abilitySelection.count)
     || (!!pendingEffectCards && (effectChoices.length < pendingEffectCards.min || effectChoices.length > pendingEffectCards.max))
@@ -578,9 +771,23 @@ export default function App() {
     || (!!pendingDamageOrder && !damageOrderReady)
     || !!pendingLegend
     || !!pendingCommander
-    || (s.turnActionPending === 'DECLARE_BLOCKERS' && s.activePlayer === 'ai' && !blockersValid);
+    || (s.turnActionPending === 'DECLARE_BLOCKERS' && s.combat.currentDefender === 'player' && !blockersValid);
   const playerSelected = id => targetCandidateIds.has(id) || selectedTargetIds.has(id) || proliferateTargets.includes(id) || phaseOutTargets.includes(id) || attackers.includes(id) || Object.values(blockers).flat().includes(id) || abilitySelection?.candidateIds.includes(id) || abilitySelection?.selectedIds.includes(id);
   const damageOrderSelected = id => Object.values(damageOrders).flat().includes(id);
+  const legacyPriorityText = s.priorityPlayer === 'player' ? 'You have priority' : 'Opponent has priority';
+  const priorityText = s.priorityPlayer === 'player' ? 'You have priority' : (s.priorityPlayer ? `${playerLabel(s.priorityPlayer)} has priority` : legacyPriorityText);
+  const automationDecision = humanAutomationDecision(engine, {
+    playerId: 'player',
+    autoPass: autoPassAITurns,
+    holdPriority,
+    skipNextPriority: skipNextHumanPriority
+  });
+  const aiTurnHumanPriority = !s.pregame.active && s.activePlayer !== 'player' && s.priorityPlayer === 'player';
+  const aiTurnPausedForHuman = aiTurnHumanPriority && automationDecision.mode === 'PAUSE';
+  const topStackItem = s.stack[s.stack.length - 1];
+  const topStackName = topStackItem
+    ? (engine.db[topStackItem.card?.cardId]?.name || engine.db[topStackItem.source?.cardId]?.name || (topStackItem.type === 'ward' ? 'Ward ability' : 'spell or ability'))
+    : null;
   const specialZoneActionGroups = (() => {
     const actions = engine.getLegalActions('player').filter(action => action.cardInstanceId && !p.hand.some(card => card.instanceId === action.cardInstanceId) && !p.command.some(card => card.instanceId === action.cardInstanceId));
     const grouped = new Map();
@@ -594,6 +801,10 @@ export default function App() {
 
   return <main className="game-shell">
     <PhaseBanner state={s} attackers={attackers} blockTarget={blockTarget} />
+    {automationError && <div className="decision-banner automation-error" role="alert"><b>Automation paused</b> — {automationError} <button onClick={() => setAutomationError('')}>Retry</button></div>}
+    {aiTurnPausedForHuman && !s.pendingChoice && s.turnActionPending !== 'DECLARE_BLOCKERS' && <div className="decision-banner response-window-banner">
+      <b>{automationDecision.kind === 'held-priority' ? 'Priority held' : automationDecision.kind === 'manual-priority' ? 'Manual priority' : 'Response window'}</b> — {topStackName && automationDecision.kind === 'stack-response' ? `${topStackName} is on the stack. ` : ''}{automationDecision.reason} Use a highlighted instant/ability, or pass to resume the AI turn.
+    </div>}
     {pendingCleanup && <div className="decision-banner">Cleanup: select exactly <b>{pendingCleanup.count}</b> card{pendingCleanup.count === 1 ? '' : 's'} from your hand to discard.</div>}
     {pendingDamageOrder && <div className="decision-banner">Combat damage order: click each blocking creature in the order you want the attacker to assign damage. {Object.entries(pendingDamageOrder.attackers || {}).map(([aid, bids]) => {
       const attacker = engine.findPermanent(aid);
@@ -642,8 +853,7 @@ export default function App() {
     </div>}
     {pendingProliferate && <div className="decision-banner">
       Proliferate — choose any number of permanents or players that already have counters. Click eligible permanents on the battlefield.{' '}
-      {pendingProliferate.eligibleIds.includes('player') && <button onClick={() => toggleProliferateTarget('player')}>{proliferateTargets.includes('player') ? '✓ ' : ''}You</button>}{' '}
-      {pendingProliferate.eligibleIds.includes('ai') && <button onClick={() => toggleProliferateTarget('ai')}>{proliferateTargets.includes('ai') ? '✓ ' : ''}Opponent</button>}{' '}
+      {s.playerOrder.filter(id => pendingProliferate.eligibleIds.includes(id)).map(id => <button key={id} onClick={() => toggleProliferateTarget(id)}>{proliferateTargets.includes(id) ? '✓ ' : ''}{playerLabel(id)}</button>)}{' '}
       <span>{proliferateTargets.length} selected</span>
     </div>}
     {pendingPhaseOut && <div className="decision-banner">
@@ -717,7 +927,7 @@ export default function App() {
     {pendingCopyTargets && <div className="decision-banner targeting-banner">
       <b>{pendingCopyTargets.sourceName}</b> copy — you may choose new target{copyTargetCount === 1 ? '' : 's'}.{' '}
       <button className="primary" onClick={() => act({ type: 'CHOOSE_COPY_TARGETS', targetIds: [...pendingCopyTargets.originalTargets] })}>Keep Original Target{copyTargetCount === 1 ? '' : 's'}</button>{' '}
-      {copyTargetCandidates.map(candidate => { const count = copyTargets.filter(id => id === candidate.id).length; return <button key={`${candidate.id}-${copyTargets.length}`} onClick={() => appendCopyTarget(candidate.id)}>{count ? `${count}× ` : ''}{candidate.kind === 'player' ? (candidate.id === 'player' ? 'You' : 'Opponent') : cardNameForInstance(candidate.id)}</button>; })}{' '}
+      {copyTargetCandidates.map(candidate => { const count = copyTargets.filter(id => id === candidate.id).length; return <button key={`${candidate.id}-${copyTargets.length}`} onClick={() => appendCopyTarget(candidate.id)}>{count ? `${count}× ` : ''}{candidate.kind === 'player' ? playerLabel(candidate.id) : cardNameForInstance(candidate.id)}</button>; })}{' '}
       {copyTargetCount > 0 && <><span>{copyTargets.length}/{copyTargetCount} selected</span>{' '}<button disabled={!copyTargetReady} onClick={() => act({ type: 'CHOOSE_COPY_TARGETS', targetIds: copyTargets })}>Use New Target{copyTargetCount === 1 ? '' : 's'}</button>{' '}</>}
       {copyTargets.length > 0 && <><button onClick={() => setCopyTargets(ids => ids.slice(0, -1))}>Undo Last</button>{' '}<button onClick={() => setCopyTargets([])}>Clear</button></>}
     </div>}
@@ -735,7 +945,7 @@ export default function App() {
     </div>}
     {targetingAction && <div className="decision-banner targeting-banner">
       Choose a legal target for <b>{targetingAction.label}</b>. Highlighted permanents are legal targets.{' '}
-      {playerTargetCandidates.map(candidate => <button key={candidate.id} className="target-player-button" onClick={() => selectTarget(candidate.id)}>{candidate.id === 'player' ? 'Target Yourself' : 'Target Opponent'}</button>)}{' '}
+      {playerTargetCandidates.map(candidate => <button key={candidate.id} className="target-player-button" onClick={() => selectTarget(candidate.id)}>{candidate.id === 'player' ? 'Target Yourself' : `Target ${playerLabel(candidate.id)}`}</button>)}{' '}
       {offBoardTargetCandidates.map(candidate => <button key={candidate.id} onClick={() => selectTarget(candidate.id)}>{candidate.zone === 'stack' ? 'Target spell: ' : `Target ${candidate.zone}: `}{cardNameForInstance(candidate.id)}</button>)}{' '}
       <span>Selected {targetingAction.selectedTargets.length}/{targetBounds.max}</span>{' '}
       {targetingAction.selectedTargets.length > 0 && <button onClick={() => setTargetingAction(current => ({ ...current, selectedTargets: current.selectedTargets.slice(0, -1) }))}>Undo Last</button>}{' '}
@@ -757,22 +967,40 @@ export default function App() {
         return <button key={cardInstanceId} className="primary" onClick={() => chooseCardAction(found.card, cardActions)}>{found.zone === 'library' ? 'Cast from top' : found.zone === 'graveyard' ? 'Cast from graveyard' : 'Cast foretold'}: {engine.db[found.card.cardId]?.name || found.card.cardId}</button>;
       })}
     </div>}
-    <div className="table">
-      <section className="player-strip opponent">
-        <div className="identity"><span className="avatar">AI</span><div><b>Opponent</b><small>{a.hand.length} cards in hand</small></div></div>
-        <div className="life">{a.life}<span>♥</span></div>
-        <div className="zone-counts"><span>Library <b>{a.library.length}</b></span><span>Graveyard <b>{a.graveyard.length}</b></span></div>
+    <div className={`table multiplayer-table opponents-${opponentEntries.length}`}>
+      <section className={`opponent-arena opponents-${opponentEntries.length}`} aria-label={`${opponentEntries.length} opponent battlefield${opponentEntries.length === 1 ? '' : 's'}`}>
+        {opponentEntries.map(([id, opponent], index) => {
+          const isAttackChoice = s.turnActionPending === 'DECLARE_ATTACKERS' && s.activePlayer === 'player' && !opponent.lost;
+          const assignedAttackers = attackers.filter(attackerId => attackTargets[attackerId] === id).length;
+          const seatSelected = (attackDefender || livingOpponents[0]?.[0]) === id;
+          const seatActive = s.activePlayer === id;
+          const seatPriority = s.priorityPlayer === id;
+          const seatDefending = s.combat.currentDefender === id;
+          return <section key={id} className={`opponent-seat ${opponent.lost ? 'eliminated' : ''} ${seatActive ? 'active-seat' : ''} ${seatPriority ? 'priority-seat' : ''} ${seatDefending ? 'defending-seat' : ''}`}>
+            <div className="opponent-seat-header">
+              <div className="identity compact"><span className="avatar">AI {index + 1}</span><div><b>{playerLabel(id)}</b><small>{opponent.lost ? 'Eliminated' : `${opponent.hand.length} cards in hand`}</small></div></div>
+              <div className="life compact-life">{opponent.life}<span>♥</span></div>
+              <div className="seat-zone-counts"><span>Lib <b>{opponent.library.length}</b></span><span>GY <b>{opponent.graveyard.length}</b></span></div>
+            </div>
+            <div className="ai-last-action" title="Land plays never spend mana; only spells and activated abilities do.">{latestActionFor(id)}</div>
+            {isAttackChoice && <button type="button" className={`attack-defender ${seatSelected ? 'selected' : ''}`} onClick={() => { setAttackDefender(id); setCombatMessage(''); }}>
+              {seatSelected ? `Assign attackers here${assignedAttackers ? ` (${assignedAttackers})` : ''}` : `Attack ${playerLabel(id)}${assignedAttackers ? ` (${assignedAttackers})` : ''}`}
+            </button>}
+            <div className="opponent-play-area">
+              <section className="seat-command-slot"><span>COMMANDER</span>{opponent.command.map(c => <Card key={c.instanceId} perm={c} def={engine.db[c.cardId]} />)}</section>
+              <section className="battle-zone opponent-zone"><Battlefield side="opponent" player={opponent} db={engine.db} onCard={perm => clickOpponent(id, perm)} selected={cardId => targetCandidateIds.has(cardId) || selectedTargetIds.has(cardId) || proliferateTargets.includes(cardId) || damageOrderSelected(cardId) || cardId === blockTarget || s.combat.attackers.includes(cardId)} /></section>
+            </div>
+            {opponent.lost && <div className="eliminated-label">ELIMINATED</div>}
+          </section>;
+        })}
       </section>
-
-      <section className="command-slot opponent-command"><span>COMMANDER</span>{a.command.map(c => <Card key={c.instanceId} perm={c} def={engine.db[c.cardId]} />)}</section>
-
-      <section className="battle-zone opponent-zone"><Battlefield side="opponent" player={a} db={engine.db} onCard={clickAI} selected={id => targetCandidateIds.has(id) || selectedTargetIds.has(id) || proliferateTargets.includes(id) || damageOrderSelected(id) || id === blockTarget || s.combat.attackers.includes(id)} /></section>
 
       <section className="center-line"><div className="stack-panel"><span>STACK</span><b>{s.stack.length ? s.stack.map(x => x.type === 'ward' ? `Ward — ${engine.db[x.source?.cardId]?.name || 'permanent'}` : engine.db[x.card?.cardId]?.name || 'Triggered/activated ability').join(' → ') : 'Empty'}</b></div></section>
 
-      <section className="battle-zone player-zone"><Battlefield side="player" player={p} db={engine.db} onCard={clickOwnPermanent} selected={playerSelected} /></section>
-
-      <section className="command-slot player-command"><span>COMMANDER</span>{p.command.map(c => <Card key={c.instanceId} perm={c} def={engine.db[c.cardId]} onClick={castCommander} />)}</section>
+      <section className="player-play-area">
+        <section className="battle-zone player-zone"><Battlefield side="player" player={p} db={engine.db} onCard={clickOwnPermanent} selected={playerSelected} /></section>
+        <section className="command-slot player-command"><span>COMMANDER</span>{p.command.map(c => <Card key={c.instanceId} perm={c} def={engine.db[c.cardId]} onClick={castCommander} />)}</section>
+      </section>
 
       <section className="player-strip self">
         <div className="identity"><span className="avatar">YOU</span><div><b>Player</b><small>{p.hand.length} cards in hand</small></div></div>
@@ -796,10 +1024,16 @@ export default function App() {
     </section>
 
     <footer className="action-bar">
-      <div className="action-context"><b>{(PHASE_UI[s.phase] || {}).label || s.phase}</b><span>{targetingAction ? 'Select a legal target before paying costs' : s.pendingChoice ? 'Complete the required choice' : s.priorityPlayer === 'player' ? 'You have priority' : 'Opponent has priority'}</span></div>
+      <div className="action-context"><b>{(PHASE_UI[s.phase] || {}).label || s.phase}</b><span>{targetingAction ? 'Select a legal target before paying costs' : s.pendingChoice ? 'Complete the required choice' : aiTurnPausedForHuman ? automationDecision.reason : priorityText}</span></div>
       <button className="primary action-button" disabled={buttonDisabled || s.priorityPlayer !== 'player'} onClick={next}>{buttonText}</button>
-      <div className="resources"><span>Graveyard <b>{p.graveyard.length}</b></span><span>Library <b>{p.library.length}</b></span></div>
+      <div className="action-right">
+        <div className="automation-controls" aria-label="AI turn automation">
+          <label title="When enabled, routine priority on opponent turns is passed automatically."><input type="checkbox" checked={autoPassAITurns} onChange={e => setAutoPassAITurns(e.target.checked)} /> Auto-pass AI turns</label>
+          <button type="button" className={holdPriority ? 'hold-active' : ''} disabled={s.activePlayer === 'player' || !!s.winner || !autoPassAITurns} onClick={() => setHoldPriority(value => !value)}>{holdPriority ? 'Priority held' : 'Hold next priority'}</button>
+        </div>
+        <div className="resources"><span>Graveyard <b>{p.graveyard.length}</b></span><span>Library <b>{p.library.length}</b></span></div>
+      </div>
     </footer>
-    {s.winner && <div className="winner"><div>{s.winner === 'player' ? 'Victory' : 'Defeat'}</div></div>}
+    {s.winner && <div className="winner"><div>{s.winner === 'player' ? 'Victory' : s.winner === 'draw' ? 'Draw' : 'Defeat'}</div></div>}
   </main>;
 }

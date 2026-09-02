@@ -61,7 +61,7 @@ export class LegalActions {
 
   get(pid) {
     const e = this.engine, s = e.state, p = s.players[pid], out = [];
-    if (!p || s.winner || !s.started) return out;
+    if (!p || p.lost || s.winner || !s.started) return out;
 
     if (s.pendingChoice) {
       if (s.pendingChoice.playerId !== pid) return out;
@@ -121,7 +121,10 @@ export class LegalActions {
     }
 
     if (s.turnActionPending === 'DECLARE_ATTACKERS') return pid === s.activePlayer ? [{ type: 'DECLARE_ATTACKERS' }] : [];
-    if (s.turnActionPending === 'DECLARE_BLOCKERS') return pid !== s.activePlayer ? [{ type: 'DECLARE_BLOCKERS' }] : [];
+    if (s.turnActionPending === 'DECLARE_BLOCKERS') {
+      const defender = s.combat.currentDefender || (e.playerIds().length === 2 ? e.opponent(s.activePlayer) : null);
+      return pid === defender ? [{ type: 'DECLARE_BLOCKERS' }] : [];
+    }
     if (s.priorityPlayer !== pid) return out;
 
     for (const c of p.hand) {
