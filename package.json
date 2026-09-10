@@ -14,7 +14,12 @@
     "check-db": "node scripts/build-card-db.mjs --check",
     "test": "node --test tests/*.test.js",
     "test:stress": "node --test tests/stress.test.js",
-    "verify": "npm run check-db && npm test && npm run build"
+    "verify": "npm run check-db && npm test && npm run build",
+    "sync-cards": "node scripts/sync-scryfall-catalog.mjs",
+    "sync-cards:force": "node scripts/sync-scryfall-catalog.mjs --force",
+    "predev": "npm run sync-cards",
+    "prepreview": "npm run sync-cards",
+    "prebuild": "npm run sync-cards"
   },
   "dependencies": {
     "@vitejs/plugin-react": "4.7.0",

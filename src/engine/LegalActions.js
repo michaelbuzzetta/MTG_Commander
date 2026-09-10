@@ -93,6 +93,10 @@ export class LegalActions {
       if (choice.type === 'CREATURE_TYPE') return choice.options.map(creatureType => ({ type: 'CHOOSE_CREATURE_TYPE', creatureType, reason: choice.type }));
       if (choice.type === 'EFFECT_CARD_CHOICE') return [{ type: 'CHOOSE_EFFECT_CARDS', candidateIds: [...choice.candidateIds], min: choice.min, max: choice.max, reason: choice.type }];
       if (choice.type === 'COPY_TARGETS') return [{ type: 'CHOOSE_COPY_TARGETS', targetIds: [...choice.originalTargets], reason: choice.type }];
+      if (choice.type === 'ENTRY_LIFE_PAYMENT') return [
+        { type: 'CHOOSE_ENTRY_LIFE_PAYMENT', pay: true, lifeCost: choice.lifeCost, cardName: choice.cardName, reason: choice.type },
+        { type: 'CHOOSE_ENTRY_LIFE_PAYMENT', pay: false, lifeCost: choice.lifeCost, cardName: choice.cardName, reason: choice.type }
+      ].filter(action => !action.pay || e.isActionLegal(pid, action));
       if (choice.type === 'ENTRY_REVEAL') return [
         ...choice.candidateIds.map(cardInstanceId => ({ type: 'CHOOSE_ENTRY_REVEAL', cardInstanceId, reason: choice.type })),
         { type: 'CHOOSE_ENTRY_REVEAL', cardInstanceId: null, reason: choice.type }

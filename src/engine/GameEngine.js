@@ -188,6 +188,7 @@ export class GameEngine {
       case 'CHOOSE_CREATURE_TYPE': return this._applyCreatureTypeChoice(pid, action.creatureType);
       case 'CHOOSE_EFFECT_CARDS': return this._applyEffectCardChoice(pid, action.cardInstanceIds || []);
       case 'CHOOSE_COPY_TARGETS': return this._applyCopyTargetChoice(pid, action.targetIds || []);
+      case 'CHOOSE_ENTRY_LIFE_PAYMENT': return this._applyEntryLifeChoice(pid, !!action.pay);
       case 'CHOOSE_ENTRY_REVEAL': return this._applyEntryRevealChoice(pid, action.cardInstanceId || null);
       case 'CHOOSE_HIDEAWAY': return this._applyHideawayChoice(pid, action.cardInstanceId || null);
       case 'DECLINE_HIDEAWAY_PLAY': return this._applyHideawayDecline(pid);
@@ -358,6 +359,11 @@ export class GameEngine {
         if (id === choice.originalTargets[index]) return; // An unchanged target need not currently be legal.
         this.targeting.validateTarget(pid, id, this.targeting.specFor(choice.targetSource, index), { sourceObject: choice.copyItem.card, selectedTargets: ids });
       });
+      return true;
+    }
+    if (choice.type === 'ENTRY_LIFE_PAYMENT') {
+      if (action.type !== 'CHOOSE_ENTRY_LIFE_PAYMENT' || typeof action.pay !== 'boolean') throw new Error('Choose whether to pay life for this land to enter untapped');
+      if (action.pay && this.state.players[pid].life < Number(choice.lifeCost || 0)) throw new Error('You do not have enough life to make this payment');
       return true;
     }
     if (choice.type === 'ENTRY_REVEAL') {
@@ -1077,17 +1083,60 @@ export class GameEngine {
     return [...seen].filter(Boolean).sort((a,b) => (a === 'Merfolk' ? -1 : b === 'Merfolk' ? 1 : a.localeCompare(b)));
   }
 
+  _entryLifeCost(definition) {
+    if (Number(definition?.entryLifePayment?.life || 0) > 0) return Number(definition.entryLifePayment.life);
+    const text = String(definition?.oracleText || '');
+    const match = text.match(/As [^\n.]+ enters(?: the battlefield)?,?\s*you may pay (\d+) life\.\s*If you (?:don['’]t|do not), (?:this land|it|[^.]+) enters tapped/i);
+    return match ? Number(match[1]) : 0;
+  }
+
+  _entryRevealLandSubtypes(definition) {
+    const explicit = definition?.entersTappedUnless?.revealLandSubtypes || [];
+    if (explicit.length) return [...explicit];
+    const text = String(definition?.oracleText || '');
+    const match = text.match(/As [^\n.]+ enters(?: the battlefield)?,?\s*you may reveal ([^.]+?) card from your hand\.\s*If you (?:don['’]t|do not), (?:this land|it|[^.]+) enters tapped/i);
+    if (!match) return [];
+    const basics = ['Plains','Island','Swamp','Mountain','Forest'];
+    return basics.filter(type => new RegExp(`\\b${type}\\b`, 'i').test(match[1]));
+  }
+
+  _conditionalLandEntrySatisfied(definition, controller) {
+    const player = this.state.players[controller];
+    const text = String(definition?.oracleText || '');
+    const rule = definition?.entersTappedUnless || {};
+    if (rule.controlLandSubtypes?.length) {
+      return player.battlefield.some(land => this.static.isType(land, 'Land') && rule.controlLandSubtypes.some(type => this.static.hasSubtype(land, type)));
+    }
+    if (/enters tapped unless you control two or more other lands/i.test(text)) {
+      return player.battlefield.filter(card => this.static.isType(card, 'Land')).length >= 2;
+    }
+    if (/enters tapped unless you control two or more basic lands/i.test(text)) {
+      return player.battlefield.filter(card => /\bBasic Land\b/i.test(this.db[card.cardId]?.typeLine || '')).length >= 2;
+    }
+    if (/enters tapped unless you control two or fewer other lands/i.test(text)) {
+      return player.battlefield.filter(card => this.static.isType(card, 'Land')).length <= 2;
+    }
+    if (/enters tapped unless you have two or more opponents/i.test(text)) return this.opponents(controller).length >= 2;
+    if (/enters tapped unless you control (?:a )?legendary creature/i.test(text)) {
+      return player.battlefield.some(card => /\bLegendary\b/i.test(this.db[card.cardId]?.typeLine || '') && this.static.isType(card, 'Creature'));
+    }
+    const subtypeMatch = text.match(/enters tapped unless you control (?:an? )?(Plains|Island|Swamp|Mountain|Forest)(?: or (?:an? )?(Plains|Island|Swamp|Mountain|Forest))?/i);
+    if (subtypeMatch) {
+      const subtypes = subtypeMatch.slice(1).filter(Boolean);
+      return player.battlefield.some(land => this.static.isType(land, 'Land') && subtypes.some(type => this.static.hasSubtype(land, type)));
+    }
+    return null;
+  }
+
   _permanentEntersTapped(card, controller) {
     const d = this.db[card.cardId] || {};
+    const lifeCost = this._entryLifeCost(d);
+    if (lifeCost > 0) return card.entryLifePaid !== true;
+    const revealSubtypes = this._entryRevealLandSubtypes(d);
+    if (revealSubtypes.length) return card.entryRevealSucceeded !== true;
+    const conditionSatisfied = this._conditionalLandEntrySatisfied(d, controller);
+    if (conditionSatisfied != null) return !conditionSatisfied;
     if (d.entersTapped) return true;
-    const rule = d.entersTappedUnless;
-    if (!rule) return false;
-    const player = this.state.players[controller];
-    if (rule.controlLandSubtypes) {
-      const has = player.battlefield.some(land => this.static.isType(land, 'Land') && rule.controlLandSubtypes.some(type => this.static.hasSubtype(land, type)));
-      return !has;
-    }
-    if (rule.revealLandSubtypes) return card.entryRevealSucceeded !== true;
     return false;
   }
 
@@ -1156,11 +1205,11 @@ export class GameEngine {
       return true;
     }
     if (pending.kind === 'land') {
-      this._finishLandPlay(pending.playerId, pending.cardInstanceId);
+      this._beginLandPlayEntry(pending.playerId, pending.cardInstanceId, 'hand', 'land');
       return true;
     }
     if (pending.kind === 'hideawayLand') {
-      this._finishLandPlay(pending.playerId, pending.cardInstanceId, 'exile');
+      this._beginLandPlayEntry(pending.playerId, pending.cardInstanceId, 'exile', 'hideawayLand');
       return true;
     }
     return false;
@@ -1291,20 +1340,44 @@ export class GameEngine {
   }
 
   _revealEntryCandidates(pid, definition, excludeInstanceId = null) {
-    const subtypes = definition?.entersTappedUnless?.revealLandSubtypes || [];
+    const subtypes = this._entryRevealLandSubtypes(definition);
     if (!subtypes.length) return [];
     return this.state.players[pid].hand.filter(card => card.instanceId !== excludeInstanceId && isType(this.db[card.cardId], 'Land') && subtypes.some(type => hasSubtype(this.db[card.cardId], type)));
   }
 
+  _openEntryLifeChoice(pid, card, definition, extra = {}) {
+    const lifeCost = this._entryLifeCost(definition);
+    if (lifeCost <= 0 || card.entryLifeResolved) return false;
+    if (this.state.players[pid].life < lifeCost) {
+      card.entryLifeResolved = true;
+      card.entryLifePaid = false;
+      return false;
+    }
+    this.state.pendingChoice = {
+      type: 'ENTRY_LIFE_PAYMENT',
+      playerId: pid,
+      cardInstanceId: card.instanceId,
+      cardName: definition.name,
+      lifeCost,
+      ...extra,
+      resume: extra.resume || (this.state.phase === 'CLEANUP' ? 'CLEANUP' : 'PRIORITY')
+    };
+    this.state.priorityPlayer = pid;
+    this.state.passes = 0;
+    return true;
+  }
+
   _openEntryRevealChoice(pid, card, definition, extra = {}) {
+    const subtypes = this._entryRevealLandSubtypes(definition);
     const candidates = this._revealEntryCandidates(pid, definition, card.instanceId);
-    if (!definition?.entersTappedUnless?.revealLandSubtypes || !candidates.length || card.entryRevealResolved) return false;
+    if (!subtypes.length || !candidates.length || card.entryRevealResolved) return false;
     this.state.pendingChoice = {
       type: 'ENTRY_REVEAL',
       playerId: pid,
       cardInstanceId: card.instanceId,
       cardName: definition.name,
       candidateIds: candidates.map(candidate => candidate.instanceId),
+      revealLandSubtypes: subtypes,
       ...extra,
       resume: extra.resume || (this.state.phase === 'CLEANUP' ? 'CLEANUP' : 'PRIORITY')
     };
@@ -1322,6 +1395,23 @@ export class GameEngine {
     return result;
   }
 
+  _applyEntryLifeChoice(pid, pay) {
+    const choice = this.state.pendingChoice;
+    if (!choice || choice.type !== 'ENTRY_LIFE_PAYMENT' || choice.playerId !== pid) throw new Error('No land-entry life payment is pending');
+    this.state.pendingChoice = null;
+    const found = ZoneManager.find(this.state, choice.cardInstanceId);
+    if (!found?.card) throw new Error('The entering land is no longer available');
+    const lifeCost = Number(choice.lifeCost || 0);
+    if (pay) this.changeLife(pid, -lifeCost);
+    found.card.entryLifeResolved = true;
+    found.card.entryLifePaid = !!pay;
+    this.log('ENTRY_LIFE_PAYMENT', { controller: pid, cardInstanceId: choice.cardInstanceId, lifeCost, paid: !!pay });
+    if (choice.landEffect) this._beginPutLandEffect(pid, choice.cardInstanceId, { ...choice.landEffect, resume: choice.resume });
+    else this._resumePendingResolution();
+    if (!this.state.pendingChoice) this._resumeAfterRulesChoice(choice);
+    return !!pay;
+  }
+
   _applyEntryRevealChoice(pid, revealedCardInstanceId) {
     const choice = this.state.pendingChoice;
     if (!choice || choice.type !== 'ENTRY_REVEAL' || choice.playerId !== pid) throw new Error('No entry reveal choice is pending');
@@ -1331,15 +1421,15 @@ export class GameEngine {
     found.card.entryRevealResolved = true;
     found.card.entryRevealSucceeded = revealedCardInstanceId != null;
     this.log('ENTRY_REVEAL_CHOICE', { controller: pid, cardInstanceId: choice.cardInstanceId, revealedCardInstanceId: revealedCardInstanceId || null });
-    if (choice.landEffect) this._finishPutLandEffect(pid, choice.cardInstanceId, choice.landEffect);
+    if (choice.landEffect) this._beginPutLandEffect(pid, choice.cardInstanceId, { ...choice.landEffect, resume: choice.resume });
     else this._resumePendingResolution();
     if (!this.state.pendingChoice) this._resumeAfterRulesChoice(choice);
     return revealedCardInstanceId;
   }
 
-  _finishPutLandEffect(pid, instanceId, { tapped = false } = {}) {
+  _finishPutLandEffect(pid, instanceId, { tapped = false, sourceZone = 'hand', shuffleAfter = false } = {}) {
     const found = ZoneManager.find(this.state, instanceId);
-    if (!found || found.zone !== 'hand' || found.player?.id !== pid || !isType(this.db[found.card.cardId], 'Land')) return null;
+    if (!found || found.zone !== sourceZone || found.player?.id !== pid || !isType(this.db[found.card.cardId], 'Land')) return null;
     const definition = this.db[found.card.cardId] || {};
     const chosenType = found.card.chosenType || null;
     const naturalTapped = this._permanentEntersTapped(found.card, pid);
@@ -1349,6 +1439,7 @@ export class GameEngine {
     card.controlledSinceTurn = this.state.turn;
     card.tapped = !!tapped || naturalTapped;
     this._applyEntryCounters(card, pid);
+    if (shuffleAfter) this.state.players[pid].library = shuffle(this.state.players[pid].library, this.rng);
     this.emit(EVENT.ENTER_BATTLEFIELD, { controller: pid, target: card });
     for (const effect of definition.onEnterEffects || []) {
       this.effects.resolve(effect, { controller: pid, source: card });
@@ -1357,70 +1448,74 @@ export class GameEngine {
     return card;
   }
 
-  _beginPutLandEffect(pid, instanceId, { tapped = false, resume = null } = {}) {
+  _beginPutLandEffect(pid, instanceId, { tapped = false, resume = null, sourceZone = 'hand', shuffleAfter = false } = {}) {
     const found = ZoneManager.find(this.state, instanceId);
-    if (!found || found.zone !== 'hand' || found.player?.id !== pid || !isType(this.db[found.card.cardId], 'Land')) {
-      throw new Error('The selected land is no longer available in your hand');
+    if (!found || found.zone !== sourceZone || found.player?.id !== pid || !isType(this.db[found.card.cardId], 'Land')) {
+      throw new Error(`The selected land is no longer available in your ${sourceZone}`);
     }
     const definition = this.db[found.card.cardId] || {};
     const resumeMode = resume || (this.state.phase === 'CLEANUP' ? 'CLEANUP' : 'PRIORITY');
+    const landEffect = { tapped: !!tapped, sourceZone, shuffleAfter: !!shuffleAfter };
 
     if (definition.asEntersChooseType && !found.card.chosenType) {
       this.state.pendingChoice = {
-        type: 'CREATURE_TYPE',
-        playerId: pid,
-        cardInstanceId: instanceId,
-        cardName: definition.name,
-        options: this.creatureTypeOptions(pid),
-        landEffect: { tapped: !!tapped },
-        resume: resumeMode
+        type: 'CREATURE_TYPE', playerId: pid, cardInstanceId: instanceId, cardName: definition.name,
+        options: this.creatureTypeOptions(pid), landEffect, resume: resumeMode
       };
       this.state.priorityPlayer = pid;
       this.state.passes = 0;
       return found.card;
     }
-
-    if (definition.entersTappedUnless?.revealLandSubtypes && !found.card.entryRevealResolved) {
+    if (this._openEntryLifeChoice(pid, found.card, definition, { landEffect, resume: resumeMode })) return found.card;
+    if (this._entryRevealLandSubtypes(definition).length && !found.card.entryRevealResolved) {
       const candidates = this._revealEntryCandidates(pid, definition, found.card.instanceId);
       if (candidates.length) {
-        this._openEntryRevealChoice(pid, found.card, definition, { landEffect: { tapped: !!tapped }, resume: resumeMode });
+        this._openEntryRevealChoice(pid, found.card, definition, { landEffect, resume: resumeMode });
         return found.card;
       }
       found.card.entryRevealResolved = true;
       found.card.entryRevealSucceeded = false;
     }
+    return this._finishPutLandEffect(pid, instanceId, landEffect);
+  }
 
-    return this._finishPutLandEffect(pid, instanceId, { tapped: !!tapped });
+  _beginLandPlayEntry(pid, instanceId, fromZone = 'hand', pendingKind = 'land') {
+    const found = ZoneManager.find(this.state, instanceId);
+    if (!found || found.zone !== fromZone || found.player?.id !== pid || !isType(this.db[found.card.cardId], 'Land')) throw new Error('Land is no longer available to play');
+    const definition = this.db[found.card.cardId] || {};
+    const resume = this.state.phase === 'CLEANUP' ? 'CLEANUP' : 'PRIORITY';
+    const setPendingResolution = () => { this.state.pendingResolution = { kind: pendingKind, playerId: pid, cardInstanceId: instanceId }; };
+
+    if (definition.asEntersChooseType && !found.card.chosenType) {
+      setPendingResolution();
+      this.state.pendingChoice = {
+        type: 'CREATURE_TYPE', playerId: pid, cardInstanceId: instanceId, cardName: definition.name,
+        options: this.creatureTypeOptions(pid), resume
+      };
+      this.state.priorityPlayer = pid;
+      this.state.passes = 0;
+      return found.card;
+    }
+    if (!found.card.entryLifeResolved && this._entryLifeCost(definition) > 0) {
+      setPendingResolution();
+      if (this._openEntryLifeChoice(pid, found.card, definition, { resume })) return found.card;
+      this.state.pendingResolution = null;
+    }
+    if (this._entryRevealLandSubtypes(definition).length && !found.card.entryRevealResolved) {
+      const candidates = this._revealEntryCandidates(pid, definition, found.card.instanceId);
+      if (candidates.length) {
+        setPendingResolution();
+        this._openEntryRevealChoice(pid, found.card, definition, { resume });
+        return found.card;
+      }
+      found.card.entryRevealResolved = true;
+      found.card.entryRevealSucceeded = false;
+    }
+    return this._finishLandPlay(pid, instanceId, fromZone);
   }
 
   _applyPlayLand(pid, instanceId) {
-    const found = ZoneManager.find(this.state, instanceId);
-    const definition = this.db[found?.card?.cardId] || {};
-    if (definition.asEntersChooseType && !found.card.chosenType) {
-      this.state.pendingResolution = { kind: 'land', playerId: pid, cardInstanceId: instanceId };
-      this.state.pendingChoice = {
-        type: 'CREATURE_TYPE',
-        playerId: pid,
-        cardInstanceId: instanceId,
-        cardName: definition.name,
-        options: this.creatureTypeOptions(pid),
-        resume: this.state.phase === 'CLEANUP' ? 'CLEANUP' : 'PRIORITY'
-      };
-      this.state.priorityPlayer = pid;
-      this.state.passes = 0;
-      return found.card;
-    }
-    if (definition.entersTappedUnless?.revealLandSubtypes && !found.card.entryRevealResolved) {
-      const candidates = this._revealEntryCandidates(pid, definition, found.card.instanceId);
-      if (candidates.length) {
-        this.state.pendingResolution = { kind: 'land', playerId: pid, cardInstanceId: instanceId };
-        this._openEntryRevealChoice(pid, found.card, definition);
-        return found.card;
-      }
-      found.card.entryRevealResolved = true;
-      found.card.entryRevealSucceeded = false;
-    }
-    return this._finishLandPlay(pid, instanceId);
+    return this._beginLandPlayEntry(pid, instanceId, 'hand', 'land');
   }
 
   _finishLandPlay(pid, instanceId, fromZone = 'hand') {
@@ -1717,8 +1812,13 @@ export class GameEngine {
     if (cardInstanceId) {
       const found = ZoneManager.find(this.state, cardInstanceId);
       if (found) {
+        const definition = this.db[found.card.cardId] || {};
+        if (isType(definition, 'Land')) {
+          this._beginPutLandEffect(pid, cardInstanceId, { sourceZone: 'library', shuffleAfter: true, resume: choice.resume });
+          if (!this.state.pendingChoice) this._resumeAfterRulesChoice(choice);
+          return cardInstanceId;
+        }
         const card = this._moveZoneNow(found.card, 'battlefield', pid);
-        const definition = this.db[card.cardId];
         card.summoningSick = isType(definition, 'Creature') && !hasKeyword(definition, 'Haste');
         card.createdTurn = this.state.turn;
         card.controlledSinceTurn = this.state.turn;
@@ -1756,19 +1856,8 @@ export class GameEngine {
     const permanent = this.findPermanent(choice.cardInstanceId);
     if (permanent) permanent.chosenType = creatureType;
     this.log('CREATURE_TYPE_CHOSEN', { controller: pid, cardInstanceId: choice.cardInstanceId, creatureType });
-    if (choice.landEffect) {
-      const found = ZoneManager.find(this.state, choice.cardInstanceId);
-      const definition = this.db[found?.card?.cardId] || {};
-      if (found?.card && definition.entersTappedUnless?.revealLandSubtypes && !found.card.entryRevealResolved) {
-        const candidates = this._revealEntryCandidates(pid, definition, found.card.instanceId);
-        if (candidates.length) {
-          this._openEntryRevealChoice(pid, found.card, definition, { landEffect: choice.landEffect, resume: choice.resume });
-          return creatureType;
-        }
-      }
-      this._finishPutLandEffect(pid, choice.cardInstanceId, choice.landEffect);
-    }
-    this._resumePendingResolution();
+    if (choice.landEffect) this._beginPutLandEffect(pid, choice.cardInstanceId, { ...choice.landEffect, resume: choice.resume });
+    else this._resumePendingResolution();
     if (!this.state.pendingChoice) this._resumeAfterRulesChoice(choice);
     return creatureType;
   }
@@ -1813,30 +1902,8 @@ export class GameEngine {
     if (!choice || choice.type !== 'HIDEAWAY_PLAY' || choice.playerId !== pid || cardInstanceId !== choice.cardInstanceId) throw new Error('No matching hideaway land choice is pending');
     this.state.pendingChoice = null;
     const found = ZoneManager.find(this.state, cardInstanceId);
-    const definition = this.db[found?.card?.cardId] || {};
     if (!found?.card) throw new Error('The hidden land is no longer available');
-
-    if (definition.asEntersChooseType && !found.card.chosenType) {
-      this.state.pendingResolution = { kind: 'hideawayLand', playerId: pid, cardInstanceId };
-      this.state.pendingChoice = {
-        type: 'CREATURE_TYPE', playerId: pid, cardInstanceId, cardName: definition.name,
-        options: this.creatureTypeOptions(pid), resume: choice.resume || (this.state.phase === 'CLEANUP' ? 'CLEANUP' : 'PRIORITY')
-      };
-      this.state.priorityPlayer = pid;
-      this.state.passes = 0;
-      return found.card;
-    }
-    if (definition.entersTappedUnless?.revealLandSubtypes && !found.card.entryRevealResolved) {
-      const candidates = this._revealEntryCandidates(pid, definition, found.card.instanceId);
-      if (candidates.length) {
-        this.state.pendingResolution = { kind: 'hideawayLand', playerId: pid, cardInstanceId };
-        this._openEntryRevealChoice(pid, found.card, definition);
-        return found.card;
-      }
-      found.card.entryRevealResolved = true;
-      found.card.entryRevealSucceeded = false;
-    }
-    const result = this._finishLandPlay(pid, cardInstanceId, 'exile');
+    const result = this._beginLandPlayEntry(pid, cardInstanceId, 'exile', 'hideawayLand');
     if (!this.state.pendingChoice) this._resumeAfterRulesChoice(choice);
     return result;
   }

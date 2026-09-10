@@ -129,8 +129,16 @@ test('home UI exposes 2/3/4 player selection and per-opponent combat targeting',
 test('opponent commander column precedes a flexible full-width battlefield column', () => {
   const css = fs.readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8');
   assert.match(css, /\.opponent-play-area\{[^}]*grid-template-columns:55px minmax\(0,1fr\)/);
-  assert.match(css, /\.opponents-3 \.opponent-play-area\{grid-template-columns:49px minmax\(0,1fr\)\}/);
+  assert.match(css, /\.opponents-3 \.opponent-play-area\{grid-template-columns:53px minmax\(0,1fr\)\}/);
   assert.doesNotMatch(css, /\.opponent-play-area\{[^}]*grid-template-columns:minmax\(0,1fr\) 55px/);
+});
+
+test('table, hand, and multiplayer cards use the enlarged readable dimensions', () => {
+  const css = fs.readFileSync(new URL('../src/styles.css', import.meta.url), 'utf8');
+  assert.match(css, /\.card\{width:60px;height:84px/);
+  assert.match(css, /\.hand-cards \.card\{width:88px;height:123px/);
+  assert.match(css, /\.opponents-2 \.opponent-seat \.card\{width:53px;height:74px/);
+  assert.match(css, /\.opponents-3 \.opponent-seat \.card\{width:48px;height:67px/);
 });
 
 test('deterministic four-player AI simulation reaches a legal last-player-standing result', async () => {

@@ -1,2 +1,4 @@
 # Node dependencies
 node_modules/
+# Generated Scryfall bulk catalog cache
+.cache/

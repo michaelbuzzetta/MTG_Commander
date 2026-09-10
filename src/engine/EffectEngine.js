@@ -824,6 +824,32 @@ export class EffectEngine {
         }
         break;
       }
+      case 'searchLand': {
+        const landTypes = (effect.landTypes || []).map(type => String(type));
+        const eligibleIds = p.library.filter(card => {
+          const definition = e.db[card.cardId];
+          if (!definition || !isType(definition, 'Land')) return false;
+          if (effect.basicOnly && !isType(definition, 'Basic Land')) return false;
+          if (landTypes.length && !landTypes.some(type => hasSubtype(definition, type))) return false;
+          return true;
+        }).map(card => card.instanceId);
+        const descriptor = effect.basicOnly
+          ? (landTypes.length ? `a basic ${landTypes.join(' or ')} card` : 'a basic land card')
+          : (landTypes.length ? `a ${landTypes.join(' or ')} card` : 'a land card');
+        this._openCardChoice(pid, eligibleIds, {
+          min: 0,
+          max: eligibleIds.length ? 1 : 0,
+          prompt: `Search your library for ${descriptor}`,
+          continuation: {
+            type: 'searchLand',
+            basicOnly: !!effect.basicOnly,
+            landTypes,
+            destination: effect.destination || 'battlefield',
+            tapped: !!effect.tapped
+          }
+        });
+        break;
+      }
       case 'sacrifice': {
         const t = e.selectPermanents(pid, effect.filter || {}, ctx)[0];
         if (t) e.sacrifice(t);
@@ -1095,25 +1121,7 @@ export class EffectEngine {
       if (!id) return;
       const found = ZoneManager.find(s, id);
       if (!found || found.zone !== 'hand' || found.player?.id !== pid || !isType(e.db[found.card.cardId], 'Land')) return;
-      const definition = e.db[found.card.cardId] || {};
-      if (definition.asEntersChooseType && !found.card.chosenType) {
-        s.pendingChoice = {
-          type: 'CREATURE_TYPE', playerId: pid, cardInstanceId: found.card.instanceId, cardName: definition.name,
-          options: e.creatureTypeOptions(pid), landEffect: { tapped: !!continuation.tapped }, resume: this._choiceResume()
-        };
-        s.priorityPlayer = pid;
-        return;
-      }
-      if (definition.entersTappedUnless?.revealLandSubtypes && !found.card.entryRevealResolved) {
-        const candidates = e._revealEntryCandidates(pid, definition, found.card.instanceId);
-        if (candidates.length) {
-          e._openEntryRevealChoice(pid, found.card, definition, { landEffect: { tapped: !!continuation.tapped } });
-          return;
-        }
-        found.card.entryRevealResolved = true;
-        found.card.entryRevealSucceeded = false;
-      }
-      e._finishPutLandEffect(pid, found.card.instanceId, { tapped: !!continuation.tapped });
+      e._beginPutLandEffect(pid, found.card.instanceId, { tapped: !!continuation.tapped, resume: this._choiceResume() });
       return;
     }
     if (continuation.type === 'myriadLandscape') {
@@ -1126,6 +1134,39 @@ export class EffectEngine {
         e.emit(EVENT.ENTER_BATTLEFIELD, { controller: pid, target: card });
       }
       p.library = shuffle(p.library, e.rng);
+      return;
+    }
+    if (continuation.type === 'searchLand') {
+      const id = cardInstanceIds[0] || null;
+      if (!id) {
+        p.library = shuffle(p.library, e.rng);
+        return;
+      }
+      const found = ZoneManager.find(s, id);
+      if (!found || found.zone !== 'library' || found.player?.id !== pid) {
+        p.library = shuffle(p.library, e.rng);
+        return;
+      }
+      const definition = e.db[found.card.cardId] || {};
+      const landTypes = continuation.landTypes || [];
+      const legal = isType(definition, 'Land')
+        && (!continuation.basicOnly || isType(definition, 'Basic Land'))
+        && (!landTypes.length || landTypes.some(type => hasSubtype(definition, type)));
+      if (!legal) {
+        p.library = shuffle(p.library, e.rng);
+        return;
+      }
+      if ((continuation.destination || 'battlefield') === 'hand') {
+        e._moveZoneNow(found.card, 'hand', pid);
+        p.library = shuffle(p.library, e.rng);
+        return;
+      }
+      e._beginPutLandEffect(pid, id, {
+        tapped: !!continuation.tapped,
+        sourceZone: 'library',
+        shuffleAfter: true,
+        resume: this._choiceResume()
+      });
       return;
     }
   }

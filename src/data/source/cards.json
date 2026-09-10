@@ -2,7 +2,7 @@
   "plains": {
     "id": "plains",
     "name": "Plains",
-    "typeLine": "Basic Land — Plains",
+    "typeLine": "Basic Land \u2014 Plains",
     "manaCost": "",
     "manaValue": 0,
     "power": "",
@@ -30,7 +30,7 @@
   "island": {
     "id": "island",
     "name": "Island",
-    "typeLine": "Basic Land — Island",
+    "typeLine": "Basic Land \u2014 Island",
     "manaCost": "",
     "manaValue": 0,
     "power": "",
@@ -58,7 +58,7 @@
   "swamp": {
     "id": "swamp",
     "name": "Swamp",
-    "typeLine": "Basic Land — Swamp",
+    "typeLine": "Basic Land \u2014 Swamp",
     "manaCost": "",
     "manaValue": 0,
     "power": "",
@@ -86,7 +86,7 @@
   "mountain": {
     "id": "mountain",
     "name": "Mountain",
-    "typeLine": "Basic Land — Mountain",
+    "typeLine": "Basic Land \u2014 Mountain",
     "manaCost": "",
     "manaValue": 0,
     "power": "",
@@ -114,7 +114,7 @@
   "forest": {
     "id": "forest",
     "name": "Forest",
-    "typeLine": "Basic Land — Forest",
+    "typeLine": "Basic Land \u2014 Forest",
     "manaCost": "",
     "manaValue": 0,
     "power": "",
@@ -212,7 +212,7 @@
   "grizzly-bears": {
     "id": "grizzly-bears",
     "name": "Grizzly Bears",
-    "typeLine": "Creature — Bear",
+    "typeLine": "Creature \u2014 Bear",
     "manaCost": "{1}{G}",
     "manaValue": 2,
     "power": 2,
@@ -233,7 +233,7 @@
   "wind-drake": {
     "id": "wind-drake",
     "name": "Wind Drake",
-    "typeLine": "Creature — Drake",
+    "typeLine": "Creature \u2014 Drake",
     "manaCost": "{2}{U}",
     "manaValue": 3,
     "power": 2,
@@ -256,7 +256,7 @@
   "giant-spider": {
     "id": "giant-spider",
     "name": "Giant Spider",
-    "typeLine": "Creature — Spider",
+    "typeLine": "Creature \u2014 Spider",
     "manaCost": "{3}{G}",
     "manaValue": 4,
     "power": 2,
@@ -279,7 +279,7 @@
   "vigilant-knight": {
     "id": "vigilant-knight",
     "name": "Vigilant Knight",
-    "typeLine": "Creature — Knight",
+    "typeLine": "Creature \u2014 Knight",
     "manaCost": "{2}{W}",
     "manaValue": 3,
     "power": 2,
@@ -302,7 +302,7 @@
   "trampling-rhino": {
     "id": "trampling-rhino",
     "name": "Trampling Rhino",
-    "typeLine": "Creature — Rhino",
+    "typeLine": "Creature \u2014 Rhino",
     "manaCost": "{4}{G}",
     "manaValue": 5,
     "power": 4,
@@ -325,7 +325,7 @@
   "vampire-nighthawk": {
     "id": "vampire-nighthawk",
     "name": "Vampire Nighthawk",
-    "typeLine": "Creature — Vampire Shaman",
+    "typeLine": "Creature \u2014 Vampire Shaman",
     "manaCost": "{1}{B}{B}",
     "manaValue": 3,
     "power": 2,
@@ -351,7 +351,7 @@
   "firstblade": {
     "id": "firstblade",
     "name": "Firstblade",
-    "typeLine": "Creature — Human Soldier",
+    "typeLine": "Creature \u2014 Human Soldier",
     "manaCost": "{2}{R}",
     "manaValue": 3,
     "power": 2,
@@ -375,7 +375,7 @@
   "doubleblade": {
     "id": "doubleblade",
     "name": "Doubleblade",
-    "typeLine": "Creature — Human Warrior",
+    "typeLine": "Creature \u2014 Human Warrior",
     "manaCost": "{3}{R}",
     "manaValue": 4,
     "power": 2,
@@ -399,7 +399,7 @@
   "menace-ogre": {
     "id": "menace-ogre",
     "name": "Menace Ogre",
-    "typeLine": "Creature — Ogre",
+    "typeLine": "Creature \u2014 Ogre",
     "manaCost": "{3}{B}",
     "manaValue": 4,
     "power": 3,
@@ -422,7 +422,7 @@
   "indestructible-god": {
     "id": "indestructible-god",
     "name": "Indestructible God",
-    "typeLine": "Legendary Enchantment Creature — God",
+    "typeLine": "Legendary Enchantment Creature \u2014 God",
     "manaCost": "{3}{W}",
     "manaValue": 4,
     "power": 4,
@@ -479,7 +479,7 @@
     "abilities": [],
     "spellEffects": [],
     "producedMana": null,
-    "oracleText": "Choose one — target player gains 3 life; or prevent the next 3 damage that would be dealt to a legal target this turn.",
+    "oracleText": "Choose one \u2014 target player gains 3 life; or prevent the next 3 damage that would be dealt to a legal target this turn.",
     "modes": [
       {
         "id": "gain-life",
@@ -628,7 +628,7 @@
   "treasure-maker": {
     "id": "treasure-maker",
     "name": "Prosperous Pirates",
-    "typeLine": "Creature — Human Pirate",
+    "typeLine": "Creature \u2014 Human Pirate",
     "manaCost": "{4}{U}",
     "manaValue": 5,
     "power": 3,
@@ -650,7 +650,7 @@
           "type": "createToken",
           "token": {
             "name": "Treasure",
-            "typeLine": "Artifact — Treasure"
+            "typeLine": "Artifact \u2014 Treasure"
           },
           "amount": 2
         }
@@ -785,7 +785,7 @@
   "academy-manufactor": {
     "id": "academy-manufactor",
     "name": "Academy Manufactor",
-    "typeLine": "Artifact Creature — Assembly-Worker",
+    "typeLine": "Artifact Creature \u2014 Assembly-Worker",
     "manaCost": "{3}",
     "manaValue": 3,
     "power": 1,
@@ -810,7 +810,7 @@
   "evolution-sage": {
     "id": "evolution-sage",
     "name": "Evolution Sage",
-    "typeLine": "Creature — Elf Druid",
+    "typeLine": "Creature \u2014 Elf Druid",
     "manaCost": "{2}{G}",
     "manaValue": 3,
     "power": 3,
@@ -835,7 +835,7 @@
     ],
     "spellEffects": [],
     "producedMana": null,
-    "oracleText": "Landfall — whenever a land enters the battlefield under your control, proliferate.",
+    "oracleText": "Landfall \u2014 whenever a land enters the battlefield under your control, proliferate.",
     "colorIdentity": [
       "G"
     ],
@@ -863,7 +863,7 @@
           "type": "createToken",
           "token": {
             "name": "Merfolk Hexproof",
-            "typeLine": "Creature — Merfolk",
+            "typeLine": "Creature \u2014 Merfolk",
             "power": 1,
             "toughness": 1,
             "subtypes": [
@@ -887,7 +887,7 @@
   "hakbal": {
     "id": "hakbal",
     "name": "Hakbal of the Surging Soul",
-    "typeLine": "Legendary Creature — Merfolk Scout",
+    "typeLine": "Legendary Creature \u2014 Merfolk Scout",
     "manaCost": "{2}{G}{U}",
     "manaValue": 4,
     "power": 3,
@@ -935,7 +935,7 @@
   "merfolk-scout": {
     "id": "merfolk-scout",
     "name": "River Herald Scout",
-    "typeLine": "Creature — Merfolk Scout",
+    "typeLine": "Creature \u2014 Merfolk Scout",
     "manaCost": "{1}{U}",
     "manaValue": 2,
     "power": 1,
@@ -969,7 +969,7 @@
   "merfolk-mistbinder": {
     "id": "merfolk-mistbinder",
     "name": "Merfolk Mistbinder",
-    "typeLine": "Creature — Merfolk Shaman",
+    "typeLine": "Creature \u2014 Merfolk Shaman",
     "manaCost": "{G}{U}",
     "manaValue": 2,
     "power": 2,
@@ -1005,7 +1005,7 @@
   "blech": {
     "id": "blech",
     "name": "Blech, Loafing Pest",
-    "typeLine": "Legendary Creature — Pest",
+    "typeLine": "Legendary Creature \u2014 Pest",
     "manaCost": "{1}{B}{G}",
     "manaValue": 3,
     "power": 3,
@@ -1050,7 +1050,7 @@
   "pest-summoner": {
     "id": "pest-summoner",
     "name": "Pest Summoner",
-    "typeLine": "Creature — Human Warlock",
+    "typeLine": "Creature \u2014 Human Warlock",
     "manaCost": "{2}{B}",
     "manaValue": 3,
     "power": 2,
@@ -1072,7 +1072,7 @@
           "type": "createToken",
           "token": {
             "name": "Pest",
-            "typeLine": "Creature — Pest",
+            "typeLine": "Creature \u2014 Pest",
             "power": 1,
             "toughness": 1,
             "subtypes": [
@@ -1094,7 +1094,7 @@
   "esika": {
     "id": "esika",
     "name": "Esika, God of the Tree",
-    "typeLine": "Legendary Creature — God",
+    "typeLine": "Legendary Creature \u2014 God",
     "manaCost": "{1}{G}{G}",
     "manaValue": 3,
     "power": 1,
@@ -1169,7 +1169,7 @@
   "sisay": {
     "id": "sisay",
     "name": "Sisay, Weatherlight Captain",
-    "typeLine": "Legendary Creature — Human Soldier",
+    "typeLine": "Legendary Creature \u2014 Human Soldier",
     "manaCost": "{2}{W}",
     "manaValue": 3,
     "power": 2,
@@ -1201,7 +1201,7 @@
     ],
     "spellEffects": [],
     "producedMana": null,
-    "oracleText": "Sisay gets +1/+1 for each color among other legendary permanents you control. {W}{U}{B}{R}{G}: Search for a legendary permanent card with mana value less than Sisay’s power and put it onto the battlefield.",
+    "oracleText": "Sisay gets +1/+1 for each color among other legendary permanents you control. {W}{U}{B}{R}{G}: Search for a legendary permanent card with mana value less than Sisay\u2019s power and put it onto the battlefield.",
     "colorIdentity": [
       "W",
       "U",
@@ -1214,7 +1214,7 @@
   "thassa": {
     "id": "thassa",
     "name": "Thassa, God of the Sea",
-    "typeLine": "Legendary Enchantment Creature — God",
+    "typeLine": "Legendary Enchantment Creature \u2014 God",
     "manaCost": "{2}{U}",
     "manaValue": 3,
     "power": 5,
@@ -1270,7 +1270,7 @@
   "keranos": {
     "id": "keranos",
     "name": "Keranos, God of Storms",
-    "typeLine": "Legendary Enchantment Creature — God",
+    "typeLine": "Legendary Enchantment Creature \u2014 God",
     "manaCost": "{3}{U}{R}",
     "manaValue": 5,
     "power": 6,
@@ -1338,7 +1338,7 @@
   "erebos": {
     "id": "erebos",
     "name": "Erebos, God of the Dead",
-    "typeLine": "Legendary Enchantment Creature — God",
+    "typeLine": "Legendary Enchantment Creature \u2014 God",
     "manaCost": "{3}{B}",
     "manaValue": 4,
     "power": 5,
@@ -1388,7 +1388,7 @@
   "smaug": {
     "id": "smaug",
     "name": "Smaug, the Golden",
-    "typeLine": "Legendary Creature — Dragon",
+    "typeLine": "Legendary Creature \u2014 Dragon",
     "manaCost": "{4}{B}{R}",
     "manaValue": 6,
     "power": 6,
@@ -1411,7 +1411,7 @@
           "type": "createToken",
           "token": {
             "name": "Treasure",
-            "typeLine": "Artifact — Treasure"
+            "typeLine": "Artifact \u2014 Treasure"
           },
           "amount": 1
         }
@@ -1429,7 +1429,7 @@
   "aang": {
     "id": "aang",
     "name": "Aang, Last Airbender",
-    "typeLine": "Legendary Creature — Human Monk",
+    "typeLine": "Legendary Creature \u2014 Human Monk",
     "manaCost": "{W}{U}{R}{G}",
     "manaValue": 4,
     "power": 4,
@@ -1474,7 +1474,7 @@
   "lcc-benthic-biomancer": {
     "id": "lcc-benthic-biomancer",
     "name": "Benthic Biomancer",
-    "typeLine": "Creature — Merfolk Wizard Mutant",
+    "typeLine": "Creature \u2014 Merfolk Wizard Mutant",
     "manaCost": "{U}",
     "manaValue": 1,
     "power": 1,
@@ -1524,7 +1524,7 @@
   "lcc-cold-eyed-selkie": {
     "id": "lcc-cold-eyed-selkie",
     "name": "Cold-Eyed Selkie",
-    "typeLine": "Creature — Merfolk Rogue",
+    "typeLine": "Creature \u2014 Merfolk Rogue",
     "manaCost": "{1}{G/U}{G/U}",
     "manaValue": 3,
     "power": 1,
@@ -1560,7 +1560,7 @@
   "lcc-coralhelm-commander": {
     "id": "lcc-coralhelm-commander",
     "name": "Coralhelm Commander",
-    "typeLine": "Creature — Merfolk Soldier",
+    "typeLine": "Creature \u2014 Merfolk Soldier",
     "manaCost": "{U}{U}",
     "manaValue": 2,
     "power": 2,
@@ -1641,7 +1641,7 @@
   "lcc-deeproot-elite": {
     "id": "lcc-deeproot-elite",
     "name": "Deeproot Elite",
-    "typeLine": "Creature — Merfolk Warrior",
+    "typeLine": "Creature \u2014 Merfolk Warrior",
     "manaCost": "{1}{G}",
     "manaValue": 2,
     "power": 1,
@@ -1684,7 +1684,7 @@
   "lcc-deeproot-historian": {
     "id": "lcc-deeproot-historian",
     "name": "Deeproot Historian",
-    "typeLine": "Creature — Merfolk Druid",
+    "typeLine": "Creature \u2014 Merfolk Druid",
     "manaCost": "{3}{G}",
     "manaValue": 4,
     "power": 3,
@@ -1720,7 +1720,7 @@
   "lcc-emperor-mihail-ii": {
     "id": "lcc-emperor-mihail-ii",
     "name": "Emperor Mihail II",
-    "typeLine": "Legendary Creature — Merfolk Noble",
+    "typeLine": "Legendary Creature \u2014 Merfolk Noble",
     "manaCost": "{1}{U}{U}",
     "manaValue": 3,
     "power": 3,
@@ -1755,7 +1755,7 @@
             "type": "createToken",
             "token": {
               "name": "Merfolk",
-              "typeLine": "Creature — Merfolk",
+              "typeLine": "Creature \u2014 Merfolk",
               "power": 1,
               "toughness": 1,
               "subtypes": [
@@ -1780,7 +1780,7 @@
   "lcc-herald-of-secret-streams": {
     "id": "lcc-herald-of-secret-streams",
     "name": "Herald of Secret Streams",
-    "typeLine": "Creature — Merfolk Warrior",
+    "typeLine": "Creature \u2014 Merfolk Warrior",
     "manaCost": "{3}{U}",
     "manaValue": 4,
     "power": 2,
@@ -1814,7 +1814,7 @@
   "lcc-kiora-s-follower": {
     "id": "lcc-kiora-s-follower",
     "name": "Kiora's Follower",
-    "typeLine": "Creature — Merfolk",
+    "typeLine": "Creature \u2014 Merfolk",
     "manaCost": "{G}{U}",
     "manaValue": 2,
     "power": 2,
@@ -1848,7 +1848,7 @@
   "lcc-kopala-warden-of-waves": {
     "id": "lcc-kopala-warden-of-waves",
     "name": "Kopala, Warden of Waves",
-    "typeLine": "Legendary Creature — Merfolk Wizard",
+    "typeLine": "Legendary Creature \u2014 Merfolk Wizard",
     "manaCost": "{1}{U}{U}",
     "manaValue": 3,
     "power": 2,
@@ -1881,7 +1881,7 @@
   "lcc-kumena-tyrant-of-orazca": {
     "id": "lcc-kumena-tyrant-of-orazca",
     "name": "Kumena, Tyrant of Orazca",
-    "typeLine": "Legendary Creature — Merfolk Shaman",
+    "typeLine": "Legendary Creature \u2014 Merfolk Shaman",
     "manaCost": "{1}{G}{U}",
     "manaValue": 3,
     "power": 2,
@@ -1944,7 +1944,7 @@
   "lcc-master-of-the-pearl-trident": {
     "id": "lcc-master-of-the-pearl-trident",
     "name": "Master of the Pearl Trident",
-    "typeLine": "Creature — Merfolk",
+    "typeLine": "Creature \u2014 Merfolk",
     "manaCost": "{U}{U}",
     "manaValue": 2,
     "power": 2,
@@ -1979,7 +1979,7 @@
   "lcc-merfolk-cave-diver": {
     "id": "lcc-merfolk-cave-diver",
     "name": "Merfolk Cave-Diver",
-    "typeLine": "Creature — Merfolk Scout",
+    "typeLine": "Creature \u2014 Merfolk Scout",
     "manaCost": "{2}{U}",
     "manaValue": 3,
     "power": 2,
@@ -2016,7 +2016,7 @@
   "lcc-merfolk-skydiver": {
     "id": "lcc-merfolk-skydiver",
     "name": "Merfolk Skydiver",
-    "typeLine": "Creature — Merfolk Mutant",
+    "typeLine": "Creature \u2014 Merfolk Mutant",
     "manaCost": "{G}{U}",
     "manaValue": 2,
     "power": 1,
@@ -2068,7 +2068,7 @@
   "lcc-merfolk-sovereign": {
     "id": "lcc-merfolk-sovereign",
     "name": "Merfolk Sovereign",
-    "typeLine": "Creature — Merfolk Noble",
+    "typeLine": "Creature \u2014 Merfolk Noble",
     "manaCost": "{1}{U}{U}",
     "manaValue": 3,
     "power": 2,
@@ -2116,7 +2116,7 @@
   "lcc-merrow-reejerey": {
     "id": "lcc-merrow-reejerey",
     "name": "Merrow Reejerey",
-    "typeLine": "Creature — Merfolk Soldier",
+    "typeLine": "Creature \u2014 Merfolk Soldier",
     "manaCost": "{2}{U}",
     "manaValue": 3,
     "power": 2,
@@ -2165,7 +2165,7 @@
   "lcc-metallic-mimic": {
     "id": "lcc-metallic-mimic",
     "name": "Metallic Mimic",
-    "typeLine": "Artifact Creature — Shapeshifter",
+    "typeLine": "Artifact Creature \u2014 Shapeshifter",
     "manaCost": "{2}",
     "manaValue": 2,
     "power": 2,
@@ -2199,7 +2199,7 @@
   "lcc-mist-dancer": {
     "id": "lcc-mist-dancer",
     "name": "Mist Dancer",
-    "typeLine": "Creature — Merfolk Wizard",
+    "typeLine": "Creature \u2014 Merfolk Wizard",
     "manaCost": "{4}{U}",
     "manaValue": 5,
     "power": 3,
@@ -2237,7 +2237,7 @@
   "lcc-nicanzil-current-conductor": {
     "id": "lcc-nicanzil-current-conductor",
     "name": "Nicanzil, Current Conductor",
-    "typeLine": "Legendary Creature — Merfolk Scout",
+    "typeLine": "Legendary Creature \u2014 Merfolk Scout",
     "manaCost": "{G}{U}",
     "manaValue": 2,
     "power": 2,
@@ -2285,7 +2285,7 @@
   "lcc-prime-speaker-zegana": {
     "id": "lcc-prime-speaker-zegana",
     "name": "Prime Speaker Zegana",
-    "typeLine": "Legendary Creature — Merfolk Wizard",
+    "typeLine": "Legendary Creature \u2014 Merfolk Wizard",
     "manaCost": "{2}{G}{G}{U}{U}",
     "manaValue": 6,
     "power": 1,
@@ -2323,7 +2323,7 @@
   "lcc-realmwalker": {
     "id": "lcc-realmwalker",
     "name": "Realmwalker",
-    "typeLine": "Creature — Shapeshifter",
+    "typeLine": "Creature \u2014 Shapeshifter",
     "manaCost": "{2}{G}",
     "manaValue": 3,
     "power": 2,
@@ -2358,7 +2358,7 @@
   "lcc-sage-of-fables": {
     "id": "lcc-sage-of-fables",
     "name": "Sage of Fables",
-    "typeLine": "Creature — Merfolk Wizard",
+    "typeLine": "Creature \u2014 Merfolk Wizard",
     "manaCost": "{2}{U}",
     "manaValue": 3,
     "power": 2,
@@ -2413,7 +2413,7 @@
   "lcc-seafloor-oracle": {
     "id": "lcc-seafloor-oracle",
     "name": "Seafloor Oracle",
-    "typeLine": "Creature — Merfolk Wizard",
+    "typeLine": "Creature \u2014 Merfolk Wizard",
     "manaCost": "{2}{U}{U}",
     "manaValue": 4,
     "power": 2,
@@ -2448,7 +2448,7 @@
   "lcc-singer-of-swift-rivers": {
     "id": "lcc-singer-of-swift-rivers",
     "name": "Singer of Swift Rivers",
-    "typeLine": "Creature — Merfolk Shaman",
+    "typeLine": "Creature \u2014 Merfolk Shaman",
     "manaCost": "{1}{G}{U}",
     "manaValue": 3,
     "power": 3,
@@ -2502,7 +2502,7 @@
   "lcc-stonybrook-banneret": {
     "id": "lcc-stonybrook-banneret",
     "name": "Stonybrook Banneret",
-    "typeLine": "Creature — Merfolk Wizard",
+    "typeLine": "Creature \u2014 Merfolk Wizard",
     "manaCost": "{1}{U}",
     "manaValue": 2,
     "power": 1,
@@ -2540,7 +2540,7 @@
   "lcc-surgespanner": {
     "id": "lcc-surgespanner",
     "name": "Surgespanner",
-    "typeLine": "Creature — Merfolk Wizard",
+    "typeLine": "Creature \u2014 Merfolk Wizard",
     "manaCost": "{2}{U}{U}",
     "manaValue": 4,
     "power": 2,
@@ -2575,12 +2575,12 @@
       "U"
     ],
     "supported": true,
-    "oracleText": "Whenever Surgespanner becomes tapped, you may pay {1}{U}. If you do, return target permanent to its owner’s hand."
+    "oracleText": "Whenever Surgespanner becomes tapped, you may pay {1}{U}. If you do, return target permanent to its owner\u2019s hand."
   },
   "lcc-svyelun-of-sea-and-sky": {
     "id": "lcc-svyelun-of-sea-and-sky",
     "name": "Svyelun of Sea and Sky",
-    "typeLine": "Legendary Creature — Merfolk God",
+    "typeLine": "Legendary Creature \u2014 Merfolk God",
     "manaCost": "{1}{U}{U}",
     "manaValue": 3,
     "power": 3,
@@ -2641,7 +2641,7 @@
   "lcc-tatyova-benthic-druid": {
     "id": "lcc-tatyova-benthic-druid",
     "name": "Tatyova, Benthic Druid",
-    "typeLine": "Legendary Creature — Merfolk Druid",
+    "typeLine": "Legendary Creature \u2014 Merfolk Druid",
     "manaCost": "{3}{G}{U}",
     "manaValue": 5,
     "power": 3,
@@ -2681,12 +2681,12 @@
       "G"
     ],
     "supported": true,
-    "oracleText": "Landfall — Whenever a land enters the battlefield under your control, you gain 1 life and draw a card."
+    "oracleText": "Landfall \u2014 Whenever a land enters the battlefield under your control, you gain 1 life and draw a card."
   },
   "lcc-thieving-skydiver": {
     "id": "lcc-thieving-skydiver",
     "name": "Thieving Skydiver",
-    "typeLine": "Creature — Merfolk Rogue",
+    "typeLine": "Creature \u2014 Merfolk Rogue",
     "manaCost": "{1}{U}",
     "manaValue": 2,
     "power": 2,
@@ -2724,7 +2724,7 @@
       "U"
     ],
     "supported": true,
-    "oracleText": "Flying. Kicker {X}. X can’t be 0. When Thieving Skydiver enters the battlefield, if it was kicked, gain control of target artifact with mana value X or less. If that artifact is Equipment, attach it to Thieving Skydiver.",
+    "oracleText": "Flying. Kicker {X}. X can\u2019t be 0. When Thieving Skydiver enters the battlefield, if it was kicked, gain control of target artifact with mana value X or less. If that artifact is Equipment, attach it to Thieving Skydiver.",
     "modes": [
       {
         "id": "normal",
@@ -2745,7 +2745,7 @@
   "lcc-tishana-voice-of-thunder": {
     "id": "lcc-tishana-voice-of-thunder",
     "name": "Tishana, Voice of Thunder",
-    "typeLine": "Legendary Creature — Merfolk Shaman",
+    "typeLine": "Legendary Creature \u2014 Merfolk Shaman",
     "manaCost": "{5}{G}{U}",
     "manaValue": 7,
     "power": 0,
@@ -2774,14 +2774,14 @@
       "G"
     ],
     "supported": true,
-    "oracleText": "Tishana’s power and toughness are each equal to the number of cards in your hand. You have no maximum hand size. When Tishana enters the battlefield, draw a card for each creature you control.",
+    "oracleText": "Tishana\u2019s power and toughness are each equal to the number of cards in your hand. You have no maximum hand size. When Tishana enters the battlefield, draw a card for each creature you control.",
     "dynamicPowerToughness": "handSize",
     "noMaximumHandSize": true
   },
   "lcc-topography-tracker": {
     "id": "lcc-topography-tracker",
     "name": "Topography Tracker",
-    "typeLine": "Creature — Merfolk Scout",
+    "typeLine": "Creature \u2014 Merfolk Scout",
     "manaCost": "{2}{G}",
     "manaValue": 3,
     "power": 2,
@@ -2814,7 +2814,7 @@
   "lcc-tributary-instructor": {
     "id": "lcc-tributary-instructor",
     "name": "Tributary Instructor",
-    "typeLine": "Creature — Merfolk Shaman",
+    "typeLine": "Creature \u2014 Merfolk Shaman",
     "manaCost": "{3}{G}",
     "manaValue": 4,
     "power": 4,
@@ -2869,7 +2869,7 @@
   "lcc-vorel-of-the-hull-clade": {
     "id": "lcc-vorel-of-the-hull-clade",
     "name": "Vorel of the Hull Clade",
-    "typeLine": "Legendary Creature — Human Merfolk",
+    "typeLine": "Legendary Creature \u2014 Human Merfolk",
     "manaCost": "{1}{G}{U}",
     "manaValue": 3,
     "power": 1,
@@ -2911,7 +2911,7 @@
   "lcc-xolatoyac-the-smiling-flood": {
     "id": "lcc-xolatoyac-the-smiling-flood",
     "name": "Xolatoyac, the Smiling Flood",
-    "typeLine": "Legendary Creature — Salamander Serpent",
+    "typeLine": "Legendary Creature \u2014 Salamander Serpent",
     "manaCost": "{4}{G}{U}",
     "manaValue": 6,
     "power": 6,
@@ -2978,7 +2978,7 @@
   "lcc-zegana-utopian-speaker": {
     "id": "lcc-zegana-utopian-speaker",
     "name": "Zegana, Utopian Speaker",
-    "typeLine": "Legendary Creature — Merfolk Wizard",
+    "typeLine": "Legendary Creature \u2014 Merfolk Wizard",
     "manaCost": "{2}{G}{U}",
     "manaValue": 4,
     "power": 4,
@@ -3059,7 +3059,7 @@
       "U"
     ],
     "supported": true,
-    "oracleText": "Return all attacking creatures to their owners’ hands."
+    "oracleText": "Return all attacking creatures to their owners\u2019 hands."
   },
   "lcc-beast-within": {
     "id": "lcc-beast-within",
@@ -3077,7 +3077,7 @@
         "type": "replaceWithToken",
         "token": {
           "name": "Beast",
-          "typeLine": "Creature — Beast",
+          "typeLine": "Creature \u2014 Beast",
           "power": 3,
           "toughness": 3,
           "subtypes": [
@@ -3116,11 +3116,11 @@
       "U"
     ],
     "supported": true,
-    "oracleText": "Commit: Put target spell or nonland permanent into its owner’s library second from the top. Memory: Each player shuffles their hand and graveyard into their library, then draws seven cards. Aftermath.",
+    "oracleText": "Commit: Put target spell or nonland permanent into its owner\u2019s library second from the top. Memory: Each player shuffles their hand and graveyard into their library, then draws seven cards. Aftermath.",
     "modes": [
       {
         "id": "commit",
-        "label": "Commit — target spell or nonland permanent goes second from top.",
+        "label": "Commit \u2014 target spell or nonland permanent goes second from top.",
         "fromZone": "hand",
         "manaCost": "{3}{U}",
         "targets": {
@@ -3136,7 +3136,7 @@
       },
       {
         "id": "memory",
-        "label": "Memory — shuffle hands and graveyards into libraries, then draw seven.",
+        "label": "Memory \u2014 shuffle hands and graveyards into libraries, then draw seven.",
         "fromZone": "graveyard",
         "manaCost": "{4}{U}{U}",
         "effects": [
@@ -3241,7 +3241,7 @@
       "G"
     ],
     "supported": true,
-    "oracleText": "Choose two — return target creature or planeswalker; counter target artifact or enchantment spell; put two +1/+1 counters on target creature; target player shuffles up to three target cards from their graveyard into their library.",
+    "oracleText": "Choose two \u2014 return target creature or planeswalker; counter target artifact or enchantment spell; put two +1/+1 counters on target creature; target player shuffles up to three target cards from their graveyard into their library.",
     "modes": [
       {
         "id": "pair-1",
@@ -3453,7 +3453,7 @@
         "type": "replaceWithToken",
         "token": {
           "name": "Frog Lizard",
-          "typeLine": "Creature — Frog Lizard",
+          "typeLine": "Creature \u2014 Frog Lizard",
           "power": 3,
           "toughness": 3,
           "subtypes": [
@@ -3471,7 +3471,7 @@
       "U"
     ],
     "supported": true,
-    "oracleText": "Destroy target creature. It can’t be regenerated. That creature’s controller creates a 3/3 green Frog Lizard creature token.",
+    "oracleText": "Destroy target creature. It can\u2019t be regenerated. That creature\u2019s controller creates a 3/3 green Frog Lizard creature token.",
     "targets": {
       "kind": "permanent",
       "type": "Creature"
@@ -3557,7 +3557,7 @@
       "G"
     ],
     "supported": true,
-    "oracleText": "Descend 8 — When you cast this spell, if there are eight or more permanent cards in your graveyard, copy it twice. You may choose new targets for the copies. Return target permanent card from your graveyard to your hand. Exile Bygone Marvels.",
+    "oracleText": "Descend 8 \u2014 When you cast this spell, if there are eight or more permanent cards in your graveyard, copy it twice. You may choose new targets for the copies. Return target permanent card from your graveyard to your hand. Exile Bygone Marvels.",
     "modes": [
       {
         "id": "normal",
@@ -3618,7 +3618,7 @@
           "exile": true,
           "token": {
             "name": "Boar",
-            "typeLine": "Creature — Boar",
+            "typeLine": "Creature \u2014 Boar",
             "power": 2,
             "toughness": 2,
             "subtypes": [
@@ -3668,7 +3668,7 @@
   "lcc-kodama-s-reach": {
     "id": "lcc-kodama-s-reach",
     "name": "Kodama's Reach",
-    "typeLine": "Sorcery — Arcane",
+    "typeLine": "Sorcery \u2014 Arcane",
     "manaCost": "{2}{G}",
     "manaValue": 3,
     "power": null,
@@ -3707,7 +3707,7 @@
         "exile": true,
         "token": {
           "name": "Bird",
-          "typeLine": "Creature — Bird",
+          "typeLine": "Creature \u2014 Bird",
           "power": 1,
           "toughness": 1,
           "subtypes": [
@@ -3759,7 +3759,7 @@
       "U"
     ],
     "supported": true,
-    "oracleText": "Return each creature without a +1/+1 counter on it to its owner’s hand."
+    "oracleText": "Return each creature without a +1/+1 counter on it to its owner\u2019s hand."
   },
   "lcc-commander-s-sphere": {
     "id": "lcc-commander-s-sphere",
@@ -3826,7 +3826,7 @@
   "lcc-swiftfoot-boots": {
     "id": "lcc-swiftfoot-boots",
     "name": "Swiftfoot Boots",
-    "typeLine": "Artifact — Equipment",
+    "typeLine": "Artifact \u2014 Equipment",
     "manaCost": "{2}",
     "manaValue": 2,
     "power": null,
@@ -4414,7 +4414,7 @@
       "U"
     ],
     "supported": true,
-    "oracleText": "Simic Growth Chamber enters the battlefield tapped. When it enters, return a land you control to its owner’s hand. {T}: Add {G}{U}.",
+    "oracleText": "Simic Growth Chamber enters the battlefield tapped. When it enters, return a land you control to its owner\u2019s hand. {T}: Add {G}{U}.",
     "entersTapped": true,
     "onEnterEffects": [
       {
@@ -4550,7 +4550,7 @@
       "U"
     ],
     "supported": true,
-    "oracleText": "As Vineglimmer Snarl enters the battlefield, you may reveal a Forest or Island card from your hand. If you don’t, it enters tapped. {T}: Add {G} or {U}.",
+    "oracleText": "As Vineglimmer Snarl enters the battlefield, you may reveal a Forest or Island card from your hand. If you don\u2019t, it enters tapped. {T}: Add {G} or {U}.",
     "entersTappedUnless": {
       "revealLandSubtypes": [
         "Forest",
@@ -4632,7 +4632,7 @@
   "arch-sunken-hollow": {
     "id": "arch-sunken-hollow",
     "name": "Sunken Hollow",
-    "typeLine": "Land — Island Swamp",
+    "typeLine": "Land \u2014 Island Swamp",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -4827,7 +4827,7 @@
   "arch-ertai-resurrected": {
     "id": "arch-ertai-resurrected",
     "name": "Ertai Resurrected",
-    "typeLine": "Legendary Creature — Human Wizard Phyrexian",
+    "typeLine": "Legendary Creature \u2014 Human Wizard Phyrexian",
     "manaCost": "{2}{U}{B}",
     "manaValue": 4,
     "power": 3,
@@ -4847,7 +4847,7 @@
       "U",
       "B"
     ],
-    "oracleText": "Flash\nWhen Ertai Resurrected enters, choose up to one —\n• Counter target spell, activated ability, or triggered ability. Its controller draws a card.\n• Destroy another target creature or planeswalker. Its controller draws a card.",
+    "oracleText": "Flash\nWhen Ertai Resurrected enters, choose up to one \u2014\n\u2022 Counter target spell, activated ability, or triggered ability. Its controller draws a card.\n\u2022 Destroy another target creature or planeswalker. Its controller draws a card.",
     "image": "https://cards.scryfall.io/normal/front/7/f/7f7e780e-fbc5-4dc0-b5c7-efcb8645c7c6.jpg",
     "scryfallId": "7f7e780e-fbc5-4dc0-b5c7-efcb8645c7c6",
     "legalities": {
@@ -4869,7 +4869,7 @@
   "arch-desert-of-the-glorified": {
     "id": "arch-desert-of-the-glorified",
     "name": "Desert of the Glorified",
-    "typeLine": "Land — Desert",
+    "typeLine": "Land \u2014 Desert",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -4906,7 +4906,7 @@
   "arch-soured-springs": {
     "id": "arch-soured-springs",
     "name": "Soured Springs",
-    "typeLine": "Land — Desert",
+    "typeLine": "Land \u2014 Desert",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -5166,7 +5166,7 @@
   "arch-arid-archway": {
     "id": "arch-arid-archway",
     "name": "Arid Archway",
-    "typeLine": "Land — Desert",
+    "typeLine": "Land \u2014 Desert",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -5199,7 +5199,7 @@
   "arch-triskaidekaphile": {
     "id": "arch-triskaidekaphile",
     "name": "Triskaidekaphile",
-    "typeLine": "Creature — Human Wizard",
+    "typeLine": "Creature \u2014 Human Wizard",
     "manaCost": "{1}{U}",
     "manaValue": 2,
     "power": 1,
@@ -5302,7 +5302,7 @@
   "arch-identity-thief": {
     "id": "arch-identity-thief",
     "name": "Identity Thief",
-    "typeLine": "Creature — Shapeshifter",
+    "typeLine": "Creature \u2014 Shapeshifter",
     "manaCost": "{2}{U}{U}",
     "manaValue": 4,
     "power": 0,
@@ -5354,7 +5354,7 @@
   "arch-watery-grave": {
     "id": "arch-watery-grave",
     "name": "Watery Grave",
-    "typeLine": "Land — Island Swamp",
+    "typeLine": "Land \u2014 Island Swamp",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -5480,7 +5480,7 @@
   "arch-fetid-pools": {
     "id": "arch-fetid-pools",
     "name": "Fetid Pools",
-    "typeLine": "Land — Island Swamp",
+    "typeLine": "Land \u2014 Island Swamp",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -5520,7 +5520,7 @@
   "arch-desert-of-the-mindful": {
     "id": "arch-desert-of-the-mindful",
     "name": "Desert of the Mindful",
-    "typeLine": "Land — Desert",
+    "typeLine": "Land \u2014 Desert",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -5610,7 +5610,7 @@
     "colorIdentity": [
       "U"
     ],
-    "oracleText": "Choose one —\n• Counter target artifact or enchantment spell. If that spell is countered this way, exile it instead of putting it into its owner's graveyard.\n• Counter target activated or triggered ability.",
+    "oracleText": "Choose one \u2014\n\u2022 Counter target artifact or enchantment spell. If that spell is countered this way, exile it instead of putting it into its owner's graveyard.\n\u2022 Counter target activated or triggered ability.",
     "image": "https://cards.scryfall.io/normal/front/7/d/7dd32168-0b9c-4633-adec-d41cf125cc35.jpg",
     "scryfallId": "7dd32168-0b9c-4633-adec-d41cf125cc35",
     "legalities": {
@@ -5626,7 +5626,7 @@
   "arch-blade-of-selves": {
     "id": "arch-blade-of-selves",
     "name": "Blade of Selves",
-    "typeLine": "Artifact — Equipment",
+    "typeLine": "Artifact \u2014 Equipment",
     "manaCost": "{2}",
     "manaValue": 2,
     "power": null,
@@ -5677,7 +5677,7 @@
   "arch-auton-soldier": {
     "id": "arch-auton-soldier",
     "name": "Auton Soldier",
-    "typeLine": "Creature Artifact — Soldier Alien",
+    "typeLine": "Creature Artifact \u2014 Soldier Alien",
     "manaCost": "{4}{U}{U}",
     "manaValue": 6,
     "power": 0,
@@ -5716,7 +5716,7 @@
   "arch-cybermen-squadron": {
     "id": "arch-cybermen-squadron",
     "name": "Cybermen Squadron",
-    "typeLine": "Creature Artifact — Cyberman",
+    "typeLine": "Creature Artifact \u2014 Cyberman",
     "manaCost": "{7}",
     "manaValue": 7,
     "power": 5,
@@ -5752,7 +5752,7 @@
   "arch-broodbirth-viper": {
     "id": "arch-broodbirth-viper",
     "name": "Broodbirth Viper",
-    "typeLine": "Creature — Snake",
+    "typeLine": "Creature \u2014 Snake",
     "manaCost": "{4}{U}",
     "manaValue": 5,
     "power": 3,
@@ -5801,7 +5801,7 @@
   "arch-wizards-of-thay": {
     "id": "arch-wizards-of-thay",
     "name": "Wizards of Thay",
-    "typeLine": "Creature — Human Wizard",
+    "typeLine": "Creature \u2014 Human Wizard",
     "manaCost": "{3}{U}",
     "manaValue": 4,
     "power": 3,
@@ -5840,7 +5840,7 @@
   "arch-banshee-of-the-dread-choir": {
     "id": "arch-banshee-of-the-dread-choir",
     "name": "Banshee of the Dread Choir",
-    "typeLine": "Creature — Spirit",
+    "typeLine": "Creature \u2014 Spirit",
     "manaCost": "{3}{B}{B}",
     "manaValue": 5,
     "power": 4,
@@ -5878,7 +5878,7 @@
   "arch-dalek-squadron": {
     "id": "arch-dalek-squadron",
     "name": "Dalek Squadron",
-    "typeLine": "Creature Artifact — Dalek",
+    "typeLine": "Creature Artifact \u2014 Dalek",
     "manaCost": "{2}{B}",
     "manaValue": 3,
     "power": 3,
@@ -5918,7 +5918,7 @@
   "arch-displacer-kitten": {
     "id": "arch-displacer-kitten",
     "name": "Displacer Kitten",
-    "typeLine": "Creature — Beast Cat",
+    "typeLine": "Creature \u2014 Beast Cat",
     "manaCost": "{3}{U}",
     "manaValue": 4,
     "power": 2,
@@ -5934,7 +5934,7 @@
     "colorIdentity": [
       "U"
     ],
-    "oracleText": "Avoidance — Whenever you cast a noncreature spell, exile up to one target nonland permanent you control, then return that card to the battlefield under its owner's control.",
+    "oracleText": "Avoidance \u2014 Whenever you cast a noncreature spell, exile up to one target nonland permanent you control, then return that card to the battlefield under its owner's control.",
     "image": "https://cards.scryfall.io/normal/front/c/7/c7a401b8-29fb-46ef-a663-427f66724d5c.jpg",
     "scryfallId": "c7a401b8-29fb-46ef-a663-427f66724d5c",
     "legalities": {
@@ -6004,7 +6004,7 @@
   "arch-sister-of-silence": {
     "id": "arch-sister-of-silence",
     "name": "Sister of Silence",
-    "typeLine": "Creature — Human Knight",
+    "typeLine": "Creature \u2014 Human Knight",
     "manaCost": "{4}{U}",
     "manaValue": 5,
     "power": 3,
@@ -6022,7 +6022,7 @@
     "colorIdentity": [
       "U"
     ],
-    "oracleText": "Flash\nPsychic Abomination — When this creature enters, counter target instant spell, sorcery spell, activated ability, or triggered ability.",
+    "oracleText": "Flash\nPsychic Abomination \u2014 When this creature enters, counter target instant spell, sorcery spell, activated ability, or triggered ability.",
     "image": "https://cards.scryfall.io/normal/front/1/5/15d56042-db45-40dc-a197-e2b7a3e6ab06.jpg",
     "scryfallId": "15d56042-db45-40dc-a197-e2b7a3e6ab06",
     "legalities": {
@@ -6054,7 +6054,7 @@
     "colorIdentity": [
       "U"
     ],
-    "oracleText": "Choose one or more —\n• Counter target spell.\n• Counter target activated or triggered ability.\n• Return target nonland permanent to its owner's hand.\n• Create a token that's a copy of target creature you control.\n• Target player draws a card.",
+    "oracleText": "Choose one or more \u2014\n\u2022 Counter target spell.\n\u2022 Counter target activated or triggered ability.\n\u2022 Return target nonland permanent to its owner's hand.\n\u2022 Create a token that's a copy of target creature you control.\n\u2022 Target player draws a card.",
     "image": "https://cards.scryfall.io/normal/front/0/f/0f7d3839-0bc3-402b-b9ea-c903f82d39da.jpg",
     "scryfallId": "0f7d3839-0bc3-402b-b9ea-c903f82d39da",
     "legalities": {
@@ -6120,7 +6120,7 @@
     "colorIdentity": [
       "B"
     ],
-    "oracleText": "At the beginning of your upkeep, choose one that hasn't been chosen —\n• This enchantment deals 4 damage to any target and you gain 4 life.\n• Target opponent discards two cards.\n• Draw two cards.\n• You lose the game.",
+    "oracleText": "At the beginning of your upkeep, choose one that hasn't been chosen \u2014\n\u2022 This enchantment deals 4 damage to any target and you gain 4 life.\n\u2022 Target opponent discards two cards.\n\u2022 Draw two cards.\n\u2022 You lose the game.",
     "image": "https://cards.scryfall.io/normal/front/5/b/5b0b7242-df91-48cf-bf4e-b68306c9965f.jpg",
     "scryfallId": "5b0b7242-df91-48cf-bf4e-b68306c9965f",
     "legalities": {
@@ -6215,7 +6215,7 @@
   "arch-mirror-mockery": {
     "id": "arch-mirror-mockery",
     "name": "Mirror Mockery",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{1}{U}",
     "manaValue": 2,
     "power": null,
@@ -6246,7 +6246,7 @@
   "arch-phantom-steed": {
     "id": "arch-phantom-steed",
     "name": "Phantom Steed",
-    "typeLine": "Creature — Illusion Horse",
+    "typeLine": "Creature \u2014 Illusion Horse",
     "manaCost": "{3}{U}",
     "manaValue": 4,
     "power": 4,
@@ -6276,7 +6276,7 @@
   "arch-ideas-unbound": {
     "id": "arch-ideas-unbound",
     "name": "Ideas Unbound",
-    "typeLine": "Sorcery — Arcane",
+    "typeLine": "Sorcery \u2014 Arcane",
     "manaCost": "{U}{U}",
     "manaValue": 2,
     "power": null,
@@ -6341,7 +6341,7 @@
   "arch-deadeye-navigator": {
     "id": "arch-deadeye-navigator",
     "name": "Deadeye Navigator",
-    "typeLine": "Creature — Spirit",
+    "typeLine": "Creature \u2014 Spirit",
     "manaCost": "{4}{U}{U}",
     "manaValue": 6,
     "power": 5,
@@ -6368,7 +6368,7 @@
   "arch-hunted-horror": {
     "id": "arch-hunted-horror",
     "name": "Hunted Horror",
-    "typeLine": "Creature — Horror",
+    "typeLine": "Creature \u2014 Horror",
     "manaCost": "{B}{B}",
     "manaValue": 2,
     "power": 7,
@@ -6542,7 +6542,7 @@
   "arch-rot-curse-rakshasa": {
     "id": "arch-rot-curse-rakshasa",
     "name": "Rot-Curse Rakshasa",
-    "typeLine": "Creature — Demon",
+    "typeLine": "Creature \u2014 Demon",
     "manaCost": "{1}{B}",
     "manaValue": 2,
     "power": 5,
@@ -6559,7 +6559,7 @@
     "colorIdentity": [
       "B"
     ],
-    "oracleText": "Trample\nDecayed (This creature can't block. When it attacks, sacrifice it at end of combat.)\nRenew — {X}{B}{B}, Exile this card from your graveyard: Put a decayed counter on each of X target creatures. Activate only as a sorcery.",
+    "oracleText": "Trample\nDecayed (This creature can't block. When it attacks, sacrifice it at end of combat.)\nRenew \u2014 {X}{B}{B}, Exile this card from your graveyard: Put a decayed counter on each of X target creatures. Activate only as a sorcery.",
     "image": "https://cards.scryfall.io/normal/front/3/1/31276460-fa9d-47da-85c5-c4baa8074d0d.jpg",
     "scryfallId": "31276460-fa9d-47da-85c5-c4baa8074d0d",
     "legalities": {
@@ -6803,7 +6803,7 @@
   "arch-umbral-collar-zealot": {
     "id": "arch-umbral-collar-zealot",
     "name": "Umbral Collar Zealot",
-    "typeLine": "Creature — Human Cleric",
+    "typeLine": "Creature \u2014 Human Cleric",
     "manaCost": "{1}{B}",
     "manaValue": 2,
     "power": 3,
@@ -6831,7 +6831,7 @@
   "arch-viscera-seer": {
     "id": "arch-viscera-seer",
     "name": "Viscera Seer",
-    "typeLine": "Creature — Wizard Vampire",
+    "typeLine": "Creature \u2014 Wizard Vampire",
     "manaCost": "{B}",
     "manaValue": 1,
     "power": 1,
@@ -6919,7 +6919,7 @@
   "arch-baleful-strix": {
     "id": "arch-baleful-strix",
     "name": "Baleful Strix",
-    "typeLine": "Creature Artifact — Bird",
+    "typeLine": "Creature Artifact \u2014 Bird",
     "manaCost": "{U}{B}",
     "manaValue": 2,
     "power": 1,
@@ -7004,7 +7004,7 @@
   "arch-hydroelectric-specimen-hydroelectric-laboratory": {
     "id": "arch-hydroelectric-specimen-hydroelectric-laboratory",
     "name": "Hydroelectric Specimen // Hydroelectric Laboratory",
-    "typeLine": "Creature — Weird",
+    "typeLine": "Creature \u2014 Weird",
     "manaCost": "{2}{U}",
     "manaValue": 2,
     "power": 1,
@@ -7043,7 +7043,7 @@
   "arch-boggart-trawler-boggart-bog": {
     "id": "arch-boggart-trawler-boggart-bog",
     "name": "Boggart Trawler // Boggart Bog",
-    "typeLine": "Creature — Goblin",
+    "typeLine": "Creature \u2014 Goblin",
     "manaCost": "{2}{B}",
     "manaValue": 2,
     "power": 3,
@@ -7080,7 +7080,7 @@
   "arch-naban-dean-of-iteration": {
     "id": "arch-naban-dean-of-iteration",
     "name": "Naban, Dean of Iteration",
-    "typeLine": "Legendary Creature — Human Wizard",
+    "typeLine": "Legendary Creature \u2014 Human Wizard",
     "manaCost": "{1}{U}",
     "manaValue": 2,
     "power": 2,
@@ -7191,7 +7191,7 @@
   "arch-candlekeep-sage": {
     "id": "arch-candlekeep-sage",
     "name": "Candlekeep Sage",
-    "typeLine": "Legendary Enchantment — Background",
+    "typeLine": "Legendary Enchantment \u2014 Background",
     "manaCost": "{2}{U}",
     "manaValue": 3,
     "power": null,
@@ -7360,7 +7360,7 @@
   "arch-wonder": {
     "id": "arch-wonder",
     "name": "Wonder",
-    "typeLine": "Creature — Incarnation",
+    "typeLine": "Creature \u2014 Incarnation",
     "manaCost": "{3}{U}",
     "manaValue": 4,
     "power": 2,
@@ -7414,7 +7414,7 @@
   "arch-chorale-of-the-void": {
     "id": "arch-chorale-of-the-void",
     "name": "Chorale of the Void",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{3}{B}",
     "manaValue": 4,
     "power": null,
@@ -7429,7 +7429,7 @@
     "colorIdentity": [
       "B"
     ],
-    "oracleText": "Enchant creature you control\nWhenever enchanted creature attacks, put target creature card from defending player's graveyard onto the battlefield under your control tapped and attacking.\nVoid — At the beginning of your end step, sacrifice this Aura unless a nonland permanent left the battlefield this turn or a spell was warped this turn.",
+    "oracleText": "Enchant creature you control\nWhenever enchanted creature attacks, put target creature card from defending player's graveyard onto the battlefield under your control tapped and attacking.\nVoid \u2014 At the beginning of your end step, sacrifice this Aura unless a nonland permanent left the battlefield this turn or a spell was warped this turn.",
     "image": "https://cards.scryfall.io/normal/front/6/f/6fda7329-0a1e-4921-bc6f-f2f4f1544878.jpg",
     "scryfallId": "6fda7329-0a1e-4921-bc6f-f2f4f1544878",
     "legalities": {
@@ -7446,7 +7446,7 @@
   "arch-topaz-dragon-entropic-cloud": {
     "id": "arch-topaz-dragon-entropic-cloud",
     "name": "Topaz Dragon // Entropic Cloud",
-    "typeLine": "Creature — Dragon",
+    "typeLine": "Creature \u2014 Dragon",
     "manaCost": "{4}{B}{B}",
     "manaValue": 3,
     "power": 4,
@@ -7584,7 +7584,7 @@
     "colorIdentity": [
       "W"
     ],
-    "oracleText": "Choose one —\n• Put a +1/+1 counter on target creature or Vehicle. Untap it.\n• Return target permanent you control to its owner's hand.",
+    "oracleText": "Choose one \u2014\n\u2022 Put a +1/+1 counter on target creature or Vehicle. Untap it.\n\u2022 Return target permanent you control to its owner's hand.",
     "image": "https://cards.scryfall.io/normal/front/0/8/0851f97c-ac95-4a6d-bf09-8637eb8a7060.jpg",
     "scryfallId": "0851f97c-ac95-4a6d-bf09-8637eb8a7060",
     "legalities": {
@@ -7599,7 +7599,7 @@
   "arch-metastatic-evangel": {
     "id": "arch-metastatic-evangel",
     "name": "Metastatic Evangel",
-    "typeLine": "Creature — Human Cleric Phyrexian",
+    "typeLine": "Creature \u2014 Human Cleric Phyrexian",
     "manaCost": "{1}{W}",
     "manaValue": 2,
     "power": 3,
@@ -7640,7 +7640,7 @@
   "arch-grateful-apparition": {
     "id": "arch-grateful-apparition",
     "name": "Grateful Apparition",
-    "typeLine": "Creature — Spirit",
+    "typeLine": "Creature \u2014 Spirit",
     "manaCost": "{1}{W}",
     "manaValue": 2,
     "power": 1,
@@ -7669,7 +7669,7 @@
   "arch-whitemane-lion": {
     "id": "arch-whitemane-lion",
     "name": "Whitemane Lion",
-    "typeLine": "Creature — Cat",
+    "typeLine": "Creature \u2014 Cat",
     "manaCost": "{1}{W}",
     "manaValue": 2,
     "power": 2,
@@ -7733,7 +7733,7 @@
   "arch-rescuer-chwinga": {
     "id": "arch-rescuer-chwinga",
     "name": "Rescuer Chwinga",
-    "typeLine": "Creature — Elemental Spirit",
+    "typeLine": "Creature \u2014 Elemental Spirit",
     "manaCost": "{1}{W}",
     "manaValue": 2,
     "power": 2,
@@ -7751,7 +7751,7 @@
     "colorIdentity": [
       "W"
     ],
-    "oracleText": "Flash\nNatural Shelter — When this creature enters, you may return another permanent you control to its owner's hand.",
+    "oracleText": "Flash\nNatural Shelter \u2014 When this creature enters, you may return another permanent you control to its owner's hand.",
     "image": "https://cards.scryfall.io/normal/front/7/3/73b17c29-c796-460b-a0c6-7638fb80e397.jpg",
     "scryfallId": "73b17c29-c796-460b-a0c6-7638fb80e397",
     "legalities": {
@@ -7763,7 +7763,7 @@
   "arch-solemn-simulacrum": {
     "id": "arch-solemn-simulacrum",
     "name": "Solemn Simulacrum",
-    "typeLine": "Creature Artifact — Golem",
+    "typeLine": "Creature Artifact \u2014 Golem",
     "manaCost": "{4}",
     "manaValue": 4,
     "power": 2,
@@ -7823,7 +7823,7 @@
   "arch-jeskai-barricade": {
     "id": "arch-jeskai-barricade",
     "name": "Jeskai Barricade",
-    "typeLine": "Creature — Wall",
+    "typeLine": "Creature \u2014 Wall",
     "manaCost": "{1}{W}",
     "manaValue": 2,
     "power": 0,
@@ -7943,7 +7943,7 @@
   "arch-keeper-of-the-accord": {
     "id": "arch-keeper-of-the-accord",
     "name": "Keeper of the Accord",
-    "typeLine": "Creature — Human Soldier",
+    "typeLine": "Creature \u2014 Human Soldier",
     "manaCost": "{3}{W}",
     "manaValue": 4,
     "power": 3,
@@ -7996,7 +7996,7 @@
   "arch-shepherd-of-the-flock-usher-to-safety": {
     "id": "arch-shepherd-of-the-flock-usher-to-safety",
     "name": "Shepherd of the Flock // Usher to Safety",
-    "typeLine": "Creature — Human Peasant",
+    "typeLine": "Creature \u2014 Human Peasant",
     "manaCost": "{1}{W}",
     "manaValue": 2,
     "power": 3,
@@ -8046,7 +8046,7 @@
     "colorIdentity": [
       "W"
     ],
-    "oracleText": "Choose one —\n• Target creature you control gets +1/+2 until end of turn.\n• Return target creature you control to its owner's hand.",
+    "oracleText": "Choose one \u2014\n\u2022 Target creature you control gets +1/+2 until end of turn.\n\u2022 Return target creature you control to its owner's hand.",
     "image": "https://cards.scryfall.io/normal/front/6/0/6063d9b7-9874-47da-90aa-8938df2086ab.jpg",
     "scryfallId": "6063d9b7-9874-47da-90aa-8938df2086ab",
     "legalities": {
@@ -8142,7 +8142,7 @@
     "colorIdentity": [
       "W"
     ],
-    "oracleText": "Choose one —\n• Put a +1/+1 counter on each of up to two target creatures.\n• Proliferate. (Choose any number of permanents and/or players, then give each another counter of each kind already there.)\nEntwine {3}{W} (Choose both if you pay the entwine cost.)",
+    "oracleText": "Choose one \u2014\n\u2022 Put a +1/+1 counter on each of up to two target creatures.\n\u2022 Proliferate. (Choose any number of permanents and/or players, then give each another counter of each kind already there.)\nEntwine {3}{W} (Choose both if you pay the entwine cost.)",
     "image": "https://cards.scryfall.io/normal/front/7/3/732c3b63-5e15-4510-813c-58e20cd9833f.jpg",
     "scryfallId": "732c3b63-5e15-4510-813c-58e20cd9833f",
     "legalities": {
@@ -8154,7 +8154,7 @@
   "arch-loyal-warhound": {
     "id": "arch-loyal-warhound",
     "name": "Loyal Warhound",
-    "typeLine": "Creature — Dog",
+    "typeLine": "Creature \u2014 Dog",
     "manaCost": "{1}{W}",
     "manaValue": 2,
     "power": 3,
@@ -8183,7 +8183,7 @@
   "arch-defiler-of-faith": {
     "id": "arch-defiler-of-faith",
     "name": "Defiler of Faith",
-    "typeLine": "Creature — Human Phyrexian",
+    "typeLine": "Creature \u2014 Human Phyrexian",
     "manaCost": "{3}{W}{W}",
     "manaValue": 5,
     "power": 5,
@@ -8213,7 +8213,7 @@
   "arch-elspeth-sun-s-champion": {
     "id": "arch-elspeth-sun-s-champion",
     "name": "Elspeth, Sun's Champion",
-    "typeLine": "Legendary Planeswalker — Elspeth",
+    "typeLine": "Legendary Planeswalker \u2014 Elspeth",
     "manaCost": "{4}{W}{W}",
     "manaValue": 6,
     "power": null,
@@ -8240,7 +8240,7 @@
     "colorIdentity": [
       "W"
     ],
-    "oracleText": "+1: Create three 1/1 white Soldier creature tokens.\n−3: Destroy all creatures with power 4 or greater.\n−7: You get an emblem with \"Creatures you control get +2/+2 and have flying.\"",
+    "oracleText": "+1: Create three 1/1 white Soldier creature tokens.\n\u22123: Destroy all creatures with power 4 or greater.\n\u22127: You get an emblem with \"Creatures you control get +2/+2 and have flying.\"",
     "image": "https://cards.scryfall.io/normal/front/4/6/46dc2519-2729-4bbd-8892-fab6186bf116.jpg",
     "scryfallId": "46dc2519-2729-4bbd-8892-fab6186bf116",
     "legalities": {
@@ -8252,7 +8252,7 @@
   "arch-weathered-wayfarer": {
     "id": "arch-weathered-wayfarer",
     "name": "Weathered Wayfarer",
-    "typeLine": "Creature — Human Cleric Nomad",
+    "typeLine": "Creature \u2014 Human Cleric Nomad",
     "manaCost": "{W}",
     "manaValue": 1,
     "power": 1,
@@ -8281,7 +8281,7 @@
   "arch-geode-golem": {
     "id": "arch-geode-golem",
     "name": "Geode Golem",
-    "typeLine": "Creature Artifact — Golem",
+    "typeLine": "Creature Artifact \u2014 Golem",
     "manaCost": "{5}",
     "manaValue": 5,
     "power": 5,
@@ -8383,7 +8383,7 @@
   "arch-kor-skyfisher": {
     "id": "arch-kor-skyfisher",
     "name": "Kor Skyfisher",
-    "typeLine": "Creature — Soldier Kor",
+    "typeLine": "Creature \u2014 Soldier Kor",
     "manaCost": "{1}{W}",
     "manaValue": 2,
     "power": 2,
@@ -8413,7 +8413,7 @@
   "arch-stonecloaker": {
     "id": "arch-stonecloaker",
     "name": "Stonecloaker",
-    "typeLine": "Creature — Gargoyle",
+    "typeLine": "Creature \u2014 Gargoyle",
     "manaCost": "{2}{W}",
     "manaValue": 3,
     "power": 3,
@@ -8498,7 +8498,7 @@
   "arch-rumor-gatherer": {
     "id": "arch-rumor-gatherer",
     "name": "Rumor Gatherer",
-    "typeLine": "Creature — Wizard Elf",
+    "typeLine": "Creature \u2014 Wizard Elf",
     "manaCost": "{1}{W}{W}",
     "manaValue": 3,
     "power": 2,
@@ -8527,7 +8527,7 @@
     "colorIdentity": [
       "W"
     ],
-    "oracleText": "Alliance — Whenever another creature you control enters, scry 1. If this is the second time this ability has resolved this turn, draw a card instead.",
+    "oracleText": "Alliance \u2014 Whenever another creature you control enters, scry 1. If this is the second time this ability has resolved this turn, draw a card instead.",
     "image": "https://cards.scryfall.io/normal/front/a/7/a7782044-616e-4d4f-b38f-93320ba19797.jpg",
     "scryfallId": "a7782044-616e-4d4f-b38f-93320ba19797",
     "legalities": {
@@ -8539,7 +8539,7 @@
   "arch-welcoming-vampire": {
     "id": "arch-welcoming-vampire",
     "name": "Welcoming Vampire",
-    "typeLine": "Creature — Vampire",
+    "typeLine": "Creature \u2014 Vampire",
     "manaCost": "{2}{W}",
     "manaValue": 3,
     "power": 2,
@@ -8568,7 +8568,7 @@
   "arch-tenuous-truce": {
     "id": "arch-tenuous-truce",
     "name": "Tenuous Truce",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{1}{W}",
     "manaValue": 2,
     "power": null,
@@ -8615,7 +8615,7 @@
           "amount": 1,
           "token": {
             "name": "Spirit Token",
-            "typeLine": "Token Creature — Spirit",
+            "typeLine": "Token Creature \u2014 Spirit",
             "subtypes": [
               "Spirit"
             ],
@@ -8710,7 +8710,7 @@
   "arch-mondrak-glory-dominus": {
     "id": "arch-mondrak-glory-dominus",
     "name": "Mondrak, Glory Dominus",
-    "typeLine": "Legendary Creature — Horror Phyrexian",
+    "typeLine": "Legendary Creature \u2014 Horror Phyrexian",
     "manaCost": "{2}{W}{W}",
     "manaValue": 4,
     "power": 4,
@@ -8769,7 +8769,7 @@
   "arch-patrolling-peacemaker": {
     "id": "arch-patrolling-peacemaker",
     "name": "Patrolling Peacemaker",
-    "typeLine": "Creature Artifact — Soldier Robot",
+    "typeLine": "Creature Artifact \u2014 Soldier Robot",
     "manaCost": "{2}{W}",
     "manaValue": 3,
     "power": 0,
@@ -8801,7 +8801,7 @@
   "arch-exalted-sunborn": {
     "id": "arch-exalted-sunborn",
     "name": "Exalted Sunborn",
-    "typeLine": "Creature — Wizard Angel",
+    "typeLine": "Creature \u2014 Wizard Angel",
     "manaCost": "{3}{W}{W}",
     "manaValue": 5,
     "power": 4,
@@ -8838,7 +8838,7 @@
   "arch-inspiring-leader": {
     "id": "arch-inspiring-leader",
     "name": "Inspiring Leader",
-    "typeLine": "Legendary Enchantment — Background",
+    "typeLine": "Legendary Enchantment \u2014 Background",
     "manaCost": "{2}{W}",
     "manaValue": 3,
     "power": null,
@@ -8878,7 +8878,7 @@
     "colorIdentity": [
       "W"
     ],
-    "oracleText": "Choose one or more —\n• Exile all artifacts.\n• Exile all creatures.\n• Exile all enchantments.\n• Exile all graveyards.",
+    "oracleText": "Choose one or more \u2014\n\u2022 Exile all artifacts.\n\u2022 Exile all creatures.\n\u2022 Exile all enchantments.\n\u2022 Exile all graveyards.",
     "image": "https://cards.scryfall.io/normal/front/4/d/4d8b6418-da30-4c68-b87c-3936eb77620c.jpg",
     "scryfallId": "4d8b6418-da30-4c68-b87c-3936eb77620c",
     "legalities": {
@@ -8890,7 +8890,7 @@
   "arch-mangara-the-diplomat": {
     "id": "arch-mangara-the-diplomat",
     "name": "Mangara, the Diplomat",
-    "typeLine": "Legendary Creature — Human Cleric",
+    "typeLine": "Legendary Creature \u2014 Human Cleric",
     "manaCost": "{3}{W}",
     "manaValue": 4,
     "power": 2,
@@ -8968,7 +8968,7 @@
   "arch-skullclamp": {
     "id": "arch-skullclamp",
     "name": "Skullclamp",
-    "typeLine": "Artifact — Equipment",
+    "typeLine": "Artifact \u2014 Equipment",
     "manaCost": "{1}",
     "manaValue": 1,
     "power": null,
@@ -9058,7 +9058,7 @@
     "colorIdentity": [
       "W"
     ],
-    "oracleText": "Choose one —\n• Pray for Protection — Creatures you control gain indestructible until end of turn.\n• Strike a Deal — You and target opponent each draw two cards.",
+    "oracleText": "Choose one \u2014\n\u2022 Pray for Protection \u2014 Creatures you control gain indestructible until end of turn.\n\u2022 Strike a Deal \u2014 You and target opponent each draw two cards.",
     "image": "https://cards.scryfall.io/normal/front/7/a/7ad8aa76-b643-4bd2-aaeb-036c1d50db54.jpg",
     "scryfallId": "7ad8aa76-b643-4bd2-aaeb-036c1d50db54",
     "legalities": {
@@ -9070,7 +9070,7 @@
   "arch-eagle-of-deliverance": {
     "id": "arch-eagle-of-deliverance",
     "name": "Eagle of Deliverance",
-    "typeLine": "Creature — Soldier Bird",
+    "typeLine": "Creature \u2014 Soldier Bird",
     "manaCost": "{4}{W}{W}",
     "manaValue": 6,
     "power": 5,
@@ -9161,7 +9161,7 @@
     "colorIdentity": [
       "W"
     ],
-    "oracleText": "Choose two —\n• Destroy all artifacts.\n• Destroy all enchantments.\n• Destroy all creatures with mana value 3 or less.\n• Destroy all creatures with mana value 4 or greater.",
+    "oracleText": "Choose two \u2014\n\u2022 Destroy all artifacts.\n\u2022 Destroy all enchantments.\n\u2022 Destroy all creatures with mana value 3 or less.\n\u2022 Destroy all creatures with mana value 4 or greater.",
     "image": "https://cards.scryfall.io/normal/front/9/3/93e3dbd9-20f6-47a2-8246-c260b2ead9dc.jpg",
     "scryfallId": "93e3dbd9-20f6-47a2-8246-c260b2ead9dc",
     "legalities": {
@@ -9173,7 +9173,7 @@
   "arch-kor-cartographer": {
     "id": "arch-kor-cartographer",
     "name": "Kor Cartographer",
-    "typeLine": "Creature — Scout Kor",
+    "typeLine": "Creature \u2014 Scout Kor",
     "manaCost": "{3}{W}",
     "manaValue": 4,
     "power": 2,
@@ -9201,7 +9201,7 @@
   "arch-lae-zel-vlaakith-s-champion": {
     "id": "arch-lae-zel-vlaakith-s-champion",
     "name": "Lae'zel, Vlaakith's Champion",
-    "typeLine": "Legendary Creature — Warrior Gith",
+    "typeLine": "Legendary Creature \u2014 Warrior Gith",
     "manaCost": "{2}{W}",
     "manaValue": 3,
     "power": 3,
@@ -9301,7 +9301,7 @@
   "arch-sun-titan": {
     "id": "arch-sun-titan",
     "name": "Sun Titan",
-    "typeLine": "Creature — Giant",
+    "typeLine": "Creature \u2014 Giant",
     "manaCost": "{4}{W}{W}",
     "manaValue": 6,
     "power": 6,
@@ -9396,7 +9396,7 @@
   "arch-loran-of-the-third-path": {
     "id": "arch-loran-of-the-third-path",
     "name": "Loran of the Third Path",
-    "typeLine": "Legendary Creature — Human Artificer",
+    "typeLine": "Legendary Creature \u2014 Human Artificer",
     "manaCost": "{2}{W}",
     "manaValue": 3,
     "power": 2,
@@ -9465,7 +9465,7 @@
   "arch-myojin-of-blooming-dawn": {
     "id": "arch-myojin-of-blooming-dawn",
     "name": "Myojin of Blooming Dawn",
-    "typeLine": "Legendary Creature — Spirit",
+    "typeLine": "Legendary Creature \u2014 Spirit",
     "manaCost": "{5}{W}{W}{W}",
     "manaValue": 8,
     "power": 4,
@@ -9624,7 +9624,7 @@
           "amount": 1,
           "token": {
             "name": "Human Token",
-            "typeLine": "Token Creature — Human",
+            "typeLine": "Token Creature \u2014 Human",
             "subtypes": [
               "Human"
             ],
@@ -9683,7 +9683,7 @@
   "arch-sandstone-oracle": {
     "id": "arch-sandstone-oracle",
     "name": "Sandstone Oracle",
-    "typeLine": "Creature Artifact — Sphinx",
+    "typeLine": "Creature Artifact \u2014 Sphinx",
     "manaCost": "{7}",
     "manaValue": 7,
     "power": 4,
@@ -9710,7 +9710,7 @@
   "arch-norn-s-choirmaster": {
     "id": "arch-norn-s-choirmaster",
     "name": "Norn's Choirmaster",
-    "typeLine": "Creature — Angel Phyrexian",
+    "typeLine": "Creature \u2014 Angel Phyrexian",
     "manaCost": "{3}{W}{W}",
     "manaValue": 5,
     "power": 5,
@@ -9752,7 +9752,7 @@
   "arch-ancestral-mask": {
     "id": "arch-ancestral-mask",
     "name": "Ancestral Mask",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{2}{G}",
     "manaValue": 3,
     "power": null,
@@ -9794,7 +9794,7 @@
   "arch-audacity": {
     "id": "arch-audacity",
     "name": "Audacity",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{G}",
     "manaValue": 1,
     "power": null,
@@ -9836,7 +9836,7 @@
   "arch-beamtown-beatstick": {
     "id": "arch-beamtown-beatstick",
     "name": "Beamtown Beatstick",
-    "typeLine": "Artifact — Equipment",
+    "typeLine": "Artifact \u2014 Equipment",
     "manaCost": "{R}",
     "manaValue": 1,
     "power": null,
@@ -9889,7 +9889,7 @@
   "arch-bequeathal": {
     "id": "arch-bequeathal",
     "name": "Bequeathal",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{G}",
     "manaValue": 1,
     "power": null,
@@ -9920,7 +9920,7 @@
   "arch-eidolon-of-blossoms": {
     "id": "arch-eidolon-of-blossoms",
     "name": "Eidolon of Blossoms",
-    "typeLine": "Enchantment Creature — Spirit",
+    "typeLine": "Enchantment Creature \u2014 Spirit",
     "manaCost": "{2}{G}{G}",
     "manaValue": 4,
     "power": 2,
@@ -9937,7 +9937,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "Constellation — Whenever this creature or another enchantment you control enters, draw a card.",
+    "oracleText": "Constellation \u2014 Whenever this creature or another enchantment you control enters, draw a card.",
     "image": "https://cards.scryfall.io/normal/front/f/8/f882aa63-d43c-4359-9de6-77231500a08e.jpg?1783915427",
     "scryfallId": "f882aa63-d43c-4359-9de6-77231500a08e",
     "legalities": {
@@ -9996,7 +9996,7 @@
   "arch-galvanic-arc": {
     "id": "arch-galvanic-arc",
     "name": "Galvanic Arc",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{2}{R}",
     "manaValue": 3,
     "power": null,
@@ -10096,7 +10096,7 @@
   "arch-ordeal-of-nylea": {
     "id": "arch-ordeal-of-nylea",
     "name": "Ordeal of Nylea",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{1}{G}",
     "manaValue": 2,
     "power": null,
@@ -10127,7 +10127,7 @@
   "arch-rune-of-speed": {
     "id": "arch-rune-of-speed",
     "name": "Rune of Speed",
-    "typeLine": "Enchantment — Aura Rune",
+    "typeLine": "Enchantment \u2014 Aura Rune",
     "manaCost": "{1}{R}",
     "manaValue": 2,
     "power": null,
@@ -10210,7 +10210,7 @@
   "arch-setessan-training": {
     "id": "arch-setessan-training",
     "name": "Setessan Training",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{1}{G}",
     "manaValue": 2,
     "power": null,
@@ -10264,7 +10264,7 @@
   "arch-cinder-glade": {
     "id": "arch-cinder-glade",
     "name": "Cinder Glade",
-    "typeLine": "Land — Mountain Forest",
+    "typeLine": "Land \u2014 Mountain Forest",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -10413,7 +10413,7 @@
   "arch-chishiro-the-shattered-blade": {
     "id": "arch-chishiro-the-shattered-blade",
     "name": "Chishiro, the Shattered Blade",
-    "typeLine": "Legendary Creature — Snake Samurai",
+    "typeLine": "Legendary Creature \u2014 Snake Samurai",
     "manaCost": "{2}{R}{G}",
     "manaValue": 4,
     "power": 4,
@@ -10442,7 +10442,7 @@
   "arch-fruit-of-the-first-tree": {
     "id": "arch-fruit-of-the-first-tree",
     "name": "Fruit of the First Tree",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{3}{G}",
     "manaValue": 4,
     "power": null,
@@ -10473,7 +10473,7 @@
   "arch-setessan-champion": {
     "id": "arch-setessan-champion",
     "name": "Setessan Champion",
-    "typeLine": "Creature — Human Warrior",
+    "typeLine": "Creature \u2014 Human Warrior",
     "manaCost": "{2}{G}",
     "manaValue": 3,
     "power": 1,
@@ -10491,7 +10491,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "Constellation — Whenever an enchantment you control enters, put a +1/+1 counter on this creature and draw a card.",
+    "oracleText": "Constellation \u2014 Whenever an enchantment you control enters, put a +1/+1 counter on this creature and draw a card.",
     "image": "https://cards.scryfall.io/normal/front/7/6/7680a8e1-cd59-43c5-8f06-426b918692c8.jpg?1783915420",
     "scryfallId": "7680a8e1-cd59-43c5-8f06-426b918692c8",
     "legalities": {
@@ -10525,7 +10525,7 @@
   "arch-thran-power-suit": {
     "id": "arch-thran-power-suit",
     "name": "Thran Power Suit",
-    "typeLine": "Artifact — Equipment",
+    "typeLine": "Artifact \u2014 Equipment",
     "manaCost": "{2}",
     "manaValue": 2,
     "power": null,
@@ -10576,7 +10576,7 @@
   "arch-hunter-s-bow": {
     "id": "arch-hunter-s-bow",
     "name": "Hunter's Bow",
-    "typeLine": "Artifact — Equipment",
+    "typeLine": "Artifact \u2014 Equipment",
     "manaCost": "{1}{G}",
     "manaValue": 2,
     "power": null,
@@ -10619,7 +10619,7 @@
   "arch-llanowar-elves": {
     "id": "arch-llanowar-elves",
     "name": "Llanowar Elves",
-    "typeLine": "Creature — Elf Druid",
+    "typeLine": "Creature \u2014 Elf Druid",
     "manaCost": "{G}",
     "manaValue": 1,
     "power": 1,
@@ -10656,7 +10656,7 @@
   "arch-basilisk-collar": {
     "id": "arch-basilisk-collar",
     "name": "Basilisk Collar",
-    "typeLine": "Artifact — Equipment",
+    "typeLine": "Artifact \u2014 Equipment",
     "manaCost": "{1}",
     "manaValue": 1,
     "power": null,
@@ -10697,7 +10697,7 @@
   "arch-gilded-pinions": {
     "id": "arch-gilded-pinions",
     "name": "Gilded Pinions",
-    "typeLine": "Artifact — Equipment",
+    "typeLine": "Artifact \u2014 Equipment",
     "manaCost": "{2}",
     "manaValue": 2,
     "power": null,
@@ -10775,7 +10775,7 @@
   "arch-demonic-ruckus": {
     "id": "arch-demonic-ruckus",
     "name": "Demonic Ruckus",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{1}{R}",
     "manaValue": 2,
     "power": null,
@@ -10817,7 +10817,7 @@
   "arch-tanglespan-lookout": {
     "id": "arch-tanglespan-lookout",
     "name": "Tanglespan Lookout",
-    "typeLine": "Creature — Satyr",
+    "typeLine": "Creature \u2014 Satyr",
     "manaCost": "{2}{G}",
     "manaValue": 3,
     "power": 2,
@@ -10844,7 +10844,7 @@
   "arch-sticky-fingers": {
     "id": "arch-sticky-fingers",
     "name": "Sticky Fingers",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{R}",
     "manaValue": 1,
     "power": null,
@@ -10888,7 +10888,7 @@
   "arch-mantle-of-the-wolf": {
     "id": "arch-mantle-of-the-wolf",
     "name": "Mantle of the Wolf",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{3}{G}",
     "manaValue": 4,
     "power": null,
@@ -10930,7 +10930,7 @@
   "arch-most-wanted": {
     "id": "arch-most-wanted",
     "name": "Most Wanted",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{2}{G}",
     "manaValue": 3,
     "power": null,
@@ -10974,7 +10974,7 @@
   "arch-storm-herald": {
     "id": "arch-storm-herald",
     "name": "Storm Herald",
-    "typeLine": "Creature — Human Shaman",
+    "typeLine": "Creature \u2014 Human Shaman",
     "manaCost": "{2}{R}",
     "manaValue": 3,
     "power": 3,
@@ -11029,7 +11029,7 @@
   "arch-elvish-archivist": {
     "id": "arch-elvish-archivist",
     "name": "Elvish Archivist",
-    "typeLine": "Creature — Elf Artificer",
+    "typeLine": "Creature \u2014 Elf Artificer",
     "manaCost": "{1}{G}",
     "manaValue": 2,
     "power": 0,
@@ -11057,7 +11057,7 @@
   "arch-gold-pan": {
     "id": "arch-gold-pan",
     "name": "Gold Pan",
-    "typeLine": "Artifact — Equipment",
+    "typeLine": "Artifact \u2014 Equipment",
     "manaCost": "{2}",
     "manaValue": 2,
     "power": null,
@@ -11120,7 +11120,7 @@
   "arch-goblin-anarchomancer": {
     "id": "arch-goblin-anarchomancer",
     "name": "Goblin Anarchomancer",
-    "typeLine": "Creature — Goblin Shaman",
+    "typeLine": "Creature \u2014 Goblin Shaman",
     "manaCost": "{R}{G}",
     "manaValue": 2,
     "power": 2,
@@ -11149,7 +11149,7 @@
   "arch-etali-s-favor": {
     "id": "arch-etali-s-favor",
     "name": "Etali's Favor",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{2}{R}",
     "manaValue": 3,
     "power": null,
@@ -11192,7 +11192,7 @@
   "arch-fertile-ground": {
     "id": "arch-fertile-ground",
     "name": "Fertile Ground",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{1}{G}",
     "manaValue": 2,
     "power": null,
@@ -11256,7 +11256,7 @@
   "arch-lion-umbra": {
     "id": "arch-lion-umbra",
     "name": "Lion Umbra",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{G}{G}",
     "manaValue": 2,
     "power": null,
@@ -11294,7 +11294,7 @@
   "arch-one-with-the-kami": {
     "id": "arch-one-with-the-kami",
     "name": "One with the Kami",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{3}{G}",
     "manaValue": 4,
     "power": null,
@@ -11327,7 +11327,7 @@
   "arch-snake-umbra": {
     "id": "arch-snake-umbra",
     "name": "Snake Umbra",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{2}{G}",
     "manaValue": 3,
     "power": null,
@@ -11369,7 +11369,7 @@
   "arch-rune-of-might": {
     "id": "arch-rune-of-might",
     "name": "Rune of Might",
-    "typeLine": "Enchantment — Aura Rune",
+    "typeLine": "Enchantment \u2014 Aura Rune",
     "manaCost": "{1}{G}",
     "manaValue": 2,
     "power": null,
@@ -11422,7 +11422,7 @@
   "arch-wild-growth": {
     "id": "arch-wild-growth",
     "name": "Wild Growth",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{G}",
     "manaValue": 1,
     "power": null,
@@ -11449,7 +11449,7 @@
   "arch-loxodon-warhammer": {
     "id": "arch-loxodon-warhammer",
     "name": "Loxodon Warhammer",
-    "typeLine": "Artifact — Equipment",
+    "typeLine": "Artifact \u2014 Equipment",
     "manaCost": "{3}",
     "manaValue": 3,
     "power": null,
@@ -11525,7 +11525,7 @@
   "arch-cartouche-of-strength": {
     "id": "arch-cartouche-of-strength",
     "name": "Cartouche of Strength",
-    "typeLine": "Enchantment — Aura Cartouche",
+    "typeLine": "Enchantment \u2014 Aura Cartouche",
     "manaCost": "{2}{G}",
     "manaValue": 3,
     "power": null,
@@ -11587,7 +11587,7 @@
     "colorIdentity": [
       "G"
     ],
-    "oracleText": "Choose one —\n• Search your library for a basic land card, reveal it, put it into your hand, then shuffle.\n• Target creature you control fights target creature you don't control. (Each deals damage equal to its power to the other.)",
+    "oracleText": "Choose one \u2014\n\u2022 Search your library for a basic land card, reveal it, put it into your hand, then shuffle.\n\u2022 Target creature you control fights target creature you don't control. (Each deals damage equal to its power to the other.)",
     "image": "https://cards.scryfall.io/normal/front/7/1/712a0640-d9c8-46fc-b38b-bf20a40fa902.jpg",
     "scryfallId": "712a0640-d9c8-46fc-b38b-bf20a40fa902",
     "legalities": {
@@ -11599,7 +11599,7 @@
   "arch-helm-of-the-gods": {
     "id": "arch-helm-of-the-gods",
     "name": "Helm of the Gods",
-    "typeLine": "Artifact — Equipment",
+    "typeLine": "Artifact \u2014 Equipment",
     "manaCost": "{1}",
     "manaValue": 1,
     "power": null,
@@ -11650,7 +11650,7 @@
   "arch-crystalline-armor": {
     "id": "arch-crystalline-armor",
     "name": "Crystalline Armor",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{3}{G}",
     "manaValue": 4,
     "power": null,
@@ -11692,7 +11692,7 @@
   "arch-pain-for-all": {
     "id": "arch-pain-for-all",
     "name": "Pain for All",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{2}{R}",
     "manaValue": 3,
     "power": null,
@@ -11724,7 +11724,7 @@
   "arch-strong-back": {
     "id": "arch-strong-back",
     "name": "Strong Back",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{2}{G}",
     "manaValue": 3,
     "power": null,
@@ -11766,7 +11766,7 @@
   "arch-alpha-authority": {
     "id": "arch-alpha-authority",
     "name": "Alpha Authority",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{1}{G}",
     "manaValue": 2,
     "power": null,
@@ -11797,7 +11797,7 @@
   "arch-red-xiii-proud-warrior": {
     "id": "arch-red-xiii-proud-warrior",
     "name": "Red XIII, Proud Warrior",
-    "typeLine": "Legendary Creature — Beast Warrior",
+    "typeLine": "Legendary Creature \u2014 Beast Warrior",
     "manaCost": "{1}{R}{G}",
     "manaValue": 3,
     "power": 3,
@@ -11817,7 +11817,7 @@
       "R",
       "G"
     ],
-    "oracleText": "Vigilance, trample\nOther modified creatures you control have vigilance and trample. (Equipment, Auras you control, and counters are modifications.)\nCosmo Memory — When Red XIII enters, return target Aura or Equipment card from your graveyard to your hand.",
+    "oracleText": "Vigilance, trample\nOther modified creatures you control have vigilance and trample. (Equipment, Auras you control, and counters are modifications.)\nCosmo Memory \u2014 When Red XIII enters, return target Aura or Equipment card from your graveyard to your hand.",
     "image": "https://cards.scryfall.io/normal/front/1/0/10407b26-be28-4628-9567-746681e5c834.jpg",
     "scryfallId": "10407b26-be28-4628-9567-746681e5c834",
     "legalities": {
@@ -11829,7 +11829,7 @@
   "arch-kediss-emberclaw-familiar": {
     "id": "arch-kediss-emberclaw-familiar",
     "name": "Kediss, Emberclaw Familiar",
-    "typeLine": "Legendary Creature — Elemental Lizard",
+    "typeLine": "Legendary Creature \u2014 Elemental Lizard",
     "manaCost": "{1}{R}",
     "manaValue": 2,
     "power": 1,
@@ -11857,7 +11857,7 @@
   "arch-herald-of-the-pantheon": {
     "id": "arch-herald-of-the-pantheon",
     "name": "Herald of the Pantheon",
-    "typeLine": "Creature — Shaman Centaur",
+    "typeLine": "Creature \u2014 Shaman Centaur",
     "manaCost": "{1}{G}",
     "manaValue": 2,
     "power": 2,
@@ -11921,7 +11921,7 @@
   "arch-sanctum-weaver": {
     "id": "arch-sanctum-weaver",
     "name": "Sanctum Weaver",
-    "typeLine": "Enchantment Creature — Dryad",
+    "typeLine": "Enchantment Creature \u2014 Dryad",
     "manaCost": "{1}{G}",
     "manaValue": 2,
     "power": 0,
@@ -11972,7 +11972,7 @@
   "arch-trailblazer-s-boots": {
     "id": "arch-trailblazer-s-boots",
     "name": "Trailblazer's Boots",
-    "typeLine": "Artifact — Equipment",
+    "typeLine": "Artifact \u2014 Equipment",
     "manaCost": "{2}",
     "manaValue": 2,
     "power": null,
@@ -12013,7 +12013,7 @@
   "arch-bear-umbra": {
     "id": "arch-bear-umbra",
     "name": "Bear Umbra",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{2}{G}{G}",
     "manaValue": 4,
     "power": null,
@@ -12055,7 +12055,7 @@
   "arch-stangg-echo-warrior": {
     "id": "arch-stangg-echo-warrior",
     "name": "Stangg, Echo Warrior",
-    "typeLine": "Legendary Creature — Human Warrior",
+    "typeLine": "Legendary Creature \u2014 Human Warrior",
     "manaCost": "{2}{R}{G}",
     "manaValue": 4,
     "power": 3,
@@ -12095,7 +12095,7 @@
   "arch-knickknack-ouphe": {
     "id": "arch-knickknack-ouphe",
     "name": "Knickknack Ouphe",
-    "typeLine": "Creature — Ouphe",
+    "typeLine": "Creature \u2014 Ouphe",
     "manaCost": "{X}{G}",
     "manaValue": 1,
     "power": 1,
@@ -12122,7 +12122,7 @@
   "arch-akki-battle-squad": {
     "id": "arch-akki-battle-squad",
     "name": "Akki Battle Squad",
-    "typeLine": "Creature — Goblin Samurai",
+    "typeLine": "Creature \u2014 Goblin Samurai",
     "manaCost": "{5}{R}",
     "manaValue": 6,
     "power": 6,
@@ -12310,7 +12310,7 @@
   "arch-kilo-apogee-mind": {
     "id": "arch-kilo-apogee-mind",
     "name": "Kilo, Apogee Mind",
-    "typeLine": "Legendary Creature Artifact — Artificer Robot",
+    "typeLine": "Legendary Creature Artifact \u2014 Artificer Robot",
     "manaCost": "{U}{R}{W}",
     "manaValue": 3,
     "power": 3,
@@ -12438,7 +12438,7 @@
   "arch-uthros-research-craft": {
     "id": "arch-uthros-research-craft",
     "name": "Uthros Research Craft",
-    "typeLine": "Artifact — Spacecraft",
+    "typeLine": "Artifact \u2014 Spacecraft",
     "manaCost": "{2}{U}",
     "manaValue": 3,
     "power": 0,
@@ -12524,7 +12524,7 @@
   "arch-marketback-walker": {
     "id": "arch-marketback-walker",
     "name": "Marketback Walker",
-    "typeLine": "Creature Artifact — Construct",
+    "typeLine": "Creature Artifact \u2014 Construct",
     "manaCost": "{X}{X}",
     "manaValue": 0,
     "power": 0,
@@ -12549,7 +12549,7 @@
   "arch-coretapper": {
     "id": "arch-coretapper",
     "name": "Coretapper",
-    "typeLine": "Creature Artifact — Myr",
+    "typeLine": "Creature Artifact \u2014 Myr",
     "manaCost": "{2}",
     "manaValue": 2,
     "power": 1,
@@ -12574,7 +12574,7 @@
   "arch-hangarback-walker": {
     "id": "arch-hangarback-walker",
     "name": "Hangarback Walker",
-    "typeLine": "Creature Artifact — Construct",
+    "typeLine": "Creature Artifact \u2014 Construct",
     "manaCost": "{X}{X}",
     "manaValue": 0,
     "power": 0,
@@ -12599,7 +12599,7 @@
   "arch-enthusiastic-mechanaut": {
     "id": "arch-enthusiastic-mechanaut",
     "name": "Enthusiastic Mechanaut",
-    "typeLine": "Creature Artifact — Goblin Artificer",
+    "typeLine": "Creature Artifact \u2014 Goblin Artificer",
     "manaCost": "{U}{R}",
     "manaValue": 2,
     "power": 2,
@@ -12630,7 +12630,7 @@
   "arch-walking-ballista": {
     "id": "arch-walking-ballista",
     "name": "Walking Ballista",
-    "typeLine": "Creature Artifact — Construct",
+    "typeLine": "Creature Artifact \u2014 Construct",
     "manaCost": "{X}{X}",
     "manaValue": 0,
     "power": 0,
@@ -12655,7 +12655,7 @@
   "arch-etherium-sculptor": {
     "id": "arch-etherium-sculptor",
     "name": "Etherium Sculptor",
-    "typeLine": "Creature Artifact — Artificer Vedalken",
+    "typeLine": "Creature Artifact \u2014 Artificer Vedalken",
     "manaCost": "{1}{U}",
     "manaValue": 2,
     "power": 1,
@@ -12683,7 +12683,7 @@
   "arch-surge-conductor": {
     "id": "arch-surge-conductor",
     "name": "Surge Conductor",
-    "typeLine": "Creature Artifact — Robot",
+    "typeLine": "Creature Artifact \u2014 Robot",
     "manaCost": "{3}",
     "manaValue": 3,
     "power": 3,
@@ -12720,7 +12720,7 @@
   "arch-jhoira-weatherlight-captain": {
     "id": "arch-jhoira-weatherlight-captain",
     "name": "Jhoira, Weatherlight Captain",
-    "typeLine": "Legendary Creature — Human Artificer",
+    "typeLine": "Legendary Creature \u2014 Human Artificer",
     "manaCost": "{2}{U}{R}",
     "manaValue": 4,
     "power": 3,
@@ -12749,7 +12749,7 @@
   "arch-phyrexian-metamorph": {
     "id": "arch-phyrexian-metamorph",
     "name": "Phyrexian Metamorph",
-    "typeLine": "Creature Artifact — Shapeshifter Phyrexian",
+    "typeLine": "Creature Artifact \u2014 Shapeshifter Phyrexian",
     "manaCost": "{3}{U/P}",
     "manaValue": 4,
     "power": 0,
@@ -12777,7 +12777,7 @@
   "arch-thought-monitor": {
     "id": "arch-thought-monitor",
     "name": "Thought Monitor",
-    "typeLine": "Creature Artifact — Construct",
+    "typeLine": "Creature Artifact \u2014 Construct",
     "manaCost": "{6}{U}",
     "manaValue": 7,
     "power": 2,
@@ -13017,7 +13017,7 @@
   "arch-kavaron-memorial-world": {
     "id": "arch-kavaron-memorial-world",
     "name": "Kavaron, Memorial World",
-    "typeLine": "Land — Planet",
+    "typeLine": "Land \u2014 Planet",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -13065,7 +13065,7 @@
   "arch-adagia-windswept-bastion": {
     "id": "arch-adagia-windswept-bastion",
     "name": "Adagia, Windswept Bastion",
-    "typeLine": "Land — Planet",
+    "typeLine": "Land \u2014 Planet",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -13102,7 +13102,7 @@
   "arch-uthros-titanic-godcore": {
     "id": "arch-uthros-titanic-godcore",
     "name": "Uthros, Titanic Godcore",
-    "typeLine": "Land — Planet",
+    "typeLine": "Land \u2014 Planet",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -13173,7 +13173,7 @@
   "arch-glittering-massif": {
     "id": "arch-glittering-massif",
     "name": "Glittering Massif",
-    "typeLine": "Land — Plains Mountain",
+    "typeLine": "Land \u2014 Plains Mountain",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -13279,7 +13279,7 @@
   "arch-raugrin-triome": {
     "id": "arch-raugrin-triome",
     "name": "Raugrin Triome",
-    "typeLine": "Land — Plains Island Mountain",
+    "typeLine": "Land \u2014 Plains Island Mountain",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -13322,7 +13322,7 @@
   "arch-radiant-summit": {
     "id": "arch-radiant-summit",
     "name": "Radiant Summit",
-    "typeLine": "Land — Plains Mountain",
+    "typeLine": "Land \u2014 Plains Mountain",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -13554,7 +13554,7 @@
   "arch-steam-vents": {
     "id": "arch-steam-vents",
     "name": "Steam Vents",
-    "typeLine": "Land — Island Mountain",
+    "typeLine": "Land \u2014 Island Mountain",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -13613,7 +13613,7 @@
   "arch-sacred-foundry": {
     "id": "arch-sacred-foundry",
     "name": "Sacred Foundry",
-    "typeLine": "Land — Mountain Plains",
+    "typeLine": "Land \u2014 Mountain Plains",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -13672,7 +13672,7 @@
   "arch-hallowed-fountain": {
     "id": "arch-hallowed-fountain",
     "name": "Hallowed Fountain",
-    "typeLine": "Land — Plains Island",
+    "typeLine": "Land \u2014 Plains Island",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -13742,9 +13742,21 @@
     "keywords": [],
     "abilities": [
       {
-        "type": "mana",
-        "mana": {
-          "C": 1
+        "type": "activated",
+        "tap": true,
+        "cost": {
+          "life": 1,
+          "sacrificeSelf": true
+        },
+        "effect": {
+          "type": "searchLand",
+          "basicOnly": false,
+          "landTypes": [
+            "Plains",
+            "Mountain"
+          ],
+          "destination": "battlefield",
+          "tapped": false
         }
       }
     ],
@@ -13794,9 +13806,21 @@
     "keywords": [],
     "abilities": [
       {
-        "type": "mana",
-        "mana": {
-          "C": 1
+        "type": "activated",
+        "tap": true,
+        "cost": {
+          "life": 1,
+          "sacrificeSelf": true
+        },
+        "effect": {
+          "type": "searchLand",
+          "basicOnly": false,
+          "landTypes": [
+            "Plains",
+            "Island"
+          ],
+          "destination": "battlefield",
+          "tapped": false
         }
       }
     ],
@@ -13846,9 +13870,21 @@
     "keywords": [],
     "abilities": [
       {
-        "type": "mana",
-        "mana": {
-          "C": 1
+        "type": "activated",
+        "tap": true,
+        "cost": {
+          "life": 1,
+          "sacrificeSelf": true
+        },
+        "effect": {
+          "type": "searchLand",
+          "basicOnly": false,
+          "landTypes": [
+            "Island",
+            "Mountain"
+          ],
+          "destination": "battlefield",
+          "tapped": false
         }
       }
     ],
@@ -14033,7 +14069,7 @@
   "arch-esper-sentinel": {
     "id": "arch-esper-sentinel",
     "name": "Esper Sentinel",
-    "typeLine": "Creature Artifact — Human Soldier",
+    "typeLine": "Creature Artifact \u2014 Human Soldier",
     "manaCost": "{W}",
     "manaValue": 1,
     "power": 1,
@@ -14084,7 +14120,7 @@
   "arch-lost-jitte": {
     "id": "arch-lost-jitte",
     "name": "Lost Jitte",
-    "typeLine": "Legendary Artifact — Equipment",
+    "typeLine": "Legendary Artifact \u2014 Equipment",
     "manaCost": "{1}",
     "manaValue": 1,
     "power": null,
@@ -14113,7 +14149,7 @@
     "spellEffects": [],
     "producedMana": null,
     "colorIdentity": [],
-    "oracleText": "Whenever equipped creature deals combat damage, put a charge counter on Lost Jitte.\nRemove a charge counter from Lost Jitte: Choose one —\n• Untap target land.\n• Target creature can't block this turn.\n• Put a +1/+1 counter on equipped creature.\nEquip {1}",
+    "oracleText": "Whenever equipped creature deals combat damage, put a charge counter on Lost Jitte.\nRemove a charge counter from Lost Jitte: Choose one \u2014\n\u2022 Untap target land.\n\u2022 Target creature can't block this turn.\n\u2022 Put a +1/+1 counter on equipped creature.\nEquip {1}",
     "image": "https://cards.scryfall.io/normal/front/d/c/dc679a0e-bf7b-40b5-b904-9c2d3508fa83.jpg",
     "scryfallId": "dc679a0e-bf7b-40b5-b904-9c2d3508fa83",
     "legalities": {
@@ -14148,7 +14184,7 @@
   "arch-ethersworn-canonist": {
     "id": "arch-ethersworn-canonist",
     "name": "Ethersworn Canonist",
-    "typeLine": "Creature Artifact — Human Cleric",
+    "typeLine": "Creature Artifact \u2014 Human Cleric",
     "manaCost": "{1}{W}",
     "manaValue": 2,
     "power": 2,
@@ -14176,7 +14212,7 @@
   "arch-mendicant-core-guidelight": {
     "id": "arch-mendicant-core-guidelight",
     "name": "Mendicant Core, Guidelight",
-    "typeLine": "Legendary Creature Artifact — Robot",
+    "typeLine": "Legendary Creature Artifact \u2014 Robot",
     "manaCost": "{W}{U}",
     "manaValue": 2,
     "power": null,
@@ -14192,7 +14228,7 @@
       "W",
       "U"
     ],
-    "oracleText": "Mendicant Core's power is equal to the number of artifacts you control.\nStart your engines! (If you have no speed, it starts at 1. It increases once on each of your turns when an opponent loses life. Max speed is 4.)\nMax speed — Whenever you cast an artifact spell, you may pay {1}. If you do, copy it. (The copy becomes a token.)",
+    "oracleText": "Mendicant Core's power is equal to the number of artifacts you control.\nStart your engines! (If you have no speed, it starts at 1. It increases once on each of your turns when an opponent loses life. Max speed is 4.)\nMax speed \u2014 Whenever you cast an artifact spell, you may pay {1}. If you do, copy it. (The copy becomes a token.)",
     "image": "https://cards.scryfall.io/normal/front/6/f/6f11d7a7-72e9-406e-a701-5c3a556a43e0.jpg",
     "scryfallId": "6f11d7a7-72e9-406e-a701-5c3a556a43e0",
     "legalities": {
@@ -14215,7 +14251,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "{T}, Remove a counter from a permanent you control: Choose one —\n• Put a charge counter on target artifact.\n• Put a +1/+1 counter on target creature.",
+    "oracleText": "{T}, Remove a counter from a permanent you control: Choose one \u2014\n\u2022 Put a charge counter on target artifact.\n\u2022 Put a +1/+1 counter on target creature.",
     "image": "https://cards.scryfall.io/normal/front/b/4/b4634637-ba33-4849-b647-d33018a02f39.jpg?1783923211",
     "scryfallId": "b4634637-ba33-4849-b647-d33018a02f39",
     "legalities": {
@@ -14272,7 +14308,7 @@
   "arch-dreamtide-whale": {
     "id": "arch-dreamtide-whale",
     "name": "Dreamtide Whale",
-    "typeLine": "Creature — Whale",
+    "typeLine": "Creature \u2014 Whale",
     "manaCost": "{2}{U}",
     "manaValue": 3,
     "power": 7,
@@ -14299,7 +14335,7 @@
   "arch-the-seriema": {
     "id": "arch-the-seriema",
     "name": "The Seriema",
-    "typeLine": "Legendary Artifact — Spacecraft",
+    "typeLine": "Legendary Artifact \u2014 Spacecraft",
     "manaCost": "{1}{W}{W}",
     "manaValue": 3,
     "power": 5,
@@ -14430,7 +14466,7 @@
   "arch-urza-lord-protector": {
     "id": "arch-urza-lord-protector",
     "name": "Urza, Lord Protector",
-    "typeLine": "Legendary Creature — Human Artificer",
+    "typeLine": "Legendary Creature \u2014 Human Artificer",
     "manaCost": "{1}{W}{U}",
     "manaValue": 3,
     "power": 2,
@@ -14531,7 +14567,7 @@
   "arch-arcbound-ravager": {
     "id": "arch-arcbound-ravager",
     "name": "Arcbound Ravager",
-    "typeLine": "Creature Artifact — Beast",
+    "typeLine": "Creature Artifact \u2014 Beast",
     "manaCost": "{2}",
     "manaValue": 2,
     "power": 0,
@@ -14556,7 +14592,7 @@
   "arch-memnite": {
     "id": "arch-memnite",
     "name": "Memnite",
-    "typeLine": "Creature Artifact — Construct",
+    "typeLine": "Creature Artifact \u2014 Construct",
     "manaCost": "{0}",
     "manaValue": 0,
     "power": 1,
@@ -14581,7 +14617,7 @@
   "arch-magda-brazen-outlaw": {
     "id": "arch-magda-brazen-outlaw",
     "name": "Magda, Brazen Outlaw",
-    "typeLine": "Legendary Creature — Berserker Dwarf",
+    "typeLine": "Legendary Creature \u2014 Berserker Dwarf",
     "manaCost": "{1}{R}",
     "manaValue": 2,
     "power": 2,
@@ -14609,7 +14645,7 @@
   "arch-tezzeret-cruel-captain": {
     "id": "arch-tezzeret-cruel-captain",
     "name": "Tezzeret, Cruel Captain",
-    "typeLine": "Legendary Planeswalker — Tezzeret",
+    "typeLine": "Legendary Planeswalker \u2014 Tezzeret",
     "manaCost": "{3}",
     "manaValue": 3,
     "power": null,
@@ -14622,7 +14658,7 @@
     "spellEffects": [],
     "producedMana": null,
     "colorIdentity": [],
-    "oracleText": "Whenever an artifact you control enters, put a loyalty counter on Tezzeret.\n0: Untap target artifact or creature. If it's an artifact creature, put a +1/+1 counter on it.\n−3: Search your library for an artifact card with mana value 1 or less, reveal it, put it into your hand, then shuffle.\n−7: You get an emblem with \"At the beginning of combat on your turn, put three +1/+1 counters on target artifact you control. If it's not a creature, it becomes a 0/0 Robot artifact creature.\"",
+    "oracleText": "Whenever an artifact you control enters, put a loyalty counter on Tezzeret.\n0: Untap target artifact or creature. If it's an artifact creature, put a +1/+1 counter on it.\n\u22123: Search your library for an artifact card with mana value 1 or less, reveal it, put it into your hand, then shuffle.\n\u22127: You get an emblem with \"At the beginning of combat on your turn, put three +1/+1 counters on target artifact you control. If it's not a creature, it becomes a 0/0 Robot artifact creature.\"",
     "image": "https://cards.scryfall.io/normal/front/5/c/5cf53baa-b0c3-4190-a5c6-c141d54cff32.jpg",
     "scryfallId": "5cf53baa-b0c3-4190-a5c6-c141d54cff32",
     "legalities": {
@@ -14634,7 +14670,7 @@
   "arch-ironsoul-enforcer": {
     "id": "arch-ironsoul-enforcer",
     "name": "Ironsoul Enforcer",
-    "typeLine": "Creature Artifact — Human Samurai",
+    "typeLine": "Creature Artifact \u2014 Human Samurai",
     "manaCost": "{4}{W}",
     "manaValue": 5,
     "power": 4,
@@ -14762,7 +14798,7 @@
   "arch-illustrious-wanderglyph": {
     "id": "arch-illustrious-wanderglyph",
     "name": "Illustrious Wanderglyph",
-    "typeLine": "Creature Artifact — Golem",
+    "typeLine": "Creature Artifact \u2014 Golem",
     "manaCost": "{4}{W}",
     "manaValue": 5,
     "power": 2,
@@ -14801,7 +14837,7 @@
   "arch-gold-forged-thopteryx": {
     "id": "arch-gold-forged-thopteryx",
     "name": "Gold-Forged Thopteryx",
-    "typeLine": "Creature Artifact — Dinosaur Thopter",
+    "typeLine": "Creature Artifact \u2014 Dinosaur Thopter",
     "manaCost": "{W}{U}",
     "manaValue": 2,
     "power": 1,
@@ -14853,7 +14889,7 @@
           "amount": 1,
           "token": {
             "name": "artifact Token",
-            "typeLine": "Token Creature — artifact",
+            "typeLine": "Token Creature \u2014 artifact",
             "subtypes": [
               "artifact"
             ],
@@ -14882,7 +14918,7 @@
   "arch-extinguisher-battleship": {
     "id": "arch-extinguisher-battleship",
     "name": "Extinguisher Battleship",
-    "typeLine": "Artifact — Spacecraft",
+    "typeLine": "Artifact \u2014 Spacecraft",
     "manaCost": "{8}",
     "manaValue": 8,
     "power": 10,
@@ -14907,7 +14943,7 @@
   "arch-starwinder": {
     "id": "arch-starwinder",
     "name": "Starwinder",
-    "typeLine": "Creature — Leviathan",
+    "typeLine": "Creature \u2014 Leviathan",
     "manaCost": "{5}{U}{U}",
     "manaValue": 7,
     "power": 7,
@@ -14934,7 +14970,7 @@
   "arch-dawnsire-sunstar-dreadnought": {
     "id": "arch-dawnsire-sunstar-dreadnought",
     "name": "Dawnsire, Sunstar Dreadnought",
-    "typeLine": "Legendary Artifact — Spacecraft",
+    "typeLine": "Legendary Artifact \u2014 Spacecraft",
     "manaCost": "{5}",
     "manaValue": 5,
     "power": 20,
@@ -14959,7 +14995,7 @@
   "arch-the-mightstone-and-weakstone": {
     "id": "arch-the-mightstone-and-weakstone",
     "name": "The Mightstone and Weakstone",
-    "typeLine": "Legendary Artifact — Powerstone",
+    "typeLine": "Legendary Artifact \u2014 Powerstone",
     "manaCost": "{5}",
     "manaValue": 5,
     "power": null,
@@ -14979,7 +15015,7 @@
     "spellEffects": [],
     "producedMana": null,
     "colorIdentity": [],
-    "oracleText": "When The Mightstone and Weakstone enters, choose one —\n• Draw two cards.\n• Target creature gets -5/-5 until end of turn.\n{T}: Add {C}{C}. This mana can't be spent to cast nonartifact spells.\n(Melds with Urza, Lord Protector.)",
+    "oracleText": "When The Mightstone and Weakstone enters, choose one \u2014\n\u2022 Draw two cards.\n\u2022 Target creature gets -5/-5 until end of turn.\n{T}: Add {C}{C}. This mana can't be spent to cast nonartifact spells.\n(Melds with Urza, Lord Protector.)",
     "image": "https://cards.scryfall.io/normal/front/0/2/02aea379-b444-46a3-82f4-3038f698d4f4.jpg",
     "scryfallId": "02aea379-b444-46a3-82f4-3038f698d4f4",
     "legalities": {
@@ -14991,7 +15027,7 @@
   "arch-cryptothrall": {
     "id": "arch-cryptothrall",
     "name": "Cryptothrall",
-    "typeLine": "Creature Artifact — Construct",
+    "typeLine": "Creature Artifact \u2014 Construct",
     "manaCost": "{4}",
     "manaValue": 4,
     "power": 3,
@@ -15004,7 +15040,7 @@
     "spellEffects": [],
     "producedMana": null,
     "colorIdentity": [],
-    "oracleText": "Protector — Other artifact creatures you control have hexproof.",
+    "oracleText": "Protector \u2014 Other artifact creatures you control have hexproof.",
     "image": "https://cards.scryfall.io/normal/front/0/8/086d94a0-763e-495e-b952-5c13383657c9.jpg",
     "scryfallId": "086d94a0-763e-495e-b952-5c13383657c9",
     "legalities": {
@@ -15080,7 +15116,7 @@
   "arch-liberator-urza-s-battlethopter": {
     "id": "arch-liberator-urza-s-battlethopter",
     "name": "Liberator, Urza's Battlethopter",
-    "typeLine": "Legendary Creature Artifact — Thopter",
+    "typeLine": "Legendary Creature Artifact \u2014 Thopter",
     "manaCost": "{3}",
     "manaValue": 3,
     "power": 1,
@@ -15145,7 +15181,7 @@
   "arch-technodrome": {
     "id": "arch-technodrome",
     "name": "Technodrome",
-    "typeLine": "Creature Artifact — Construct",
+    "typeLine": "Creature Artifact \u2014 Construct",
     "manaCost": "{2}",
     "manaValue": 2,
     "power": 3,
@@ -15203,7 +15239,7 @@
     "spellEffects": [],
     "producedMana": null,
     "colorIdentity": [],
-    "oracleText": "Landfall — Whenever a land you control enters, put a charge counter on this artifact.\n{T}: Add one mana of any color.\n{T}, Remove two charge counters from this artifact: Add {C}{C}.\n{T}, Remove three charge counters from this artifact: It deals 3 damage to any target.",
+    "oracleText": "Landfall \u2014 Whenever a land you control enters, put a charge counter on this artifact.\n{T}: Add one mana of any color.\n{T}, Remove two charge counters from this artifact: Add {C}{C}.\n{T}, Remove three charge counters from this artifact: It deals 3 damage to any target.",
     "image": "https://cards.scryfall.io/normal/front/7/3/73a5749e-eec1-4dfc-acbc-b6e4fcabe9a4.jpg",
     "scryfallId": "73a5749e-eec1-4dfc-acbc-b6e4fcabe9a4",
     "legalities": {
@@ -15215,7 +15251,7 @@
   "arch-iron-spider-stark-upgrade": {
     "id": "arch-iron-spider-stark-upgrade",
     "name": "Iron Spider, Stark Upgrade",
-    "typeLine": "Legendary Creature Artifact — Spider Hero",
+    "typeLine": "Legendary Creature Artifact \u2014 Spider Hero",
     "manaCost": "{3}",
     "manaValue": 3,
     "power": 2,
@@ -15243,7 +15279,7 @@
   "arch-the-mycosynth-gardens": {
     "id": "arch-the-mycosynth-gardens",
     "name": "The Mycosynth Gardens",
-    "typeLine": "Land — Sphere",
+    "typeLine": "Land \u2014 Sphere",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -15287,7 +15323,7 @@
   "arch-inspirit-flagship-vessel": {
     "id": "arch-inspirit-flagship-vessel",
     "name": "Inspirit, Flagship Vessel",
-    "typeLine": "Legendary Artifact — Spacecraft",
+    "typeLine": "Legendary Artifact \u2014 Spacecraft",
     "manaCost": "{U}{R}{W}",
     "manaValue": 3,
     "power": 8,
@@ -15412,7 +15448,7 @@
   "arch-ohran-frostfang": {
     "id": "arch-ohran-frostfang",
     "name": "Ohran Frostfang",
-    "typeLine": "Snow Creature — Snake",
+    "typeLine": "Snow Creature \u2014 Snake",
     "manaCost": "{3}{G}{G}",
     "manaValue": 5,
     "power": 2,
@@ -15451,7 +15487,7 @@
   "arch-toski-bearer-of-secrets": {
     "id": "arch-toski-bearer-of-secrets",
     "name": "Toski, Bearer of Secrets",
-    "typeLine": "Legendary Creature — Squirrel",
+    "typeLine": "Legendary Creature \u2014 Squirrel",
     "manaCost": "{3}{G}",
     "manaValue": 4,
     "power": 1,
@@ -15492,7 +15528,7 @@
   "arch-hauntwoods-shrieker": {
     "id": "arch-hauntwoods-shrieker",
     "name": "Hauntwoods Shrieker",
-    "typeLine": "Creature — Beast Mutant",
+    "typeLine": "Creature \u2014 Beast Mutant",
     "manaCost": "{1}{G}{G}",
     "manaValue": 3,
     "power": 3,
@@ -15531,7 +15567,7 @@
   "arch-disciple-of-freyalise-garden-of-freyalise": {
     "id": "arch-disciple-of-freyalise-garden-of-freyalise",
     "name": "Disciple of Freyalise // Garden of Freyalise",
-    "typeLine": "Creature — Elf Druid",
+    "typeLine": "Creature \u2014 Elf Druid",
     "manaCost": "{3}{G}{G}{G}",
     "manaValue": 4,
     "power": 3,
@@ -15569,7 +15605,7 @@
   "arch-smoldering-marsh": {
     "id": "arch-smoldering-marsh",
     "name": "Smoldering Marsh",
-    "typeLine": "Land — Swamp Mountain",
+    "typeLine": "Land \u2014 Swamp Mountain",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -15608,7 +15644,7 @@
   "arch-pinnacle-monk-mystic-peak": {
     "id": "arch-pinnacle-monk-mystic-peak",
     "name": "Pinnacle Monk // Mystic Peak",
-    "typeLine": "Creature — Djinn Monk",
+    "typeLine": "Creature \u2014 Djinn Monk",
     "manaCost": "{3}{R}{R}",
     "manaValue": 3,
     "power": 2,
@@ -15689,7 +15725,7 @@
   "arch-killer-s-mask": {
     "id": "arch-killer-s-mask",
     "name": "Killer's Mask",
-    "typeLine": "Artifact — Equipment",
+    "typeLine": "Artifact \u2014 Equipment",
     "manaCost": "{2}{B}",
     "manaValue": 3,
     "power": null,
@@ -15784,7 +15820,7 @@
     "colorIdentity": [
       "B"
     ],
-    "oracleText": "Spree (Choose one or more additional costs.)\n+ {1} — Search your library for a card, put it into your graveyard, then shuffle.\n+ {2} — Return up to two creature cards with total mana value 4 or less from your graveyard to the battlefield.",
+    "oracleText": "Spree (Choose one or more additional costs.)\n+ {1} \u2014 Search your library for a card, put it into your graveyard, then shuffle.\n+ {2} \u2014 Return up to two creature cards with total mana value 4 or less from your graveyard to the battlefield.",
     "image": "https://cards.scryfall.io/normal/front/0/c/0c35a0d3-12f7-46f3-a6b3-02a490d45ca0.jpg",
     "scryfallId": "0c35a0d3-12f7-46f3-a6b3-02a490d45ca0",
     "legalities": {
@@ -15796,7 +15832,7 @@
   "arch-the-gitrog-ravenous-ride": {
     "id": "arch-the-gitrog-ravenous-ride",
     "name": "The Gitrog, Ravenous Ride",
-    "typeLine": "Legendary Creature — Horror Frog Mount",
+    "typeLine": "Legendary Creature \u2014 Horror Frog Mount",
     "manaCost": "{3}{B}{G}",
     "manaValue": 5,
     "power": 6,
@@ -15874,7 +15910,7 @@
   "arch-hedge-shredder": {
     "id": "arch-hedge-shredder",
     "name": "Hedge Shredder",
-    "typeLine": "Artifact — Vehicle",
+    "typeLine": "Artifact \u2014 Vehicle",
     "manaCost": "{2}{G}{G}",
     "manaValue": 4,
     "power": 5,
@@ -15901,7 +15937,7 @@
   "arch-pyrotechnic-performer": {
     "id": "arch-pyrotechnic-performer",
     "name": "Pyrotechnic Performer",
-    "typeLine": "Creature — Assassin Lizard",
+    "typeLine": "Creature \u2014 Assassin Lizard",
     "manaCost": "{1}{R}",
     "manaValue": 2,
     "power": 3,
@@ -16019,7 +16055,7 @@
   "arch-experiment-twelve": {
     "id": "arch-experiment-twelve",
     "name": "Experiment Twelve",
-    "typeLine": "Creature — Warrior Elf Lizard",
+    "typeLine": "Creature \u2014 Warrior Elf Lizard",
     "manaCost": "{3}{G}",
     "manaValue": 4,
     "power": 4,
@@ -16050,7 +16086,7 @@
   "arch-curator-beastie": {
     "id": "arch-curator-beastie",
     "name": "Curator Beastie",
-    "typeLine": "Creature — Beast",
+    "typeLine": "Creature \u2014 Beast",
     "manaCost": "{4}{G}{G}",
     "manaValue": 6,
     "power": 6,
@@ -16113,7 +16149,7 @@
   "arch-whisperwood-elemental": {
     "id": "arch-whisperwood-elemental",
     "name": "Whisperwood Elemental",
-    "typeLine": "Creature — Elemental",
+    "typeLine": "Creature \u2014 Elemental",
     "manaCost": "{3}{G}{G}",
     "manaValue": 5,
     "power": 4,
@@ -16140,7 +16176,7 @@
   "arch-saryth-the-viper-s-fang": {
     "id": "arch-saryth-the-viper-s-fang",
     "name": "Saryth, the Viper's Fang",
-    "typeLine": "Legendary Creature — Human Warlock",
+    "typeLine": "Legendary Creature \u2014 Human Warlock",
     "manaCost": "{2}{G}{G}",
     "manaValue": 4,
     "power": 3,
@@ -16269,7 +16305,7 @@
   },
   "arch-palanti-r-of-orthanc": {
     "id": "arch-palanti-r-of-orthanc",
-    "name": "Palantír of Orthanc",
+    "name": "Palant\u00edr of Orthanc",
     "typeLine": "Legendary Artifact",
     "manaCost": "{3}",
     "manaValue": 3,
@@ -16293,7 +16329,7 @@
     "spellEffects": [],
     "producedMana": null,
     "colorIdentity": [],
-    "oracleText": "At the beginning of your end step, put an influence counter on Palantír of Orthanc and scry 2. Then target opponent may have you draw a card. If that player doesn't, you mill X cards, where X is the number of influence counters on Palantír of Orthanc, and that player loses life equal to the total mana value of those cards.",
+    "oracleText": "At the beginning of your end step, put an influence counter on Palant\u00edr of Orthanc and scry 2. Then target opponent may have you draw a card. If that player doesn't, you mill X cards, where X is the number of influence counters on Palant\u00edr of Orthanc, and that player loses life equal to the total mana value of those cards.",
     "image": "https://cards.scryfall.io/normal/front/4/c/4c27c6ac-889f-4591-8789-4a6f1a264d98.jpg",
     "scryfallId": "4c27c6ac-889f-4591-8789-4a6f1a264d98",
     "legalities": {
@@ -16305,7 +16341,7 @@
   "arch-boldwyr-heavyweights": {
     "id": "arch-boldwyr-heavyweights",
     "name": "Boldwyr Heavyweights",
-    "typeLine": "Creature — Warrior Giant",
+    "typeLine": "Creature \u2014 Warrior Giant",
     "manaCost": "{2}{R}{R}",
     "manaValue": 4,
     "power": 8,
@@ -16335,7 +16371,7 @@
   "arch-eater-of-days": {
     "id": "arch-eater-of-days",
     "name": "Eater of Days",
-    "typeLine": "Creature Artifact — Leviathan",
+    "typeLine": "Creature Artifact \u2014 Leviathan",
     "manaCost": "{4}",
     "manaValue": 4,
     "power": 9,
@@ -16363,7 +16399,7 @@
   "arch-leveler": {
     "id": "arch-leveler",
     "name": "Leveler",
-    "typeLine": "Creature Artifact — Juggernaut",
+    "typeLine": "Creature Artifact \u2014 Juggernaut",
     "manaCost": "{5}",
     "manaValue": 5,
     "power": 10,
@@ -16388,7 +16424,7 @@
   "arch-yargle-and-multani": {
     "id": "arch-yargle-and-multani",
     "name": "Yargle and Multani",
-    "typeLine": "Legendary Creature — Elemental Spirit Frog",
+    "typeLine": "Legendary Creature \u2014 Elemental Spirit Frog",
     "manaCost": "{3}{B}{B}{G}",
     "manaValue": 6,
     "power": 18,
@@ -16467,6 +16503,24 @@
         "type": "mana",
         "mana": {
           "C": 1
+        }
+      },
+      {
+        "type": "activated",
+        "tap": true,
+        "cost": {
+          "sacrificeSelf": true
+        },
+        "effect": {
+          "type": "searchLand",
+          "basicOnly": true,
+          "landTypes": [
+            "Swamp",
+            "Mountain",
+            "Forest"
+          ],
+          "destination": "battlefield",
+          "tapped": true
         }
       }
     ],
@@ -16817,7 +16871,7 @@
   "arch-dance-of-the-dead": {
     "id": "arch-dance-of-the-dead",
     "name": "Dance of the Dead",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{1}{B}",
     "manaValue": 2,
     "power": null,
@@ -16859,7 +16913,7 @@
   "arch-worldgorger-dragon": {
     "id": "arch-worldgorger-dragon",
     "name": "Worldgorger Dragon",
-    "typeLine": "Creature — Dragon Nightmare",
+    "typeLine": "Creature \u2014 Dragon Nightmare",
     "manaCost": "{3}{R}{R}{R}",
     "manaValue": 6,
     "power": 7,
@@ -16890,7 +16944,7 @@
   "arch-brawn": {
     "id": "arch-brawn",
     "name": "Brawn",
-    "typeLine": "Creature — Incarnation",
+    "typeLine": "Creature \u2014 Incarnation",
     "manaCost": "{3}{G}",
     "manaValue": 4,
     "power": 3,
@@ -16944,7 +16998,7 @@
   "arch-festering-gulch": {
     "id": "arch-festering-gulch",
     "name": "Festering Gulch",
-    "typeLine": "Land — Desert",
+    "typeLine": "Land \u2014 Desert",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -16983,7 +17037,7 @@
   "arch-jagged-barrens": {
     "id": "arch-jagged-barrens",
     "name": "Jagged Barrens",
-    "typeLine": "Land — Desert",
+    "typeLine": "Land \u2014 Desert",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -17022,7 +17076,7 @@
   "arch-bristling-backwoods": {
     "id": "arch-bristling-backwoods",
     "name": "Bristling Backwoods",
-    "typeLine": "Land — Desert",
+    "typeLine": "Land \u2014 Desert",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -17169,7 +17223,7 @@
   "arch-yarus-roar-of-the-old-gods": {
     "id": "arch-yarus-roar-of-the-old-gods",
     "name": "Yarus, Roar of the Old Gods",
-    "typeLine": "Legendary Creature — Druid Centaur",
+    "typeLine": "Legendary Creature \u2014 Druid Centaur",
     "manaCost": "{2}{R}{G}",
     "manaValue": 4,
     "power": 4,
@@ -17198,7 +17252,7 @@
   "arch-sunscorched-desert": {
     "id": "arch-sunscorched-desert",
     "name": "Sunscorched Desert",
-    "typeLine": "Land — Desert",
+    "typeLine": "Land \u2014 Desert",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -17230,7 +17284,7 @@
   "arch-soulgorger-orgg": {
     "id": "arch-soulgorger-orgg",
     "name": "Soulgorger Orgg",
-    "typeLine": "Creature — Nightmare Orgg",
+    "typeLine": "Creature \u2014 Nightmare Orgg",
     "manaCost": "{3}{R}{R}",
     "manaValue": 5,
     "power": 6,
@@ -17260,7 +17314,7 @@
   "arch-thieving-amalgam": {
     "id": "arch-thieving-amalgam",
     "name": "Thieving Amalgam",
-    "typeLine": "Creature — Ape Snake",
+    "typeLine": "Creature \u2014 Ape Snake",
     "manaCost": "{5}{B}{B}",
     "manaValue": 7,
     "power": 6,
@@ -17288,7 +17342,7 @@
   "arch-coastline-marauders": {
     "id": "arch-coastline-marauders",
     "name": "Coastline Marauders",
-    "typeLine": "Creature — Human Pirate",
+    "typeLine": "Creature \u2014 Human Pirate",
     "manaCost": "{2}{R}",
     "manaValue": 3,
     "power": 0,
@@ -17368,7 +17422,7 @@
   "arch-master-of-cruelties": {
     "id": "arch-master-of-cruelties",
     "name": "Master of Cruelties",
-    "typeLine": "Creature — Demon",
+    "typeLine": "Creature \u2014 Demon",
     "manaCost": "{3}{B}{R}",
     "manaValue": 5,
     "power": 1,
@@ -17454,7 +17508,7 @@
   "arch-inverter-of-truth": {
     "id": "arch-inverter-of-truth",
     "name": "Inverter of Truth",
-    "typeLine": "Creature — Eldrazi",
+    "typeLine": "Creature \u2014 Eldrazi",
     "manaCost": "{2}{B}{B}",
     "manaValue": 4,
     "power": 6,
@@ -17483,7 +17537,7 @@
   "arch-unstoppable-slasher": {
     "id": "arch-unstoppable-slasher",
     "name": "Unstoppable Slasher",
-    "typeLine": "Creature — Zombie Assassin",
+    "typeLine": "Creature \u2014 Zombie Assassin",
     "manaCost": "{2}{B}",
     "manaValue": 3,
     "power": 2,
@@ -17513,7 +17567,7 @@
   "arch-skullwinder": {
     "id": "arch-skullwinder",
     "name": "Skullwinder",
-    "typeLine": "Creature — Snake",
+    "typeLine": "Creature \u2014 Snake",
     "manaCost": "{2}{G}",
     "manaValue": 3,
     "power": 1,
@@ -17596,8 +17650,8 @@
   },
   "arch-troll-of-khazad-du-m": {
     "id": "arch-troll-of-khazad-du-m",
-    "name": "Troll of Khazad-dûm",
-    "typeLine": "Creature — Troll",
+    "name": "Troll of Khazad-d\u00fbm",
+    "typeLine": "Creature \u2014 Troll",
     "manaCost": "{5}{B}",
     "manaValue": 6,
     "power": 6,
@@ -17624,7 +17678,7 @@
   "arch-oliphaunt": {
     "id": "arch-oliphaunt",
     "name": "Oliphaunt",
-    "typeLine": "Creature — Elephant",
+    "typeLine": "Creature \u2014 Elephant",
     "manaCost": "{5}{R}",
     "manaValue": 6,
     "power": 6,
@@ -17653,7 +17707,7 @@
   "arch-experimental-lab-staff-room": {
     "id": "arch-experimental-lab-staff-room",
     "name": "Experimental Lab // Staff Room",
-    "typeLine": "Enchantment — Room",
+    "typeLine": "Enchantment \u2014 Room",
     "manaCost": "{3}{G}",
     "manaValue": 2,
     "power": null,
@@ -17680,7 +17734,7 @@
   "arch-ticket-booth-tunnel-of-hate": {
     "id": "arch-ticket-booth-tunnel-of-hate",
     "name": "Ticket Booth // Tunnel of Hate",
-    "typeLine": "Enchantment — Room",
+    "typeLine": "Enchantment \u2014 Room",
     "manaCost": "{2}{R}",
     "manaValue": 2,
     "power": null,
@@ -17707,7 +17761,7 @@
   "arch-hellcarver-demon": {
     "id": "arch-hellcarver-demon",
     "name": "Hellcarver Demon",
-    "typeLine": "Creature — Demon",
+    "typeLine": "Creature \u2014 Demon",
     "manaCost": "{3}{B}{B}{B}",
     "manaValue": 6,
     "power": 6,
@@ -17770,7 +17824,7 @@
   "arch-formless-genesis": {
     "id": "arch-formless-genesis",
     "name": "Formless Genesis",
-    "typeLine": "Sorcery Kindred — Shapeshifter",
+    "typeLine": "Sorcery Kindred \u2014 Shapeshifter",
     "manaCost": "{2}{G}",
     "manaValue": 3,
     "power": null,
@@ -17797,7 +17851,7 @@
   "arch-fauna-shaman": {
     "id": "arch-fauna-shaman",
     "name": "Fauna Shaman",
-    "typeLine": "Creature — Elf Shaman",
+    "typeLine": "Creature \u2014 Elf Shaman",
     "manaCost": "{1}{G}",
     "manaValue": 2,
     "power": 2,
@@ -17868,7 +17922,7 @@
   "arch-hermit-druid": {
     "id": "arch-hermit-druid",
     "name": "Hermit Druid",
-    "typeLine": "Creature — Human Druid",
+    "typeLine": "Creature \u2014 Human Druid",
     "manaCost": "{1}{G}",
     "manaValue": 2,
     "power": 1,
@@ -17896,7 +17950,7 @@
   "arch-animate-dead": {
     "id": "arch-animate-dead",
     "name": "Animate Dead",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{1}{B}",
     "manaValue": 2,
     "power": null,
@@ -17962,7 +18016,7 @@
   "arch-the-beamtown-bullies": {
     "id": "arch-the-beamtown-bullies",
     "name": "The Beamtown Bullies",
-    "typeLine": "Legendary Creature — Warrior Ogre Devil",
+    "typeLine": "Legendary Creature \u2014 Warrior Ogre Devil",
     "manaCost": "{1}{B}{R}{G}",
     "manaValue": 4,
     "power": 4,
@@ -18016,7 +18070,7 @@
   "arch-zhur-taa-druid": {
     "id": "arch-zhur-taa-druid",
     "name": "Zhur-Taa Druid",
-    "typeLine": "Creature — Human Druid",
+    "typeLine": "Creature \u2014 Human Druid",
     "manaCost": "{R}{G}",
     "manaValue": 2,
     "power": 1,
@@ -18089,7 +18143,7 @@
   "user-jhoira-of-the-ghitu": {
     "id": "user-jhoira-of-the-ghitu",
     "name": "Jhoira of the Ghitu",
-    "typeLine": "Legendary Creature — Human Wizard",
+    "typeLine": "Legendary Creature \u2014 Human Wizard",
     "manaCost": "{1}{U}{R}",
     "manaValue": 3,
     "power": 2,
@@ -18161,7 +18215,7 @@
   "user-artisan-of-kozilek": {
     "id": "user-artisan-of-kozilek",
     "name": "Artisan of Kozilek",
-    "typeLine": "Creature — Eldrazi",
+    "typeLine": "Creature \u2014 Eldrazi",
     "manaCost": "{9}",
     "manaValue": 9,
     "power": 10,
@@ -18208,7 +18262,7 @@
   "user-pathrazer-of-ulamog": {
     "id": "user-pathrazer-of-ulamog",
     "name": "Pathrazer of Ulamog",
-    "typeLine": "Creature — Eldrazi",
+    "typeLine": "Creature \u2014 Eldrazi",
     "manaCost": "{11}",
     "manaValue": 11,
     "power": 9,
@@ -18255,7 +18309,7 @@
   "user-triplicate-titan": {
     "id": "user-triplicate-titan",
     "name": "Triplicate Titan",
-    "typeLine": "Artifact Creature — Golem",
+    "typeLine": "Artifact Creature \u2014 Golem",
     "manaCost": "{9}",
     "manaValue": 9,
     "power": 9,
@@ -18306,7 +18360,7 @@
   "user-ulamog-s-crusher": {
     "id": "user-ulamog-s-crusher",
     "name": "Ulamog's Crusher",
-    "typeLine": "Creature — Eldrazi",
+    "typeLine": "Creature \u2014 Eldrazi",
     "manaCost": "{8}",
     "manaValue": 8,
     "power": 8,
@@ -18353,7 +18407,7 @@
   "user-it-that-betrays": {
     "id": "user-it-that-betrays",
     "name": "It That Betrays",
-    "typeLine": "Creature — Eldrazi",
+    "typeLine": "Creature \u2014 Eldrazi",
     "manaCost": "{12}",
     "manaValue": 12,
     "power": 11,
@@ -18400,7 +18454,7 @@
   "user-jin-gitaxias-progress-tyrant": {
     "id": "user-jin-gitaxias-progress-tyrant",
     "name": "Jin-Gitaxias, Progress Tyrant",
-    "typeLine": "Legendary Creature — Phyrexian Praetor",
+    "typeLine": "Legendary Creature \u2014 Phyrexian Praetor",
     "manaCost": "{5}{U}{U}",
     "manaValue": 7,
     "power": 5,
@@ -18452,7 +18506,7 @@
   "user-sphinx-of-the-second-sun": {
     "id": "user-sphinx-of-the-second-sun",
     "name": "Sphinx of the Second Sun",
-    "typeLine": "Creature — Sphinx",
+    "typeLine": "Creature \u2014 Sphinx",
     "manaCost": "{6}{U}{U}",
     "manaValue": 8,
     "power": 6,
@@ -18505,7 +18559,7 @@
   "user-consecrated-sphinx": {
     "id": "user-consecrated-sphinx",
     "name": "Consecrated Sphinx",
-    "typeLine": "Creature — Sphinx",
+    "typeLine": "Creature \u2014 Sphinx",
     "manaCost": "{4}{U}{U}",
     "manaValue": 6,
     "power": 4,
@@ -18558,7 +18612,7 @@
   "user-jhoira-s-timebug": {
     "id": "user-jhoira-s-timebug",
     "name": "Jhoira's Timebug",
-    "typeLine": "Artifact Creature — Insect",
+    "typeLine": "Artifact Creature \u2014 Insect",
     "manaCost": "{2}",
     "manaValue": 2,
     "power": 1,
@@ -18620,7 +18674,7 @@
   "user-rift-elemental": {
     "id": "user-rift-elemental",
     "name": "Rift Elemental",
-    "typeLine": "Creature — Elemental",
+    "typeLine": "Creature \u2014 Elemental",
     "manaCost": "{R}",
     "manaValue": 1,
     "power": 1,
@@ -18688,7 +18742,7 @@
   "user-deep-sea-kraken": {
     "id": "user-deep-sea-kraken",
     "name": "Deep-Sea Kraken",
-    "typeLine": "Creature — Kraken",
+    "typeLine": "Creature \u2014 Kraken",
     "manaCost": "{7}{U}{U}{U}",
     "manaValue": 10,
     "power": 6,
@@ -18705,7 +18759,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "This creature can't be blocked.\nSuspend 9—{2}{U} (Rather than cast this card from your hand, you may pay {2}{U} and exile it with nine time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost. It has haste.)\nWhenever an opponent casts a spell, if this card is suspended, remove a time counter from it.",
+    "oracleText": "This creature can't be blocked.\nSuspend 9\u2014{2}{U} (Rather than cast this card from your hand, you may pay {2}{U} and exile it with nine time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost. It has haste.)\nWhenever an opponent casts a spell, if this card is suspended, remove a time counter from it.",
     "image": "https://cards.scryfall.io/normal/front/d/f/df5a543e-8416-4f01-91f5-e1ed87f1a510.jpg?1783936580",
     "scryfallId": "df5a543e-8416-4f01-91f5-e1ed87f1a510",
     "legalities": {
@@ -19142,7 +19196,7 @@
         "amount": -2
       }
     ],
-    "oracleText": "Choose one —\n• Destroy target artifact.\n• Target creature gets +1/+1 and gains trample until end of turn.\n• Remove two time counters from target permanent or suspended card.",
+    "oracleText": "Choose one \u2014\n\u2022 Destroy target artifact.\n\u2022 Target creature gets +1/+1 and gains trample until end of turn.\n\u2022 Remove two time counters from target permanent or suspended card.",
     "image": "https://cards.scryfall.io/normal/front/d/5/d585cf04-b823-49c1-a33a-9cd8f3116eda.jpg?1783935529",
     "scryfallId": "d585cf04-b823-49c1-a33a-9cd8f3116eda",
     "legalities": {
@@ -19202,7 +19256,7 @@
         "amount": -1
       }
     ],
-    "oracleText": "Choose one —\n• Remove X time counters from target permanent or suspended card.\n• Put X time counters on target permanent with a time counter on it or suspended card.",
+    "oracleText": "Choose one \u2014\n\u2022 Remove X time counters from target permanent or suspended card.\n\u2022 Put X time counters on target permanent with a time counter on it or suspended card.",
     "image": "https://cards.scryfall.io/normal/front/f/d/fd6da5ef-7e5b-4536-ad28-6fe66f3e0438.jpg?1783943146",
     "scryfallId": "fd6da5ef-7e5b-4536-ad28-6fe66f3e0438",
     "legalities": {
@@ -19314,7 +19368,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "Suspend 4—{U} (Rather than cast this card from your hand, pay {U} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)\nTarget player draws three cards.",
+    "oracleText": "Suspend 4\u2014{U} (Rather than cast this card from your hand, pay {U} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)\nTarget player draws three cards.",
     "image": "https://cards.scryfall.io/normal/front/9/e/9ec075ba-db56-4dcf-b1dc-fe6270b7ab36.jpg?1783907110",
     "scryfallId": "9ec075ba-db56-4dcf-b1dc-fe6270b7ab36",
     "legalities": {
@@ -19364,7 +19418,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "Suspend 4—{1}{R} (Rather than cast this card from your hand, pay {1}{R} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)\nEach player discards their hand, then draws seven cards.",
+    "oracleText": "Suspend 4\u2014{1}{R} (Rather than cast this card from your hand, pay {1}{R} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)\nEach player discards their hand, then draws seven cards.",
     "image": "https://cards.scryfall.io/normal/front/c/7/c7937e12-76d9-4030-a68c-7a93a3c852cb.jpg?1783927784",
     "scryfallId": "c7937e12-76d9-4030-a68c-7a93a3c852cb",
     "legalities": {
@@ -19399,7 +19453,7 @@
   "user-paradox-haze": {
     "id": "user-paradox-haze",
     "name": "Paradox Haze",
-    "typeLine": "Enchantment — Aura",
+    "typeLine": "Enchantment \u2014 Aura",
     "manaCost": "{2}{U}",
     "manaValue": 3,
     "power": null,
@@ -20943,7 +20997,7 @@
       }
     ],
     "spellEffects": [],
-    "oracleText": "Choose one. If you control a commander as you cast this spell, you may choose both instead.\n• Add {R} for each card in target opponent's hand.\n• Exile the top three cards of your library. You may play them this turn.",
+    "oracleText": "Choose one. If you control a commander as you cast this spell, you may choose both instead.\n\u2022 Add {R} for each card in target opponent's hand.\n\u2022 Exile the top three cards of your library. You may play them this turn.",
     "image": "https://cards.scryfall.io/normal/front/9/9/99e0c371-1024-4432-9fd9-3bc29c8d38e4.jpg?1783912996",
     "scryfallId": "99e0c371-1024-4432-9fd9-3bc29c8d38e4",
     "legalities": {
@@ -21134,7 +21188,7 @@
   "user-lightning-greaves": {
     "id": "user-lightning-greaves",
     "name": "Lightning Greaves",
-    "typeLine": "Artifact — Equipment",
+    "typeLine": "Artifact \u2014 Equipment",
     "manaCost": "{2}",
     "manaValue": 2,
     "power": null,
@@ -21765,7 +21819,7 @@
       }
     ],
     "spellEffects": [],
-    "oracleText": "{T}: Add {U}.\nChannel — {3}{U}, Discard this card: Return target artifact, creature, enchantment, or planeswalker to its owner's hand. This ability costs {1} less to activate for each legendary creature you control.",
+    "oracleText": "{T}: Add {U}.\nChannel \u2014 {3}{U}, Discard this card: Return target artifact, creature, enchantment, or planeswalker to its owner's hand. This ability costs {1} less to activate for each legendary creature you control.",
     "image": "https://cards.scryfall.io/normal/front/4/8/486d7edc-d983-41f0-8b78-c99aecd72996.jpg?1783923816",
     "scryfallId": "486d7edc-d983-41f0-8b78-c99aecd72996",
     "legalities": {
@@ -21799,7 +21853,7 @@
   "user-archon-of-sun-s-grace": {
     "id": "user-archon-of-sun-s-grace",
     "name": "Archon of Sun's Grace",
-    "typeLine": "Creature — Archon",
+    "typeLine": "Creature \u2014 Archon",
     "manaCost": "{2}{W}{W}",
     "manaValue": 4,
     "power": 3,
@@ -21819,7 +21873,7 @@
     ],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "Flying\nLifelink (Damage dealt by this creature also causes you to gain that much life.)\nPegasus creatures you control have lifelink.\nConstellation — Whenever an enchantment you control enters, create a 2/2 white Pegasus creature token with flying.",
+    "oracleText": "Flying\nLifelink (Damage dealt by this creature also causes you to gain that much life.)\nPegasus creatures you control have lifelink.\nConstellation \u2014 Whenever an enchantment you control enters, create a 2/2 white Pegasus creature token with flying.",
     "image": "https://cards.scryfall.io/normal/front/0/d/0d3af89d-d22c-45e8-9fec-170ac9bb0a34.jpg?1783903812",
     "scryfallId": "0d3af89d-d22c-45e8-9fec-170ac9bb0a34",
     "legalities": {
@@ -21853,7 +21907,7 @@
   "user-barbara-wright": {
     "id": "user-barbara-wright",
     "name": "Barbara Wright",
-    "typeLine": "Legendary Creature — Human Advisor",
+    "typeLine": "Legendary Creature \u2014 Human Advisor",
     "manaCost": "{1}{W}",
     "manaValue": 2,
     "power": 1,
@@ -21882,7 +21936,7 @@
       }
     ],
     "spellEffects": [],
-    "oracleText": "History Teacher — Sagas you control have read ahead. (As a Saga enters, choose a chapter and start with that many lore counters. Skipped chapters don't trigger.)\nDoctor's companion (You can have two commanders if the other is the Doctor.)",
+    "oracleText": "History Teacher \u2014 Sagas you control have read ahead. (As a Saga enters, choose a chapter and start with that many lore counters. Skipped chapters don't trigger.)\nDoctor's companion (You can have two commanders if the other is the Doctor.)",
     "image": "https://cards.scryfall.io/normal/front/4/1/414bdd33-549d-4690-917c-ea48decffbbb.jpg?1783914681",
     "scryfallId": "414bdd33-549d-4690-917c-ea48decffbbb",
     "legalities": {
@@ -21916,7 +21970,7 @@
   "user-binding-the-old-gods": {
     "id": "user-binding-the-old-gods",
     "name": "Binding the Old Gods",
-    "typeLine": "Enchantment — Saga",
+    "typeLine": "Enchantment \u2014 Saga",
     "manaCost": "{2}{B}{G}",
     "manaValue": 4,
     "power": null,
@@ -21935,7 +21989,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — Destroy target nonland permanent an opponent controls.\nII — Search your library for a Forest card, put it onto the battlefield tapped, then shuffle.\nIII — Creatures you control gain deathtouch until end of turn.",
+    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI \u2014 Destroy target nonland permanent an opponent controls.\nII \u2014 Search your library for a Forest card, put it onto the battlefield tapped, then shuffle.\nIII \u2014 Creatures you control gain deathtouch until end of turn.",
     "image": "https://cards.scryfall.io/normal/front/4/1/41802f18-7d46-431a-acb3-dbcc82eb415a.jpg?1783904539",
     "scryfallId": "41802f18-7d46-431a-acb3-dbcc82eb415a",
     "legalities": {
@@ -22002,7 +22056,7 @@
   "user-birds-of-paradise": {
     "id": "user-birds-of-paradise",
     "name": "Birds of Paradise",
-    "typeLine": "Creature — Bird",
+    "typeLine": "Creature \u2014 Bird",
     "manaCost": "{G}",
     "manaValue": 1,
     "power": 0,
@@ -22068,7 +22122,7 @@
   "user-birth-of-the-imperium": {
     "id": "user-birth-of-the-imperium",
     "name": "Birth of the Imperium",
-    "typeLine": "Enchantment — Saga",
+    "typeLine": "Enchantment \u2014 Saga",
     "manaCost": "{2}{W}{U}{B}",
     "manaValue": 5,
     "power": null,
@@ -22089,7 +22143,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — Create a 2/2 white Astartes Warrior creature token with vigilance for each opponent you have.\nII — Each opponent sacrifices a creature of their choice.\nIII — Draw two cards for each opponent who controls fewer creatures than you.",
+    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI \u2014 Create a 2/2 white Astartes Warrior creature token with vigilance for each opponent you have.\nII \u2014 Each opponent sacrifices a creature of their choice.\nIII \u2014 Draw two cards for each opponent who controls fewer creatures than you.",
     "image": "https://cards.scryfall.io/normal/front/2/6/26386d35-7768-4b06-afe4-823028d99a48.jpg?1783920864",
     "scryfallId": "26386d35-7768-4b06-afe4-823028d99a48",
     "legalities": {
@@ -22132,7 +22186,7 @@
           "amount": 1,
           "token": {
             "name": "Warrior Token",
-            "typeLine": "Token Creature — Warrior",
+            "typeLine": "Token Creature \u2014 Warrior",
             "subtypes": [
               "Warrior"
             ],
@@ -22164,7 +22218,7 @@
   "user-blood-crypt": {
     "id": "user-blood-crypt",
     "name": "Blood Crypt",
-    "typeLine": "Land — Swamp Mountain",
+    "typeLine": "Land \u2014 Swamp Mountain",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -22234,9 +22288,21 @@
     "keywords": [],
     "abilities": [
       {
-        "type": "mana",
-        "mana": {
-          "C": 1
+        "type": "activated",
+        "tap": true,
+        "cost": {
+          "life": 1,
+          "sacrificeSelf": true
+        },
+        "effect": {
+          "type": "searchLand",
+          "basicOnly": false,
+          "landTypes": [
+            "Swamp",
+            "Mountain"
+          ],
+          "destination": "battlefield",
+          "tapped": false
         }
       }
     ],
@@ -22275,7 +22341,7 @@
   "user-bloom-tender": {
     "id": "user-bloom-tender",
     "name": "Bloom Tender",
-    "typeLine": "Creature — Elf Druid",
+    "typeLine": "Creature \u2014 Elf Druid",
     "manaCost": "{1}{G}",
     "manaValue": 2,
     "power": 1,
@@ -22293,7 +22359,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "Vivid — {T}: For each color among permanents you control, add one mana of that color.",
+    "oracleText": "Vivid \u2014 {T}: For each color among permanents you control, add one mana of that color.",
     "image": "https://cards.scryfall.io/normal/front/b/a/ba86688d-18f0-4b5c-a797-42bf125a6c9f.jpg?1783904436",
     "scryfallId": "ba86688d-18f0-4b5c-a797-42bf125a6c9f",
     "legalities": {
@@ -22347,7 +22413,7 @@
       }
     ],
     "spellEffects": [],
-    "oracleText": "{T}: Add {G}.\nChannel — {1}{G}, Discard this card: Destroy target artifact, enchantment, or nonbasic land an opponent controls. That player may search their library for a land card with a basic land type, put it onto the battlefield, then shuffle. This ability costs {1} less to activate for each legendary creature you control.",
+    "oracleText": "{T}: Add {G}.\nChannel \u2014 {1}{G}, Discard this card: Destroy target artifact, enchantment, or nonbasic land an opponent controls. That player may search their library for a land card with a basic land type, put it onto the battlefield, then shuffle. This ability costs {1} less to activate for each legendary creature you control.",
     "image": "https://cards.scryfall.io/normal/front/2/1/2135ac5a-187b-4dc9-8f82-34e8d1603416.jpg?1783923818",
     "scryfallId": "2135ac5a-187b-4dc9-8f82-34e8d1603416",
     "legalities": {
@@ -22381,7 +22447,7 @@
   "user-breeding-pool": {
     "id": "user-breeding-pool",
     "name": "Breeding Pool",
-    "typeLine": "Land — Forest Island",
+    "typeLine": "Land \u2014 Forest Island",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -22662,7 +22728,7 @@
   "user-destiny-spinner": {
     "id": "user-destiny-spinner",
     "name": "Destiny Spinner",
-    "typeLine": "Enchantment Creature — Human",
+    "typeLine": "Enchantment Creature \u2014 Human",
     "manaCost": "{1}{G}",
     "manaValue": 2,
     "power": 2,
@@ -22713,7 +22779,7 @@
   "user-dryad-of-the-ilysian-grove": {
     "id": "user-dryad-of-the-ilysian-grove",
     "name": "Dryad of the Ilysian Grove",
-    "typeLine": "Enchantment Creature — Nymph Dryad",
+    "typeLine": "Enchantment Creature \u2014 Nymph Dryad",
     "manaCost": "{2}{G}",
     "manaValue": 3,
     "power": 2,
@@ -22765,7 +22831,7 @@
   "user-elspeth-conquers-death": {
     "id": "user-elspeth-conquers-death",
     "name": "Elspeth Conquers Death",
-    "typeLine": "Enchantment — Saga",
+    "typeLine": "Enchantment \u2014 Saga",
     "manaCost": "{3}{W}{W}",
     "manaValue": 5,
     "power": null,
@@ -22782,7 +22848,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — Exile target permanent an opponent controls with mana value 3 or greater.\nII — Noncreature spells your opponents cast cost {2} more to cast until your next turn.\nIII — Return target creature or planeswalker card from your graveyard to the battlefield. Put a +1/+1 counter or a loyalty counter on it.",
+    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI \u2014 Exile target permanent an opponent controls with mana value 3 or greater.\nII \u2014 Noncreature spells your opponents cast cost {2} more to cast until your next turn.\nIII \u2014 Return target creature or planeswalker card from your graveyard to the battlefield. Put a +1/+1 counter or a loyalty counter on it.",
     "image": "https://cards.scryfall.io/normal/front/e/a/ea20208b-1939-4c69-8cfd-c0a42f9dc427.jpg?1783931598",
     "scryfallId": "ea20208b-1939-4c69-8cfd-c0a42f9dc427",
     "legalities": {
@@ -22995,7 +23061,7 @@
   "user-fable-of-the-mirror-breaker-reflection-of-kiki-jiki": {
     "id": "user-fable-of-the-mirror-breaker-reflection-of-kiki-jiki",
     "name": "Fable of the Mirror-Breaker // Reflection of Kiki-Jiki",
-    "typeLine": "Enchantment — Saga // Enchantment Creature — Goblin Shaman",
+    "typeLine": "Enchantment \u2014 Saga // Enchantment Creature \u2014 Goblin Shaman",
     "manaCost": "{2}{R}",
     "manaValue": 3,
     "power": null,
@@ -23012,7 +23078,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "(As this Saga enters and after your draw step, add a lore counter.)\nI — Create a 2/2 red Goblin Shaman creature token with \"Whenever this token attacks, create a Treasure token.\"\nII — You may discard up to two cards. If you do, draw that many cards.\nIII — Exile this Saga, then return it to the battlefield transformed under your control.\n//\n{1}, {T}: Create a token that's a copy of another target nonlegendary creature you control, except it has haste. Sacrifice it at the beginning of the next end step.",
+    "oracleText": "(As this Saga enters and after your draw step, add a lore counter.)\nI \u2014 Create a 2/2 red Goblin Shaman creature token with \"Whenever this token attacks, create a Treasure token.\"\nII \u2014 You may discard up to two cards. If you do, draw that many cards.\nIII \u2014 Exile this Saga, then return it to the battlefield transformed under your control.\n//\n{1}, {T}: Create a token that's a copy of another target nonlegendary creature you control, except it has haste. Sacrifice it at the beginning of the next end step.",
     "image": "https://cards.scryfall.io/normal/front/2/4/24c0d87b-0049-4beb-b9cb-6f813b7aa7dc.jpg?1783923875",
     "scryfallId": "24c0d87b-0049-4beb-b9cb-6f813b7aa7dc",
     "legalities": {
@@ -23055,7 +23121,7 @@
           "amount": 1,
           "token": {
             "name": "Shaman Token",
-            "typeLine": "Token Creature — Shaman",
+            "typeLine": "Token Creature \u2014 Shaman",
             "subtypes": [
               "Shaman"
             ],
@@ -23193,7 +23259,7 @@
   "user-godless-shrine": {
     "id": "user-godless-shrine",
     "name": "Godless Shrine",
-    "typeLine": "Land — Plains Swamp",
+    "typeLine": "Land \u2014 Plains Swamp",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -23252,7 +23318,7 @@
   "user-goldberry-river-daughter": {
     "id": "user-goldberry-river-daughter",
     "name": "Goldberry, River-Daughter",
-    "typeLine": "Legendary Creature — Nymph",
+    "typeLine": "Legendary Creature \u2014 Nymph",
     "manaCost": "{1}{U}",
     "manaValue": 2,
     "power": 1,
@@ -23455,7 +23521,7 @@
   "user-in-the-darkness-bind-them": {
     "id": "user-in-the-darkness-bind-them",
     "name": "In the Darkness Bind Them",
-    "typeLine": "Enchantment — Saga",
+    "typeLine": "Enchantment \u2014 Saga",
     "manaCost": "{2}{U}{B}{R}",
     "manaValue": 5,
     "power": null,
@@ -23476,7 +23542,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after IV.)\nI, II, III — Create a 3/3 black Wraith creature token with menace. The Ring tempts you.\nIV — For each opponent, gain control of up to one target creature that player controls until end of turn. Untap those creatures. They gain haste until end of turn. The Ring tempts you.",
+    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after IV.)\nI, II, III \u2014 Create a 3/3 black Wraith creature token with menace. The Ring tempts you.\nIV \u2014 For each opponent, gain control of up to one target creature that player controls until end of turn. Untap those creatures. They gain haste until end of turn. The Ring tempts you.",
     "image": "https://cards.scryfall.io/normal/front/f/7/f7f7413b-0a65-4338-90eb-4b4c5462c21c.jpg?1783916019",
     "scryfallId": "f7f7413b-0a65-4338-90eb-4b4c5462c21c",
     "legalities": {
@@ -23519,7 +23585,7 @@
           "amount": 1,
           "token": {
             "name": "Wraith Token",
-            "typeLine": "Token Creature — Wraith",
+            "typeLine": "Token Creature \u2014 Wraith",
             "subtypes": [
               "Wraith"
             ],
@@ -23538,7 +23604,7 @@
           "amount": 1,
           "token": {
             "name": "Wraith Token",
-            "typeLine": "Token Creature — Wraith",
+            "typeLine": "Token Creature \u2014 Wraith",
             "subtypes": [
               "Wraith"
             ],
@@ -23557,7 +23623,7 @@
           "amount": 1,
           "token": {
             "name": "Wraith Token",
-            "typeLine": "Token Creature — Wraith",
+            "typeLine": "Token Creature \u2014 Wraith",
             "subtypes": [
               "Wraith"
             ],
@@ -23581,7 +23647,7 @@
   "user-indatha-triome": {
     "id": "user-indatha-triome",
     "name": "Indatha Triome",
-    "typeLine": "Land — Plains Swamp Forest",
+    "typeLine": "Land \u2014 Plains Swamp Forest",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -23642,7 +23708,7 @@
   "user-jugan-defends-the-temple-remnant-of-the-rising-star": {
     "id": "user-jugan-defends-the-temple-remnant-of-the-rising-star",
     "name": "Jugan Defends the Temple // Remnant of the Rising Star",
-    "typeLine": "Enchantment — Saga // Enchantment Creature — Dragon Spirit",
+    "typeLine": "Enchantment \u2014 Saga // Enchantment Creature \u2014 Dragon Spirit",
     "manaCost": "{2}{G}",
     "manaValue": 3,
     "power": null,
@@ -23668,7 +23734,7 @@
       }
     ],
     "spellEffects": [],
-    "oracleText": "(As this Saga enters and after your draw step, add a lore counter.)\nI — Create a 1/1 green Human Monk creature token with \"{T}: Add {G}.\"\nII — Put a +1/+1 counter on each of up to two target creatures.\nIII — Exile this Saga, then return it to the battlefield transformed under your control.\n//\nFlying\nWhenever another creature you control enters, you may pay {X}. When you do, put X +1/+1 counters on that creature.\nAs long as you control five or more modified creatures, this creature gets +5/+5 and has trample. (Equipment, Auras you control, and counters are modifications.)",
+    "oracleText": "(As this Saga enters and after your draw step, add a lore counter.)\nI \u2014 Create a 1/1 green Human Monk creature token with \"{T}: Add {G}.\"\nII \u2014 Put a +1/+1 counter on each of up to two target creatures.\nIII \u2014 Exile this Saga, then return it to the battlefield transformed under your control.\n//\nFlying\nWhenever another creature you control enters, you may pay {X}. When you do, put X +1/+1 counters on that creature.\nAs long as you control five or more modified creatures, this creature gets +5/+5 and has trample. (Equipment, Auras you control, and counters are modifications.)",
     "image": "https://cards.scryfall.io/normal/front/a/2/a22b5f27-f9e7-49e1-8e96-dc5d8e7fbe27.jpg?1783923851",
     "scryfallId": "a22b5f27-f9e7-49e1-8e96-dc5d8e7fbe27",
     "legalities": {
@@ -23711,7 +23777,7 @@
           "amount": 1,
           "token": {
             "name": "Monk Token",
-            "typeLine": "Token Creature — Monk",
+            "typeLine": "Token Creature \u2014 Monk",
             "subtypes": [
               "Monk"
             ],
@@ -23743,7 +23809,7 @@
   "user-jukai-naturalist": {
     "id": "user-jukai-naturalist",
     "name": "Jukai Naturalist",
-    "typeLine": "Enchantment Creature — Human Monk",
+    "typeLine": "Enchantment Creature \u2014 Human Monk",
     "manaCost": "{G}{W}",
     "manaValue": 2,
     "power": 2,
@@ -23799,7 +23865,7 @@
   "user-ketria-triome": {
     "id": "user-ketria-triome",
     "name": "Ketria Triome",
-    "typeLine": "Land — Forest Island Mountain",
+    "typeLine": "Land \u2014 Forest Island Mountain",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -23860,7 +23926,7 @@
   "user-kiora-bests-the-sea-god": {
     "id": "user-kiora-bests-the-sea-god",
     "name": "Kiora Bests the Sea God",
-    "typeLine": "Enchantment — Saga",
+    "typeLine": "Enchantment \u2014 Saga",
     "manaCost": "{5}{U}{U}",
     "manaValue": 7,
     "power": null,
@@ -23877,7 +23943,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — Create an 8/8 blue Kraken creature token with hexproof.\nII — Tap all nonland permanents target opponent controls. They don't untap during their controller's next untap step.\nIII — Gain control of target permanent an opponent controls. Untap it.",
+    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI \u2014 Create an 8/8 blue Kraken creature token with hexproof.\nII \u2014 Tap all nonland permanents target opponent controls. They don't untap during their controller's next untap step.\nIII \u2014 Gain control of target permanent an opponent controls. Untap it.",
     "image": "https://cards.scryfall.io/normal/front/2/b/2b604451-4f6c-4cfa-8d3a-01f18d01d88f.jpg?1783931583",
     "scryfallId": "2b604451-4f6c-4cfa-8d3a-01f18d01d88f",
     "legalities": {
@@ -23920,7 +23986,7 @@
           "amount": 1,
           "token": {
             "name": "Kraken Token",
-            "typeLine": "Token Creature — Kraken",
+            "typeLine": "Token Creature \u2014 Kraken",
             "subtypes": [
               "Kraken"
             ],
@@ -23963,9 +24029,21 @@
     "keywords": [],
     "abilities": [
       {
-        "type": "mana",
-        "mana": {
-          "C": 1
+        "type": "activated",
+        "tap": true,
+        "cost": {
+          "life": 1,
+          "sacrificeSelf": true
+        },
+        "effect": {
+          "type": "searchLand",
+          "basicOnly": false,
+          "landTypes": [
+            "Plains",
+            "Swamp"
+          ],
+          "destination": "battlefield",
+          "tapped": false
         }
       }
     ],
@@ -24015,9 +24093,21 @@
     "keywords": [],
     "abilities": [
       {
-        "type": "mana",
-        "mana": {
-          "C": 1
+        "type": "activated",
+        "tap": true,
+        "cost": {
+          "life": 1,
+          "sacrificeSelf": true
+        },
+        "effect": {
+          "type": "searchLand",
+          "basicOnly": false,
+          "landTypes": [
+            "Island",
+            "Forest"
+          ],
+          "destination": "battlefield",
+          "tapped": false
         }
       }
     ],
@@ -24056,7 +24146,7 @@
   "user-narci-fable-singer": {
     "id": "user-narci-fable-singer",
     "name": "Narci, Fable Singer",
-    "typeLine": "Legendary Creature — Human Bard",
+    "typeLine": "Legendary Creature \u2014 Human Bard",
     "manaCost": "{1}{W}{B}{G}",
     "manaValue": 4,
     "power": 3,
@@ -24114,7 +24204,7 @@
   "user-one-ring-to-rule-them-all": {
     "id": "user-one-ring-to-rule-them-all",
     "name": "One Ring to Rule Them All",
-    "typeLine": "Enchantment — Saga",
+    "typeLine": "Enchantment \u2014 Saga",
     "manaCost": "{2}{B}{B}",
     "manaValue": 4,
     "power": null,
@@ -24131,7 +24221,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — The Ring tempts you, then each player mills cards equal to your Ring-bearer's power.\nII — Destroy all nonlegendary creatures.\nIII — Each opponent loses 1 life for each creature card in that player's graveyard.",
+    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI \u2014 The Ring tempts you, then each player mills cards equal to your Ring-bearer's power.\nII \u2014 Destroy all nonlegendary creatures.\nIII \u2014 Each opponent loses 1 life for each creature card in that player's graveyard.",
     "image": "https://cards.scryfall.io/normal/front/b/b/bb2dc2e0-f393-4442-818b-d3b860bfffd0.jpg?1783916298",
     "scryfallId": "bb2dc2e0-f393-4442-818b-d3b860bfffd0",
     "legalities": {
@@ -24195,7 +24285,7 @@
   "user-overgrown-tomb": {
     "id": "user-overgrown-tomb",
     "name": "Overgrown Tomb",
-    "typeLine": "Land — Swamp Forest",
+    "typeLine": "Land \u2014 Swamp Forest",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -24265,9 +24355,21 @@
     "keywords": [],
     "abilities": [
       {
-        "type": "mana",
-        "mana": {
-          "C": 1
+        "type": "activated",
+        "tap": true,
+        "cost": {
+          "life": 1,
+          "sacrificeSelf": true
+        },
+        "effect": {
+          "type": "searchLand",
+          "basicOnly": false,
+          "landTypes": [
+            "Island",
+            "Swamp"
+          ],
+          "destination": "battlefield",
+          "tapped": false
         }
       }
     ],
@@ -24321,7 +24423,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "Suspend 2—{1}{W} (Rather than cast this card from your hand, pay {1}{W} and exile it with two time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)\nReturn all enchantment cards from your graveyard to the battlefield. (Auras with nothing to enchant remain in your graveyard.)",
+    "oracleText": "Suspend 2\u2014{1}{W} (Rather than cast this card from your hand, pay {1}{W} and exile it with two time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)\nReturn all enchantment cards from your graveyard to the battlefield. (Auras with nothing to enchant remain in your graveyard.)",
     "image": "https://cards.scryfall.io/normal/front/0/1/01880c6f-be00-48b5-913f-ec6c80ced184.jpg?1783926887",
     "scryfallId": "01880c6f-be00-48b5-913f-ec6c80ced184",
     "legalities": {
@@ -24404,7 +24506,7 @@
   "user-satsuki-the-living-lore": {
     "id": "user-satsuki-the-living-lore",
     "name": "Satsuki, the Living Lore",
-    "typeLine": "Legendary Creature — Human Druid",
+    "typeLine": "Legendary Creature \u2014 Human Druid",
     "manaCost": "{G}{W}",
     "manaValue": 2,
     "power": 1,
@@ -24424,7 +24526,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "{T}: Put a lore counter on each Saga you control. Activate only as a sorcery.\nWhen Satsuki dies, choose up to one —\n• Return target Saga or enchantment creature you control to its owner's hand.\n• Return target Saga card from your graveyard to your hand.",
+    "oracleText": "{T}: Put a lore counter on each Saga you control. Activate only as a sorcery.\nWhen Satsuki dies, choose up to one \u2014\n\u2022 Return target Saga or enchantment creature you control to its owner's hand.\n\u2022 Return target Saga card from your graveyard to your hand.",
     "image": "https://cards.scryfall.io/normal/front/0/1/0152575b-31b0-4142-9cc2-b87a81bd51a8.jpg?1783923830",
     "scryfallId": "0152575b-31b0-4142-9cc2-b87a81bd51a8",
     "legalities": {
@@ -24458,7 +24560,7 @@
   "user-scroll-of-isildur": {
     "id": "user-scroll-of-isildur",
     "name": "Scroll of Isildur",
-    "typeLine": "Enchantment — Saga",
+    "typeLine": "Enchantment \u2014 Saga",
     "manaCost": "{2}{U}",
     "manaValue": 3,
     "power": null,
@@ -24475,7 +24577,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — Gain control of up to one target artifact for as long as you control this Saga. The Ring tempts you.\nII — Tap up to two target creatures. Put a stun counter on each of them.\nIII — Draw a card for each tapped creature target opponent controls.",
+    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI \u2014 Gain control of up to one target artifact for as long as you control this Saga. The Ring tempts you.\nII \u2014 Tap up to two target creatures. Put a stun counter on each of them.\nIII \u2014 Draw a card for each tapped creature target opponent controls.",
     "image": "https://cards.scryfall.io/normal/front/1/9/195821f4-ba3d-4412-930f-f3656b319dfd.jpg?1783916311",
     "scryfallId": "195821f4-ba3d-4412-930f-f3656b319dfd",
     "legalities": {
@@ -24539,7 +24641,7 @@
   "user-sigurd-jarl-of-ravensthorpe": {
     "id": "user-sigurd-jarl-of-ravensthorpe",
     "name": "Sigurd, Jarl of Ravensthorpe",
-    "typeLine": "Legendary Creature — Human Warrior",
+    "typeLine": "Legendary Creature \u2014 Human Warrior",
     "manaCost": "{R}{G}{W}",
     "manaValue": 3,
     "power": 3,
@@ -24565,7 +24667,7 @@
     ],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "Vigilance, trample, lifelink\nBoast — {1}: Put a lore counter on target Saga you control or remove one from it. (Activate only if this creature attacked this turn and only once each turn.)\nWhenever you put a lore counter on a Saga you control, put a +1/+1 counter on up to one other target creature.",
+    "oracleText": "Vigilance, trample, lifelink\nBoast \u2014 {1}: Put a lore counter on target Saga you control or remove one from it. (Activate only if this creature attacked this turn and only once each turn.)\nWhenever you put a lore counter on a Saga you control, put a +1/+1 counter on up to one other target creature.",
     "image": "https://cards.scryfall.io/normal/front/2/5/25ceade9-f12a-4724-b198-312fb4b1210b.jpg?1783910967",
     "scryfallId": "25ceade9-f12a-4724-b198-312fb4b1210b",
     "legalities": {
@@ -24599,7 +24701,7 @@
   "user-spara-s-headquarters": {
     "id": "user-spara-s-headquarters",
     "name": "Spara's Headquarters",
-    "typeLine": "Land — Forest Plains Island",
+    "typeLine": "Land \u2014 Forest Plains Island",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -24760,7 +24862,7 @@
   "user-stomping-ground": {
     "id": "user-stomping-ground",
     "name": "Stomping Ground",
-    "typeLine": "Land — Mountain Forest",
+    "typeLine": "Land \u2014 Mountain Forest",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -24819,7 +24921,7 @@
   "user-summon-bahamut": {
     "id": "user-summon-bahamut",
     "name": "Summon: Bahamut",
-    "typeLine": "Enchantment Creature — Saga Dragon",
+    "typeLine": "Enchantment Creature \u2014 Saga Dragon",
     "manaCost": "{9}",
     "manaValue": 9,
     "power": 9,
@@ -24835,7 +24937,7 @@
     ],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after IV.)\nI, II — Destroy up to one target nonland permanent.\nIII — Draw two cards.\nIV — Mega Flare — This creature deals damage equal to the total mana value of other permanents you control to each opponent.\nFlying",
+    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after IV.)\nI, II \u2014 Destroy up to one target nonland permanent.\nIII \u2014 Draw two cards.\nIV \u2014 Mega Flare \u2014 This creature deals damage equal to the total mana value of other permanents you control to each opponent.\nFlying",
     "image": "https://cards.scryfall.io/normal/front/9/5/95318d85-4a08-47ac-a43d-ea83c0bea81c.jpg?1783906656",
     "scryfallId": "95318d85-4a08-47ac-a43d-ea83c0bea81c",
     "legalities": {
@@ -24896,7 +24998,7 @@
       },
       {
         "number": 4,
-        "text": "Mega Flare — This creature deals damage equal to the total mana value of other permanents you control to each opponent.",
+        "text": "Mega Flare \u2014 This creature deals damage equal to the total mana value of other permanents you control to each opponent.",
         "effect": {
           "type": "sequence",
           "effects": []
@@ -24907,7 +25009,7 @@
   "user-summon-knights-of-round": {
     "id": "user-summon-knights-of-round",
     "name": "Summon: Knights of Round",
-    "typeLine": "Enchantment Creature — Saga Knight",
+    "typeLine": "Enchantment Creature \u2014 Saga Knight",
     "manaCost": "{6}{W}{W}",
     "manaValue": 8,
     "power": 3,
@@ -24927,7 +25029,7 @@
     ],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after V.)\nI, II, III, IV — Create three 2/2 white Knight creature tokens.\nV — Ultimate End — Other creatures you control get +2/+2 until end of turn. Put an indestructible counter on each of them.\nIndestructible",
+    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after V.)\nI, II, III, IV \u2014 Create three 2/2 white Knight creature tokens.\nV \u2014 Ultimate End \u2014 Other creatures you control get +2/+2 until end of turn. Put an indestructible counter on each of them.\nIndestructible",
     "image": "https://cards.scryfall.io/normal/front/4/4/44d23652-077e-4c1f-b640-b284685db911.jpg?1783906644",
     "scryfallId": "44d23652-077e-4c1f-b640-b284685db911",
     "legalities": {
@@ -24970,7 +25072,7 @@
           "amount": 3,
           "token": {
             "name": "Knight Token",
-            "typeLine": "Token Creature — Knight",
+            "typeLine": "Token Creature \u2014 Knight",
             "subtypes": [
               "Knight"
             ],
@@ -24989,7 +25091,7 @@
           "amount": 3,
           "token": {
             "name": "Knight Token",
-            "typeLine": "Token Creature — Knight",
+            "typeLine": "Token Creature \u2014 Knight",
             "subtypes": [
               "Knight"
             ],
@@ -25008,7 +25110,7 @@
           "amount": 3,
           "token": {
             "name": "Knight Token",
-            "typeLine": "Token Creature — Knight",
+            "typeLine": "Token Creature \u2014 Knight",
             "subtypes": [
               "Knight"
             ],
@@ -25027,7 +25129,7 @@
           "amount": 3,
           "token": {
             "name": "Knight Token",
-            "typeLine": "Token Creature — Knight",
+            "typeLine": "Token Creature \u2014 Knight",
             "subtypes": [
               "Knight"
             ],
@@ -25040,7 +25142,7 @@
       },
       {
         "number": 5,
-        "text": "Ultimate End — Other creatures you control get +2/+2 until end of turn. Put an indestructible counter on each of them.",
+        "text": "Ultimate End \u2014 Other creatures you control get +2/+2 until end of turn. Put an indestructible counter on each of them.",
         "effect": {
           "type": "sequence",
           "effects": []
@@ -25051,7 +25153,7 @@
   "user-summon-primal-odin": {
     "id": "user-summon-primal-odin",
     "name": "Summon: Primal Odin",
-    "typeLine": "Enchantment Creature — Saga Knight",
+    "typeLine": "Enchantment Creature \u2014 Saga Knight",
     "manaCost": "{4}{B}{B}",
     "manaValue": 6,
     "power": 5,
@@ -25069,7 +25171,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — Gungnir — Destroy target creature an opponent controls.\nII — Zantetsuken — This creature gains \"Whenever this creature deals combat damage to a player, that player loses the game.\"\nIII — Hall of Sorrow — Draw two cards. Each player loses 2 life.",
+    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI \u2014 Gungnir \u2014 Destroy target creature an opponent controls.\nII \u2014 Zantetsuken \u2014 This creature gains \"Whenever this creature deals combat damage to a player, that player loses the game.\"\nIII \u2014 Hall of Sorrow \u2014 Draw two cards. Each player loses 2 life.",
     "image": "https://cards.scryfall.io/normal/front/8/b/8b1b5f06-e34d-44a3-976e-5157c4b7a0f4.jpg?1783906611",
     "scryfallId": "8b1b5f06-e34d-44a3-976e-5157c4b7a0f4",
     "legalities": {
@@ -25106,7 +25208,7 @@
     "sagaChapters": [
       {
         "number": 1,
-        "text": "Gungnir — Destroy target creature an opponent controls.",
+        "text": "Gungnir \u2014 Destroy target creature an opponent controls.",
         "effect": {
           "type": "destroy"
         },
@@ -25117,7 +25219,7 @@
       },
       {
         "number": 2,
-        "text": "Zantetsuken — This creature gains \"Whenever this creature deals combat damage to a player, that player loses the game.\"",
+        "text": "Zantetsuken \u2014 This creature gains \"Whenever this creature deals combat damage to a player, that player loses the game.\"",
         "effect": {
           "type": "sequence",
           "effects": []
@@ -25125,7 +25227,7 @@
       },
       {
         "number": 3,
-        "text": "Hall of Sorrow — Draw two cards. Each player loses 2 life.",
+        "text": "Hall of Sorrow \u2014 Draw two cards. Each player loses 2 life.",
         "effect": {
           "type": "draw",
           "amount": 2
@@ -25136,7 +25238,7 @@
   "user-summon-yojimbo": {
     "id": "user-summon-yojimbo",
     "name": "Summon: Yojimbo",
-    "typeLine": "Enchantment Creature — Saga Samurai",
+    "typeLine": "Enchantment Creature \u2014 Saga Samurai",
     "manaCost": "{3}{W}",
     "manaValue": 4,
     "power": 5,
@@ -25156,7 +25258,7 @@
     ],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after IV.)\nI — Exile target artifact, enchantment, or tapped creature an opponent controls.\nII, III — Until your next turn, creatures can't attack you unless their controller pays {2} for each of those creatures.\nIV — Create X Treasure tokens, where X is the number of opponents who control a creature with power 4 or greater.\nVigilance",
+    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after IV.)\nI \u2014 Exile target artifact, enchantment, or tapped creature an opponent controls.\nII, III \u2014 Until your next turn, creatures can't attack you unless their controller pays {2} for each of those creatures.\nIV \u2014 Create X Treasure tokens, where X is the number of opponents who control a creature with power 4 or greater.\nVigilance",
     "image": "https://cards.scryfall.io/normal/front/c/d/cdbc2d28-ea35-47c6-af7e-07924e9d5794.jpg?1783906365",
     "scryfallId": "cdbc2d28-ea35-47c6-af7e-07924e9d5794",
     "legalities": {
@@ -25235,7 +25337,7 @@
   "user-sythis-harvest-s-hand": {
     "id": "user-sythis-harvest-s-hand",
     "name": "Sythis, Harvest's Hand",
-    "typeLine": "Legendary Enchantment Creature — Nymph",
+    "typeLine": "Legendary Enchantment Creature \u2014 Nymph",
     "manaCost": "{G}{W}",
     "manaValue": 2,
     "power": 1,
@@ -25337,7 +25439,7 @@
   "user-temple-garden": {
     "id": "user-temple-garden",
     "name": "Temple Garden",
-    "typeLine": "Land — Forest Plains",
+    "typeLine": "Land \u2014 Forest Plains",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -25396,7 +25498,7 @@
   "user-the-akroan-war": {
     "id": "user-the-akroan-war",
     "name": "The Akroan War",
-    "typeLine": "Enchantment — Saga",
+    "typeLine": "Enchantment \u2014 Saga",
     "manaCost": "{3}{R}",
     "manaValue": 4,
     "power": null,
@@ -25413,7 +25515,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — Gain control of target creature for as long as this Saga remains on the battlefield.\nII — Until your next turn, creatures your opponents control attack each combat if able.\nIII — Each tapped creature deals damage to itself equal to its power.",
+    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI \u2014 Gain control of target creature for as long as this Saga remains on the battlefield.\nII \u2014 Until your next turn, creatures your opponents control attack each combat if able.\nIII \u2014 Each tapped creature deals damage to itself equal to its power.",
     "image": "https://cards.scryfall.io/normal/front/7/8/78161e60-878a-45a2-aced-40b739bd0a07.jpg?1783922432",
     "scryfallId": "78161e60-878a-45a2-aced-40b739bd0a07",
     "legalities": {
@@ -25477,7 +25579,7 @@
   "user-the-cruelty-of-gix": {
     "id": "user-the-cruelty-of-gix",
     "name": "The Cruelty of Gix",
-    "typeLine": "Enchantment — Saga",
+    "typeLine": "Enchantment \u2014 Saga",
     "manaCost": "{3}{B}{B}",
     "manaValue": 5,
     "power": null,
@@ -25494,7 +25596,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "Read ahead (Choose a chapter and start with that many lore counters. Add one after your draw step. Skipped chapters don't trigger. Sacrifice after III.)\nI — Target opponent reveals their hand. You choose a creature or planeswalker card from it. That player discards that card.\nII — Search your library for a card, put that card into your hand, then shuffle. You lose 3 life.\nIII — Put target creature card from a graveyard onto the battlefield under your control.",
+    "oracleText": "Read ahead (Choose a chapter and start with that many lore counters. Add one after your draw step. Skipped chapters don't trigger. Sacrifice after III.)\nI \u2014 Target opponent reveals their hand. You choose a creature or planeswalker card from it. That player discards that card.\nII \u2014 Search your library for a card, put that card into your hand, then shuffle. You lose 3 life.\nIII \u2014 Put target creature card from a graveyard onto the battlefield under your control.",
     "image": "https://cards.scryfall.io/normal/front/3/d/3d6e5eb3-25ab-4e9e-96e8-655e0ce74675.jpg?1783921334",
     "scryfallId": "3d6e5eb3-25ab-4e9e-96e8-655e0ce74675",
     "legalities": {
@@ -25558,7 +25660,7 @@
   "user-the-eldest-reborn": {
     "id": "user-the-eldest-reborn",
     "name": "The Eldest Reborn",
-    "typeLine": "Enchantment — Saga",
+    "typeLine": "Enchantment \u2014 Saga",
     "manaCost": "{4}{B}",
     "manaValue": 5,
     "power": null,
@@ -25575,7 +25677,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — Each opponent sacrifices a creature or planeswalker of their choice.\nII — Each opponent discards a card.\nIII — Put target creature or planeswalker card from a graveyard onto the battlefield under your control.",
+    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI \u2014 Each opponent sacrifices a creature or planeswalker of their choice.\nII \u2014 Each opponent discards a card.\nIII \u2014 Put target creature or planeswalker card from a graveyard onto the battlefield under your control.",
     "image": "https://cards.scryfall.io/normal/front/4/d/4d29351e-5608-40e8-8220-6c9635d48ad4.jpg?1783909619",
     "scryfallId": "4d29351e-5608-40e8-8220-6c9635d48ad4",
     "legalities": {
@@ -25639,7 +25741,7 @@
   "user-the-first-iroan-games": {
     "id": "user-the-first-iroan-games",
     "name": "The First Iroan Games",
-    "typeLine": "Enchantment — Saga",
+    "typeLine": "Enchantment \u2014 Saga",
     "manaCost": "{2}{G}",
     "manaValue": 3,
     "power": null,
@@ -25669,7 +25771,7 @@
       }
     ],
     "spellEffects": [],
-    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after IV.)\nI — Create a 1/1 white Human Soldier creature token.\nII — Put three +1/+1 counters on target creature you control.\nIII — If you control a creature with power 4 or greater, draw two cards.\nIV — Create a Gold token. (It's an artifact with \"Sacrifice this token: Add one mana of any color.\")",
+    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after IV.)\nI \u2014 Create a 1/1 white Human Soldier creature token.\nII \u2014 Put three +1/+1 counters on target creature you control.\nIII \u2014 If you control a creature with power 4 or greater, draw two cards.\nIV \u2014 Create a Gold token. (It's an artifact with \"Sacrifice this token: Add one mana of any color.\")",
     "image": "https://cards.scryfall.io/normal/front/4/b/4b05ada5-8e5f-4158-bd28-e6c24e4a2299.jpg?1783931539",
     "scryfallId": "4b05ada5-8e5f-4158-bd28-e6c24e4a2299",
     "legalities": {
@@ -25712,7 +25814,7 @@
           "amount": 1,
           "token": {
             "name": "Soldier Token",
-            "typeLine": "Token Creature — Soldier",
+            "typeLine": "Token Creature \u2014 Soldier",
             "subtypes": [
               "Soldier"
             ],
@@ -25752,7 +25854,7 @@
   "user-the-horus-heresy": {
     "id": "user-the-horus-heresy",
     "name": "The Horus Heresy",
-    "typeLine": "Enchantment — Saga",
+    "typeLine": "Enchantment \u2014 Saga",
     "manaCost": "{3}{U}{B}{R}",
     "manaValue": 6,
     "power": null,
@@ -25773,7 +25875,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — For each opponent, gain control of up to one target nonlegendary creature that player controls for as long as this Saga remains on the battlefield.\nII — Draw a card for each creature you control but don't own.\nIII — Starting with you, each player chooses a creature. Destroy each creature chosen this way.",
+    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI \u2014 For each opponent, gain control of up to one target nonlegendary creature that player controls for as long as this Saga remains on the battlefield.\nII \u2014 Draw a card for each creature you control but don't own.\nIII \u2014 Starting with you, each player chooses a creature. Destroy each creature chosen this way.",
     "image": "https://cards.scryfall.io/normal/front/c/9/c9551a51-2bbd-425b-a634-185921a96865.jpg?1783920846",
     "scryfallId": "c9551a51-2bbd-425b-a634-185921a96865",
     "legalities": {
@@ -25837,7 +25939,7 @@
   "user-the-kami-war-o-kagachi-made-manifest": {
     "id": "user-the-kami-war-o-kagachi-made-manifest",
     "name": "The Kami War // O-Kagachi Made Manifest",
-    "typeLine": "Enchantment — Saga // Enchantment Creature — Dragon Spirit",
+    "typeLine": "Enchantment \u2014 Saga // Enchantment Creature \u2014 Dragon Spirit",
     "manaCost": "{1}{W}{U}{B}{R}{G}",
     "manaValue": 6,
     "power": null,
@@ -25865,7 +25967,7 @@
     ],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "(As this Saga enters and after your draw step, add a lore counter.)\nI — Exile target nonland permanent an opponent controls.\nII — Return up to one other target nonland permanent to its owner's hand. Then each opponent discards a card.\nIII — Exile this Saga, then return it to the battlefield transformed under your control.\n//\nO-Kagachi Made Manifest is all colors.\nFlying, trample\nWhenever this creature attacks, defending player chooses a nonland card in your graveyard. Return that card to your hand. This creature gets +X/+0 until end of turn, where X is the mana value of that card.",
+    "oracleText": "(As this Saga enters and after your draw step, add a lore counter.)\nI \u2014 Exile target nonland permanent an opponent controls.\nII \u2014 Return up to one other target nonland permanent to its owner's hand. Then each opponent discards a card.\nIII \u2014 Exile this Saga, then return it to the battlefield transformed under your control.\n//\nO-Kagachi Made Manifest is all colors.\nFlying, trample\nWhenever this creature attacks, defending player chooses a nonland card in your graveyard. Return that card to your hand. This creature gets +X/+0 until end of turn, where X is the mana value of that card.",
     "image": "https://cards.scryfall.io/normal/front/3/6/36052532-5028-43a8-9fc4-56221ec867fd.jpg?1783923839",
     "scryfallId": "36052532-5028-43a8-9fc4-56221ec867fd",
     "legalities": {
@@ -25932,7 +26034,7 @@
   "user-the-restoration-of-eiganjo-architect-of-restoration": {
     "id": "user-the-restoration-of-eiganjo-architect-of-restoration",
     "name": "The Restoration of Eiganjo // Architect of Restoration",
-    "typeLine": "Enchantment — Saga // Enchantment Creature — Fox Monk",
+    "typeLine": "Enchantment \u2014 Saga // Enchantment Creature \u2014 Fox Monk",
     "manaCost": "{2}{W}",
     "manaValue": 3,
     "power": null,
@@ -25951,7 +26053,7 @@
     ],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "(As this Saga enters and after your draw step, add a lore counter.)\nI — Search your library for a basic Plains card, reveal it, put it into your hand, then shuffle.\nII — You may discard a card. When you do, return target permanent card with mana value 2 or less from your graveyard to the battlefield tapped.\nIII — Exile this Saga, then return it to the battlefield transformed under your control.\n//\nVigilance\nWhenever this creature attacks or blocks, create a 1/1 colorless Spirit creature token.",
+    "oracleText": "(As this Saga enters and after your draw step, add a lore counter.)\nI \u2014 Search your library for a basic Plains card, reveal it, put it into your hand, then shuffle.\nII \u2014 You may discard a card. When you do, return target permanent card with mana value 2 or less from your graveyard to the battlefield tapped.\nIII \u2014 Exile this Saga, then return it to the battlefield transformed under your control.\n//\nVigilance\nWhenever this creature attacks or blocks, create a 1/1 colorless Spirit creature token.",
     "image": "https://cards.scryfall.io/normal/front/a/1/a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc.jpg?1783923920",
     "scryfallId": "a11a33ae-e7fa-4bd4-8cd8-3a3239a29bcc",
     "legalities": {
@@ -26015,7 +26117,7 @@
   "user-the-weatherseed-treaty": {
     "id": "user-the-weatherseed-treaty",
     "name": "The Weatherseed Treaty",
-    "typeLine": "Enchantment — Saga",
+    "typeLine": "Enchantment \u2014 Saga",
     "manaCost": "{2}{G}",
     "manaValue": 3,
     "power": null,
@@ -26032,7 +26134,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "Read ahead (Choose a chapter and start with that many lore counters. Add one after your draw step. Skipped chapters don't trigger. Sacrifice after III.)\nI — Search your library for a basic land card, put it onto the battlefield tapped, then shuffle.\nII — Create a 1/1 green Saproling creature token.\nIII — Domain — Target creature you control gets +X/+X and gains trample until end of turn, where X is the number of basic land types among lands you control.",
+    "oracleText": "Read ahead (Choose a chapter and start with that many lore counters. Add one after your draw step. Skipped chapters don't trigger. Sacrifice after III.)\nI \u2014 Search your library for a basic land card, put it onto the battlefield tapped, then shuffle.\nII \u2014 Create a 1/1 green Saproling creature token.\nIII \u2014 Domain \u2014 Target creature you control gets +X/+X and gains trample until end of turn, where X is the number of basic land types among lands you control.",
     "image": "https://cards.scryfall.io/normal/front/e/2/e2a54461-1f75-4304-b6d7-635171419456.jpg?1783921290",
     "scryfallId": "e2a54461-1f75-4304-b6d7-635171419456",
     "legalities": {
@@ -26083,7 +26185,7 @@
           "amount": 1,
           "token": {
             "name": "Saproling Token",
-            "typeLine": "Token Creature — Saproling",
+            "typeLine": "Token Creature \u2014 Saproling",
             "subtypes": [
               "Saproling"
             ],
@@ -26096,7 +26198,7 @@
       },
       {
         "number": 3,
-        "text": "Domain — Target creature you control gets +X/+X and gains trample until end of turn, where X is the number of basic land types among lands you control.",
+        "text": "Domain \u2014 Target creature you control gets +X/+X and gains trample until end of turn, where X is the number of basic land types among lands you control.",
         "effect": {
           "type": "sequence",
           "effects": []
@@ -26172,7 +26274,7 @@
   "user-there-and-back-again": {
     "id": "user-there-and-back-again",
     "name": "There and Back Again",
-    "typeLine": "Enchantment — Saga",
+    "typeLine": "Enchantment \u2014 Saga",
     "manaCost": "{3}{R}{R}",
     "manaValue": 5,
     "power": null,
@@ -26191,7 +26293,7 @@
     ],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — Up to one target creature can't block for as long as you control this Saga. The Ring tempts you.\nII — Search your library for a Mountain card, put it onto the battlefield, then shuffle.\nIII — Create Smaug, a legendary 6/6 red Dragon creature token with flying, haste, and \"When Smaug dies, create fourteen Treasure tokens.\"",
+    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI \u2014 Up to one target creature can't block for as long as you control this Saga. The Ring tempts you.\nII \u2014 Search your library for a Mountain card, put it onto the battlefield, then shuffle.\nIII \u2014 Create Smaug, a legendary 6/6 red Dragon creature token with flying, haste, and \"When Smaug dies, create fourteen Treasure tokens.\"",
     "image": "https://cards.scryfall.io/normal/front/9/3/939b0bd0-24ea-45de-a2d3-37bbf6a3e6f9.jpg?1783916275",
     "scryfallId": "939b0bd0-24ea-45de-a2d3-37bbf6a3e6f9",
     "legalities": {
@@ -26304,7 +26406,7 @@
   "user-tom-bombadil": {
     "id": "user-tom-bombadil",
     "name": "Tom Bombadil",
-    "typeLine": "Legendary Creature — God Bard",
+    "typeLine": "Legendary Creature \u2014 God Bard",
     "manaCost": "{W}{U}{B}{R}{G}",
     "manaValue": 5,
     "power": 4,
@@ -26390,7 +26492,7 @@
   "user-urza-s-saga": {
     "id": "user-urza-s-saga",
     "name": "Urza's Saga",
-    "typeLine": "Enchantment Land — Urza's Saga",
+    "typeLine": "Enchantment Land \u2014 Urza's Saga",
     "manaCost": "",
     "manaValue": 0,
     "power": null,
@@ -26411,7 +26513,7 @@
       }
     ],
     "spellEffects": [],
-    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — This Saga gains \"{T}: Add {C}.\"\nII — This Saga gains \"{2}, {T}: Create a 0/0 colorless Construct artifact creature token with 'This token gets +1/+1 for each artifact you control.'\"\nIII — Search your library for an artifact card with mana cost {0} or {1}, put it onto the battlefield, then shuffle.",
+    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI \u2014 This Saga gains \"{T}: Add {C}.\"\nII \u2014 This Saga gains \"{2}, {T}: Create a 0/0 colorless Construct artifact creature token with 'This token gets +1/+1 for each artifact you control.'\"\nIII \u2014 Search your library for an artifact card with mana cost {0} or {1}, put it onto the battlefield, then shuffle.",
     "image": "https://cards.scryfall.io/normal/front/c/1/c1e0f201-42cb-46a1-901a-65bb4fc18f6c.jpg?1783926791",
     "scryfallId": "c1e0f201-42cb-46a1-901a-65bb4fc18f6c",
     "legalities": {
@@ -26462,7 +26564,7 @@
           "amount": 1,
           "token": {
             "name": "artifact Token",
-            "typeLine": "Token Creature — artifact",
+            "typeLine": "Token Creature \u2014 artifact",
             "subtypes": [
               "artifact"
             ],
@@ -26546,9 +26648,21 @@
     "keywords": [],
     "abilities": [
       {
-        "type": "mana",
-        "mana": {
-          "C": 1
+        "type": "activated",
+        "tap": true,
+        "cost": {
+          "life": 1,
+          "sacrificeSelf": true
+        },
+        "effect": {
+          "type": "searchLand",
+          "basicOnly": false,
+          "landTypes": [
+            "Swamp",
+            "Forest"
+          ],
+          "destination": "battlefield",
+          "tapped": false
         }
       }
     ],
@@ -26587,7 +26701,7 @@
   "user-war-of-the-last-alliance": {
     "id": "user-war-of-the-last-alliance",
     "name": "War of the Last Alliance",
-    "typeLine": "Enchantment — Saga",
+    "typeLine": "Enchantment \u2014 Saga",
     "manaCost": "{3}{W}",
     "manaValue": 4,
     "power": null,
@@ -26604,7 +26718,7 @@
     "keywords": [],
     "abilities": [],
     "spellEffects": [],
-    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI, II — Search your library for a legendary creature card, reveal it, put it into your hand, then shuffle.\nIII — Creatures you control gain double strike until end of turn. The Ring tempts you.",
+    "oracleText": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI, II \u2014 Search your library for a legendary creature card, reveal it, put it into your hand, then shuffle.\nIII \u2014 Creatures you control gain double strike until end of turn. The Ring tempts you.",
     "image": "https://cards.scryfall.io/normal/front/6/0/60ddf2cd-5b33-4c8a-a610-8e6a15404dde.jpg?1783916322",
     "scryfallId": "60ddf2cd-5b33-4c8a-a610-8e6a15404dde",
     "legalities": {
@@ -26668,7 +26782,7 @@
   "user-weaver-of-harmony": {
     "id": "user-weaver-of-harmony",
     "name": "Weaver of Harmony",
-    "typeLine": "Enchantment Creature — Snake Druid",
+    "typeLine": "Enchantment Creature \u2014 Snake Druid",
     "manaCost": "{1}{G}",
     "manaValue": 2,
     "power": 2,
@@ -26731,9 +26845,21 @@
     "keywords": [],
     "abilities": [
       {
-        "type": "mana",
-        "mana": {
-          "C": 1
+        "type": "activated",
+        "tap": true,
+        "cost": {
+          "life": 1,
+          "sacrificeSelf": true
+        },
+        "effect": {
+          "type": "searchLand",
+          "basicOnly": false,
+          "landTypes": [
+            "Plains",
+            "Forest"
+          ],
+          "destination": "battlefield",
+          "tapped": false
         }
       }
     ],
@@ -26783,9 +26909,21 @@
     "keywords": [],
     "abilities": [
       {
-        "type": "mana",
-        "mana": {
-          "C": 1
+        "type": "activated",
+        "tap": true,
+        "cost": {
+          "life": 1,
+          "sacrificeSelf": true
+        },
+        "effect": {
+          "type": "searchLand",
+          "basicOnly": false,
+          "landTypes": [
+            "Mountain",
+            "Forest"
+          ],
+          "destination": "battlefield",
+          "tapped": false
         }
       }
     ],
@@ -26824,7 +26962,7 @@
   "user-yenna-redtooth-regent": {
     "id": "user-yenna-redtooth-regent",
     "name": "Yenna, Redtooth Regent",
-    "typeLine": "Legendary Creature — Elf Noble",
+    "typeLine": "Legendary Creature \u2014 Elf Noble",
     "manaCost": "{2}{G}{W}",
     "manaValue": 4,
     "power": 4,
@@ -26878,7 +27016,7 @@
   "user-zagoth-triome": {
     "id": "user-zagoth-triome",
     "name": "Zagoth Triome",
-    "typeLine": "Land — Swamp Forest Island",
+    "typeLine": "Land \u2014 Swamp Forest Island",
     "manaCost": "",
     "manaValue": 0,
     "power": null,

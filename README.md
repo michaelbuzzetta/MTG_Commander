@@ -95,3 +95,38 @@ Combat is defender-aware. When you attack in a 3- or 4-player game, choose an op
 AI opponents now evaluate opening hands, mana development, normal spells, commanders, activated abilities, targets, attacks, and blocks instead of following a simple "land, then highest-mana-value card" rule. The heuristics prioritize early ramp and curve development, value card draw more when the hand is small, prefer removal against meaningful opposing threats, reduce the priority of repeatedly taxed commanders, hold flexible interaction when there is no useful target, and avoid obviously bad attacks or blocks. This remains a deterministic rules-based game AI rather than a machine-learning model, so its decisions stay testable and reproducible.
 
 Opponent seats also show the AI's latest meaningful action. A normal land play is explicitly labeled **land play costs 0 mana**; the engine records `manaSpent: 0` on `LAND_PLAYED` events and never taps mana sources or deducts from a mana pool simply to play a land. Lands that enter tapped because of their own card text may still appear tapped.
+
+## Commander Deck Builder
+
+The home screen now includes **Build a Commander Deck**, an Arena-inspired visual deck-building workspace. The builder works from the trainer's current playable card database so every recommendation is a card the local simulator can resolve.
+
+- Choose a supported commander from a visual card grid.
+- The builder detects themes from the commander's Oracle text, including creature-type payoffs, counters, tokens, Sagas, artifacts, legends, combat, graveyard, lands, and spellslinger strategies.
+- Commander color identity is enforced before cards enter the recommendation pool.
+- Recommendations receive a deterministic synergy score and a short reason such as tribal synergy, card advantage, interaction, protection, or a matching commander mechanic.
+- Filter the collection by role or search names, type lines, and rules text.
+- Build manually or use **Auto Build 99**. Automatic builds target a balanced Commander shell with 37 lands plus ramp, card draw, removal, board wipes, protection, tutors, and the highest-scoring synergy cards. Basic-land quantities are distributed using the color pips in the selected deck.
+- The right-side deck panel shows the 99-card count, role totals, and mana curve in real time.
+- **Save Deck & Return** validates the final Commander list, stores it through the existing custom-deck `localStorage` system, selects it on the home screen, and makes it immediately available for play.
+
+The visual design intentionally follows the interaction pattern of MTG Arena's deck editor—dark collection browser, large card-art tiles, commander panel, compact deck column, orange/gold completion controls—without depending on Arena assets.
+
+## Full MTG card catalog (Scryfall bulk sync)
+
+The trainer now maintains two intentionally separate card layers:
+
+1. `src/data/generated/cards.json` remains the authoritative, hand-tested gameplay database. Existing decks, rules tests, AI behavior, and tuned card implementations continue to use it.
+2. A complete Scryfall `oracle_cards` catalog is checked whenever the app starts. It is cached at `.cache/scryfall/card-catalog.json` and exposed to the Arena-style Commander builder through the Vite server.
+
+Run `npm run dev` (or `start.bat`) normally. The `predev` hook runs `npm run sync-cards`, which checks Scryfall's bulk-data metadata on every launch. If Scryfall has a newer bulk snapshot, the application downloads and atomically replaces the local catalog. If the snapshot has not changed, it reuses the current cache instead of needlessly redownloading the entire dataset.
+
+If the network or Scryfall is unavailable, startup does **not** break. The most recent complete cache is retained. On a first-ever offline launch, the app creates a small fallback catalog from the existing trainer database and automatically retries the full sync on the next launch.
+
+Useful commands:
+
+- `npm run sync-cards` — check for and download a newer full card catalog.
+- `npm run sync-cards:force` — force a fresh bulk download even if the cached snapshot appears current.
+- `npm run dev` — synchronize the catalog, then start the app.
+- `npm run build` — synchronize first and embed the current catalog snapshot into the production build as `data/scryfall-card-catalog.json`.
+
+The deck builder searches the complete catalog, but hand-authored gameplay definitions always override same-name generic catalog records. When a catalog-only card is saved into a deck, it is converted through the same generic Scryfall rules parser already used by custom-deck imports. This preserves existing functionality while expanding card discovery and deck construction to the complete synchronized catalog.

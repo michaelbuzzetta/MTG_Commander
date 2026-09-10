@@ -97,6 +97,22 @@ test('runtime app and tests import generated data, not abandoned public data', (
 });
 
 
+
+test('full card catalog is synchronized from Scryfall bulk data without replacing the authoritative gameplay schema', () => {
+  const pkg = readJson('package.json');
+  const sync = fs.readFileSync(path.join(ROOT, 'scripts/sync-scryfall-catalog.mjs'), 'utf8');
+  const vite = fs.readFileSync(path.join(ROOT, 'vite.config.js'), 'utf8');
+
+  assert.equal(pkg.scripts['sync-cards'], 'node scripts/sync-scryfall-catalog.mjs');
+  assert.equal(pkg.scripts.predev, 'npm run sync-cards');
+  assert.match(sync, /api\.scryfall\.com\/bulk-data/);
+  assert.match(sync, /oracle_cards/);
+  assert.match(sync, /User-Agent/);
+  assert.match(sync, /complete:\s*true/);
+  assert.match(vite, /api\/card-catalog/);
+  assert.match(vite, /scryfall-card-catalog\.json/);
+});
+
 test('all local source imports resolve to existing files', () => {
   const sourceRoot = path.join(ROOT, 'src');
   const files = [];

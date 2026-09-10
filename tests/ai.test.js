@@ -166,3 +166,65 @@ test('advanced AI uses Quandrix Command to counter a high-value opposing enchant
   assert.ok(action.targets.includes('danger-enchantment'));
   assert.ok(action.targets.includes(ownCreature.instanceId) || action.mode==='pair-1' || action.mode==='pair-5');
 });
+
+test('expert AI sequences a landfall engine before using its land drop',()=>{
+  const e=engine('explorers','blech');
+  setPhase(e,'PRECOMBAT_MAIN',{activePlayer:'ai',priorityPlayer:'ai'});
+  const p=e.state.players.ai;
+  p.hand=[];
+  p.landPlaysRemaining=1;
+  for(let i=0;i<3;i++) putBattlefield(e,'ai','forest');
+  p.hand.push({instanceId:'landfall-engine',cardId:'evolution-sage',owner:'ai',controller:'ai',zone:'hand'});
+  p.hand.push({instanceId:'land-after-engine',cardId:'forest',owner:'ai',controller:'ai',zone:'hand'});
+  const action=new AIController(e,'ai').choose();
+  assert.equal(action.type,'CAST_SPELL');
+  assert.equal(action.cardInstanceId,'landfall-engine');
+});
+
+test('expert AI lets a high-impact activation beat a merely playable spell and picks the right Jhoira target',()=>{
+  const e=engine('temporal-paradox','explorers');
+  setPhase(e,'PRECOMBAT_MAIN',{activePlayer:'ai',priorityPlayer:'ai'});
+  const p=e.state.players.ai;
+  p.hand=[];
+  p.landPlaysRemaining=0;
+  putBattlefield(e,'ai','island');
+  putBattlefield(e,'ai','mountain');
+  putBattlefield(e,'ai','user-jhoira-of-the-ghitu');
+  p.hand.push({instanceId:'small-cast',cardId:'sol-ring',owner:'ai',controller:'ai',zone:'hand'});
+  p.hand.push({instanceId:'huge-suspend',cardId:'user-time-stretch',owner:'ai',controller:'ai',zone:'hand'});
+  const action=new AIController(e,'ai').choose();
+  assert.equal(action.type,'ACTIVATE_ABILITY');
+  assert.deepEqual(action.targets,['huge-suspend']);
+});
+
+test('expert AI Sisay tutor ranks strategic impact instead of simply taking the highest mana value',()=>{
+  const e=engine('three-brothers','blech');
+  const p=e.state.players.ai;
+  p.library=[];
+  p.library.push({instanceId:'big-vanilla',cardId:'arch-yargle-and-multani',owner:'ai',controller:'ai',zone:'library'});
+  p.library.push({instanceId:'engine-legend',cardId:'user-tom-bombadil',owner:'ai',controller:'ai',zone:'library'});
+  e.state.pendingChoice={type:'SISAY_TUTOR',playerId:'ai',eligibleIds:['big-vanilla','engine-legend']};
+  e.state.priorityPlayer='ai';
+  const action=new AIController(e,'ai').choose();
+  assert.equal(action.type,'CHOOSE_SISAY_TUTOR');
+  assert.equal(action.cardInstanceId,'engine-legend');
+});
+
+test('expert AI chump-blocks commander damage that would otherwise be lethal even at high life',()=>{
+  const e=engine();
+  const attacker=putBattlefield(e,'player','smaug',{isCommander:true});
+  const blocker=putBattlefield(e,'ai','giant-spider');
+  e.state.players.ai.life=40;
+  e.state.players.ai.commanderDamage[attacker.instanceId]=15;
+  setPhase(e,'DECLARE_BLOCKERS',{activePlayer:'player',priorityPlayer:'ai',turnActionPending:'DECLARE_BLOCKERS'});
+  e.state.combat.attackers=[attacker.instanceId];
+  e.state.combat.attackTargets={[attacker.instanceId]:'ai'};
+  e.state.combat.defendingPlayers=['ai'];
+  e.state.combat.currentDefender='ai';
+  attacker.attacking=true;
+  attacker.attackTarget='ai';
+  const action=new AIController(e,'ai').choose();
+  assert.equal(action.type,'DECLARE_BLOCKERS');
+  assert.deepEqual(action.blockers[attacker.instanceId],[blocker.instanceId]);
+  assert.equal(e.isActionLegal('ai',action),true);
+});

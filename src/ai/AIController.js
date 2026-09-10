@@ -1,4 +1,4 @@
-import { isType, parseManaCost } from '../engine/utils.js';
+import { isType, hasSubtype, parseManaCost } from '../engine/utils.js';
 
 export class AIController {
   constructor(engine, id = 'ai') { this.engine = engine; this.id = id; }
@@ -13,29 +13,28 @@ export class AIController {
     if (choice?.playerId === this.id) {
       if (choice.type === 'COMBAT_DAMAGE_ORDER') {
         const orders = {};
-        for (const [aid, bids] of Object.entries(choice.attackers || {})) {
-          orders[aid] = [...bids].sort((x, y) => {
-            const a = e.findPermanent(x), b = e.findPermanent(y);
-            return (a ? e.static.derivedStats(a).toughness : Infinity) - (b ? e.static.derivedStats(b).toughness : Infinity);
-          });
-        }
+        for (const [aid, bids] of Object.entries(choice.attackers || {})) orders[aid] = this.orderCombatBlockers(aid, bids);
         return { type: 'ORDER_BLOCKERS', orders };
       }
       if (choice.type === 'LEGEND_RULE') {
         const keep = choice.permanentIds
           .map(id => e.findPermanent(id))
           .filter(Boolean)
-          .sort((a, b) => {
-            const aCounters = Object.values(a.counters || {}).reduce((sum, value) => sum + value, 0);
-            const bCounters = Object.values(b.counters || {}).reduce((sum, value) => sum + value, 0);
-            return bCounters - aCounters;
-          })[0];
+          .sort((a, b) => this.permanentThreat(b) - this.permanentThreat(a) || a.instanceId.localeCompare(b.instanceId))[0];
         return { type: 'CHOOSE_LEGEND', keepInstanceId: keep.instanceId };
       }
       if (choice.type === 'COMMANDER_ZONE') return { type: 'CHOOSE_COMMANDER_ZONE', moveToCommand: true };
-      if (choice.type === 'WARD_PAYMENT') return acts.find(action => action.type === 'PAY_WARD') || acts.find(action => action.type === 'DECLINE_WARD') || null;
-      if (choice.type === 'OPTIONAL_TRIGGER') return { type: 'CHOOSE_TRIGGER', accept: true, triggerId: choice.triggerId };
-      if (choice.type === 'OPTIONAL_MANA_PAYMENT') return acts.find(action => action.type === 'CHOOSE_OPTIONAL_MANA_PAYMENT' && action.pay) || { type: 'CHOOSE_OPTIONAL_MANA_PAYMENT', pay: false };
+      if (choice.type === 'WARD_PAYMENT') {
+        const pay = acts.find(action => action.type === 'PAY_WARD');
+        if (pay && this.shouldPayWard(choice)) return pay;
+        return acts.find(action => action.type === 'DECLINE_WARD') || pay || null;
+      }
+      if (choice.type === 'OPTIONAL_TRIGGER') return { type: 'CHOOSE_TRIGGER', accept: this.shouldAcceptOptionalTrigger(choice), triggerId: choice.triggerId };
+      if (choice.type === 'OPTIONAL_MANA_PAYMENT') {
+        const pay = acts.find(action => action.type === 'CHOOSE_OPTIONAL_MANA_PAYMENT' && action.pay);
+        if (pay && this.shouldPayOptionalMana(choice)) return pay;
+        return acts.find(action => action.type === 'CHOOSE_OPTIONAL_MANA_PAYMENT' && !action.pay) || { type: 'CHOOSE_OPTIONAL_MANA_PAYMENT', pay: false };
+      }
       if (choice.type === 'TAP_OR_UNTAP') {
         const target = e.findPermanent(choice.targetId);
         if (!target) return { type: 'CHOOSE_TAP_OR_UNTAP', choice: 'none' };
@@ -43,10 +42,14 @@ export class AIController {
         if (target.controller !== this.id && !target.tapped) return { type: 'CHOOSE_TAP_OR_UNTAP', choice: 'tap' };
         return { type: 'CHOOSE_TAP_OR_UNTAP', choice: 'none' };
       }
-      if (choice.type === 'OPTIONAL_EFFECT') return { type: 'CHOOSE_OPTIONAL_EFFECT', accept: true };
+      if (choice.type === 'OPTIONAL_EFFECT') return { type: 'CHOOSE_OPTIONAL_EFFECT', accept: this.shouldAcceptOptionalEffect(choice) };
       if (choice.type === 'TRIGGER_ORDER') {
+        const live = new Map(s.pendingTriggers.map(trigger => [trigger.id, trigger]));
+        // Triggers are placed on the stack in this order, so lower-value setup
+        // triggers go first and the highest-impact trigger is pushed last/resolves first.
         const ordered = [...(choice.triggers || [])]
-          .sort((a, b) => (a.sourceName || '').localeCompare(b.sourceName || '') || a.id.localeCompare(b.id))
+          .sort((a, b) => this.effectStrategicValue(live.get(a.id)?.effect) - this.effectStrategicValue(live.get(b.id)?.effect)
+            || (a.sourceName || '').localeCompare(b.sourceName || '') || a.id.localeCompare(b.id))
           .map(trigger => trigger.id);
         return { type: 'ORDER_TRIGGERS', triggerIds: ordered.length ? ordered : [...choice.triggerIds] };
       }
@@ -72,13 +75,10 @@ export class AIController {
       }
       if (choice.type === 'EXPLORE_ORDER') return { type: 'ORDER_EXPLORES', permanentIds: [...choice.permanentIds] };
       if (choice.type === 'HAKBAL_ATTACK') return { type: 'CHOOSE_HAKBAL_ATTACK', landInstanceId: choice.landInstanceIds[0] || null };
-      if (choice.type === 'CULTIVATE_SEARCH') return { type: 'CHOOSE_CULTIVATE', cardInstanceIds: choice.eligibleIds.slice(0, 2) };
+      if (choice.type === 'CULTIVATE_SEARCH') return { type: 'CHOOSE_CULTIVATE', cardInstanceIds: this.chooseCultivateTargets(choice.eligibleIds, 2) };
       if (choice.type === 'SISAY_TUTOR') {
-        const best = choice.eligibleIds.map(id => {
-          const card = s.players[this.id].library.find(item => item.instanceId === id);
-          return { id, mv: e.db[card?.cardId]?.manaValue || 0 };
-        }).sort((a, b) => b.mv - a.mv)[0];
-        return { type: 'CHOOSE_SISAY_TUTOR', cardInstanceId: best?.id || null };
+        const best = this.rankCardChoiceIds(choice.eligibleIds)[0];
+        return { type: 'CHOOSE_SISAY_TUTOR', cardInstanceId: best || null };
       }
       if (choice.type === 'SCRY') {
         const top = s.players[this.id].library.find(item => item.instanceId === choice.cardInstanceId) || s.players[this.id].library[0];
@@ -92,9 +92,13 @@ export class AIController {
         const preferred = this.rankTargetIds(choice.candidateIds, trigger?.effect, trigger?.ability).slice(0, count);
         return { type: 'CHOOSE_TRIGGER_TARGET', targetIds: preferred };
       }
-      if (choice.type === 'CREATURE_TYPE') return { type: 'CHOOSE_CREATURE_TYPE', creatureType: choice.options.includes('Merfolk') ? 'Merfolk' : choice.options[0] };
+      if (choice.type === 'CREATURE_TYPE') return { type: 'CHOOSE_CREATURE_TYPE', creatureType: this.chooseCreatureType(choice.options) };
       if (choice.type === 'EFFECT_CARD_CHOICE') {
         const take = Math.min(choice.max || 0, Math.max(choice.min || 0, choice.max || 0));
+        if (choice.continuation?.type === 'searchLand') {
+          const best = this.chooseCultivateTargets(choice.candidateIds, 1)[0];
+          return { type: 'CHOOSE_EFFECT_CARDS', cardInstanceIds: best ? [best] : [] };
+        }
         if (choice.continuation?.type === 'myriadLandscape' && take > 1) {
           const basicTypes = ['Plains','Island','Swamp','Mountain','Forest'];
           let best = [];
@@ -112,13 +116,16 @@ export class AIController {
         return { type: 'CHOOSE_EFFECT_CARDS', cardInstanceIds: this.rankCardChoiceIds(choice.candidateIds).slice(0, take) };
       }
       if (choice.type === 'COPY_TARGETS') return { type: 'CHOOSE_COPY_TARGETS', targetIds: [...choice.originalTargets] };
+      if (choice.type === 'ENTRY_LIFE_PAYMENT') {
+        const cost = Number(choice.lifeCost || 0);
+        const forcedTapped = !!choice.landEffect?.tapped;
+        const pay = !forcedTapped && s.players[this.id].life > cost + 5;
+        return { type: 'CHOOSE_ENTRY_LIFE_PAYMENT', pay };
+      }
       if (choice.type === 'ENTRY_REVEAL') return { type: 'CHOOSE_ENTRY_REVEAL', cardInstanceId: choice.candidateIds[0] || null };
       if (choice.type === 'HIDEAWAY') {
-        const best = choice.candidateIds.map(id => {
-          const found = ['library','hand','graveyard','exile'].flatMap(z => s.players[this.id][z] || []).find(c => c.instanceId === id);
-          return { id, mv: e.db[found?.cardId]?.manaValue || 0 };
-        }).sort((a,b)=>b.mv-a.mv)[0];
-        return { type: 'CHOOSE_HIDEAWAY', cardInstanceId: best?.id || null };
+        const best = this.rankCardChoiceIds(choice.candidateIds)[0];
+        return { type: 'CHOOSE_HIDEAWAY', cardInstanceId: best || null };
       }
       if (choice.type === 'HIDEAWAY_PLAY') {
         return acts.find(action => action.type === 'CAST_SPELL')
@@ -149,24 +156,29 @@ export class AIController {
       return this.chooseBlockers();
     }
 
-    const lands = acts.filter(action => action.type === 'PLAY_LAND');
-    if (lands.length) return [...lands].sort((a, b) => this.landScore(b) - this.landScore(a))[0];
-
     const castables = acts.filter(action => ['CAST_SPELL', 'CAST_COMMANDER'].includes(action.type));
-    if (castables.length) {
-      const ranked = castables.map(action => ({ action, value: this.score(action) })).sort((a, b) => b.value - a.value);
-      const best = ranked[0];
-      if (best && best.value >= this.castThreshold(best.action)) return best.action;
-    }
+    const lands = acts.filter(action => action.type === 'PLAY_LAND');
+    const delayLand = lands.length && this.shouldDelayLandPlay(castables);
+    if (lands.length && !delayLand) return [...lands].sort((a, b) => this.landScore(b) - this.landScore(a))[0];
+
+    // Compare spells, activated abilities, foretell, and encore on one strategic
+    // scale. This avoids a mediocre spell automatically crowding a much stronger
+    // engine activation out of the turn.
+    const strategic = [];
+    for (const action of castables) strategic.push({ action, value: this.score(action), threshold: this.castThreshold(action) });
+    for (const action of acts.filter(action => action.type === 'ACTIVATE_ABILITY')) strategic.push({ action, value: this.abilityScore(action), threshold: 8 });
+    for (const action of acts.filter(action => ['FORETELL_CARD', 'ENCORE_CARD'].includes(action.type))) strategic.push({ action, value: this.specialActionScore(action), threshold: 8 });
+    strategic.sort((a, b) => b.value - a.value || this.actionTieBreaker(a.action, b.action));
+    const best = strategic[0];
+    if (best && best.value >= best.threshold) return best.action;
+
+    // If a landfall/value engine was intentionally sequenced before the land, play
+    // the land on the next priority window after that spell/ability is handled.
+    if (lands.length) return [...lands].sort((a, b) => this.landScore(b) - this.landScore(a))[0];
 
     // Casting already uses the engine's deterministic payment plan. A standalone
     // ACTIVATE_MANA action without a concrete cast/activation to pay for is never
     // useful to this AI and can consume an attacker/blocker for no benefit.
-    const abilities = acts.filter(action => action.type === 'ACTIVATE_ABILITY');
-    if (abilities.length) {
-      const best = [...abilities].sort((a, b) => this.abilityScore(b) - this.abilityScore(a))[0];
-      if (this.abilityScore(best) > 8) return best;
-    }
     return acts.find(a => a.type === 'PASS_PRIORITY') || acts.find(a => a.type !== 'ACTIVATE_MANA') || null;
   }
 
@@ -183,7 +195,11 @@ export class AIController {
     if (['destroy','damage','returnToHand','returnTarget','gainControl','counterSpellTarget','ruinousIntrusion'].some(x => effects.has(x))) value += 11;
     if (effects.has('createToken')) value += 5;
     if (effects.has('proliferate') || effects.has('doubleCounters') || effects.has('addCountersAll')) value += 5;
-    if (zone === 'library' && Number(definition.manaValue || 0) > 7 && this.availableManaEstimate() < 5) value -= 5;
+    if (effects.has('extraTurn')) value += 24;
+    if (effects.has('sisayTutor') || effects.has('tomBombadilCascade')) value += 14;
+    if (effects.has('exploreAll')) value += 8;
+    value += this.strategicSynergyValue(definition);
+    if (zone === 'library' && Number(definition.manaValue || 0) > 7 && this.availableManaEstimate() < 5 && !effects.has('jhoiraSuspend')) value -= 5;
     return value;
   }
 
@@ -212,6 +228,235 @@ export class AIController {
       if (abilities.some(ability => ability.type === 'mana')) total += 1;
     }
     return total;
+  }
+
+
+  actionTieBreaker(a, b) {
+    const priority = { ACTIVATE_ABILITY: 0, CAST_SPELL: 1, CAST_COMMANDER: 2, ENCORE_CARD: 3, FORETELL_CARD: 4 };
+    return (priority[a?.type] ?? 9) - (priority[b?.type] ?? 9);
+  }
+
+  findCardAnywhere(instanceId) {
+    if (!instanceId) return null;
+    const e = this.engine, zones = ['hand','command','graveyard','exile','library','battlefield'];
+    for (const [pid, player] of Object.entries(e.state.players)) {
+      for (const zone of zones) {
+        const card = (player[zone] || []).find(item => item.instanceId === instanceId);
+        if (card) return { card, playerId: pid, zone, definition: e.db[card.cardId] || null };
+      }
+    }
+    const stackItem = this.stackItemForTarget(instanceId);
+    if (stackItem?.card) return { card: stackItem.card, playerId: stackItem.controller, zone: 'stack', definition: e.db[stackItem.card.cardId] || null };
+    return null;
+  }
+
+  manaCostAmount(cost = '') {
+    const parsed = parseManaCost(cost || '');
+    return Object.values(parsed || {}).reduce((sum, n) => sum + Number(n || 0), 0);
+  }
+
+  isLandfallEngine(definition) {
+    return (definition?.abilities || []).some(ability => ability.type === 'triggered'
+      && ability.event === 'ENTER_BATTLEFIELD'
+      && String(ability.condition?.type || '').toLowerCase() === 'land'
+      && ability.condition?.controllerEvent);
+  }
+
+  shouldDelayLandPlay(castables = []) {
+    const e = this.engine, s = e.state;
+    if (s.activePlayer !== this.id || !['PRECOMBAT_MAIN','POSTCOMBAT_MAIN'].includes(s.phase) || s.stack.length) return false;
+    return castables.some(action => {
+      if (action.type !== 'CAST_SPELL') return false;
+      const d = this.definitionForAction(action);
+      return this.isLandfallEngine(d) && this.score(action) >= this.castThreshold(action);
+    });
+  }
+
+  colorDemand() {
+    const e = this.engine, p = e.state.players[this.id];
+    const demand = { W: 0, U: 0, B: 0, R: 0, G: 0 };
+    const consider = card => {
+      const d = e.db[card?.cardId];
+      if (!d || isType(d, 'Land')) return;
+      const req = parseManaCost(d.manaCost || '');
+      for (const color of Object.keys(demand)) demand[color] += Number(req[color] || 0);
+    };
+    for (const card of p.hand) consider(card);
+    for (const card of p.command) consider(card);
+    return demand;
+  }
+
+  producedColors(definition) {
+    const colors = new Set();
+    for (const ability of definition?.abilities || []) {
+      if (ability.type !== 'mana') continue;
+      if (ability.anyColor) for (const color of ['W','U','B','R','G']) colors.add(color);
+      for (const [color, amount] of Object.entries(ability.mana || {})) if (Number(amount || 0) > 0 && color in { W:1,U:1,B:1,R:1,G:1 }) colors.add(color);
+    }
+    return colors;
+  }
+
+  chooseCultivateTargets(ids, count = 2) {
+    const e = this.engine, p = e.state.players[this.id], demand = this.colorDemand();
+    const existing = new Set();
+    for (const permanent of p.battlefield) for (const color of this.producedColors(e.db[permanent.cardId])) existing.add(color);
+    return [...ids].map(id => {
+      const found = this.findCardAnywhere(id), d = found?.definition;
+      const colors = this.producedColors(d);
+      let value = 0;
+      for (const color of colors) value += Number(demand[color] || 0) * 3 + (existing.has(color) ? 0 : 10);
+      if (!colors.size) value -= 5;
+      return { id, value };
+    }).sort((a, b) => b.value - a.value || a.id.localeCompare(b.id)).slice(0, count).map(item => item.id);
+  }
+
+  chooseCreatureType(options = []) {
+    if (!options.length) return null;
+    const e = this.engine, p = e.state.players[this.id];
+    const scores = new Map(options.map(option => [option, 0]));
+    const add = (card, weight) => {
+      const d = e.db[card?.cardId] || {};
+      for (const subtype of d.subtypes || []) {
+        const option = options.find(item => item.toLowerCase() === String(subtype).toLowerCase());
+        if (option) scores.set(option, (scores.get(option) || 0) + weight);
+      }
+    };
+    for (const card of p.battlefield) add(card, 4);
+    for (const card of p.hand) add(card, 2);
+    for (const card of p.command) add(card, 3);
+    return [...options].sort((a, b) => (scores.get(b) || 0) - (scores.get(a) || 0) || a.localeCompare(b))[0];
+  }
+
+  effectStrategicValue(effect, context = {}) {
+    const effects = this.effectTypes(effect);
+    let value = 0;
+    const add = (types, amount) => { if (types.some(type => effects.has(type))) value += amount; };
+    add(['draw','drawDiscard','drawEventAmount','conditionalDraw','drawPerCreatures','drawPerCreaturesWithCounter'], 15);
+    add(['createToken','createSpiritsPerPermanent','stanggTwin'], 12);
+    add(['addCounter','addCounterSource','addCounterTarget','addCountersAll','doubleCounters','moveCounterToEvent','stationCharge'], 9);
+    add(['proliferate'], 11);
+    add(['cultivate','putLandFromHand','putLandFromHandIfExploredLand','additionalLandPlay','myriadLandscape'], 11);
+    add(['destroy','damage','returnToHand','returnTarget','gainControl','counterSpellTarget','ertaiCounterOrDestroy','ruinousIntrusion'], 8);
+    add(['sisayTutor','tomBombadilCascade'], 20);
+    add(['jhoiraSuspend'], 16);
+    add(['adjustTimeCounters'], 12);
+    add(['extraTurn'], 42);
+    if (context?.targets?.length) value += this.targetScore({ targets: [...context.targets] }, effects);
+    return value;
+  }
+
+  shouldAcceptOptionalTrigger(choice) {
+    const trigger = this.engine.state.pendingTriggers.find(item => item.id === choice.triggerId);
+    if (!trigger) return true;
+    return this.effectStrategicValue(trigger.effect, { targets: trigger.targets || [], eventPayload: trigger.eventPayload }) >= 0;
+  }
+
+  shouldAcceptOptionalEffect(choice) {
+    return this.effectStrategicValue(choice.then, choice.context || {}) >= 0;
+  }
+
+  shouldPayOptionalMana(choice) {
+    const benefit = this.effectStrategicValue(choice.then, choice.context || {});
+    const cost = this.manaCostAmount(choice.mana || '');
+    const remaining = Math.max(0, this.availableManaEstimate() - cost);
+    let opportunity = cost * 3;
+    if (this.engine.state.activePlayer !== this.id && remaining < 2 && this.hasInteractionInHand()) opportunity += 6;
+    return benefit >= Math.max(6, opportunity);
+  }
+
+  shouldPayWard(choice) {
+    const e = this.engine, item = e.state.stack.find(stackItem => stackItem.id === choice.targetStackItemId);
+    if (!item) return false;
+    const d = item.card ? e.db[item.card.cardId] : null;
+    let investment = d ? this.cardStrategicValue(d) + 5 : 10;
+    const effects = d ? this.actionEffects({ cardInstanceId: item.card?.instanceId, mode: item.mode }, d) : this.effectTypes(item.effect);
+    if (item.targets?.length) investment += Math.max(0, this.targetScore({ cardInstanceId: item.card?.instanceId, mode: item.mode, targets: item.targets }, effects));
+    const manaCost = this.manaCostAmount(choice.cost?.mana || '');
+    const lifeCost = Number(choice.cost?.life || 0);
+    const life = e.state.players[this.id].life;
+    const cost = manaCost * 3.5 + lifeCost * (life <= 10 ? 5 : 1.5);
+    return investment > cost + 4;
+  }
+
+  hasInteractionInHand() {
+    const e = this.engine, p = e.state.players[this.id];
+    return p.hand.some(card => {
+      const d = e.db[card.cardId];
+      if (!d || !isType(d, 'Instant')) return false;
+      const effects = this.effectTypes([d.spellEffects, ...(d.modes || []).map(mode => mode.effects)]);
+      return ['destroy','damage','returnToHand','returnTarget','counterSpellTarget','ertaiCounterOrDestroy'].some(type => effects.has(type));
+    });
+  }
+
+  strategicSynergyValue(definition) {
+    if (!definition) return 0;
+    const e = this.engine, p = e.state.players[this.id];
+    const effects = this.effectTypes([definition.spellEffects, definition.onEnterEffects, ...(definition.abilities || []).map(ability => ability.effect)]);
+    const board = p.battlefield.filter(card => !card.phasedOut);
+    const countered = board.filter(card => Object.values(card.counters || {}).some(amount => Number(amount || 0) > 0));
+    const sagas = board.filter(card => isType(e.db[card.cardId], 'Saga'));
+    const legends = board.filter(card => String(e.db[card.cardId]?.typeLine || '').includes('Legendary'));
+    const artifacts = board.filter(card => e.static.isType(card, 'Artifact'));
+    const merfolk = board.filter(card => e.static.hasSubtype(card, 'Merfolk'));
+    const tokenDoubler = board.some(card => (e.db[card.cardId]?.abilities || []).some(ability => ability.type === 'replacement' && ability.event === 'TOKEN_CREATED'));
+    const counterDoubler = board.some(card => (e.db[card.cardId]?.abilities || []).some(ability => ability.type === 'replacement' && ability.event === 'COUNTERS_ADDED'));
+    let value = 0;
+    if (this.isLandfallEngine(definition) && p.landPlaysRemaining > 0) value += 12;
+    if (effects.has('proliferate')) value += countered.length * 2.5;
+    if (['addCounter','addCounterSource','addCounterTarget','addCountersAll','doubleCounters'].some(type => effects.has(type))) value += counterDoubler ? 7 : 0;
+    if (['createToken','createSpiritsPerPermanent','stanggTwin'].some(type => effects.has(type))) value += tokenDoubler ? 8 : 0;
+    if (effects.has('exploreAll')) value += 6 + merfolk.length * 3;
+    if (effects.has('tomBombadilCascade')) value += 10 + sagas.length * 4;
+    if (effects.has('sisayTutor')) value += 12 + legends.length * 1.5;
+    if (effects.has('stationCharge')) value += Math.max(0, 8 - artifacts.reduce((max, card) => Math.max(max, Number(card.counters?.charge || 0)), 0));
+    if (effects.has('extraTurn')) value += 20;
+    if (String(definition.typeLine || '').includes('Legendary') && board.some(card => this.effectTypes((e.db[card.cardId]?.abilities || []).map(a => a.effect)).has('sisayTutor'))) value += 4;
+    return value;
+  }
+
+  specialActionScore(action) {
+    const e = this.engine, p = e.state.players[this.id], card = this.cardForAction(action), d = card ? e.db[card.cardId] : null;
+    if (!d) return -Infinity;
+    if (action.type === 'FORETELL_CARD') {
+      let value = 7 + this.cardStrategicValue(d) * 0.45 + Math.max(0, Number(d.manaValue || 0) - 4) * 1.5;
+      if (p.hand.length >= 7) value += 3;
+      return value;
+    }
+    if (action.type === 'ENCORE_CARD') {
+      const opponents = Math.max(1, e.opponents(this.id).length);
+      return 10 + this.cardStrategicValue(d) * 0.55 + opponents * (isType(d, 'Creature') ? 5 : 2);
+    }
+    return 0;
+  }
+
+  selectionScore(action, effects = this.actionEffects(action)) {
+    if (!(action.selections || []).length) return 0;
+    const e = this.engine;
+    let value = 0;
+    for (const id of action.selections) {
+      const permanent = e.findPermanent(id);
+      if (!permanent) continue;
+      if (effects.has('stationCharge')) {
+        const power = Math.max(0, e.static.derivedStats(permanent).power);
+        value += power * 3;
+        if (e.state.activePlayer === this.id && e.state.phase === 'PRECOMBAT_MAIN' && e.static.isType(permanent, 'Creature') && this.attackScore(permanent, this.chooseDefender()) > 0) value -= Math.max(4, power * 1.5);
+      } else value += permanent.controller === this.id ? Math.max(0, 8 - this.permanentThreat(permanent) * 0.15) : -20;
+    }
+    return value;
+  }
+
+  removalDisciplineAdjustment(action, effects = this.actionEffects(action)) {
+    const removal = ['destroy','returnToHand','returnTarget','gainControl','ruinousIntrusion','ertaiCounterOrDestroy'];
+    if (!removal.some(type => effects.has(type)) || this.engine.state.stack.length) return 0;
+    const targetPermanents = (action.targets || []).map(id => this.engine.findPermanent(id)).filter(Boolean).filter(card => card.controller !== this.id);
+    if (!targetPermanents.length) return 0;
+    const allEnemy = this.engine.opponents(this.id).flatMap(pid => this.engine.state.players[pid].battlefield).filter(card => !card.phasedOut);
+    const maxThreat = Math.max(0, ...allEnemy.map(card => this.permanentThreat(card)));
+    const targetThreat = Math.max(...targetPermanents.map(card => this.permanentThreat(card)));
+    const myLife = this.engine.state.players[this.id].life;
+    if (maxThreat >= 12 && targetThreat < maxThreat * 0.55 && myLife > 12) return -18;
+    if (targetThreat >= maxThreat * 0.9 && maxThreat >= 10) return 8;
+    return 0;
   }
 
   rankCardChoiceIds(ids) {
@@ -257,7 +502,13 @@ export class AIController {
     const mana = board.filter(card => e.static.isType(card, 'Land')).length + Object.values(p.manaPool || {}).reduce((sum, n) => sum + Number(n || 0), 0);
     const hand = Math.min(10, p.hand.length) * 2.25;
     const life = Math.max(0, p.life) * 0.18;
-    return permanents + mana * 2 + hand + life;
+    const commander = [...p.command, ...p.battlefield, ...p.graveyard, ...p.exile].find(card => card.isCommander);
+    let commanderPressure = 0;
+    if (commander) {
+      const maxDealt = Math.max(0, ...e.opponents(pid).map(opponentId => Number(e.state.players[opponentId].commanderDamage?.[commander.instanceId] || 0)));
+      commanderPressure = maxDealt * 1.2 + (maxDealt >= 15 ? (maxDealt - 14) * 5 : 0);
+    }
+    return permanents + mana * 2 + hand + life + commanderPressure;
   }
 
   chooseAttackPlan() {
@@ -298,15 +549,16 @@ export class AIController {
     let value = this.attackScore(attacker, defenderId);
     if (!Number.isFinite(value)) return value;
     const legalBlockers = defender.battlefield.filter(blocker => !blocker.tapped && !blocker.phasedOut && e.static.isType(blocker, 'Creature') && e.combat.canBlock(blocker, attacker));
+    const damage = Math.max(0, st.power);
     if (!legalBlockers.length) {
-      const damage = Math.max(0, st.power);
       if (alreadyProjected >= defender.life) value -= 220;
       else if (defender.life - alreadyProjected <= damage) value += 250;
-      if (attacker.isCommander) {
-        const current = Number(defender.commanderDamage?.[attacker.instanceId] || 0);
-        if (21 - current <= damage) value += 300;
-        else value += current * 1.4;
-      }
+    }
+    if (attacker.isCommander) {
+      const current = Number(defender.commanderDamage?.[attacker.instanceId] || 0);
+      if (21 - current <= damage) value += legalBlockers.length ? 95 : 300;
+      else value += current * 1.7;
+      if (current >= 14) value += 18;
     }
     const leader = Math.max(...e.opponents(this.id).map(pid => this.playerThreat(pid)));
     const threat = this.playerThreat(defenderId);
@@ -375,6 +627,9 @@ export class AIController {
       if (candidates.length < needed) continue;
 
       const attackerValue = this.permanentThreat(attacker);
+      const commanderDamage = attacker.isCommander ? Number(s.players[this.id].commanderDamage?.[attacker.instanceId] || 0) : 0;
+      const commanderLethal = attacker.isCommander && commanderDamage + Math.max(0, ast.power) >= 21;
+      const commanderCritical = attacker.isCommander && commanderDamage >= 16;
       let picked = [];
       if (needed === 1) {
         const profitable = candidates
@@ -382,7 +637,7 @@ export class AIController {
           .filter(item => item.quality > 0)
           .sort((a, b) => b.quality - a.quality || this.permanentThreat(a.blocker) - this.permanentThreat(b.blocker));
         if (profitable.length) picked = [profitable[0].blocker];
-        else if (lifeAfterUnblocked <= 8 || ast.power >= s.players[this.id].life) {
+        else if (lifeAfterUnblocked <= 8 || ast.power >= s.players[this.id].life || commanderLethal || commanderCritical) {
           picked = [candidates.sort((a, b) => this.permanentThreat(a) - this.permanentThreat(b))[0]];
         }
       } else {
@@ -390,7 +645,7 @@ export class AIController {
           .sort((a, b) => this.permanentThreat(a) - this.permanentThreat(b))
           .slice(0, 2);
         const totalPower = pair.reduce((sum, blocker) => sum + e.static.derivedStats(blocker).power, 0);
-        if (pair.length === 2 && (totalPower >= ast.toughness || lifeAfterUnblocked <= 8 || attackerValue >= pair.reduce((sum, blocker) => sum + this.permanentThreat(blocker), 0))) picked = pair;
+        if (pair.length === 2 && (totalPower >= ast.toughness || lifeAfterUnblocked <= 8 || commanderLethal || commanderCritical || attackerValue >= pair.reduce((sum, blocker) => sum + this.permanentThreat(blocker), 0))) picked = pair;
       }
 
       if (!picked.length) continue;
@@ -404,6 +659,24 @@ export class AIController {
     const decline = { type: 'DECLARE_BLOCKERS', blockers: {} };
     if (e.isActionLegal(this.id, decline)) return decline;
     throw new Error('AI could not construct a legal blocker declaration from engine legality');
+  }
+
+  orderCombatBlockers(attackerId, blockerIds = []) {
+    const e = this.engine, attacker = e.findPermanent(attackerId);
+    if (!attacker) return [...blockerIds];
+    const ast = e.static.derivedStats(attacker);
+    const deathtouch = ast.keywords.some(keyword => String(keyword).toLowerCase() === 'deathtouch');
+    const trample = ast.keywords.some(keyword => String(keyword).toLowerCase() === 'trample');
+    return [...blockerIds].map(id => {
+      const blocker = e.findPermanent(id);
+      if (!blocker) return { id, score: -Infinity, lethal: Infinity };
+      const bst = e.static.derivedStats(blocker);
+      const lethal = deathtouch ? 1 : Math.max(1, bst.toughness - Number(blocker.damageMarked || 0));
+      let score = this.permanentThreat(blocker) / lethal;
+      if (trample) score += Math.max(0, 5 - lethal) * 0.7;
+      if (bst.keywords.some(keyword => String(keyword).toLowerCase() === 'deathtouch')) score += 3;
+      return { id, score, lethal };
+    }).sort((a, b) => b.score - a.score || a.lethal - b.lethal || a.id.localeCompare(b.id)).map(item => item.id);
   }
 
   blockQuality(blocker, attacker) {
@@ -460,14 +733,35 @@ export class AIController {
   permanentThreat(permanent) {
     const e = this.engine, d = e.db[permanent?.cardId] || {};
     if (!permanent) return 0;
-    let score = Number(d.manaValue || 0) * 1.2 + (d.abilities?.length || 0) * 2;
+    const effects = this.effectTypes([d.spellEffects, d.onEnterEffects, ...(d.abilities || []).map(ability => ability.effect)]);
+    let score = Number(d.manaValue || 0) * 1.15;
+    for (const ability of d.abilities || []) {
+      if (ability.type === 'triggered') score += 3.5;
+      else if (ability.type === 'activated') score += 4.5;
+      else if (ability.type === 'replacement') score += 6;
+      else if (ability.type === 'static') score += 2.5;
+      else if (ability.type === 'mana') score += 1.2;
+    }
     const counters = Object.values(permanent.counters || {}).reduce((sum, amount) => sum + Number(amount || 0), 0);
-    score += counters * 1.5;
+    score += counters * 1.4;
     if (e.static.isType(permanent, 'Creature')) {
       const st = e.static.derivedStats(permanent);
-      score += Math.max(0, st.power) * 1.5 + Math.max(0, st.toughness) * 0.6 + (st.keywords?.length || 0) * 1.4;
+      score += Math.max(0, st.power) * 1.45 + Math.max(0, st.toughness) * 0.55 + (st.keywords?.length || 0) * 1.6;
+      if (st.keywords?.some(keyword => ['hexproof','indestructible','double strike','deathtouch'].includes(String(keyword).toLowerCase()))) score += 3;
     }
-    if (permanent.isCommander) score += 5;
+    if (['draw','conditionalDraw','drawPerCreatures','drawPerCreaturesWithCounter'].some(type => effects.has(type))) score += 7;
+    if (['sisayTutor','tomBombadilCascade','extraTurn','gainControl'].some(type => effects.has(type))) score += 10;
+    if (['doubleCounters','createSpiritsPerPermanent','stanggTwin','exploreAll'].some(type => effects.has(type))) score += 7;
+    if (effects.has('winIfSourceCounterAtLeast')) {
+      const growth = Math.max(0, ...Object.values(permanent.counters || {}).map(Number));
+      score += 25 + growth * 2.5;
+    }
+    if (d.creatureAtCounter) {
+      const current = Number(permanent.counters?.[d.creatureAtCounter.counter] || 0);
+      const needed = Number(d.creatureAtCounter.amount || 0);
+      if (needed > 0) score += Math.min(12, (current / needed) * 12);
+    }
+    if (permanent.isCommander) score += 6;
     return score;
   }
 
@@ -522,6 +816,21 @@ export class AIController {
         continue;
       }
 
+      const located = this.findCardAnywhere(id);
+      if (located && located.zone !== 'battlefield' && located.zone !== 'stack') {
+        const mine = located.playerId === this.id || located.card.owner === this.id;
+        const cardValue = this.cardStrategicValue(located.definition, { zone: located.zone });
+        if (effects.has('jhoiraSuspend')) score += mine ? cardValue * 1.4 + Number(located.definition?.manaValue || 0) * 2 : -100;
+        else if (effects.has('adjustTimeCounters')) {
+          const time = Number(located.card.counters?.time || 0);
+          score += mine ? cardValue * 0.8 + Math.max(0, 5 - time) * 3 : -60;
+        } else {
+          if (harmful) score += mine ? -80 - cardValue : cardValue;
+          if (helpful) score += mine ? cardValue : -50;
+        }
+        continue;
+      }
+
       const stackItem = this.stackItemForTarget(id);
       if (stackItem) score += this.stackThreat(stackItem) * (harmful ? 1.8 : 0.4);
     }
@@ -564,7 +873,7 @@ export class AIController {
     const mv = Number(d.manaValue || 0);
     const creatures = p.battlefield.filter(permanent => e.static.isType(permanent, 'Creature') && !permanent.phasedOut);
     const lands = p.battlefield.filter(permanent => e.static.isType(permanent, 'Land')).length;
-    let value = 10 + mv * 1.2 + this.targetScore(action, effects);
+    let value = 10 + mv * 1.2 + this.targetScore(action, effects) + this.strategicSynergyValue(d);
 
     if (isType(d, 'Creature')) {
       value += 8 + Number(d.power || 0) * 1.2 + Number(d.toughness || 0) * 0.45 + (d.keywords?.length || 0) * 1.5;
@@ -588,6 +897,7 @@ export class AIController {
       value += countered * 2.5 - (countered ? 0 : 5);
     }
     if (effects.has('addCounter') || effects.has('addCountersAll') || effects.has('doubleCounters')) value += p.battlefield.some(permanent => Object.keys(permanent.counters || {}).length) ? 5 : 2;
+    value += this.removalDisciplineAdjustment(action, effects);
 
     if (action.type === 'CAST_COMMANDER') {
       value += 4 - Number(p.commanderTax || 0) * 3;
@@ -642,15 +952,34 @@ export class AIController {
     const source = e.findPermanent(action.permanentId);
     if (!source) return -Infinity;
     const effects = this.actionEffects(action, e.db[source.cardId]);
-    let value = 5 + this.targetScore(action, effects);
+    let value = 5 + this.targetScore(action, effects) + this.selectionScore(action, effects);
     if (effects.has('draw') || effects.has('conditionalDraw')) value += 12 + Math.max(0, 4 - s.players[this.id].hand.length) * 2;
     if (effects.has('sisayTutor')) value += 20;
+    if (effects.has('searchLand')) {
+      const effect = action.ability?.effect || {};
+      const candidates = s.players[this.id].library.filter(card => {
+        const definition = e.db[card.cardId];
+        if (!definition || !isType(definition, 'Land')) return false;
+        if (effect.basicOnly && !isType(definition, 'Basic Land')) return false;
+        if (effect.landTypes?.length && !effect.landTypes.some(type => hasSubtype(definition, type))) return false;
+        return true;
+      });
+      if (!candidates.length) return -Infinity;
+      const lifeCost = Number(action.ability?.cost?.life || 0);
+      if (lifeCost && s.players[this.id].life <= lifeCost) return -Infinity;
+      const landsInPlay = s.players[this.id].battlefield.filter(permanent => e.static.isType(permanent, 'Land')).length;
+      value += 16 + (landsInPlay < 5 ? 7 : 2);
+    }
     if (effects.has('adapt') || effects.has('addCounter') || effects.has('addCounterSource')) value += 9;
     if (effects.has('proliferate')) value += s.players[this.id].battlefield.filter(permanent => Object.keys(permanent.counters || {}).length).length * 2;
     if (effects.has('damage') || effects.has('destroy') || effects.has('returnToHand') || effects.has('returnTarget') || effects.has('gainControl')) value += 10;
     if (effects.has('counterSpellTarget')) value += s.stack.length ? 20 : -20;
-    if (effects.has('stationCharge')) value += Number(source.counters?.charge || 0) < 8 ? 16 : 3;
-    if (effects.has('createSpiritsPerPermanent')) value += Math.max(10, s.players[this.id].battlefield.length * 3);
+    if (effects.has('stationCharge')) {
+      const current = Number(source.counters?.charge || 0);
+      if (current >= 8) return -Infinity;
+      value += 10 + Math.max(0, 8 - current) * 1.5;
+    }
+    if (effects.has('createSpiritsPerPermanent')) value += s.players[this.id].battlefield.length * 3 - 10;
     if (effects.has('bulliesDonate')) value += 18;
     if (effects.has('jhoiraSuspend')) value += 20;
     if (effects.has('adjustTimeCounters')) value += 11;
@@ -689,11 +1018,21 @@ export class AIController {
     const p = this.engine.state.players[this.id];
     if (!p || p.mulligans >= 2) return false;
     const defs = p.hand.map(card => this.engine.db[card.cardId]).filter(Boolean);
-    const lands = defs.filter(def => isType(def, 'Land')).length;
-    const early = defs.filter(def => !isType(def, 'Land') && Number(def.manaValue || 0) <= 3).length;
-    const ramp = defs.filter(def => this.isRamp(def)).length;
+    const landDefs = defs.filter(def => isType(def, 'Land'));
+    const spells = defs.filter(def => !isType(def, 'Land'));
+    const lands = landDefs.length;
+    const ramp = spells.filter(def => this.isRamp(def)).length;
     if (lands < 2 || lands > 5) return true;
-    if (lands === 2 && early + ramp === 0) return true;
+
+    const colors = new Set();
+    for (const def of landDefs) for (const color of this.producedColors(def)) colors.add(color);
+    const castableEarly = spells.filter(def => Number(def.manaValue || 0) <= 3).filter(def => {
+      const req = parseManaCost(def.manaCost || '');
+      return ['W','U','B','R','G'].every(color => !Number(req[color] || 0) || colors.has(color));
+    }).length;
+    const averageMv = spells.length ? spells.reduce((sum, def) => sum + Number(def.manaValue || 0), 0) / spells.length : 0;
+    if (lands === 2 && castableEarly + ramp === 0) return true;
+    if (lands <= 3 && averageMv >= 5.5 && castableEarly === 0 && ramp === 0) return true;
     return false;
   }
 
@@ -719,13 +1058,11 @@ export class AIController {
     const lands = p.hand.filter(card => isType(this.engine.db[card.cardId], 'Land')).length;
     return [...p.hand].map(card => {
       const d = this.engine.db[card.cardId] || {};
-      let keep = 10 - Number(d.manaValue || 0) * 0.4;
-      if (isType(d, 'Land')) keep = lands > 5 ? 1 : 8;
-      if (this.isRamp(d)) keep += 4;
-      if (isType(d, 'Creature')) keep += 2;
-      if (this.effectTypes(d.spellEffects).has('draw')) keep += 3;
+      let keep = this.cardStrategicValue(d, { zone: 'hand' });
+      if (isType(d, 'Land')) keep = lands > 5 ? 1 : (this.handNeedsLand() ? 18 : 7);
+      if (Number(d.manaValue || 0) > this.availableManaEstimate() + 4 && !this.effectTypes(d.spellEffects).has('extraTurn')) keep -= 3;
       return { card, keep };
-    }).sort((a, b) => a.keep - b.keep).slice(0, count).map(item => item.card.instanceId);
+    }).sort((a, b) => a.keep - b.keep || a.card.instanceId.localeCompare(b.card.instanceId)).slice(0, count).map(item => item.card.instanceId);
   }
 
   step() {

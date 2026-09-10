@@ -21,6 +21,10 @@ function resetZoneChangeState(card, toZone, destinationPlayerId) {
   card.faceDown = false;
   card.exiledBy = null;
   card.castMode = null;
+  delete card.entryLifeResolved;
+  delete card.entryLifePaid;
+  delete card.entryRevealResolved;
+  delete card.entryRevealSucceeded;
 }
 
 

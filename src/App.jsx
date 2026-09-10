@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import db0 from './data/generated/cards.json' with { type: 'json' };
 import decks from './data/generated/decks.json' with { type: 'json' };
 import { GameEngine } from './engine/GameEngine.js';
 import { AIController } from './ai/AIController.js';
 import { Battlefield } from './components/Battlefield.jsx';
 import { Card } from './components/Card.jsx';
+import { LibrarySearchPicker } from './components/LibrarySearchPicker.jsx';
+import { DeckBuilder } from './components/DeckBuilder.jsx';
 import { buildCustomDeck, fetchMissingCardDefinitions, parseMassEntry } from './utils/deckImport.js';
+import { loadCardCatalog, mergeBuilderDatabase, promoteCatalogDefinitions, promoteCatalogNames } from './utils/cardCatalog.js';
 import { automationActor, humanAutomationDecision } from './utils/turnAutomation.js';
 import './styles.css';
 
@@ -62,12 +65,16 @@ function PhaseBanner({ state, attackers, blockTarget }) {
 
 export default function App() {
   const [customDecks, setCustomDecks] = useState(loadCustomDecks);
-  const customCardDb = Object.assign({}, ...customDecks.map(deck => deck.cardDefinitions || {}));
-  const runtimeDb = { ...db0, ...customCardDb };
-  const selectableDecks = [...playableDecks, ...customDecks];
+  const customCardDb = useMemo(() => Object.assign({}, ...customDecks.map(deck => deck.cardDefinitions || {})), [customDecks]);
+  const runtimeDb = useMemo(() => ({ ...db0, ...customCardDb }), [customCardDb]);
+  const selectableDecks = useMemo(() => [...playableDecks, ...customDecks], [customDecks]);
+  const [catalogCards, setCatalogCards] = useState([]);
+  const [catalogStatus, setCatalogStatus] = useState({ state: 'loading', count: 0, complete: false, sourceUpdatedAt: null, message: 'Loading full MTG card catalog…' });
+  const builderDb = useMemo(() => mergeBuilderDatabase(runtimeDb, catalogCards), [runtimeDb, catalogCards]);
   const [choice, setChoice] = useState(playableDecks[0]?.id || '');
   const [playerCount, setPlayerCount] = useState(2);
   const [showDeckImporter, setShowDeckImporter] = useState(false);
+  const [showDeckBuilder, setShowDeckBuilder] = useState(false);
   const [deckName, setDeckName] = useState('');
   const [commanderName, setCommanderName] = useState('');
   const [deckList, setDeckList] = useState('');
@@ -135,6 +142,27 @@ export default function App() {
     setAutomationError('');
   };
 
+  useEffect(() => {
+    let active = true;
+    loadCardCatalog().then(payload => {
+      if (!active) return;
+      setCatalogCards(payload.cards || []);
+      setCatalogStatus({
+        state: payload.complete ? 'ready' : 'fallback',
+        count: Number(payload.count || payload.cards?.length || 0),
+        complete: !!payload.complete,
+        sourceUpdatedAt: payload.sourceUpdatedAt || null,
+        message: payload.complete
+          ? `Full Scryfall catalog loaded (${Number(payload.count || payload.cards?.length || 0).toLocaleString()} cards).`
+          : 'Using the local card seed until a Scryfall startup sync succeeds.'
+      });
+    }).catch(error => {
+      if (!active) return;
+      setCatalogStatus({ state: 'error', count: Object.keys(db0).length, complete: false, sourceUpdatedAt: null, message: `Full catalog unavailable: ${error.message}` });
+    });
+    return () => { active = false; };
+  }, []);
+
   const importedCardCount = parseMassEntry(deckList).count;
 
   const importDeck = async () => {
@@ -143,8 +171,11 @@ export default function App() {
       const parsed = parseMassEntry(deckList);
       if (parsed.errors.length) throw new Error(parsed.errors.slice(0, 5).join('\n'));
       if (parsed.count !== 99) throw new Error(`The main deck must contain exactly 99 cards. Your pasted list contains ${parsed.count}.`);
-      const downloaded = await fetchMissingCardDefinitions([commanderName, ...parsed.entries.map(entry => entry.name)], runtimeDb);
-      const importDb = { ...runtimeDb, ...downloaded };
+      const requestedNames = [commanderName, ...parsed.entries.map(entry => entry.name)];
+      const catalogPromoted = promoteCatalogNames(requestedNames, builderDb);
+      const catalogAwareDb = { ...runtimeDb, ...catalogPromoted };
+      const downloaded = await fetchMissingCardDefinitions(requestedNames, catalogAwareDb);
+      const importDb = { ...catalogAwareDb, ...downloaded };
       const deck = buildCustomDeck({ name: deckName, commander: commanderName, list: deckList }, importDb, selectableDecks);
       deck.cardDefinitions = Object.fromEntries(deck.cards.filter(entry => !db0[entry.id]).map(entry => [entry.id, importDb[entry.id]]));
       const next = [...customDecks, deck];
@@ -170,6 +201,24 @@ export default function App() {
     setCustomDecks(next);
     saveCustomDecks(next);
     setChoice(playableDecks[0]?.id || next[0]?.id || '');
+  };
+
+  const saveBuiltDeck = ({ deckName: builtDeckName, commander, entries }) => {
+    const selectedDefinitions = [commander, ...entries.map(entry => builderDb[entry.id]).filter(Boolean)];
+    const catalogPromoted = promoteCatalogDefinitions(selectedDefinitions);
+    const saveDb = { ...runtimeDb, ...catalogPromoted };
+    const list = entries.map(entry => `${entry.quantity} ${builderDb[entry.id]?.name || entry.id}`).join('\n');
+    const deck = buildCustomDeck({ name: builtDeckName, commander: commander.name, list }, saveDb, selectableDecks);
+    deck.notes = 'Built with the in-game Commander Deck Builder using the full Scryfall card catalog.';
+    deck.builderGenerated = true;
+    deck.cardDefinitions = Object.fromEntries(deck.cards
+      .filter(entry => !db0[entry.id] && saveDb[entry.id])
+      .map(entry => [entry.id, saveDb[entry.id]]));
+    const next = [...customDecks, deck];
+    setCustomDecks(next);
+    saveCustomDecks(next);
+    setChoice(deck.id);
+    setShowDeckBuilder(false);
   };
 
   useEffect(() => {
@@ -225,11 +274,17 @@ export default function App() {
     return () => window.clearTimeout(timer);
   }, [engine, renderTick, autoPassAITurns, holdPriority, skipNextHumanPriority, automationError]);
 
+  if (!engine && showDeckBuilder) return <DeckBuilder db={builderDb} catalogStatus={catalogStatus} onCancel={() => setShowDeckBuilder(false)} onSave={saveBuiltDeck} />;
+
   if (!engine) return <main className="setup">
     <div className="setup-panel">
       <div className="brand-mark">✦</div>
       <h1>MTG AI Trainer</h1>
       <p>Commander practice table</p>
+      <div className={`catalog-status-chip catalog-${catalogStatus.state}`} title={catalogStatus.message}>
+        <span>◉</span>
+        <b>{catalogStatus.complete ? `${catalogStatus.count.toLocaleString()}-card catalog` : 'Card catalog syncing'}</b>
+      </div>
       <label>Choose your deck</label>
       <select value={choice} onChange={e => setChoice(e.target.value)}>
         {selectableDecks.map(d => <option value={d.id} key={d.id}>{d.name}{d.custom ? ' — Custom' : ''}</option>)}
@@ -240,7 +295,8 @@ export default function App() {
       </div>
       <div className="setup-match-note">You + {playerCount - 1} AI opponent{playerCount === 2 ? '' : 's'}</div>
       <button className="primary" onClick={start}>Start {playerCount}-Player Match</button>
-      <button className="secondary setup-secondary" onClick={() => { setDeckImportError(''); setShowDeckImporter(true); }}>+ Add Your Own Deck</button>
+      <button className="secondary setup-secondary deck-builder-launch" onClick={() => setShowDeckBuilder(true)}>✦ Build a Commander Deck</button>
+      <button className="secondary setup-secondary" onClick={() => { setDeckImportError(''); setShowDeckImporter(true); }}>+ Import Your Own Deck</button>
       {customDecks.some(deck => deck.id === choice) && <button className="text-button remove-deck" onClick={removeSelectedCustomDeck}>Remove selected custom deck</button>}
       {referenceDecks.length > 0 && <div className="reference-note"><b>Published deck reference preserved</b><span>{referenceDecks.map(d => d.name).join(', ')} is stored with its exact 100-card list but is disabled until every card mechanic is implemented. The supported trainer version remains playable.</span></div>}
     </div>
@@ -357,6 +413,7 @@ export default function App() {
   const pendingEffectCards = s.pendingChoice?.type === 'EFFECT_CARD_CHOICE' && s.pendingChoice.playerId === 'player' ? s.pendingChoice : null;
   const pendingHideaway = s.pendingChoice?.type === 'HIDEAWAY' && s.pendingChoice.playerId === 'player' ? s.pendingChoice : null;
   const pendingHideawayPlay = s.pendingChoice?.type === 'HIDEAWAY_PLAY' && s.pendingChoice.playerId === 'player' ? s.pendingChoice : null;
+  const pendingEntryLifePayment = s.pendingChoice?.type === 'ENTRY_LIFE_PAYMENT' && s.pendingChoice.playerId === 'player' ? s.pendingChoice : null;
   const pendingEntryReveal = s.pendingChoice?.type === 'ENTRY_REVEAL' && s.pendingChoice.playerId === 'player' ? s.pendingChoice : null;
   const pendingCopyTargets = s.pendingChoice?.type === 'COPY_TARGETS' && s.pendingChoice.playerId === 'player' ? s.pendingChoice : null;
   const legalAttackerIds = new Set(s.turnActionPending === 'DECLARE_ATTACKERS' && s.activePlayer === 'player'
@@ -410,18 +467,34 @@ export default function App() {
   const toggleEffectChoice = id => setEffectChoices(ids => ids.includes(id)
     ? ids.filter(x => x !== id)
     : (ids.length < (pendingEffectCards?.max || 1) ? [...ids, id] : ids));
-  const cardNameForInstance = id => {
+  const cardForInstance = id => {
     const permanent = engine.findPermanent(id);
-    if (permanent) return engine.db[permanent.cardId]?.name || permanent.cardId;
+    if (permanent) return permanent;
     for (const player of Object.values(s.players)) {
       for (const zone of ['hand', 'library', 'graveyard', 'exile', 'command']) {
         const card = player[zone]?.find(item => item.instanceId === id);
-        if (card) return engine.db[card.cardId]?.name || card.cardId;
+        if (card) return card;
       }
     }
+    return null;
+  };
+  const cardNameForInstance = id => {
+    const card = cardForInstance(id);
+    if (card) return engine.db[card.cardId]?.name || card.cardId;
     if (s.players[id]) return playerLabel(id);
     return id;
   };
+  const effectChoiceIsLibrarySearch = !!pendingEffectCards
+    && ['searchLand', 'myriadLandscape'].includes(pendingEffectCards.continuation?.type);
+  const effectLibraryCards = effectChoiceIsLibrarySearch
+    ? pendingEffectCards.candidateIds.map(cardForInstance).filter(Boolean)
+    : [];
+  const cultivateLibraryCards = pendingCultivate
+    ? pendingCultivate.eligibleIds.map(cardForInstance).filter(Boolean)
+    : [];
+  const sisayLibraryCards = pendingSisay
+    ? pendingSisay.eligibleIds.map(cardForInstance).filter(Boolean)
+    : [];
   const hideawayPlayCard = pendingHideawayPlay ? p.exile.find(card => card.instanceId === pendingHideawayPlay.cardInstanceId) : null;
   const hideawayPlayActions = pendingHideawayPlay ? engine.getLegalActions('player').filter(action => action.cardInstanceId === pendingHideawayPlay.cardInstanceId) : [];
   const hideawayCastActions = hideawayPlayActions.filter(action => action.type === 'CAST_SPELL');
@@ -488,7 +561,13 @@ export default function App() {
   };
 
   const abilityLabel = (ability, index = 0) => {
-    const cost = [ability.cost?.mana || ability.manaCost || '', ability.tap ? '{T}' : '', ability.selection?.count ? `tap ${ability.selection.count}` : ''].filter(Boolean).join(', ');
+    const cost = [
+      ability.cost?.mana || ability.manaCost || '',
+      ability.tap ? '{T}' : '',
+      ability.cost?.life ? `pay ${ability.cost.life} life` : '',
+      ability.cost?.sacrificeSelf ? 'sacrifice this permanent' : '',
+      ability.selection?.count ? `tap ${ability.selection.count}` : ''
+    ].filter(Boolean).join(', ');
     const effect = ability.effect?.type || 'ability';
     const names = {
       addKeywordSource: 'Make this creature unblockable this turn',
@@ -499,7 +578,8 @@ export default function App() {
       cantBeBlocked: 'Make target creature unblockable',
       doubleCounters: 'Double counters',
       levelUp: 'Level up',
-      adapt: 'Adapt'
+      adapt: 'Adapt',
+      searchLand: `Search your library for ${ability.effect?.basicOnly ? 'a basic land' : (ability.effect?.landTypes?.length ? `a ${ability.effect.landTypes.join(' or ')}` : 'a land')}`
     };
     return `${cost ? `${cost}: ` : ''}${names[effect] || `Activated ability ${index + 1}`}`;
   };
@@ -671,7 +751,7 @@ export default function App() {
   };
 
   const next = () => {
-    if (targetingAction || pendingWard || pendingLegend || pendingCommander || pendingOptionalTrigger || pendingOptionalManaPayment || pendingTapOrUntap || pendingOptionalEffect || pendingExplore || pendingHakbal || pendingSisay || pendingScry || pendingCreatureType || pendingHideaway || pendingHideawayPlay || pendingEntryReveal || pendingCopyTargets) return;
+    if (targetingAction || pendingWard || pendingLegend || pendingCommander || pendingOptionalTrigger || pendingOptionalManaPayment || pendingTapOrUntap || pendingOptionalEffect || pendingExplore || pendingHakbal || pendingSisay || pendingScry || pendingCreatureType || pendingHideaway || pendingHideawayPlay || pendingEntryLifePayment || pendingEntryReveal || pendingCopyTargets) return;
     if (abilitySelection) {
       confirmAbilitySelection();
       return;
@@ -741,7 +821,7 @@ export default function App() {
   };
 
   const buttonText = targetingAction ? 'Choose Target'
-    : pendingWard || pendingOptionalTrigger || pendingOptionalManaPayment || pendingTapOrUntap || pendingOptionalEffect || pendingExplore || pendingHakbal || pendingSisay || pendingScry || pendingCreatureType || pendingHideaway || pendingHideawayPlay || pendingEntryReveal || pendingCopyTargets ? 'Resolve Required Choice'
+    : pendingWard || pendingOptionalTrigger || pendingOptionalManaPayment || pendingTapOrUntap || pendingOptionalEffect || pendingExplore || pendingHakbal || pendingSisay || pendingScry || pendingCreatureType || pendingHideaway || pendingHideawayPlay || pendingEntryLifePayment || pendingEntryReveal || pendingCopyTargets ? 'Resolve Required Choice'
       : abilitySelection ? `Confirm ${abilitySelection.selectedIds.length}/${abilitySelection.count} Selected`
         : pendingEffectCards ? `Confirm ${effectChoices.length} Card${effectChoices.length === 1 ? '' : 's'}`
       : pendingExploreOrder ? 'Confirm Explore Order'
@@ -773,6 +853,7 @@ export default function App() {
     || !!pendingCreatureType
     || !!pendingHideaway
     || !!pendingHideawayPlay
+    || !!pendingEntryLifePayment
     || !!pendingEntryReveal
     || !!pendingCopyTargets
     || (!!pendingExploreOrder && exploreOrder.length !== pendingExploreOrder.permanentIds.length)
@@ -894,17 +975,31 @@ export default function App() {
       {pendingHakbal.landInstanceIds.map(id => <button key={id} className="primary" onClick={() => act({ type: 'CHOOSE_HAKBAL_ATTACK', landInstanceId: id })}>Put {cardNameForInstance(id)} onto Battlefield</button>)}{' '}
       <button onClick={() => act({ type: 'CHOOSE_HAKBAL_ATTACK', landInstanceId: null })}>Draw a Card</button>
     </div>}
-    {pendingCultivate && <div className="decision-banner">
-      Cultivate — choose up to two basic lands. Your <b>first</b> selection enters tapped; your <b>second</b> goes to your hand.{' '}
-      {pendingCultivate.eligibleIds.map(id => <button key={id} onClick={() => toggleCultivateChoice(id)}>{cultivateChoices.includes(id) ? `${cultivateChoices.indexOf(id) + 1}. ✓ ` : ''}{cardNameForInstance(id)}</button>)}{' '}
-      <span>{cultivateChoices.length}/2 selected</span>{' '}
-      {cultivateChoices.length > 0 && <button onClick={() => setCultivateChoices([])}>Clear</button>}
-    </div>}
-    {pendingSisay && <div className="decision-banner">
-      Sisay — choose a legendary permanent card with mana value less than {pendingSisay.sourcePower}.{' '}
-      {pendingSisay.eligibleIds.map(id => <button key={id} className="primary" onClick={() => act({ type: 'CHOOSE_SISAY_TUTOR', cardInstanceId: id })}>Find {cardNameForInstance(id)}</button>)}{' '}
-      <button onClick={() => act({ type: 'CHOOSE_SISAY_TUTOR', cardInstanceId: null })}>Find Nothing</button>
-    </div>}
+    {pendingCultivate && <LibrarySearchPicker
+      title="Cultivate — Search Your Library"
+      prompt="Choose up to two basic lands from your library."
+      cards={cultivateLibraryCards}
+      db={engine.db}
+      selectedIds={cultivateChoices}
+      onToggle={toggleCultivateChoice}
+      min={0}
+      max={2}
+      onConfirm={() => act({ type: 'CHOOSE_CULTIVATE', cardInstanceIds: cultivateChoices })}
+      confirmLabel="Finish Cultivate Search"
+      selectionHint={<>Your <b>first</b> selection enters tapped; your <b>second</b> goes to your hand.</>}
+    />}
+    {pendingSisay && <LibrarySearchPicker
+      title="Sisay — Search Your Library"
+      prompt={`Choose a legendary permanent card with mana value less than ${pendingSisay.sourcePower}.`}
+      cards={sisayLibraryCards}
+      db={engine.db}
+      selectedIds={[]}
+      onSelect={id => act({ type: 'CHOOSE_SISAY_TUTOR', cardInstanceId: id })}
+      min={0}
+      max={1}
+      resolveOnSingleSelect
+      onDecline={() => act({ type: 'CHOOSE_SISAY_TUTOR', cardInstanceId: null })}
+    />}
     {pendingScry && <div className="decision-banner">
       Scry 1 — top card: <b>{pendingScry.cardName}</b>.{' '}
       <button className="primary" onClick={() => act({ type: 'CHOOSE_SCRY', putOnBottom: false })}>Keep on Top</button>{' '}
@@ -914,12 +1009,27 @@ export default function App() {
       <b>{pendingCreatureType.cardName || 'Choose a creature type'}</b> — choose a creature type.{' '}
       {pendingCreatureType.options.map(type => <button key={type} className={type === 'Merfolk' ? 'primary' : ''} onClick={() => act({ type: 'CHOOSE_CREATURE_TYPE', creatureType: type })}>{type}</button>)}
     </div>}
-    {pendingEffectCards && <div className="decision-banner">
+    {pendingEffectCards && !effectChoiceIsLibrarySearch && <div className="decision-banner">
       <b>{pendingEffectCards.prompt || 'Choose cards'}</b>{' '}
       {pendingEffectCards.candidateIds.map(id => <button key={id} onClick={() => toggleEffectChoice(id)}>{effectChoices.includes(id) ? '✓ ' : ''}{cardNameForInstance(id)}</button>)}{' '}
       <span>{effectChoices.length} selected (choose {pendingEffectCards.min === pendingEffectCards.max ? pendingEffectCards.min : `${pendingEffectCards.min}–${pendingEffectCards.max}`})</span>{' '}
       {effectChoices.length > 0 && <button onClick={() => setEffectChoices([])}>Clear</button>}
     </div>}
+    {pendingEffectCards && effectChoiceIsLibrarySearch && <LibrarySearchPicker
+      title="Search Your Library"
+      prompt={pendingEffectCards.prompt || 'Choose cards from your library.'}
+      cards={effectLibraryCards}
+      db={engine.db}
+      selectedIds={effectChoices}
+      onToggle={toggleEffectChoice}
+      onSelect={id => act({ type: 'CHOOSE_EFFECT_CARDS', cardInstanceIds: [id] })}
+      min={pendingEffectCards.min}
+      max={pendingEffectCards.max}
+      resolveOnSingleSelect={pendingEffectCards.max === 1}
+      onConfirm={() => act({ type: 'CHOOSE_EFFECT_CARDS', cardInstanceIds: effectChoices })}
+      onDecline={pendingEffectCards.min === 0 ? () => act({ type: 'CHOOSE_EFFECT_CARDS', cardInstanceIds: [] }) : null}
+      confirmLabel={pendingEffectCards.max === 1 ? 'Choose Selected Card' : 'Confirm Selected Cards'}
+    />}
     {pendingHideaway && <div className="decision-banner">
       Hideaway {pendingHideaway.count || pendingHideaway.candidateIds.length} — choose one card to exile face down.{' '}
       {pendingHideaway.candidateIds.map(id => <button key={id} className="primary" onClick={() => act({ type: 'CHOOSE_HIDEAWAY', cardInstanceId: id })}>{cardNameForInstance(id)}</button>)}
@@ -930,6 +1040,11 @@ export default function App() {
       {hideawayCastActions.length > 0 && hideawayPlayCard && <button className="primary" onClick={() => chooseCardAction(hideawayPlayCard, hideawayCastActions)}>Cast Hidden Card</button>}{' '}
       {!hideawayLandAction && hideawayCastActions.length === 0 && <span>The hidden card cannot legally be played right now. </span>}
       <button onClick={() => act({ type: 'DECLINE_HIDEAWAY_PLAY', cardInstanceId: pendingHideawayPlay.cardInstanceId })}>Do Not Play It</button>
+    </div>}
+    {pendingEntryLifePayment && <div className="decision-banner">
+      <b>{pendingEntryLifePayment.cardName}</b> — pay {pendingEntryLifePayment.lifeCost} life for it to enter untapped?{' '}
+      <button className="primary" onClick={() => act({ type: 'CHOOSE_ENTRY_LIFE_PAYMENT', pay: true })}>Pay {pendingEntryLifePayment.lifeCost} Life (enter untapped)</button>{' '}
+      <button onClick={() => act({ type: 'CHOOSE_ENTRY_LIFE_PAYMENT', pay: false })}>Do Not Pay (enter tapped)</button>
     </div>}
     {pendingEntryReveal && <div className="decision-banner">
       <b>{pendingEntryReveal.cardName}</b> — you may reveal a qualifying land card from your hand so it enters untapped.{' '}

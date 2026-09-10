@@ -137,21 +137,55 @@ function fetchedManaAbilities(card, text, typeLine) {
   const basicColor = { plains: 'W', island: 'U', swamp: 'B', mountain: 'R', forest: 'G' }[basic];
   if (basicColor) return [{ type: 'mana', mana: { [basicColor]: 1 } }];
   if (/add one mana of any color/i.test(text)) return [{ type: 'mana', anyColor: true, colors: ['W','U','B','R','G'], amount: 1 }];
-  const symbols = [...String(text).matchAll(/Add ((?:\{[WUBRGC]\})+)/g)].flatMap(match => [...match[1].matchAll(/\{([WUBRGC])\}/g)].map(part => part[1]));
-  if (symbols.length) {
+
+  for (const line of String(text).split(/\n/)) {
+    const add = line.match(/(?:^|:)\s*Add\s+([^.;)]+)/i);
+    if (!add) continue;
+    const symbols = [...add[1].matchAll(/\{([WUBRGC])\}/g)].map(part => part[1]);
+    if (!symbols.length) continue;
     const colors = [...new Set(symbols)];
-    if (colors.length > 1) return [{ type: 'mana', anyColor: true, colors, amount: 1 }];
-    return [{ type: 'mana', mana: { [colors[0]]: symbols.length } }];
-  }
-  if (/\bLand\b/i.test(typeLine)) {
-    const colors = card.color_identity || [];
-    return [colors.length ? { type: 'mana', anyColor: true, colors, amount: 1 } : { type: 'mana', mana: { C: 1 } }];
+    if (/\bor\b/i.test(add[1]) || (/,/.test(add[1]) && colors.length > 1)) return [{ type: 'mana', anyColor: true, colors, amount: 1 }];
+    const mana = {};
+    for (const symbol of symbols) mana[symbol] = (mana[symbol] || 0) + 1;
+    return [{ type: 'mana', mana }];
   }
   return [];
 }
 
+function fetchedActivatedLandSearchAbilities(text, typeLine) {
+  if (!/\bLand\b/i.test(typeLine)) return [];
+  const abilities = [];
+  for (const line of String(text).split(/\n/)) {
+    if (!/^\s*(?:\{[^}]+\}|Pay\b|Sacrifice\b)/i.test(line)) continue;
+    const match = line.match(/^(.+?):\s*Search your library for (?:a|an|up to one) (.+?) card,\s*(?:reveal it,\s*)?put it (onto the battlefield|into your hand)( tapped)?,\s*then shuffle/i);
+    if (!match) continue;
+    const costText = match[1];
+    const descriptor = match[2];
+    const cost = {};
+    const life = costText.match(/Pay (\d+) life/i);
+    if (life) cost.life = Number(life[1]);
+    if (/Sacrifice (?:this land|this permanent)/i.test(costText)) cost.sacrificeSelf = true;
+    const mana = [...costText.matchAll(/\{(\d+|[WUBRGC])\}/g)].map(part => `{${part[1]}}`).join('');
+    if (mana) cost.mana = mana;
+    const landTypes = ['Plains','Island','Swamp','Mountain','Forest'].filter(type => new RegExp(`\\b${type}\\b`, 'i').test(descriptor));
+    abilities.push({
+      type: 'activated',
+      tap: /\{T\}/i.test(costText),
+      ...(Object.keys(cost).length ? { cost } : {}),
+      effect: {
+        type: 'searchLand',
+        basicOnly: /\bbasic\b/i.test(descriptor),
+        landTypes,
+        destination: /battlefield/i.test(match[3]) ? 'battlefield' : 'hand',
+        tapped: !!match[4]
+      }
+    });
+  }
+  return abilities;
+}
+
 function fetchedAbilities(card, text, typeLine) {
-  const abilities = fetchedManaAbilities(card, text, typeLine);
+  const abilities = [...fetchedManaAbilities(card, text, typeLine), ...fetchedActivatedLandSearchAbilities(text, typeLine)];
   if (/you have no maximum hand size/i.test(text)) abilities.push({ type: 'static', effect: { noMaximumHandSize: true } });
   for (const sentence of String(text).split(/(?<=\.)\s+|\n/)) {
     const global = sentence.match(/^(Other )?creatures you control (?:have|gain) (.+?)(?:\.| until end of turn)/i);
