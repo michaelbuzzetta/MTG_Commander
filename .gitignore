@@ -2,3 +2,5 @@
 node_modules/
 # Generated Scryfall bulk catalog cache
 .cache/
+# Step 37 runtime fuzz artifacts
+fuzz-artifacts/

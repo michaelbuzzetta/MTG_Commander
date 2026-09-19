@@ -1,0 +1,640 @@
+{
+  "schemaVersion": 1,
+  "generatedForRulesVersion": "mtg-cr-2026-08-07",
+  "policy": "Review direct card-id rules branches and single-card EffectEngine cases. Remove a handler only after an equivalent Step 16 script/shared mechanic is behaviorally certified.",
+  "candidateCardCount": 38,
+  "candidates": [
+    {
+      "cardId": "arch-inspirit-flagship-vessel",
+      "name": "Inspirit, Flagship Vessel",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 188,
+          "effectType": "stationCharge",
+          "snippet": "case 'stationCharge': {"
+        }
+      ]
+    },
+    {
+      "cardId": "arch-myojin-of-blooming-dawn",
+      "name": "Myojin of Blooming Dawn",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 183,
+          "effectType": "createSpiritsPerPermanent",
+          "snippet": "case 'createSpiritsPerPermanent': {"
+        }
+      ]
+    },
+    {
+      "cardId": "arch-stangg-echo-warrior",
+      "name": "Stangg, Echo Warrior",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 194,
+          "effectType": "stanggTwin",
+          "snippet": "case 'stanggTwin': {"
+        }
+      ]
+    },
+    {
+      "cardId": "arch-the-beamtown-bullies",
+      "name": "The Beamtown Bullies",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 269,
+          "effectType": "bulliesDonate",
+          "snippet": "case 'bulliesDonate': {"
+        }
+      ]
+    },
+    {
+      "cardId": "hakbal",
+      "name": "Hakbal of the Surging Soul",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 652,
+          "effectType": "exploreAll",
+          "snippet": "case 'exploreAll': {"
+        },
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 668,
+          "effectType": "hakbalAttack",
+          "snippet": "case 'hakbalAttack': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-aetherize",
+      "name": "Aetherize",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 464,
+          "effectType": "returnAttackers",
+          "snippet": "case 'returnAttackers': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-alchemist-s-refuge",
+      "name": "Alchemist's Refuge",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 637,
+          "effectType": "castPermission",
+          "snippet": "case 'castPermission':"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-benthic-biomancer",
+      "name": "Benthic Biomancer",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 106,
+          "effectType": "drawDiscard",
+          "snippet": "case 'drawDiscard': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-bygone-marvels",
+      "name": "Bygone Marvels",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 927,
+          "effectType": "copySpellByInstance",
+          "snippet": "case 'copySpellByInstance': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-cold-eyed-selkie",
+      "name": "Cold-Eyed Selkie",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 575,
+          "effectType": "drawEventAmount",
+          "snippet": "case 'drawEventAmount':"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-coralhelm-commander",
+      "name": "Coralhelm Commander",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 514,
+          "effectType": "levelUp",
+          "snippet": "case 'levelUp': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-explore",
+      "name": "Explore",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 446,
+          "effectType": "additionalLandPlay",
+          "snippet": "case 'additionalLandPlay':"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-growth-spiral",
+      "name": "Growth Spiral",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 449,
+          "effectType": "putLandFromHand",
+          "snippet": "case 'putLandFromHand': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-inspiring-call",
+      "name": "Inspiring Call",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 564,
+          "effectType": "drawPerCreaturesWithCounter",
+          "snippet": "case 'drawPerCreaturesWithCounter': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-kiora-s-follower",
+      "name": "Kiora's Follower",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 487,
+          "effectType": "untap",
+          "snippet": "case 'untap': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-kumena-tyrant-of-orazca",
+      "name": "Kumena, Tyrant of Orazca",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 505,
+          "effectType": "addCountersAll",
+          "snippet": "case 'addCountersAll': {"
+        },
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 524,
+          "effectType": "addKeywordSource",
+          "snippet": "case 'addKeywordSource': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-llanowar-reborn",
+      "name": "Llanowar Reborn",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 578,
+          "effectType": "moveCounterToEvent",
+          "snippet": "case 'moveCounterToEvent': {"
+        },
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 811,
+          "effectType": "optionalEffect",
+          "snippet": "case 'optionalEffect': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-merfolk-cave-diver",
+      "name": "Merfolk Cave-Diver",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 749,
+          "effectType": "pumpEventObject",
+          "snippet": "case 'pumpEventObject': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-merrow-reejerey",
+      "name": "Merrow Reejerey",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 491,
+          "effectType": "tapOrUntap",
+          "snippet": "case 'tapOrUntap': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-mosswort-bridge",
+      "name": "Mosswort Bridge",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 942,
+          "effectType": "playHideaway",
+          "snippet": "case 'playHideaway': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-myriad-landscape",
+      "name": "Myriad Landscape",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 956,
+          "effectType": "myriadLandscape",
+          "snippet": "case 'myriadLandscape': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-nicanzil-current-conductor",
+      "name": "Nicanzil, Current Conductor",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 588,
+          "effectType": "putLandFromHandIfExploredLand",
+          "snippet": "case 'putLandFromHandIfExploredLand': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-prime-speaker-zegana",
+      "name": "Prime Speaker Zegana",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 569,
+          "effectType": "drawSourcePower",
+          "snippet": "case 'drawSourcePower': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-reflections-of-littjara",
+      "name": "Reflections of Littjara",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 921,
+          "effectType": "copySpell",
+          "snippet": "case 'copySpell': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-ruinous-intrusion",
+      "name": "Ruinous Intrusion",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 905,
+          "effectType": "ruinousIntrusion",
+          "snippet": "case 'ruinousIntrusion': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-simic-ascendancy",
+      "name": "Simic Ascendancy",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 841,
+          "effectType": "winIfSourceCounterAtLeast",
+          "snippet": "case 'winIfSourceCounterAtLeast': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-thieving-skydiver",
+      "name": "Thieving Skydiver",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 609,
+          "effectType": "gainControl",
+          "snippet": "case 'gainControl': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-tishana-voice-of-thunder",
+      "name": "Tishana, Voice of Thunder",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 561,
+          "effectType": "drawPerCreatures",
+          "snippet": "case 'drawPerCreatures':"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-topography-tracker",
+      "name": "Topography Tracker",
+      "status": "review-required",
+      "reasons": [
+        "direct-card-id-condition",
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 1330,
+          "snippet": "const trackerCount = this.engine.state.players[live.controller].battlefield.filter(card => card.cardId === 'lcc-topography-tracker' && !card.phasedOut).length;"
+        },
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 634,
+          "effectType": "makeMap",
+          "snippet": "case 'makeMap':"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-tributary-instructor",
+      "name": "Tributary Instructor",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 629,
+          "effectType": "mentor",
+          "snippet": "case 'mentor': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-vorel-of-the-hull-clade",
+      "name": "Vorel of the Hull Clade",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 597,
+          "effectType": "doubleCounters",
+          "snippet": "case 'doubleCounters': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-wave-goodbye",
+      "name": "Wave Goodbye",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 471,
+          "effectType": "returnCreaturesWithoutCounter",
+          "snippet": "case 'returnCreaturesWithoutCounter': {"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-xolatoyac-the-smiling-flood",
+      "name": "Xolatoyac, the Smiling Flood",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 594,
+          "effectType": "untapPermanentsWithCounters",
+          "snippet": "case 'untapPermanentsWithCounters':"
+        }
+      ]
+    },
+    {
+      "cardId": "lcc-zegana-utopian-speaker",
+      "name": "Zegana, Utopian Speaker",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 834,
+          "effectType": "conditionalDraw",
+          "snippet": "case 'conditionalDraw': {"
+        }
+      ]
+    },
+    {
+      "cardId": "merfolk-scout",
+      "name": "River Herald Scout",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 643,
+          "effectType": "explore",
+          "snippet": "case 'explore': {"
+        }
+      ]
+    },
+    {
+      "cardId": "sisay",
+      "name": "Sisay, Weatherlight Captain",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 704,
+          "effectType": "sisayTutor",
+          "snippet": "case 'sisayTutor': {"
+        }
+      ]
+    },
+    {
+      "cardId": "user-jhoira-of-the-ghitu",
+      "name": "Jhoira of the Ghitu",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 283,
+          "effectType": "jhoiraSuspend",
+          "snippet": "case 'jhoiraSuspend': {"
+        }
+      ]
+    },
+    {
+      "cardId": "user-tom-bombadil",
+      "name": "Tom Bombadil",
+      "status": "review-required",
+      "reasons": [
+        "single-card-effect-handler"
+      ],
+      "references": [
+        {
+          "file": "src/engine/EffectEngine.js",
+          "line": 364,
+          "effectType": "tomBombadilCascade",
+          "snippet": "case 'tomBombadilCascade': {"
+        }
+      ]
+    }
+  ]
+}

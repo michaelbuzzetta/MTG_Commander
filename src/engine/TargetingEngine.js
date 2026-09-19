@@ -1,5 +1,7 @@
 import { ZoneManager } from './ZoneManager.js';
 import { isType, hasSubtype } from './utils.js';
+import { matchesTargetFilter } from './choices/TargetFilter.js';
+import { LEGALITY_OPERATION } from './legality/index.js';
 
 const PLAYER_ZONES = ['library', 'hand', 'battlefield', 'graveyard', 'exile', 'command'];
 const COLOR_NAMES = { W: 'white', U: 'blue', B: 'black', R: 'red', G: 'green' };
@@ -24,15 +26,16 @@ function normalizedSpec(raw) {
   return { ...(raw || {}) };
 }
 
-function relationMatches(engine, actorPid, targetPid, relation) {
+function relationMatches(engine, actorPid, targetPid, relation, context = {}) {
   if (!relation) return true;
+  if (engine.multiplayer?.matches) return engine.multiplayer.matches(relation, targetPid, { actorPlayerId: actorPid, targetPlayerId: targetPid, ...context });
   if (relation === 'you' || relation === 'self') return targetPid === actorPid;
   if (relation === 'opponent') return actorPid !== targetPid && !!engine.state.players[targetPid] && !engine.state.players[targetPid].lost;
   return true;
 }
 
 function sourceQualities(engine, sourceObject) {
-  const def = sourceObject?.cardId ? engine.db[sourceObject.cardId] : sourceObject;
+  const def = sourceObject?.cardId ? (engine.copy?.definitionForObject(sourceObject) || engine.db[sourceObject.cardId]) : sourceObject;
   const manaCost = def?.manaCost || '';
   const colors = new Set();
   for (const [symbol, name] of Object.entries(COLOR_NAMES)) if (manaCost.includes(`{${symbol}}`)) colors.add(name);
@@ -108,10 +111,17 @@ export class TargetingEngine {
     if (isPlayer) {
       if (e.state.players[targetId].lost) throw new Error('An eliminated player cannot be targeted');
       if (!supportsPlayer) throw new Error('Target must be a card or permanent, not a player');
-      if (!relationMatches(e, actorPid, targetId, spec.controller || spec.player)) throw new Error('Illegal player relationship for this target');
+      if (!relationMatches(e, actorPid, targetId, spec.controller || spec.player, { ...context, sourceObject: context.sourceObject })) throw new Error('Illegal player relationship for this target');
+      const playerCandidate = { id: targetId, kind: 'player', zone: null, controller: targetId, owner: targetId, player: e.state.players[targetId], definition: null, card: null };
+      if (spec.filter && !matchesTargetFilter(e, actorPid, playerCandidate, spec.filter, context)) throw new Error('Player does not satisfy this target filter');
       if (typeof spec.predicate === 'function' && !spec.predicate({ engine: e, actorPid, targetId, player: e.state.players[targetId], context })) {
         throw new Error('Player does not satisfy this target restriction');
       }
+      e.legality?.assertOperation(LEGALITY_OPERATION.TARGET, actorPid, {
+        targetPlayerId: targetId,
+        source: context.sourceObject || null,
+        definition: context.sourceObject?.cardId ? (e.copy?.definitionForObject(context.sourceObject) || e.db[context.sourceObject.cardId]) : null
+      });
       return { id: targetId, kind: 'player', player: e.state.players[targetId] };
     }
 
@@ -119,7 +129,7 @@ export class TargetingEngine {
     const found = ZoneManager.find(e.state, targetId);
     if (!found) throw new Error('Target no longer exists');
     const target = found.card;
-    const def = e.db[target.cardId];
+    const def = e.copy?.definitionForObject(target) || e.db[target.cardId];
     const merged = { ...(spec.filter || {}), ...spec };
     const supportsStack = kind === 'spell' || kind === 'spellOrPermanent' || kind === 'spell-or-permanent';
     const supportsBattlefield = kind !== 'spell';
@@ -133,8 +143,8 @@ export class TargetingEngine {
     if ((kind === 'spellOrPermanent' || kind === 'spell-or-permanent') && !['battlefield','stack'].includes(found.zone)) throw new Error('Target must be a spell or permanent');
     if (found.zone === 'stack' && !supportsStack) throw new Error('This effect cannot target a spell');
     if (found.zone === 'battlefield' && !supportsBattlefield) throw new Error('This effect cannot target a permanent');
-    if (!relationMatches(e, actorPid, target.controller, merged.controller)) throw new Error('Illegal controller relationship for this target');
-    if (!relationMatches(e, actorPid, target.owner, merged.owner)) throw new Error('Illegal owner relationship for this target');
+    if (!relationMatches(e, actorPid, target.controller, merged.controller, { ...context, sourceObject: context.sourceObject })) throw new Error('Illegal controller relationship for this target');
+    if (!relationMatches(e, actorPid, target.owner, merged.owner, { ...context, sourceObject: context.sourceObject })) throw new Error('Illegal owner relationship for this target');
     if (merged.ownerFromTargetIndex != null) {
       const expectedOwner = context.selectedTargets?.[Number(merged.ownerFromTargetIndex)];
       if (!expectedOwner || !e.state.players[expectedOwner] || target.owner !== expectedOwner) throw new Error('Target card must be owned by the selected player');
@@ -162,35 +172,34 @@ export class TargetingEngine {
     }
 
     if (found.zone === 'battlefield' && !context.ignoreProtection) this._validateProtection(actorPid, target, context.sourceObject);
+    const filterCandidate = {
+      id: targetId,
+      kind: found.zone === 'battlefield' ? 'permanent' : (found.zone === 'stack' ? 'spell' : 'card'),
+      zone: found.zone,
+      controller: target.controller,
+      owner: target.owner,
+      card: target,
+      definition: def
+    };
+    if (spec.filter && !matchesTargetFilter(e, actorPid, filterCandidate, spec.filter, { ...context, sourceObject: context.sourceObject })) {
+      throw new Error('Target does not satisfy the composed target filter');
+    }
     if (typeof merged.predicate === 'function' && !merged.predicate({ engine: e, actorPid, target, definition: def, context })) {
       throw new Error('Permanent does not satisfy this target restriction');
     }
+    e.legality?.assertOperation(LEGALITY_OPERATION.TARGET, actorPid, {
+      target,
+      object: target,
+      definition: def,
+      zone: found.zone,
+      targetPlayerId: target.controller || target.owner || null,
+      source: context.sourceObject || null
+    });
     return { id: targetId, kind: found.zone === 'battlefield' ? 'permanent' : 'card', card: target, zone: found.zone };
   }
 
   _validateProtection(actorPid, target, sourceObject) {
-    const e = this.engine;
-    const keywords = e.static.derivedStats(target).keywords.map(k => String(k).trim().toLowerCase());
-    if (keywords.includes('shroud')) throw new Error('Target has shroud');
-    if (target.controller !== actorPid && keywords.includes('hexproof')) throw new Error('Target has hexproof');
-
-    const qualities = sourceQualities(e, sourceObject);
-    for (const keyword of keywords) {
-      if (target.controller !== actorPid && keyword.startsWith('hexproof from ')) {
-        const quality = keyword.slice('hexproof from '.length).trim();
-        if (this._sourceMatchesQuality(qualities, quality)) throw new Error(`Target has hexproof from ${quality}`);
-      }
-      if (keyword.startsWith('protection from ')) {
-        const quality = keyword.slice('protection from '.length).trim();
-        if (quality === 'everything' || this._sourceMatchesQuality(qualities, quality)) throw new Error(`Target has protection from ${quality}`);
-      }
-    }
-  }
-
-  _sourceMatchesQuality(qualities, quality) {
-    const q = quality.toLowerCase().replace(/s$/, '');
-    if (qualities.colors.has(q)) return true;
-    return qualities.typeLine.includes(q);
+    return this.engine.mechanics.validateTargeting(actorPid, target, sourceObject);
   }
 
   getCandidates(actorPid, source, selected = [], context = {}) {
@@ -224,11 +233,11 @@ export class TargetingEngine {
           continue;
         }
         if (PLAYER_ZONES.includes(zone)) {
-          for (const player of Object.values(this.engine.state.players)) {
-            for (const card of player[zone]) {
-              if (!used.has(card.instanceId) && this.isLegalTarget(actorPid, card.instanceId, spec, { ...context, selectedTargets: selected })) {
-                candidates.push({ id: card.instanceId, kind: zone === 'battlefield' ? 'permanent' : 'card', card, zone });
-              }
+          const indexed = this.engine.performance?.zoneCandidates?.(zone)
+            || Object.entries(this.engine.state.players).flatMap(([playerId, player]) => (player[zone] || []).map(card => ({ playerId, card })));
+          for (const { card } of indexed) {
+            if (!used.has(card.instanceId) && this.isLegalTarget(actorPid, card.instanceId, spec, { ...context, selectedTargets: selected })) {
+              candidates.push({ id: card.instanceId, kind: zone === 'battlefield' ? 'permanent' : 'card', card, zone });
             }
           }
         }
@@ -278,43 +287,11 @@ export class TargetingEngine {
   }
 
   getWardCost(permanent) {
-    if (!permanent || permanent.zone !== 'battlefield') return null;
-    const e = this.engine;
-    const def = e.db[permanent.cardId] || {};
-    const explicit = def.wardCost ?? def.ward;
-    const normalizedExplicit = this._normalizeWardCost(explicit);
-    if (normalizedExplicit) return normalizedExplicit;
-
-    for (const ability of def.abilities || []) {
-      if (String(ability.type).toLowerCase() !== 'ward') continue;
-      const cost = this._normalizeWardCost(ability.cost ?? ability.manaCost ?? ability.wardCost);
-      if (cost) return cost;
-    }
-
-    const keywords = e.static.derivedStats(permanent).keywords.map(k => String(k).trim());
-    for (const keyword of keywords) {
-      const match = keyword.match(/^ward(?:\s*[—:-]?\s*(.+))?$/i);
-      if (!match) continue;
-      const cost = this._normalizeWardCost(match[1]);
-      if (cost) return cost;
-    }
-    return null;
+    return this.engine.mechanics.wardCost(permanent);
   }
 
   _normalizeWardCost(value) {
-    if (value == null || value === '' || value === false) return null;
-    if (typeof value === 'number' && Number.isFinite(value) && value >= 0) return { mana: `{${value}}`, life: 0 };
-    if (typeof value === 'object') {
-      const mana = value.mana || value.manaCost || '';
-      const life = Number(value.life || 0);
-      return (mana || life) ? { mana, life } : null;
-    }
-    const text = String(value).trim();
-    if (!text) return null;
-    const lifeMatch = text.match(/(?:pay\s+)?(\d+)\s+life/i);
-    const mana = [...text.matchAll(/\{[^}]+\}/g)].map(x => x[0]).join('');
-    const life = lifeMatch ? Number(lifeMatch[1]) : 0;
-    return (mana || life) ? { mana, life } : null;
+    return this.engine.mechanics.normalizeWardCost(value);
   }
 
   wardTriggersForTargets(actorPid, targetStackItemId, targetIds = []) {

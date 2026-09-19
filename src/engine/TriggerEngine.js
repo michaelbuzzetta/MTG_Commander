@@ -1,135 +1,98 @@
-import { uid, hasSubtype } from './utils.js';
+import { TriggerRegistry, TriggerMatcher, PendingTriggerQueue } from './triggers/index.js';
 
+/**
+ * Step 9 triggered-ability facade.
+ *
+ * Card abilities and temporary delayed/reflexive registrations are normalized
+ * into TriggerDefinitions. Completed events are observed through the Step 3
+ * event stream; matched triggers are queued and only placed on the stack at a
+ * rules boundary after the current event transaction/state stabilization has
+ * finished.
+ */
 export class TriggerEngine {
-  constructor(engine) { this.engine = engine; }
-
-  _eventObject(payload = {}) {
-    return payload.object || payload.target || payload.card || payload.source || null;
+  constructor(engine) {
+    this.engine = engine;
+    this.registry = new TriggerRegistry(engine);
+    this.matcher = new TriggerMatcher(engine, this.registry);
+    this.queue = new PendingTriggerQueue(engine);
+    this._observing = 0;
+    this._unsubscribe = engine.events.subscribe('*', (record, _engine, eventPayload) => {
+      this.observe(record, eventPayload || {});
+    });
   }
 
-  _sourceCandidates(payload = {}) {
-    const out = [];
-    const seen = new Set();
-    for (const [controller, player] of Object.entries(this.engine.state.players)) {
-      for (const permanent of player.battlefield) {
-        seen.add(permanent.instanceId);
-        out.push({ source: permanent, controller });
-      }
-    }
+  dispose() { this._unsubscribe?.(); }
 
-    // Leaves/dies triggers need the abilities and controller the object had immediately
-    // before it left. Category 5 events already carry that last-known object snapshot.
-    const lki = payload.object;
-    if (lki?.instanceId && payload.fromZone === 'battlefield' && !seen.has(lki.instanceId)) {
-      out.push({ source: lki, controller: payload.controller || lki.controller || lki.owner });
-    }
-    return out;
-  }
-
-  collect(event, payload = {}) {
-    const s = this.engine.state;
-    const batchId = uid('trigger-batch');
-    for (const { source, controller } of this._sourceCandidates(payload)) {
-      const definition = this.engine.db[source.cardId];
-      for (const ability of definition?.abilities || []) {
-        if (ability.type !== 'triggered' || ability.event !== event) continue;
-        if (!this.matches(ability, payload, controller, source)) continue;
-        s.pendingTriggers.push({
-          id: uid('trg'),
-          batchId,
-          event,
-          source,
-          sourceInstanceId: source.instanceId,
-          controller,
-          ability: structuredClone(ability),
-          effect: structuredClone(ability.effect),
-          optional: !!ability.optional,
-          optionalDecision: ability.optional ? null : true,
-          orderIndex: null,
-          targets: null,
-          eventPayload: structuredClone(payload),
-          stacked: false
+  observe(record, payload = {}) {
+    if (!record?.type || !['committed', 'observed'].includes(record.status)) return [];
+    this._observing += 1;
+    try {
+      const matched = this.matcher.matchEvent(record.type, payload);
+      const queued = [];
+      for (const match of matched) {
+        const trigger = this.queue.enqueue({
+          ...match,
+          eventType: record.type,
+          eventPayload: payload,
+          eventRecord: record
         });
+        queued.push(trigger);
+        this.registry.markFired(match.definition);
       }
+      this.queue.assignBatch(queued);
+      this.registry.expireForEvent(record.type);
+      return queued;
+    } finally {
+      this._observing -= 1;
     }
   }
 
-  matches(ability, payload, controller, source) {
-    const condition = ability.condition || {};
-    const eventObject = this._eventObject(payload);
-    if (condition.controllerEvent && payload.controller !== controller) return false;
-    if ((condition.sourceEvent || condition.selfEvent) && eventObject?.instanceId !== source.instanceId) return false;
-    if (condition.notSelfEvent && eventObject?.instanceId === source.instanceId) return false;
-    if (condition.sourceSubtype) {
-      const definition = this.engine.db[eventObject?.cardId];
-      const matchesSubtype = eventObject?.zone === 'battlefield'
-        ? this.engine.static.hasSubtype(eventObject, condition.sourceSubtype)
-        : hasSubtype(definition, condition.sourceSubtype);
-      if (!matchesSubtype) return false;
-    }
-    if (condition.spellSubtype) {
-      const definition = this.engine.db[payload.card?.cardId];
-      if (!hasSubtype(definition, condition.spellSubtype)) return false;
-    }
-    if (condition.notToken && eventObject?.isToken) return false;
-    if (condition.type) {
-      const definition = this.engine.db[eventObject?.cardId];
-      if (!(definition?.typeLine || '').toLowerCase().includes(String(condition.type).toLowerCase())) return false;
-    }
-    if (condition.cardType) {
-      const definition = this.engine.db[payload.card?.cardId];
-      if (!(definition?.typeLine || '').toLowerCase().includes(String(condition.cardType).toLowerCase())) return false;
-    }
-    if (condition.cardTypeNot) {
-      const definition = this.engine.db[payload.card?.cardId];
-      if ((definition?.typeLine || '').toLowerCase().includes(String(condition.cardTypeNot).toLowerCase())) return false;
-    }
-    if (condition.yourTurn && this.engine.state.activePlayer !== controller) return false;
-    if (condition.firstDrawThisTurn && !payload.firstDrawThisTurn) return false;
-    if (condition.phase && payload.phase !== condition.phase) return false;
-    if (condition.sourceAttacking && !(payload.attackers || []).includes(source.instanceId)) return false;
-    if (condition.eventTargetHasCounter && Number(eventObject?.counters?.[condition.eventTargetHasCounter] || 0) <= 0) return false;
-    if (condition.eventCounterType && payload.counterType !== condition.eventCounterType) return false;
-    if (condition.controllerOtherCreatureWithCounter) {
-      const player = this.engine.state.players[controller];
-      const hasOther = player?.battlefield?.some(card => card.instanceId !== source.instanceId
-        && this.engine.static.isType(card, 'Creature')
-        && Number(card.counters?.[condition.controllerOtherCreatureWithCounter] || 0) > 0);
-      if (!hasOther) return false;
-    }
-    if (condition.sourceCounterAtLeast) {
-      const rule = condition.sourceCounterAtLeast;
-      if (Number(source.counters?.[rule.counter] || 0) < Number(rule.amount || 0)) return false;
-    }
-    if (condition.eventTargetController === 'you' && eventObject?.controller !== controller) return false;
-    if (condition.exploredLand === true && !payload.revealedLand) return false;
-    if (condition.exploredLand === false && payload.revealedLand) return false;
-    if (condition.sourceManaSpent && !(payload.manaSourceIds || []).includes(source.instanceId)) return false;
-    if (condition.spellSharesCommanderType) {
-      const spellDef = this.engine.db[payload.card?.cardId] || {};
-      const commander = this.engine.state.players[controller]?.command?.[0] || this.engine.state.players[controller]?.battlefield?.find(c => c.isCommander);
-      const commanderDef = this.engine.db[commander?.cardId] || {};
-      if (!(commanderDef.subtypes || []).some(type => hasSubtype(spellDef, type))) return false;
-    }
-    if (condition.spellSharesChosenType) {
-      const spellDef = this.engine.db[payload.card?.cardId] || {};
-      if (!source.chosenType || !hasSubtype(spellDef, source.chosenType)) return false;
-    }
-    if (condition.eventSharesChosenType) {
-      const eventDef = this.engine.db[eventObject?.cardId] || {};
-      if (!source.chosenType || !hasSubtype(eventDef, source.chosenType)) return false;
-    }
-    if (condition.castModePrefix && !String(eventObject?.castMode || payload.castMode || '').startsWith(condition.castModePrefix)) return false;
-    if (condition.encoreSacrificeDue && Number(source.encoreSacrificeTurn) !== Number(this.engine.state.turn)) return false;
-    return true;
+  /** Compatibility entry point for legacy callers/tests. New code uses events. */
+  collect(event, payload = {}) {
+    return this.observe({
+      eventId: null,
+      sequence: null,
+      type: event,
+      status: 'observed',
+      provenance: null
+    }, payload);
   }
 
-  _batch(batchId) {
-    return this.engine.state.pendingTriggers.filter(trigger => trigger.batchId === batchId);
-  }
+  registerDelayedTrigger(fields) { return this.registry.registerDelayed(fields); }
+  registerReflexiveTrigger(fields) { return this.registry.registerReflexive(fields); }
+
+  _batch(batchId) { return this.queue.batch(batchId); }
 
   _choiceResume() {
     return this.engine.state.phase === 'CLEANUP' ? 'CLEANUP' : 'PRIORITY';
+  }
+
+  _apnapOrder() {
+    const s = this.engine.state;
+    const order = (s.playerOrder || Object.keys(s.players)).filter(id => !s.players[id]?.lost);
+    const index = order.indexOf(s.activePlayer);
+    if (index < 0) return order;
+    return [...order.slice(index), ...order.slice(0, index)];
+  }
+
+  /**
+   * A trigger batch may be stacked only after the current event transaction is
+   * complete and state-based actions have finished. Step 12 will replace the
+   * legacy SBA implementation; this gate already enforces Step 9 timing.
+   */
+  canFlushNow() {
+    const e = this.engine;
+    if (this._observing > 0 || e._triggerDeferral > 0) return false;
+    if (e.events?.eventStack?.length) return false;
+    if (e.state.pendingChoice) return false;
+    return true;
+  }
+
+  afterEventBoundary() {
+    if (!this.canFlushNow()) return false;
+    if (!this.engine.state.pendingTriggers.length) return false;
+    this.flush();
+    return true;
   }
 
   chooseOptional(triggerId, accept) {
@@ -168,6 +131,18 @@ export class TriggerEngine {
     return targetIds;
   }
 
+  interveningIfHolds(triggerLike) {
+    const condition = triggerLike?.interveningIf;
+    if (!condition) return true;
+    const source = triggerLike.sourceInstanceId
+      ? (this.engine.findPermanent(triggerLike.sourceInstanceId) || triggerLike.source)
+      : triggerLike.source;
+    // If an intervening-if condition explicitly depends on the current source
+    // object, a source that no longer exists cannot satisfy it.
+    if (condition.sourceCounterAtLeast && triggerLike.sourceInstanceId && !this.engine.findPermanent(triggerLike.sourceInstanceId)) return false;
+    return this.matcher.matchCondition(condition, triggerLike.eventPayload || {}, triggerLike.controller, source);
+  }
+
   flush() {
     const s = this.engine.state;
     if (s.pendingChoice) return;
@@ -175,6 +150,18 @@ export class TriggerEngine {
     while (s.pendingTriggers.length) {
       const batchId = s.pendingTriggers[0].batchId;
       const batch = this._batch(batchId);
+      if (!batch.length) {
+        s.pendingTriggers.shift();
+        continue;
+      }
+
+      // Intervening-if clauses are checked once when the event is observed and
+      // again here before the ability is actually put on the stack. The second
+      // required check at resolution is performed by ResolutionPipeline.
+      for (const trigger of batch) {
+        if (trigger.stacked || trigger.optionalDecision === false) continue;
+        if (!this.interveningIfHolds(trigger)) trigger.optionalDecision = false;
+      }
 
       const undecided = batch.find(trigger => trigger.optional && trigger.optionalDecision == null);
       if (undecided) {
@@ -192,8 +179,7 @@ export class TriggerEngine {
       }
 
       const accepted = batch.filter(trigger => trigger.optionalDecision !== false && !trigger.stacked);
-      const apnap = [s.activePlayer, ...Object.keys(s.players).filter(id => id !== s.activePlayer)];
-      for (const controller of apnap) {
+      for (const controller of this._apnapOrder()) {
         const controlled = accepted.filter(trigger => trigger.controller === controller);
         if (!controlled.length) continue;
 
@@ -220,6 +206,7 @@ export class TriggerEngine {
           if (b.orderIndex == null) return -1;
           return a.orderIndex - b.orderIndex;
         });
+
         for (const trigger of ordered) {
           if (this.engine.targeting.hasTargets(trigger.ability) && trigger.targets == null) {
             const targetSets = this.engine.targeting.generateTargetSets(trigger.controller, trigger.ability, { sourceObject: trigger.source });
@@ -240,28 +227,36 @@ export class TriggerEngine {
                 candidateIds,
                 minTargets: bounds.min,
                 maxTargets: bounds.max,
+                targetSource: structuredClone(trigger.ability),
+                sourceObjectId: trigger.source?.instanceId || trigger.source?.gameObjectId || null,
                 resume: this._choiceResume()
               };
               s.priorityPlayer = trigger.controller;
               return;
             }
           }
-          s.stack.push({
+
+          this.engine.stack.push({
             id: trigger.id,
             type: 'trigger',
             controller: trigger.controller,
             source: trigger.source,
             sourceInstanceId: trigger.sourceInstanceId,
+            sourceGameObjectId: trigger.sourceGameObjectId,
             ability: trigger.ability,
             effect: trigger.effect,
             targets: [...(trigger.targets || [])],
-            eventPayload: trigger.eventPayload
+            eventPayload: trigger.eventPayload,
+            triggerDefinitionId: trigger.definitionId,
+            triggerKind: trigger.triggerKind,
+            interveningIf: trigger.interveningIf,
+            triggeringEvent: trigger.eventRecord
           });
           trigger.stacked = true;
         }
       }
 
-      s.pendingTriggers = s.pendingTriggers.filter(trigger => trigger.batchId !== batchId);
+      this.queue.removeBatch(batchId);
     }
   }
 }

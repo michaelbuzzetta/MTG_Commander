@@ -1,0 +1,133 @@
+
+> mtg-ai-trainer-v3@3.0.0 test:step33:coverage
+> node --test --experimental-test-coverage --test-coverage-lines=55 --test-coverage-branches=40 --test-coverage-functions=50 --test-coverage-include='src/engine/events/EventDispatcher.js' --test-coverage-include='src/engine/damage/DamageService.js' --test-coverage-include='src/engine/counters/CounterService.js' --test-coverage-include='src/engine/tokens/TokenService.js' --test-coverage-include='src/engine/library/LibraryOperationService.js' --test-coverage-include='src/engine/TargetingEngine.js' --test-coverage-include='src/engine/costs/PaymentService.js' --test-coverage-include='src/engine/copy/CopyService.js' --test-coverage-include='src/engine/zones/ZoneService.js' tests/step33-rules-primitives.test.js
+
+TAP version 13
+# Subtest: Step 33: workflow primitive contract list is complete and effect vocabulary exposes the matching script primitives
+ok 1 - Step 33: workflow primitive contract list is complete and effect vocabulary exposes the matching script primitives
+  ---
+  duration_ms: 1.180377
+  type: 'test'
+  ...
+# Subtest: Step 33 primitive — draw: legal draw moves exactly one card and invalid player draw is atomic
+ok 2 - Step 33 primitive — draw: legal draw moves exactly one card and invalid player draw is atomic
+  ---
+  duration_ms: 406.535175
+  type: 'test'
+  ...
+# Subtest: Step 33 primitive — damage: prevention changes actual damage dealt and invalid damage leaves state unchanged
+ok 3 - Step 33 primitive — damage: prevention changes actual damage dealt and invalid damage leaves state unchanged
+  ---
+  duration_ms: 354.27279
+  type: 'test'
+  ...
+# Subtest: Step 33 primitive — move zone: valid movement creates a new object incarnation and invalid destination is atomic
+ok 4 - Step 33 primitive — move zone: valid movement creates a new object incarnation and invalid destination is atomic
+  ---
+  duration_ms: 329.762675
+  type: 'test'
+  ...
+# Subtest: Step 33 primitives — destroy/exile/sacrifice: destination semantics and indestructible distinction
+ok 5 - Step 33 primitives — destroy/exile/sacrifice: destination semantics and indestructible distinction
+  ---
+  duration_ms: 933.393668
+  type: 'test'
+  ...
+# Subtest: Step 33 primitives — destroy/exile/sacrifice reject stale object references without mutating state
+ok 6 - Step 33 primitives — destroy/exile/sacrifice reject stale object references without mutating state
+  ---
+  duration_ms: 921.735382
+  type: 'test'
+  ...
+# Subtest: Step 33 primitive — counters: add/remove are canonical events and a replacement can alter placement
+ok 7 - Step 33 primitive — counters: add/remove are canonical events and a replacement can alter placement
+  ---
+  duration_ms: 322.740169
+  type: 'test'
+  ...
+# Subtest: Step 33 primitive — token creation: generic registry creates unique game objects and zero creation is a no-op
+ok 8 - Step 33 primitive — token creation: generic registry creates unique game objects and zero creation is a no-op
+  ---
+  duration_ms: 402.218686
+  type: 'test'
+  ...
+# Subtest: Step 33 primitive — search: legal exact-card search moves only the selected card and illegal selection is atomic
+ok 9 - Step 33 primitive — search: legal exact-card search moves only the selected card and illegal selection is atomic
+  ---
+  duration_ms: 286.263915
+  type: 'test'
+  ...
+# Subtest: Step 33 primitive — targeting: legal filters reject protected targets and resolution recheck supports partial resolution
+ok 10 - Step 33 primitive — targeting: legal filters reject protected targets and resolution recheck supports partial resolution
+  ---
+  duration_ms: 314.067326
+  type: 'test'
+  ...
+# Subtest: Step 33 primitive — cost payment: successful mana/life payment commits and an unaffordable cost pays nothing
+ok 11 - Step 33 primitive — cost payment: successful mana/life payment commits and an unaffordable cost pays nothing
+  ---
+  duration_ms: 358.715067
+  type: 'test'
+  ...
+# Subtest: Step 33 primitive — copy: permanent copies use copiable values, not counters/tapped/current buffs
+ok 12 - Step 33 primitive — copy: permanent copies use copiable values, not counters/tapped/current buffs
+  ---
+  duration_ms: 383.578595
+  type: 'test'
+  ...
+# Subtest: Step 33 primitive — control change: battlefield ownership stays fixed while controller and zone container change
+ok 13 - Step 33 primitive — control change: battlefield ownership stays fixed while controller and zone container change
+  ---
+  duration_ms: 337.016703
+  type: 'test'
+  ...
+# Subtest: Step 33: successful primitive events expose trigger/SBA scheduling at the authoritative event boundary
+ok 14 - Step 33: successful primitive events expose trigger/SBA scheduling at the authoritative event boundary
+  ---
+  duration_ms: 331.091534
+  type: 'test'
+  ...
+# Subtest: Step 33 regression — a search choice during spell resolution keeps the physical spell authoritative and finishes it afterward
+ok 15 - Step 33 regression — a search choice during spell resolution keeps the physical spell authoritative and finishes it afterward
+  ---
+  duration_ms: 715.23633
+  type: 'test'
+  ...
+(node:19403) ExperimentalWarning: glob is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6637.866682
+# start of coverage report
+# -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# file                          | line % | branch % | funcs % | uncovered lines
+# -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# src                           |        |          |         | 
+#  engine                       |        |          |         | 
+#   copy                        |        |          |         | 
+#    CopyService.js             |  42.63 |    50.88 |   64.29 | 61 100-104 107-150 153-165 168-188 191-250
+#   costs                       |        |          |         | 
+#    PaymentService.js          |  68.42 |    46.30 |   80.00 | 14 16 20-21 25-36 62-65 71-75 77-80 85-88 110-112
+#   counters                    |        |          |         | 
+#    CounterService.js          |  59.26 |    28.99 |   41.94 | 11 26-29 33-44 55-57 117-122 125-130 181-190 193-196 199-204 210-211 213-214 218-221 224-230 233-241 244-264 271-276 278-295
+#   damage                      |        |          |         | 
+#    DamageService.js           |  73.09 |    36.00 |   73.68 | 5-9 28-30 54-56 65-76 85-88 90-93 95-96 112-113 115-124 165 174-176 182-184 213-218 221-222
+#   events                      |        |          |         | 
+#    EventDispatcher.js         |  77.89 |    61.54 |   80.00 | 43-44 85-89 132-134 170-184 194-204 213-225 243-251 285-289 292-293
+#   library                     |        |          |         | 
+#    LibraryOperationService.js |  55.68 |    45.00 |   50.00 | 73-90 139-167 184-191 239-243 246-250 253-265 268-278 281-291 294-303 306-318 321-334 337-347 350-357 360-367
+#   TargetingEngine.js          |  56.01 |    40.48 |   65.22 | 17-25 33-34 37-44 54 73-84 94-96 112-126 149-151 161-164 170-172 185-186 188-189 206-247 250-264 290-291 294-295 300-313
+#   tokens                      |        |          |         | 
+#    TokenService.js            |  82.20 |    38.10 |   83.33 | 44-50 90-100 104-106
+#   zones                       |        |          |         | 
+#    ZoneService.js             |  75.45 |    50.00 |   61.11 | 64-68 74-76 92 109-116 128-135 138-142 156-166
+# -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# all files                     |  63.21 |    43.56 |   62.37 | 
+# -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# end of coverage report

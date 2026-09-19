@@ -1,0 +1,17 @@
+MTG Commander Rules Engine — Step 13 Complete
+
+Base checkpoint: MTG_Commander_Step10_Complete.zip
+Implemented in this checkpoint:
+- Step 11: Continuous Effects, Derived Characteristics and Layers
+- Step 12: State-Based Actions
+- Step 13: Complete Combat Engine
+
+Verification:
+- 347/347 non-stress repository tests passing
+- 20/20 Step 11-13 dedicated tests passing
+- Architecture check: PASS
+- Authoritative database check: PASS (647 cards / 13 decks)
+- Mutation inventory refreshed
+- Production build not executed to completion because node_modules/vite are not installed in the container; local Scryfall refresh was also unavailable, so the existing 647-card seed was retained.
+
+Next workflow step: Step 14 — Commander and Multiplayer Rules

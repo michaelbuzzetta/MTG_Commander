@@ -1,29 +1,56 @@
 import { uid, shuffle } from './utils.js';
+import { GAME_STATE_SCHEMA_VERSION } from './state/GameStateSchema.js';
+import { createPlayerObject, ensureCanonicalCardObject } from './state/GameObject.js';
+import { normalizeCommanderIds, validateCommanderSelection } from './multiplayer/CommanderRules.js';
 
-export function makePlayer(id, deck, db, rng = Math.random) {
-  const commanderDef = db[deck.commander];
-  if (!commanderDef) throw new Error(`Missing commander ${deck.commander}`);
+export function makePlayer(id, deck, db, rng) {
+  const selection = validateCommanderSelection(deck, db, { throwOnError: true });
+  const commanderIds = normalizeCommanderIds(deck);
+  const commanderIdSet = new Set(commanderIds);
   const cards = [];
   for (const entry of deck.cards) {
     for (let i = 0; i < entry.quantity; i++) {
-      if (entry.id === deck.commander) continue;
-      cards.push(makeCardInstance(entry.id, id, 'library'));
+      if (commanderIdSet.has(entry.id)) continue;
+      cards.push(makeCardInstance(entry.id, id, 'library', {}, db[entry.id] || {}));
     }
   }
-  return {
+
+  const commanders = commanderIds.map((cardId, index) => makeCardInstance(
+    cardId,
     id,
+    'command',
+    {
+      isCommander: true,
+      commanderIdentity: `commander:${id}:${index + 1}:${cardId}`,
+      commanderDesignationIndex: index
+    },
+    db[cardId] || {}
+  ));
+  const commanderTaxLedger = Object.fromEntries(commanders.map(card => [card.commanderIdentity, {
+    commanderIdentity: card.commanderIdentity,
+    cardId: card.cardId,
+    castsFromCommandZone: 0,
+    tax: 0
+  }]));
+
+  return createPlayerObject(id, {
     name: id === 'player' ? 'Player' : `Opponent ${id === 'ai' ? 1 : Number(id.replace('ai', '')) || 1}`,
-    colorIdentity: [...(deck.colorIdentity || [])],
+    colorIdentity: [...selection.colorIdentity],
     life: 40,
     manaPool: { W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 },
+    restrictedMana: [],
     library: shuffle(cards, rng),
     hand: [],
     battlefield: [],
     graveyard: [],
     exile: [],
-    command: [makeCardInstance(deck.commander, id, 'command', { isCommander: true })],
+    command: commanders,
+    commanderIdentities: commanders.map(card => card.commanderIdentity),
+    commanderCardIds: [...commanderIds],
+    commanderPairing: selection.pairing ? { mechanic: selection.pairing.mechanic } : null,
     landPlaysRemaining: 1,
     commanderTax: 0,
+    commanderTaxLedger,
     commanderDamage: {},
     counters: {},
     mulligans: 0,
@@ -32,11 +59,11 @@ export function makePlayer(id, deck, db, rng = Math.random) {
     damagePrevention: 0,
     lost: false,
     eliminatedAtTurn: null
-  };
+  });
 }
 
-export function makeCardInstance(cardId, owner, zone, extra = {}) {
-  return {
+export function makeCardInstance(cardId, owner, zone, extra = {}, definition = {}) {
+  const card = {
     instanceId: uid('card'),
     cardId,
     owner,
@@ -62,6 +89,7 @@ export function makeCardInstance(cardId, owner, zone, extra = {}) {
     castMode: null,
     ...extra
   };
+  return ensureCanonicalCardObject(card, definition);
 }
 
 function normalizeDecks(deckA, deckBOrDecks) {
@@ -71,7 +99,7 @@ function normalizeDecks(deckA, deckBOrDecks) {
   return decks;
 }
 
-export function createGameState(deckA, deckBOrDecks, db, rng = Math.random) {
+export function createGameState(deckA, deckBOrDecks, db, rng) {
   const decks = normalizeDecks(deckA, deckBOrDecks);
   const playerOrder = decks.map((_, index) => index === 0 ? 'player' : (index === 1 ? 'ai' : `ai${index}`));
   const players = {};
@@ -79,6 +107,7 @@ export function createGameState(deckA, deckBOrDecks, db, rng = Math.random) {
   const keyed = initial => Object.fromEntries(playerOrder.map(id => [id, typeof initial === 'function' ? initial(id) : structuredClone(initial)]));
 
   return {
+    schemaVersion: GAME_STATE_SCHEMA_VERSION,
     turn: 1,
     activePlayer: 'player',
     priorityPlayer: null,
@@ -88,21 +117,57 @@ export function createGameState(deckA, deckBOrDecks, db, rng = Math.random) {
     stack: [],
     players,
     playerOrder,
-    combat: { attackers: [], attackTargets: {}, blockers: {}, blocked: {}, damageAssignments: {}, defendingPlayers: [], blockerQueue: [], currentDefender: null },
+    combat: { attackers: [], attackTargets: {}, attackDefendingPlayers: {}, defendingEntities: {}, blockers: {}, blocked: {}, damageAssignments: {}, defendingPlayers: [], blockerQueue: [], currentDefender: null },
     pendingTriggers: [],
+    triggerRegistrations: [],
     continuousEffects: [],
+    continuousTimestampSequence: 0,
+    attachments: [],
+    attachmentTimestampSequence: 0,
+    preventionEffects: [],
     pendingChoice: null,
+    pendingDamageBatch: null,
     turnActionPending: null,
     cleanupPriority: false,
     cardsDrawnThisTurn: keyed(0),
     extraTurns: keyed(0),
+    extraTurnQueue: [],
+    turnKind: 'normal',
+    normalTurnPlayer: 'player',
+    turnSequence: [],
+    turnStepId: null,
+    turnPhaseGroup: null,
+    cleanupIteration: 0,
+    turnHistory: [],
+    skippedTurnHistory: [],
+    turnModifiers: {
+      skippedTurns: keyed(0),
+      extraUpkeeps: keyed(0),
+      skippedDrawSteps: keyed(0),
+      skippedCombatPhases: keyed(0),
+      skipSteps: keyed(() => ({})),
+      skipPhaseGroups: keyed(() => ({}))
+    },
     castingPermissions: [],
+    legalityUsage: [],
+    legalityDiagnostics: [],
+    timingUsage: [],
+    timingDiagnostics: [],
+    knownInformation: Object.fromEntries(playerOrder.map(id => [id, { cards: {} }])),
+    lastKnownInformation: { sequence: 0, byObjectId: {}, byInstanceId: {} },
     pendingResolution: null,
     turnMemory: keyed(() => ({})),
     pregame: {
       active: false,
+      stage: 'not-started',
       currentPlayer: 'player',
-      kept: keyed(false)
+      startingPlayer: 'player',
+      turnOrder: [...playerOrder],
+      kept: keyed(false),
+      freeMulligans: playerOrder.length > 1 ? 1 : 0,
+      companions: keyed(null),
+      actionsComplete: false,
+      validation: []
     },
     history: [],
     winner: null,

@@ -1,0 +1,41 @@
+MTG Commander Rules Engine — Step 18 Complete
+Baseline: MTG_Commander_Step17_Complete.zip
+Workflow step: Oracle Text Template Compiler
+
+Major additions:
+- src/cards/compiler/OracleTokenizer.js
+- src/cards/compiler/OracleTemplateLibrary.js
+- src/cards/compiler/OracleAstCompiler.js
+- src/cards/compiler/OracleTemplateCompiler.js
+- src/cards/compiler/OracleChangeDiff.js
+- src/cards/compiler/index.js
+- scripts/build-oracle-templates.mjs
+- tests/step18-oracle-template-compiler.test.js
+- src/data/generated/oracle-template-compilation.json
+- src/data/generated/oracle-template-review-queue.json
+- src/data/generated/oracle-template-coverage.json
+- src/data/generated/oracle-template-snapshot.json
+- src/data/generated/oracle-change-diff.json
+- docs/architecture/step18-oracle-template-compiler.md
+- STEP18_COMPLETION_REPORT.md
+
+Modified integration files include CardScriptCompiler, CardScriptService, EffectPrimitiveLibrary, GameEngine, EffectEngine, cards module exports, package scripts, README, refreshed support evidence, and the Step 1 mutation inventory.
+
+Compiler checkpoint:
+- parser version: 1.0.0
+- 647 cards analyzed
+- 11 exact high-confidence template families registered
+- 4 current exact full-text auto-compilations
+- 643 review-required rows
+- 187 high-priority Step 17 auto-template candidates remain queued
+
+Verification checkpoint:
+- 413/413 non-stress repository tests PASS
+- 15/15 Step 18 dedicated tests PASS
+- 107/107 targeted Steps 6 + 10–18 tests PASS
+- database: 647 cards / 13 decks PASS
+- Step 17 support-data consistency PASS (26 full / 621 partial / 0 explicitly unsupported)
+- Step 18 compiler-artifact consistency PASS
+- architecture guard PASS
+- mutation audit: 313 internal direct mutation paths inventoried
+- production Vite build not executable in this dependency-free container (vite not installed)

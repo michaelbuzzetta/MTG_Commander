@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "note": "Generous CI guardrails intended to catch major performance regressions, not microbenchmark noise.",
+  "derivedCharacteristicsMs": 8000,
+  "targetGenerationMs": 8000,
+  "legalActionRepeatedMs": 5000,
+  "fourPlayerHeadless8ActionsMs": 30000
+}

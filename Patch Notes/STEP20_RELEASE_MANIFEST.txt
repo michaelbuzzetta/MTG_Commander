@@ -1,0 +1,37 @@
+MTG Commander Rules Engine — Step 20 Complete
+Baseline: MTG_Commander_Step19_Complete.zip
+Workflow step: Pregame, Deck Validation and Mulligans
+
+Major additions:
+- src/engine/pregame/SeededRandom.js
+- src/engine/pregame/CompanionRules.js
+- src/engine/pregame/FormatValidator.js
+- src/engine/pregame/PregameActionService.js
+- src/engine/pregame/PregameService.js
+- src/engine/pregame/index.js
+- tests/step20-pregame-deck-mulligans.test.js
+- docs/architecture/step20-pregame-deck-validation.md
+- step20-pregame-deck-validation.md
+- STEP20_COMPLETION_REPORT.md
+
+Major integrations:
+- GameEngine validates deck/pregame state before opening hands
+- seeded PRNG drives deterministic initial shuffles and optional random starting player
+- reset rewinds seeded pregame randomness
+- companion designation is recorded outside the command zone
+- one multiplayer free mulligan is explicit in pregame state
+- Leyline/Gemstone-style pregame actions resolve through engine events
+- CHOOSE_PREGAME_ACTION added to authoritative choices/legal actions
+- public API exposes deck validation and pregame snapshot queries
+
+Verification checkpoint:
+- 438/438 non-stress repository tests PASS (bounded complete batches)
+- 12/12 Step 20 dedicated tests PASS
+- 132/132 targeted Steps 6 + 10–20 tests PASS
+- database: 647 cards / 13 decks PASS
+- Step 17 support data: 26 full / 621 partial / 0 explicitly unsupported PASS
+- Step 18 compiler artifacts: 647 analyzed / 4 exact / 643 review-required PASS
+- architecture guard PASS
+- mutation audit: 321 internal direct mutation paths inventoried
+- deterministic stress corpus: all 50 seeded scenarios PASS in bounded batches
+- production Vite build not executable in this dependency-free container (vite not installed)

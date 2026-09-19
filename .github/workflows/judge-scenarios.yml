@@ -1,0 +1,23 @@
+name: Judge Scenario Regression Gate
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '23 6 * * *'
+
+jobs:
+  judge-scenarios:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check:architecture
+      - run: npm run check:step36
+      - run: npm run test:step36
+      - run: npm run test:step34
+      - run: npm run test:step35

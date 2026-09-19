@@ -1,0 +1,22 @@
+MTG Commander Rules Engine — Step 35 Complete
+
+Primary Step 35 additions:
+- tests/golden/step35-golden-cards.json
+- tests/golden/CardGoldenHarness.js
+- tests/step35-golden-card-behavior.test.js
+- scripts/check-step35-golden-cards.mjs
+- coverage/step35-golden-card-coverage.json
+- coverage/step35-golden-card-coverage.md
+- docs/architecture/step35-golden-card-behavior.md
+- .github/workflows/golden-card-behavior.yml
+- STEP35_COMPLETION_REPORT.md
+- STEP35_RELEASE_MANIFEST.txt
+- scripts/build-card-support.mjs (golden-contract full-support gate)
+- src/data/generated/card-support.json (golden test metadata)
+- src/data/generated/coverage-report.json (golden coverage metrics)
+- package.json (Step 35 scripts / verify integration)
+- README.md (checkpoint update)
+
+Dedicated gates:
+- npm run check:step35
+- npm run test:step35

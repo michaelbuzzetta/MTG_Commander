@@ -1,9 +1,9 @@
 import { makeCardInstance } from './GameState.js';
-import { ReplacementEngine } from './ReplacementEngine.js';
+import { ENGINE_EVENT } from './events/index.js';
 import { ZoneManager } from './ZoneManager.js';
 import { EVENT } from './constants.js';
 import { isType, shuffle, hasSubtype } from './utils.js';
-import { canonicalTokenDefinition } from './TokenDefinitions.js';
+import { createStackObject, ensureCanonicalCardObject } from './state/GameObject.js';
 
 export class EffectEngine {
   constructor(engine) { this.engine = engine; }
@@ -33,6 +33,10 @@ export class EffectEngine {
     }
     if (effect.amountFromCreatures) return e.state.players[ctx.controller]?.battlefield.filter(card => e.static.isType(card, 'Creature')).length || 0;
     if (effect.amountFromCreaturesWithCounter) return e.state.players[ctx.controller]?.battlefield.filter(card => e.static.isType(card, 'Creature') && Number(card.counters?.[effect.amountFromCreaturesWithCounter] || 0) > 0).length || 0;
+    if (effect.amount && typeof effect.amount === 'object' && e.cardScripts?.runtime) {
+      const resolved = e.cardScripts.runtime.resolveValue(effect.amount, ctx);
+      return Number(resolved ?? fallback);
+    }
     return Number(effect.amount ?? fallback);
   }
 
@@ -57,12 +61,51 @@ export class EffectEngine {
       case 'sequence':
         for (const child of effect.effects || []) { this.resolve(child, ctx); if (s.pendingChoice) break; }
         break;
+      case 'scriptIf':
+      case 'scriptForEach':
+      case 'scriptRepeat':
+      case 'customHook':
+        e.cardScripts.runtime.executeControl(effect, ctx);
+        break;
+      case 'scriptDiscard':
+        e.cardScripts.runtime.discard(effect, ctx);
+        break;
+      case 'scriptMill':
+        e.cardScripts.runtime.mill(effect, ctx);
+        break;
+      case 'scriptTap':
+        e.cardScripts.runtime.tap(effect, ctx);
+        break;
+      case 'scriptMoveZone':
+        e.cardScripts.runtime.moveZone(effect, ctx);
+        break;
+      case 'scriptRemoveCounter':
+        e.cardScripts.runtime.removeCounter(effect, ctx);
+        break;
+      case 'scriptReveal':
+        e.cardScripts.runtime.reveal(effect, ctx);
+        break;
+      case 'scriptShuffle':
+        e.cardScripts.runtime.shuffle(effect, ctx);
+        break;
+      case 'scriptSearch':
+        e.cardScripts.runtime.search(effect, ctx);
+        break;
+      case 'scriptCopy':
+        e.cardScripts.runtime.copy(effect, ctx);
+        break;
+      case 'scriptGrantAbility':
+        e.cardScripts.runtime.grantAbility(effect, ctx);
+        break;
+      case 'scriptRemoveAbility':
+        e.cardScripts.runtime.removeAbility(effect, ctx);
+        break;
       case 'draw':
-        for (let i = 0; i < this._amount(effect, ctx, 1); i++) e.draw(pid);
+        for (let i = 0; i < this._amount(effect, ctx, 1); i++) { e.draw(pid); if (s.pendingChoice) break; }
         break;
       case 'drawDiscard': {
         const draw = this._amount({ amount: effect.draw || 1 }, ctx, 1);
-        for (let i = 0; i < draw; i++) e.draw(pid);
+        for (let i = 0; i < draw; i++) { e.draw(pid); if (s.pendingChoice) break; }
         const count = Number(effect.discard || 1);
         if (count > 0 && p.hand.length) this._openCardChoice(pid, p.hand.map(c => c.instanceId), { min: Math.min(count,p.hand.length), max: Math.min(count,p.hand.length), prompt: 'Choose card(s) to discard', continuation: { type: 'discardChosen' } });
         break;
@@ -75,7 +118,7 @@ export class EffectEngine {
       case 'preventDamage': {
         for (const id of ctx.targets || []) {
           const target = s.players[id] || e.findPermanent(id);
-          if (target) target.damagePrevention = (target.damagePrevention || 0) + (effect.amount || 1);
+          if (target) e.prevention.addDamageShield(target, effect.amount || 1, { source: ctx.source ? { instanceId: ctx.source.instanceId, cardId: ctx.source.cardId } : null });
         }
         break;
       }
@@ -98,7 +141,27 @@ export class EffectEngine {
         break;
       }
       case 'addMana': e.mana.add(p, effect.mana || {}); break;
-      case 'createToken': this.createToken(pid, effect.token, effect.amount || 1); break;
+      case 'createToken': this.createToken(pid, effect.token, effect.amount || 1, { source: ctx.source || null }); break;
+      case 'transformSelf': {
+        const source = e.findPermanent(ctx.source?.instanceId);
+        if (source) e.events.dispatch(ENGINE_EVENT.TRANSFORM, { permanentId: source.instanceId }, { cause: 'transform-self', stabilize: false });
+        break;
+      }
+      case 'attach': {
+        const source = ctx.source?.instanceId ? e.findPermanent(ctx.source.instanceId) : null;
+        const hostId = this._targetId(ctx);
+        if (source && hostId) e.attachments.attach(source, hostId, {
+          reason: effect.reason || effect.attachmentType || 'attach',
+          attachmentType: effect.attachmentType || e.attachments.kind(source),
+          actionKind: effect.attachmentType || null
+        });
+        break;
+      }
+      case 'detach': {
+        const source = ctx.source?.instanceId ? e.findPermanent(ctx.source.instanceId) : null;
+        if (source) e.attachments.detach(source, { reason: effect.reason || 'detach' });
+        break;
+      }
       case 'ertaiCounterOrDestroy': {
         const targetId = this._targetId(ctx);
         const found = targetId ? ZoneManager.find(s, targetId) : null;
@@ -107,14 +170,12 @@ export class EffectEngine {
         if (!found && !fallbackItem) break;
         const beneficiary = found?.card?.controller || found?.card?.owner || fallbackItem?.controller;
         if (found?.zone === 'stack') {
-          const [item] = s.stack.splice(found.index, 1);
-          if (item?.card) ZoneManager.place(s, item.card, 'graveyard', item.card.owner);
+          e._counterStackItem(found.stackItem?.id || found.stackItem?.gameObjectId || targetId, 'ertai');
         } else if (found?.zone === 'battlefield') {
           const targetDef = e.db[found.card.cardId] || {};
           if (isType(targetDef, 'Creature') || isType(targetDef, 'Planeswalker')) e.destroy(found.card);
         } else if (fallbackItem) {
-          const [item] = s.stack.splice(fallbackIndex, 1);
-          if (item?.card) ZoneManager.place(s, item.card, 'graveyard', item.card.owner);
+          e._counterStackItem(fallbackItem.id || fallbackItem.gameObjectId, 'ertai');
         }
         if (beneficiary && s.players[beneficiary]) e.draw(beneficiary);
         break;
@@ -225,22 +286,47 @@ export class EffectEngine {
         if (!found || found.zone !== 'hand' || found.card.owner !== pid || isType(e.db[found.card.cardId], 'Land')) break;
         const card = e._moveZoneNow(found.card, 'exile', pid);
         card.suspended = true;
-        card.counters.time = Number(effect.counters || 4);
-        e.log('CARD_SUSPENDED', { controller: pid, card: card.cardId, counters: card.counters.time });
+        e.counters.add(card, 'time', Number(effect.counters || 4), { playerId: pid, source: ctx.source || null, cause: 'suspend-time-counters' });
+        e.log('CARD_SUSPENDED', { controller: pid, card: card.cardId, counters: e.counters.count(card, 'time') });
         break;
       }
       case 'adjustTimeCounters': {
         const targetId = this._targetId(ctx);
         const found = targetId ? ZoneManager.find(s, targetId) : null;
         if (!found || found.zone !== 'exile' || !found.card.suspended) break;
-        found.card.counters.time = Math.max(0, Number(found.card.counters?.time || 0) + Number(effect.amount || 0));
-        e.log('TIME_COUNTERS_ADJUSTED', { controller: pid, card: found.card.cardId, remaining: found.card.counters.time });
-        if (found.card.counters.time === 0) e._castSuspendedCard(found.card, found.card.owner);
+        const delta = Number(effect.amount || 0);
+        if (delta > 0) e.counters.add(found.card, 'time', delta, { playerId: pid, source: ctx.source || null, cause: 'adjust-time-counters' });
+        else if (delta < 0) e.counters.remove(found.card, 'time', Math.abs(delta), { playerId: pid, source: ctx.source || null, cause: 'adjust-time-counters' });
+        e.log('TIME_COUNTERS_ADJUSTED', { controller: pid, card: found.card.cardId, remaining: e.counters.count(found.card, 'time') });
+        if (e.counters.count(found.card, 'time') === 0) e._castSuspendedCard(found.card, found.card.owner);
         break;
       }
       case 'extraTurn': {
-        s.extraTurns[pid] = Number(s.extraTurns[pid] || 0) + this._amount(effect, ctx, 1);
-        e.log('EXTRA_TURN_CREATED', { controller: pid, amount: this._amount(effect, ctx, 1) });
+        e.turn.addExtraTurn(effect.targetPlayer || pid, this._amount(effect, ctx, 1));
+        break;
+      }
+      case 'skipNextTurn': {
+        e.turn.skipNextTurns(effect.targetPlayer || pid, this._amount(effect, ctx, 1));
+        break;
+      }
+      case 'extraUpkeep': {
+        e.turn.addExtraUpkeeps(effect.targetPlayer || pid, this._amount(effect, ctx, 1));
+        break;
+      }
+      case 'skipNextDrawStep': {
+        e.turn.skipNextDrawSteps(effect.targetPlayer || pid, this._amount(effect, ctx, 1));
+        break;
+      }
+      case 'skipNextCombat': {
+        e.turn.skipNextCombatPhases(effect.targetPlayer || pid, this._amount(effect, ctx, 1));
+        break;
+      }
+      case 'extraCombat': {
+        e.turn.addExtraCombatAfterCurrent({ includeMainAfter: effect.includeMainAfter !== false });
+        break;
+      }
+      case 'extraMainPhase': {
+        e.turn.addExtraMainPhaseAfterCurrent();
         break;
       }
       case 'resolveSagaChapter': {
@@ -266,15 +352,27 @@ export class EffectEngine {
         }
         break;
       }
+      case 'revealUntilToBattlefield': {
+        e.libraryOps.revealUntilToBattlefield(pid, effect.filter || {}, {
+          controllerId: effect.controller || pid,
+          reason: effect.reason || 'reveal-until-battlefield',
+          maxCards: effect.maxCards ?? Infinity,
+          castOption: effect.castOption || effect.reason || 'reveal-until-battlefield'
+        });
+        break;
+      }
       case 'tomBombadilCascade': {
         const tom = ctx.source?.instanceId ? e.findPermanent(ctx.source.instanceId) : null;
         if (!tom || Number(tom.tomCascadeTurn) === Number(s.turn)) break;
         tom.tomCascadeTurn = s.turn;
         const sagaIndex = p.library.findIndex(card => hasSubtype(e.db[card.cardId], 'Saga'));
         if (sagaIndex < 0) break;
-        const revealed = p.library.splice(0, sagaIndex + 1);
-        const saga = revealed.pop();
-        p.library.push(...shuffle(revealed, e.rng));
+        const revealed = p.library.slice(0, sagaIndex + 1);
+        for (const card of revealed) e.revealCard(card, { reason: 'tom-bombadil' });
+        const saga = revealed.at(-1);
+        e.zones.detach(saga.instanceId);
+        const rest = shuffle(revealed.slice(0, -1), e.rng);
+        for (const card of rest) e.zones.moveWithinZone(pid, 'library', card.instanceId, p.library.length - 1);
         e._finishPermanentResolution({ card: saga, controller: pid, mode: null, castOption: 'tom-bombadil' }, []);
         e.log('TOM_BOMBADIL_FOUND_SAGA', { controller: pid, card: saga.cardId, revealed: sagaIndex + 1 });
         break;
@@ -310,7 +408,10 @@ export class EffectEngine {
         break;
       }
       case 'addCounter': {
-        const targets = ctx.targeted ? this._permanentTargets(ctx) : ((ctx.targets || []).length ? this._permanentTargets(ctx) : e.selectPermanents(pid, effect.filter || {}, ctx));
+        const sourceTarget = effect.source === true && ctx.source?.instanceId ? e.findPermanent(ctx.source.instanceId) : null;
+        const targets = sourceTarget
+          ? [sourceTarget]
+          : (ctx.targeted ? this._permanentTargets(ctx) : ((ctx.targets || []).length ? this._permanentTargets(ctx) : e.selectPermanents(pid, effect.filter || {}, ctx)));
         s.pendingCounterQueue = targets.slice(0, effect.maxTargets || targets.length).map(target => ({
           permanentId: target.instanceId,
           counterType: effect.counter || '+1/+1',
@@ -439,8 +540,7 @@ export class EffectEngine {
         const id = this._targetId(ctx, effect.index || 0);
         const found = id ? ZoneManager.find(s, id) : null;
         if (found?.zone === 'stack') {
-          const [item] = s.stack.splice(found.index, 1);
-          if (item?.card) ZoneManager.place(s, item.card, 'graveyard', item.card.owner);
+          e._counterStackItem(found.stackItem?.id || found.stackItem?.gameObjectId || id, 'counter-spell-target');
         }
         break;
       }
@@ -455,7 +555,7 @@ export class EffectEngine {
           e._moveZoneNow(found.card, 'library', owner);
           owners.add(owner);
         }
-        for (const owner of owners) s.players[owner].library = shuffle(s.players[owner].library, e.rng);
+        for (const owner of owners) e.shuffleLibrary(owner, 'shuffle-grave-targets');
         break;
       }
       case 'drawPerCreatures':
@@ -480,7 +580,7 @@ export class EffectEngine {
         const target = this._eventObject(ctx);
         const type = effect.counter || '+1/+1';
         if (source && target && Number(source.counters?.[type] || 0) > 0) {
-          source.counters[type] -= 1; if (source.counters[type] <= 0) delete source.counters[type];
+          e.removeCounters(source, type, 1, source.controller);
           this.addCounters(target.controller, e.findPermanent(target.instanceId), type, 1);
         }
         break;
@@ -577,34 +677,58 @@ export class EffectEngine {
         break;
       }
       case 'cultivate': {
-        const eligibleIds = p.library.filter(card => isType(e.db[card.cardId], 'Basic Land')).map(card => card.instanceId);
+        const prepared = e.libraryOps.prepareSearch({
+          searchingPlayerId: pid,
+          filter: { type:'Land', basic:true },
+          minCount: 0,
+          maxCount: 2,
+          destinationPlan: [{ zone:'battlefield', tapped:true }, { zone:'hand' }],
+          revealFound: true,
+          shuffleAfter: true,
+          reason: 'cultivate'
+        });
+        if (prepared.prevented) break;
+        const eligibleIds = prepared.candidates.map(card => card.instanceId);
         s.pendingChoice = {
           type: 'CULTIVATE_SEARCH',
-          playerId: pid,
+          playerId: prepared.request.chooserPlayerId,
+          searchingPlayerId: pid,
           eligibleIds,
-          max: 2,
+          max: Math.min(2, eligibleIds.length),
+          librarySearchRequest: structuredClone(prepared.request),
           resume: this._choiceResume()
         };
-        s.priorityPlayer = pid;
+        s.priorityPlayer = prepared.request.chooserPlayerId;
         break;
       }
       case 'sisayTutor': {
         const source = ctx.source?.instanceId ? e.findPermanent(ctx.source.instanceId) : null;
         const sourcePower = source ? e.static.derivedStats(source).power : Number(ctx.sourcePowerAtActivation || 0);
-        const eligibleIds = p.library.filter(card => {
-          const definition = e.db[card.cardId];
-          if (!definition || !isType(definition, 'Legendary')) return false;
-          if (isType(definition, 'Instant') || isType(definition, 'Sorcery')) return false;
-          return Number(definition.manaValue || 0) < sourcePower;
-        }).map(card => card.instanceId);
+        const prepared = e.libraryOps.prepareSearch({
+          searchingPlayerId: pid,
+          filter: { and:[{ legendary:true }, { not:{ type:'Instant' } }, { not:{ type:'Sorcery' } }], maxManaValue: Math.max(0, sourcePower - 0.0001) },
+          minCount: 0,
+          maxCount: 1,
+          destination: 'battlefield',
+          revealFound: true,
+          shuffleAfter: true,
+          reason: 'sisay-tutor'
+        });
+        if (prepared.prevented) break;
+        const eligibleIds = prepared.candidates.map(card => card.instanceId).filter(id => {
+          const found = e.zones.find(id);
+          return found && Number(e.db[found.card.cardId]?.manaValue || 0) < sourcePower;
+        });
         s.pendingChoice = {
           type: 'SISAY_TUTOR',
-          playerId: pid,
+          playerId: prepared.request.chooserPlayerId,
+          searchingPlayerId: pid,
           eligibleIds,
           sourcePower,
+          librarySearchRequest: structuredClone(prepared.request),
           resume: this._choiceResume()
         };
-        s.priorityPlayer = pid;
+        s.priorityPlayer = prepared.request.chooserPlayerId;
         break;
       }
       case 'scry': {
@@ -630,6 +754,32 @@ export class EffectEngine {
           target.modifiers.toughness += Number(effect.toughness || 0);
           for (const keyword of effect.keywords || (effect.keyword ? [effect.keyword] : [])) if (!target.modifiers.keywords.includes(keyword)) target.modifiers.keywords.push(keyword);
         }
+        break;
+      }
+      case 'mechanicProwess': {
+        const source = ctx.source?.instanceId ? e.findPermanent(ctx.source.instanceId) : null;
+        if (source) { source.modifiers.power += 1; source.modifiers.toughness += 1; }
+        break;
+      }
+      case 'mechanicExalted': {
+        const attackerId = ctx.eventPayload?.attackers?.length === 1 ? ctx.eventPayload.attackers[0] : null;
+        const attacker = attackerId ? e.findPermanent(attackerId) : null;
+        if (attacker) { attacker.modifiers.power += 1; attacker.modifiers.toughness += 1; }
+        break;
+      }
+      case 'investigate': {
+        this.createToken(pid, { name: 'Clue' }, Math.max(1, Number(effect.amount || 1)));
+        break;
+      }
+      case 'populate': {
+        const tokenId = (ctx.targets || [])[0] || effect.tokenId || null;
+        const token = tokenId ? e.findPermanent(tokenId) : (p.battlefield || []).find(card => card.isToken && e.static.isType(card, 'Creature'));
+        if (!token?.isToken) break;
+        const definition = e.db[token.cardId] || {
+          name: token.name || 'Token', typeLine: token.typeLine || 'Token Creature', power: token.basePower ?? token.power ?? 0, toughness: token.baseToughness ?? token.toughness ?? 0,
+          colors: token.colors || [], subtypes: token.subtypes || [], keywords: e.static.derivedStats(token).keywords, abilities: e.static.effectiveAbilities(token)
+        };
+        this.createToken(pid, { ...structuredClone(definition), name: definition.name || 'Token' }, 1);
         break;
       }
       case 'optionalPayManaThen': {
@@ -692,7 +842,8 @@ export class EffectEngine {
         const source = e.findPermanent(ctx.source?.instanceId);
         if (source && Number(source.counters?.[effect.counter || 'growth'] || 0) >= Number(effect.amount || 20)) {
           s.winner = pid;
-          for (const opponentId of e.opponents(pid)) s.players[opponentId].lost = true;
+          for (const opponentId of e.opponents(pid)) e.elimination.markLost(opponentId, { reason: 'effect-win' });
+          e.elimination.cleanup();
         }
         break;
       }
@@ -702,18 +853,18 @@ export class EffectEngine {
           if (!found) continue;
           let card = found.card;
           if (found.zone === 'stack') {
-            const [item] = s.stack.splice(found.index, 1);
-            card = item.card;
-            ZoneManager.place(s, card, 'library', card.owner);
+            const item = e.stack.remove(found.stackItem?.id || found.stackItem?.gameObjectId || id);
+            card = item?.card || null;
+            // A spell copy is not a physical card. Removing it from the stack
+            // must never insert its source card into a library.
+            if (!card || item?.isCopy) continue;
+            e._moveZoneNow(card, 'library', card.owner);
           } else {
             e.moveToZone(card, 'library', card.owner);
           }
           const library = s.players[card.owner].library;
           const index = library.findIndex(x => x.instanceId === card.instanceId);
-          if (index >= 0) {
-            const [moved] = library.splice(index,1);
-            library.splice(Math.min(1, library.length), 0, moved);
-          }
+          if (index >= 0) e.zones.moveWithinZone(card.owner, 'library', card.instanceId, Math.min(1, Math.max(0, library.length - 1)));
         }
         break;
       }
@@ -721,8 +872,7 @@ export class EffectEngine {
         for (const id of ctx.targets || []) {
           const found = ZoneManager.find(s, id);
           if (found?.zone !== 'stack') continue;
-          const [item] = s.stack.splice(found.index, 1);
-          if (item?.card) ZoneManager.place(s, item.card, 'graveyard', item.card.owner);
+          e._counterStackItem(found.stackItem?.id || found.stackItem?.gameObjectId || id, 'counter-spell');
         }
         break;
       }
@@ -735,17 +885,15 @@ export class EffectEngine {
           const moved = e._moveZoneNow(found.card, 'library', owner);
           if (moved) byOwner.set(owner, true);
         }
-        for (const owner of byOwner.keys()) s.players[owner].library = shuffle(s.players[owner].library, e.rng);
+        for (const owner of byOwner.keys()) e.shuffleLibrary(owner, 'shuffle-grave-cards');
         break;
       }
       case 'memory': {
         for (const playerId of e.livingPlayerIds()) {
           const player = s.players[playerId];
           const all = [...player.hand, ...player.graveyard];
-          player.hand = [];
-          player.graveyard = [];
-          for (const card of all) ZoneManager.place(s, card, 'library', playerId);
-          player.library = shuffle(player.library, e.rng);
+          for (const card of all) e._moveZoneNow(card, 'library', playerId);
+          e.shuffleLibrary(playerId, 'memory');
         }
         for (const playerId of e.livingPlayerIds()) e.draw(playerId, 7);
         break;
@@ -773,13 +921,13 @@ export class EffectEngine {
       case 'copySpell': {
         const eventCard = ctx.eventPayload?.card;
         const stackItem = s.stack.find(item => item.card?.instanceId === eventCard?.instanceId);
-        if (stackItem) this.queueSpellCopies(stackItem, Number(effect.copies || 1), pid);
+        if (stackItem) this.queueSpellCopies(stackItem, Number(effect.copies || 1), pid, { retargetAllowed: effect.retargetAllowed ?? effect.chooseNewTargets ?? true });
         break;
       }
       case 'copySpellByInstance': {
         const instanceId = effect.spellInstanceId || ctx.source?.instanceId;
         const stackItem = s.stack.find(item => item.card?.instanceId === instanceId);
-        if (stackItem) this.queueSpellCopies(stackItem, Number(effect.copies || 1), pid);
+        if (stackItem) this.queueSpellCopies(stackItem, Number(effect.copies || 1), pid, { retargetAllowed: effect.retargetAllowed ?? effect.chooseNewTargets ?? true });
         break;
       }
       case 'hideaway': {
@@ -806,8 +954,10 @@ export class EffectEngine {
         break;
       }
       case 'myriadLandscape': {
-        const basics = p.library.filter(card => isType(e.db[card.cardId], 'Basic Land')).map(card => card.instanceId);
-        this._openCardChoice(pid, basics, { min: 0, max: Math.min(2, basics.length), prompt: 'Choose up to two basic lands sharing a land type', continuation: { type: 'myriadLandscape' } });
+        const prepared = e.libraryOps.prepareSearch({ searchingPlayerId:pid, filter:{ type:'Land', basic:true }, minCount:0, maxCount:2, destination:'battlefield', tapped:true, revealFound:true, shuffleAfter:true, reason:'myriad-landscape' });
+        if (prepared.prevented) break;
+        const basics = prepared.candidates.map(card => card.instanceId);
+        this._openCardChoice(prepared.request.chooserPlayerId, basics, { min: 0, max: Math.min(2, basics.length), prompt: 'Choose up to two basic lands sharing a land type', continuation: { type: 'myriadLandscape', librarySearchRequest: structuredClone(prepared.request) } });
         break;
       }
       case 'cantBeBlocked': {
@@ -817,22 +967,24 @@ export class EffectEngine {
         break;
       }
       case 'searchBasic': {
-        const i = p.library.findIndex(c => isType(e.db[c.cardId], 'Basic Land'));
-        if (i >= 0) {
-          const [c] = p.library.splice(i, 1);
-          ZoneManager.place(s, c, effect.destination || 'hand', pid);
-        }
+        e.libraryOps.searchImmediate({ searchingPlayerId:pid, filter:{ type:'Land', basic:true }, minCount:0, maxCount:1, destination:effect.destination || 'hand', revealFound:!!effect.reveal, shuffleAfter:true, tapped:!!effect.tapped, reason:'search-basic' });
         break;
       }
       case 'searchLand': {
         const landTypes = (effect.landTypes || []).map(type => String(type));
-        const eligibleIds = p.library.filter(card => {
-          const definition = e.db[card.cardId];
-          if (!definition || !isType(definition, 'Land')) return false;
-          if (effect.basicOnly && !isType(definition, 'Basic Land')) return false;
-          if (landTypes.length && !landTypes.some(type => hasSubtype(definition, type))) return false;
-          return true;
-        }).map(card => card.instanceId);
+        const prepared = e.libraryOps.prepareSearch({
+          searchingPlayerId: pid,
+          filter: { type:'Land', ...(effect.basicOnly ? { basic:true } : {}), ...(landTypes.length ? { subtypes:landTypes } : {}) },
+          minCount: 0,
+          maxCount: 1,
+          destination: effect.destination || 'battlefield',
+          revealFound: !!effect.reveal,
+          shuffleAfter: true,
+          tapped: !!effect.tapped,
+          reason: 'search-land'
+        });
+        if (prepared.prevented) break;
+        const eligibleIds = prepared.candidates.map(card => card.instanceId);
         const descriptor = effect.basicOnly
           ? (landTypes.length ? `a basic ${landTypes.join(' or ')} card` : 'a basic land card')
           : (landTypes.length ? `a ${landTypes.join(' or ')} card` : 'a land card');
@@ -845,7 +997,8 @@ export class EffectEngine {
             basicOnly: !!effect.basicOnly,
             landTypes,
             destination: effect.destination || 'battlefield',
-            tapped: !!effect.tapped
+            tapped: !!effect.tapped,
+            librarySearchRequest: structuredClone(prepared.request)
           }
         });
         break;
@@ -853,6 +1006,26 @@ export class EffectEngine {
       case 'sacrifice': {
         const t = e.selectPermanents(pid, effect.filter || {}, ctx)[0];
         if (t) e.sacrifice(t);
+        break;
+      }
+      default: {
+        // Step 41: unknown effect nodes are never silently ignored. In normal
+        // and strict play this raises UNSUPPORTED_INTERACTION before mutation;
+        // permissive sandbox mode records an explicit no-op approximation and
+        // marks the run ineligible for official statistics.
+        e.unsupported?.encounter({
+          message: `Effect node "${effect.type || '(missing)'}" is not implemented by the authoritative effect engine.`,
+          source: ctx.source || null,
+          ability: ctx.abilityId || ctx.scriptAbilityId || null,
+          stackObjectId: ctx.stackObjectId || null,
+          scriptNode: effect,
+          context: { kind: 'effect-node', effectType: effect.type || null }
+        }, {
+          approximation: {
+            kind: 'explicit-no-op',
+            description: `Sandbox skipped unsupported effect node "${effect.type || '(missing)'}".`
+          }
+        });
         break;
       }
     }
@@ -864,52 +1037,22 @@ export class EffectEngine {
 
   _commitCounters(pid, permanent, type, amount) {
     if (!permanent || amount <= 0) return 0;
-    const prior = Number(permanent.counters[type] || 0);
-    permanent.counters[type] = (permanent.counters[type] || 0) + amount;
-    this.engine.emit(EVENT.COUNTERS_ADDED, { controller: pid, target: permanent, counterType: type, amount });
-    if (type === 'lore' && this.engine.static.hasSubtype(permanent, 'Saga')) this.engine._queueSagaChapters(permanent, prior + 1, prior + amount);
-    return amount;
+    return this.engine.counters.addWithoutChoice(permanent, type, amount, { playerId: pid, cause: 'add-counter' });
   }
 
-  addCounters(pid, permanent, type, amount, { replacementOrder = null } = {}) {
+  addCounters(pid, permanent, type, amount, { replacementOrder = null, source = null, cause = 'add-counter' } = {}) {
     if (!permanent || amount <= 0) return 0;
-    const state = this.engine.state;
-    const affectedPlayerId = permanent.controller || pid;
-    const replacements = ReplacementEngine.counterReplacements(state, this.engine.db, affectedPlayerId, permanent, type);
-    if (replacements.length > 1 && !replacementOrder) {
-      if (state.pendingChoice) throw new Error('Cannot start a replacement-order choice while another choice is pending');
-      state.pendingChoice = {
-        type: 'REPLACEMENT_ORDER',
-        playerId: affectedPlayerId,
-        permanentId: permanent.instanceId,
-        counterType: type,
-        amount,
-        replacementIds: replacements.map(replacement => replacement.id),
-        replacements: replacements.map(replacement => ({ id: replacement.id, sourceName: replacement.sourceName, effect: replacement.effect })),
-        resume: this._choiceResume()
-      };
-      state.priorityPlayer = affectedPlayerId;
-      return 0;
-    }
-    const n = ReplacementEngine.applyCounterReplacements(amount, replacements, replacementOrder);
-    return this._commitCounters(affectedPlayerId, permanent, type, n);
+    return this.engine.counters.add(permanent, type, amount, { playerId: permanent.controller || pid, source, cause, replacementOrder });
   }
 
   resolveCounterReplacementChoice(choice, orderIds) {
-    const state = this.engine.state;
-    const permanent = this.engine.findPermanent(choice.permanentId);
-    state.pendingChoice = null;
-    if (permanent) {
-      const replacements = ReplacementEngine.counterReplacements(state, this.engine.db, permanent.controller, permanent, choice.counterType);
-      const currentIds = new Set(replacements.map(replacement => replacement.id));
-      const survivingOrder = orderIds.filter(id => currentIds.has(id));
-      const remaining = replacements.filter(replacement => !survivingOrder.includes(replacement.id)).map(replacement => replacement.id);
-      const finalOrder = [...survivingOrder, ...remaining];
-      const n = ReplacementEngine.applyCounterReplacements(choice.amount, replacements, finalOrder);
-      this._commitCounters(permanent.controller, permanent, choice.counterType, n);
-    }
-    this.resumeDeferred();
-    return true;
+    // Compatibility for serialized Step 7-9 choices. New Step 10 choices carry
+    // replacementEvent and are resolved by ReplacementService directly.
+    if (choice?.replacementEvent) return this.engine.replacements.resolveOrderChoice(choice, orderIds);
+    const permanent = this.engine.findPermanent(choice?.permanentId);
+    this.engine.state.pendingChoice = null;
+    if (!permanent) return false;
+    return this.addCounters(permanent.controller, permanent, choice.counterType, choice.amount, { replacementOrder: orderIds });
   }
 
   _continueCounterQueue() {
@@ -945,140 +1088,23 @@ export class EffectEngine {
     if (this.engine.state.pendingChoice) return;
     this._continueExploreRepeats();
     if (this.engine.state.pendingChoice) return;
-    this._continueProliferate();
+    this.engine.counters.continueProliferate();
   }
 
-  proliferateCandidates() {
-    const out = [];
-    for (const [playerId, player] of Object.entries(this.engine.state.players)) {
-      if (Object.values(player.counters || {}).some(value => value > 0)) out.push(playerId);
-      for (const permanent of player.battlefield) {
-        if (Object.values(permanent.counters || {}).some(value => value > 0)) out.push(permanent.instanceId);
-      }
-    }
-    return out;
+  proliferateCandidates() { return this.engine.counters.proliferateCandidates(); }
+
+  beginProliferate(pid, after = null) { return this.engine.counters.beginProliferate(pid, after); }
+
+  chooseProliferate(pid, targetIds) { return this.engine.counters.chooseProliferate(pid, targetIds); }
+
+  _continueProliferate() { return this.engine.counters.continueProliferate(); }
+
+  createToken(pid, token, amount, options = {}) {
+    return this.engine.tokens.create(pid, token, amount, { ...options, cause: options.cause || 'create-token' });
   }
 
-  beginProliferate(pid, after = null) {
-    const eligibleIds = this.proliferateCandidates();
-    const continuation = after ? { ...structuredClone(after), controller: after.controller || pid } : null;
-    this.engine.state.pendingChoice = {
-      type: 'PROLIFERATE',
-      playerId: pid,
-      eligibleIds,
-      after: continuation,
-      resume: this._choiceResume()
-    };
-    this.engine.state.priorityPlayer = pid;
-    return eligibleIds;
-  }
-
-  chooseProliferate(pid, targetIds) {
-    const choice = this.engine.state.pendingChoice;
-    if (!choice || choice.type !== 'PROLIFERATE' || choice.playerId !== pid) throw new Error('No proliferate choice is pending');
-    this.engine.state.pendingChoice = null;
-    this.engine.state.lastProliferatedIds = [...targetIds];
-    this.engine.state.afterProliferate = choice.after ? structuredClone(choice.after) : null;
-    const queue = [];
-    for (const id of targetIds) {
-      const player = this.engine.state.players[id];
-      if (player) {
-        for (const type of Object.keys(player.counters || {}).filter(type => player.counters[type] > 0)) queue.push({ kind: 'player', playerId: id, counterType: type });
-        continue;
-      }
-      const permanent = this.engine.findPermanent(id);
-      if (!permanent) continue;
-      for (const type of Object.keys(permanent.counters || {}).filter(type => permanent.counters[type] > 0)) queue.push({ kind: 'permanent', permanentId: id, counterType: type });
-    }
-    this.engine.state.pendingProliferateQueue = queue;
-    this._continueProliferate();
-    return targetIds;
-  }
-
-  _continueProliferate() {
-    const state = this.engine.state;
-    const queue = state.pendingProliferateQueue;
-    if (!queue) return;
-    while (queue.length && !state.pendingChoice) {
-      const item = queue.shift();
-      if (item.kind === 'player') {
-        const player = state.players[item.playerId];
-        if (player?.counters?.[item.counterType] > 0) player.counters[item.counterType] += 1;
-      } else {
-        const permanent = this.engine.findPermanent(item.permanentId);
-        if (permanent?.counters?.[item.counterType] > 0) this.addCounters(permanent.controller, permanent, item.counterType, 1);
-      }
-    }
-    if (!queue.length && !state.pendingChoice) {
-      delete state.pendingProliferateQueue;
-      const after = state.afterProliferate;
-      delete state.afterProliferate;
-      if (after?.type === 'phaseOutProliferated') {
-        const controller = after.player || after.controller || state.priorityPlayer || state.activePlayer;
-        const eligibleIds = (state.lastProliferatedIds || []).filter(id => {
-          const permanent = this.engine.findPermanent(id);
-          return permanent?.controller === controller;
-        });
-        delete state.lastProliferatedIds;
-        if (eligibleIds.length) {
-          state.pendingChoice = {
-            type: 'PHASE_OUT_PROLIFERATED',
-            playerId: controller,
-            eligibleIds,
-            resume: this._choiceResume()
-          };
-          state.priorityPlayer = controller;
-          return;
-        }
-      } else if (after) this.resolve(after, { controller: state.priorityPlayer || state.activePlayer });
-      delete state.lastProliferatedIds;
-    }
-  }
-
-  createToken(pid, token, amount) {
-    const normalized = canonicalTokenDefinition(token);
-    const mod = ReplacementEngine.modifyTokenAmount(this.engine.state, this.engine.db, pid, normalized.name, amount);
-    if (typeof mod === 'object' && mod.manufactor) {
-      for (const name of ['Treasure', 'Food', 'Clue']) this.createTokenRaw(pid, canonicalTokenDefinition({ name }), mod.manufactor);
-      return;
-    }
-    this.createTokenRaw(pid, normalized, mod);
-  }
-
-  createTokenRaw(pid, token, amount = 1) {
-    const normalized = canonicalTokenDefinition(token);
-    const count = Math.max(0, Number(amount) || 0);
-    const id = `token:${normalized.name}`;
-    // Token definitions are runtime rules data. Re-assigning here upgrades an
-    // earlier placeholder definition instead of preserving empty abilities.
-    this.engine.db[id] = {
-      id,
-      name: normalized.name,
-      typeLine: normalized.typeLine || 'Token Creature',
-      power: normalized.power ?? 0,
-      toughness: normalized.toughness ?? 0,
-      colors: normalized.colors || [],
-      keywords: normalized.keywords || [],
-      subtypes: normalized.subtypes || [],
-      abilities: structuredClone(normalized.abilities || []),
-      spellEffects: []
-    };
-
-    const created = [];
-    for (let i = 0; i < count; i++) {
-      const c = makeCardInstance(id, pid, 'battlefield', {
-        controller: pid,
-        isToken: true,
-        summoningSick: isType(this.engine.db[id], 'Creature'),
-        createdTurn: this.engine.state.turn,
-        controlledSinceTurn: this.engine.state.turn
-      });
-      this.engine.state.players[pid].battlefield.push(c);
-      created.push(c);
-      this.engine.emit(EVENT.TOKEN_CREATED, { controller: pid, target: c });
-      this.engine.emit(EVENT.ENTER_BATTLEFIELD, { controller: pid, target: c });
-    }
-    return created;
+  createTokenRaw(pid, token, amount = 1, options = {}) {
+    return this.engine.tokens.create(pid, token, amount, { ...options, skipReplacements: true, cause: options.cause || 'create-token' });
   }
 
   _openDeferredExploreChoice() {
@@ -1104,8 +1130,7 @@ export class EffectEngine {
       for (const id of cardInstanceIds) {
         const found = ZoneManager.find(s, id);
         if (found?.zone === 'hand' && found.player?.id === pid) {
-          const card = e._moveZoneNow(found.card, 'graveyard', found.card.owner);
-          e.emit(EVENT.CARD_DISCARDED, { controller: pid, card });
+          e.events.dispatch(ENGINE_EVENT.DISCARD_CARD, { playerId: pid, cardInstanceId: found.card.instanceId, reason: 'effect-discard' }, { cause: 'discard', stabilize: false });
         }
       }
       return;
@@ -1125,26 +1150,29 @@ export class EffectEngine {
       return;
     }
     if (continuation.type === 'myriadLandscape') {
-      const selected = cardInstanceIds.map(id => ZoneManager.find(s,id)).filter(found => found?.zone === 'library' && found.player?.id === pid);
-      for (const found of selected.slice(0,2)) {
-        const card = e._moveZoneNow(found.card, 'battlefield', pid);
-        card.tapped = true;
-        card.createdTurn = s.turn;
-        card.controlledSinceTurn = s.turn;
-        e.emit(EVENT.ENTER_BATTLEFIELD, { controller: pid, target: card });
+      if (continuation.librarySearchRequest) e.libraryOps.finishPreparedSearch(continuation.librarySearchRequest, cardInstanceIds.slice(0,2));
+      else {
+        const selected = cardInstanceIds.map(id => ZoneManager.find(s,id)).filter(found => found?.zone === 'library' && found.player?.id === pid);
+        for (const found of selected.slice(0,2)) {
+          const card = e._moveZoneNow(found.card, 'battlefield', pid);
+          card.tapped = true;
+          card.createdTurn = s.turn;
+          card.controlledSinceTurn = s.turn;
+          e.emit(EVENT.ENTER_BATTLEFIELD, { controller: pid, target: card });
+        }
+        e.shuffleLibrary(pid, 'library-search');
       }
-      p.library = shuffle(p.library, e.rng);
       return;
     }
     if (continuation.type === 'searchLand') {
       const id = cardInstanceIds[0] || null;
       if (!id) {
-        p.library = shuffle(p.library, e.rng);
+        e.shuffleLibrary(pid, 'library-search');
         return;
       }
       const found = ZoneManager.find(s, id);
       if (!found || found.zone !== 'library' || found.player?.id !== pid) {
-        p.library = shuffle(p.library, e.rng);
+        e.shuffleLibrary(pid, 'library-search');
         return;
       }
       const definition = e.db[found.card.cardId] || {};
@@ -1153,12 +1181,12 @@ export class EffectEngine {
         && (!continuation.basicOnly || isType(definition, 'Basic Land'))
         && (!landTypes.length || landTypes.some(type => hasSubtype(definition, type)));
       if (!legal) {
-        p.library = shuffle(p.library, e.rng);
+        e.shuffleLibrary(pid, 'library-search');
         return;
       }
       if ((continuation.destination || 'battlefield') === 'hand') {
         e._moveZoneNow(found.card, 'hand', pid);
-        p.library = shuffle(p.library, e.rng);
+        e.shuffleLibrary(pid, 'library-search');
         return;
       }
       e._beginPutLandEffect(pid, id, {
@@ -1171,26 +1199,25 @@ export class EffectEngine {
     }
   }
 
-  queueSpellCopies(originalItem, count = 1, controller = originalItem?.controller) {
-    const s = this.engine.state;
-    if (!originalItem?.card || count <= 0) return;
+  queueSpellCopies(originalItem, count = 1, controller = originalItem?.controller, { retargetAllowed = false } = {}) {
+    if (!originalItem || count <= 0) return [];
+    return this.engine.events.dispatch(ENGINE_EVENT.COPY, {
+      originalItem,
+      count,
+      controller,
+      retargetAllowed,
+      source: originalItem.card || originalItem.source || null
+    }, { cause: originalItem.type === 'spell' ? 'copy-spell' : 'copy-ability', stabilize: false });
+  }
+
+  _queueSpellCopiesNow(originalItem, count = 1, controller = originalItem?.controller, { retargetAllowed = false } = {}) {
+    const e = this.engine, s = e.state;
+    if (!originalItem || count <= 0) return [];
     s.pendingSpellCopies = s.pendingSpellCopies || [];
-    for (let i = 0; i < count; i++) {
-      const copyCard = structuredClone(originalItem.card);
-      copyCard.instanceId = `copy-${originalItem.card.instanceId}-${Date.now()}-${Math.random()}-${i}`;
-      copyCard.zone = 'stack';
-      copyCard.isToken = false;
-      const copyItem = {
-        ...structuredClone(originalItem),
-        id: `copy-stack-${Date.now()}-${Math.random()}-${i}`,
-        controller,
-        card: copyCard,
-        isCopy: true,
-        targets: [...(originalItem.targets || [])]
-      };
-      s.pendingSpellCopies.push(copyItem);
-    }
+    const created = e.copy.createStackCopies(originalItem, { count, controller, retargetAllowed });
+    s.pendingSpellCopies.push(...created);
     this._continueSpellCopyQueue();
+    return created;
   }
 
   _continueSpellCopyQueue() {
@@ -1201,13 +1228,15 @@ export class EffectEngine {
       delete s.pendingSpellCopies;
       return;
     }
-    const definition = e.db[copyItem.card.cardId] || {};
-    const targetSource = e.targetSourceForAction({ mode: copyItem.mode }, definition);
-    if (e.targeting.hasTargets(targetSource) && (copyItem.targets || []).length) {
+    const definition = copyItem.card ? (e.copy?.definitionForObject(copyItem.card) || e.db[copyItem.card.cardId] || {}) : {};
+    const targetSource = copyItem.type === 'spell'
+      ? e.targetSourceForAction({ mode: copyItem.mode }, definition)
+      : (copyItem.ability || copyItem.targetSource || null);
+    if (copyItem.copyMetadata?.retargetAllowed && e.targeting.hasTargets(targetSource) && (copyItem.targets || []).length) {
       s.pendingChoice = {
         type: 'COPY_TARGETS',
         playerId: copyItem.controller,
-        sourceName: definition.name || 'spell copy',
+        sourceName: definition.name || 'ability copy',
         copyItem,
         targetSource: structuredClone(targetSource),
         originalTargets: [...(copyItem.targets || [])],
@@ -1216,17 +1245,17 @@ export class EffectEngine {
       s.priorityPlayer = copyItem.controller;
       return;
     }
-    s.stack.push(copyItem);
+    e.stack.push({ ...copyItem, gameObjectId: copyItem.gameObjectId || undefined });
     this._continueSpellCopyQueue();
   }
 
   resolveCopyTargetChoice(choice, targetIds) {
-    const s = this.engine.state;
+    const e = this.engine, s = e.state;
     const item = structuredClone(choice.copyItem);
     item.targets = [...targetIds];
-    s.stack.push(item);
+    const stacked = e.stack.push(item);
     this._continueSpellCopyQueue();
-    return item;
+    return stacked;
   }
 
   resolveHideawayChoice(choice, cardInstanceId) {
@@ -1234,14 +1263,18 @@ export class EffectEngine {
     const topIds = new Set(choice.candidateIds || []);
     const selected = cardInstanceId && topIds.has(cardInstanceId) ? ZoneManager.find(s, cardInstanceId)?.card : null;
     const cards = p.library.filter(card => topIds.has(card.instanceId));
-    p.library = p.library.filter(card => !topIds.has(card.instanceId));
+    for (const card of cards) e.lookAtCard(choice.playerId, card, { reason: 'hideaway-look' });
     if (selected) {
-      const remaining = cards.filter(card => card.instanceId !== selected.instanceId);
-      ZoneManager.place(s, selected, 'exile', choice.playerId);
+      const remaining = shuffle(cards.filter(card => card.instanceId !== selected.instanceId), e.rng);
+      e._moveZoneNow(selected, 'exile', choice.playerId, { reason: 'hideaway-exile' });
       selected.exiledBy = choice.sourceId;
       selected.faceDown = true;
-      p.library.push(...shuffle(remaining, e.rng));
-    } else p.library.push(...shuffle(cards, e.rng));
+      if (selected.faceState) selected.faceState.faceUp = false;
+      e.knownInformation.look(choice.playerId, selected, { reason: 'hideaway-exile' });
+      for (const card of remaining) e.zones.moveWithinZone(choice.playerId, 'library', card.instanceId, p.library.length - 1);
+    } else {
+      for (const card of shuffle(cards, e.rng)) e.zones.moveWithinZone(choice.playerId, 'library', card.instanceId, p.library.length - 1);
+    }
   }
 
   chooseExplore(pid, putInGraveyard) {
@@ -1271,8 +1304,7 @@ export class EffectEngine {
 
     const d = this.engine.db[top.cardId];
     if (isType(d, 'Land')) {
-      p.library.shift();
-      ZoneManager.place(this.engine.state, top, 'hand', liveTarget.controller);
+      this.engine._moveZoneNow(top, 'hand', liveTarget.controller);
       this.engine.emit(EVENT.EXPLORED, { controller: liveTarget.controller, target: liveTarget, object: liveTarget, revealedLand: true, revealedCard: top });
       return true;
     }

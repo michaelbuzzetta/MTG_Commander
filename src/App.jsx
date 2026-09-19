@@ -1,20 +1,30 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import db0 from './data/generated/cards.json' with { type: 'json' };
-import decks from './data/generated/decks.json' with { type: 'json' };
-import { GameEngine } from './engine/GameEngine.js';
-import { AIController } from './ai/AIController.js';
+import { getBuiltInCardDatabase, getBuiltInDecks, loadCardCatalog, mergeBuilderDatabase, promoteCatalogDefinitions, promoteCatalogNames } from './database/index.js';
+import { createGame } from './engine/index.js';
+import { AIController } from './ai/index.js';
 import { Battlefield } from './components/Battlefield.jsx';
 import { Card } from './components/Card.jsx';
 import { LibrarySearchPicker } from './components/LibrarySearchPicker.jsx';
+import ChoiceDialog from './components/ChoiceDialog.jsx';
+import PaymentDialog from './components/PaymentDialog.jsx';
+import RulesActionPicker from './components/RulesActionPicker.jsx';
+import StackPriorityPanel from './components/StackPriorityPanel.jsx';
+import UnsupportedInteractionDialog from './components/UnsupportedInteractionDialog.jsx';
+import CardSupportDashboard from './components/CardSupportDashboard.jsx';
 import { DeckBuilder } from './components/DeckBuilder.jsx';
+import { DeckManager } from './components/DeckManager.jsx';
 import { buildCustomDeck, fetchMissingCardDefinitions, parseMassEntry } from './utils/deckImport.js';
-import { loadCardCatalog, mergeBuilderDatabase, promoteCatalogDefinitions, promoteCatalogNames } from './utils/cardCatalog.js';
 import { automationActor, humanAutomationDecision } from './utils/turnAutomation.js';
+import { buildLegalActionIndex, cardActionPresentation, normalizeUnsupportedInteraction } from './ui/index.js';
 import './styles.css';
+
+const db0 = getBuiltInCardDatabase();
+const decks = getBuiltInDecks();
 
 const playableDecks = decks.filter(deck => deck.playable !== false);
 const referenceDecks = decks.filter(deck => deck.playable === false);
 const CUSTOM_DECKS_KEY = 'mtg-ai-trainer.custom-decks.v1';
+const HIDDEN_DEFAULT_DECKS_KEY = 'mtg-ai-trainer.hidden-default-decks.v1';
 
 function loadCustomDecks() {
   if (typeof window === 'undefined') return [];
@@ -29,6 +39,21 @@ function loadCustomDecks() {
 function saveCustomDecks(customDecks) {
   if (typeof window === 'undefined') return;
   window.localStorage.setItem(CUSTOM_DECKS_KEY, JSON.stringify(customDecks));
+}
+
+function loadHiddenDefaultDeckIds() {
+  if (typeof window === 'undefined') return [];
+  try {
+    const saved = JSON.parse(window.localStorage.getItem(HIDDEN_DEFAULT_DECKS_KEY) || '[]');
+    return Array.isArray(saved) ? saved.filter(Boolean) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveHiddenDefaultDeckIds(ids) {
+  if (typeof window === 'undefined') return;
+  window.localStorage.setItem(HIDDEN_DEFAULT_DECKS_KEY, JSON.stringify([...new Set(ids)]));
 }
 
 const PHASE_UI = {
@@ -65,16 +90,25 @@ function PhaseBanner({ state, attackers, blockTarget }) {
 
 export default function App() {
   const [customDecks, setCustomDecks] = useState(loadCustomDecks);
+  const [hiddenDefaultDeckIds, setHiddenDefaultDeckIds] = useState(loadHiddenDefaultDeckIds);
   const customCardDb = useMemo(() => Object.assign({}, ...customDecks.map(deck => deck.cardDefinitions || {})), [customDecks]);
   const runtimeDb = useMemo(() => ({ ...db0, ...customCardDb }), [customCardDb]);
-  const selectableDecks = useMemo(() => [...playableDecks, ...customDecks], [customDecks]);
+  const visiblePlayableDecks = useMemo(() => playableDecks.filter(deck => !hiddenDefaultDeckIds.includes(deck.id)), [hiddenDefaultDeckIds]);
+  const selectableDecks = useMemo(() => [...visiblePlayableDecks, ...customDecks], [visiblePlayableDecks, customDecks]);
   const [catalogCards, setCatalogCards] = useState([]);
   const [catalogStatus, setCatalogStatus] = useState({ state: 'loading', count: 0, complete: false, sourceUpdatedAt: null, message: 'Loading full MTG card catalog…' });
   const builderDb = useMemo(() => mergeBuilderDatabase(runtimeDb, catalogCards), [runtimeDb, catalogCards]);
-  const [choice, setChoice] = useState(playableDecks[0]?.id || '');
+  const [choice, setChoice] = useState(() => {
+    const hidden = new Set(loadHiddenDefaultDeckIds());
+    return playableDecks.find(deck => !hidden.has(deck.id))?.id || loadCustomDecks()[0]?.id || '';
+  });
   const [playerCount, setPlayerCount] = useState(2);
   const [showDeckImporter, setShowDeckImporter] = useState(false);
   const [showDeckBuilder, setShowDeckBuilder] = useState(false);
+  const [showDeckManager, setShowDeckManager] = useState(false);
+  const [editingDeck, setEditingDeck] = useState(null);
+  const [builderReturnsToDeckManager, setBuilderReturnsToDeckManager] = useState(false);
+  const [showSupportDashboard, setShowSupportDashboard] = useState(false);
   const [deckName, setDeckName] = useState('');
   const [commanderName, setCommanderName] = useState('');
   const [deckList, setDeckList] = useState('');
@@ -105,17 +139,20 @@ export default function App() {
   const [holdPriority, setHoldPriority] = useState(false);
   const [skipNextHumanPriority, setSkipNextHumanPriority] = useState(false);
   const [automationError, setAutomationError] = useState('');
+  const [paymentPreview, setPaymentPreview] = useState(null);
+  const [actionPicker, setActionPicker] = useState(null);
+  const [unsupportedInteraction, setUnsupportedInteraction] = useState(null);
   const refresh = () => redraw(x => x + 1);
 
   const start = () => {
     const mine = selectableDecks.find(d => d.id === choice);
     if (!mine) throw new Error('Choose a playable deck before starting.');
     const others = selectableDecks.filter(d => d.id !== choice);
-    const aiPool = others.length ? others : playableDecks.filter(d => d.id !== choice);
+    const aiPool = others.length ? others : visiblePlayableDecks.filter(d => d.id !== choice);
     if (aiPool.length < playerCount - 1) throw new Error(`At least ${playerCount} distinct playable decks are required for a ${playerCount}-player match.`);
     const shuffled = [...aiPool].sort(() => Math.random() - 0.5);
     const aiDecks = shuffled.slice(0, playerCount - 1);
-    const e = new GameEngine(mine, aiDecks, runtimeDb);
+    const e = createGame(mine, aiDecks, runtimeDb);
     e.start();
     setEngine(e);
     setAttackers([]);
@@ -140,6 +177,9 @@ export default function App() {
     setHoldPriority(false);
     setSkipNextHumanPriority(false);
     setAutomationError('');
+    setPaymentPreview(null);
+    setActionPicker(null);
+    setUnsupportedInteraction(null);
   };
 
   useEffect(() => {
@@ -194,13 +234,51 @@ export default function App() {
     }
   };
 
-  const removeSelectedCustomDeck = () => {
-    const selected = customDecks.find(deck => deck.id === choice);
-    if (!selected) return;
-    const next = customDecks.filter(deck => deck.id !== choice);
-    setCustomDecks(next);
-    saveCustomDecks(next);
-    setChoice(playableDecks[0]?.id || next[0]?.id || '');
+  const deleteManagedDeck = deck => {
+    if (!deck) return;
+    let nextCustomDecks = customDecks;
+    let nextHiddenIds = hiddenDefaultDeckIds;
+    if (deck.custom) {
+      nextCustomDecks = customDecks.filter(item => item.id !== deck.id);
+      setCustomDecks(nextCustomDecks);
+      saveCustomDecks(nextCustomDecks);
+    } else {
+      nextHiddenIds = [...new Set([...hiddenDefaultDeckIds, deck.id])];
+      setHiddenDefaultDeckIds(nextHiddenIds);
+      saveHiddenDefaultDeckIds(nextHiddenIds);
+    }
+    if (choice === deck.id) {
+      const nextDefault = playableDecks.find(item => !nextHiddenIds.includes(item.id) && item.id !== deck.id);
+      const nextCustom = nextCustomDecks.find(item => item.id !== deck.id);
+      setChoice(nextDefault?.id || nextCustom?.id || '');
+    }
+  };
+
+  const restoreDefaultDecks = () => {
+    setHiddenDefaultDeckIds([]);
+    saveHiddenDefaultDeckIds([]);
+    if (!choice) setChoice(playableDecks[0]?.id || customDecks[0]?.id || '');
+  };
+
+  const openDeckEditor = deck => {
+    setEditingDeck(deck);
+    setBuilderReturnsToDeckManager(true);
+    setShowDeckManager(false);
+    setShowDeckBuilder(true);
+  };
+
+  const openNewDeckBuilderFromManager = () => {
+    setEditingDeck(null);
+    setBuilderReturnsToDeckManager(true);
+    setShowDeckManager(false);
+    setShowDeckBuilder(true);
+  };
+
+  const closeDeckBuilder = () => {
+    setShowDeckBuilder(false);
+    setEditingDeck(null);
+    if (builderReturnsToDeckManager) setShowDeckManager(true);
+    setBuilderReturnsToDeckManager(false);
   };
 
   const saveBuiltDeck = ({ deckName: builtDeckName, commander, entries }) => {
@@ -208,22 +286,42 @@ export default function App() {
     const catalogPromoted = promoteCatalogDefinitions(selectedDefinitions);
     const saveDb = { ...runtimeDb, ...catalogPromoted };
     const list = entries.map(entry => `${entry.quantity} ${builderDb[entry.id]?.name || entry.id}`).join('\n');
-    const deck = buildCustomDeck({ name: builtDeckName, commander: commander.name, list }, saveDb, selectableDecks);
-    deck.notes = 'Built with the in-game Commander Deck Builder using the full Scryfall card catalog.';
+    const existingDecksForId = editingDeck ? selectableDecks.filter(deck => deck.id !== editingDeck.id) : selectableDecks;
+    const deck = buildCustomDeck({ name: builtDeckName, commander: commander.name, list }, saveDb, existingDecksForId);
+    deck.notes = editingDeck ? 'Edited with the in-game Commander Deck Builder.' : 'Built with the in-game Commander Deck Builder using the full Scryfall card catalog.';
     deck.builderGenerated = true;
     deck.cardDefinitions = Object.fromEntries(deck.cards
       .filter(entry => !db0[entry.id] && saveDb[entry.id])
       .map(entry => [entry.id, saveDb[entry.id]]));
-    const next = [...customDecks, deck];
+
+    let next;
+    if (editingDeck?.custom) {
+      deck.id = editingDeck.id;
+      deck.editedFrom = editingDeck.editedFrom || null;
+      next = customDecks.map(item => item.id === editingDeck.id ? deck : item);
+    } else {
+      if (editingDeck) {
+        deck.editedFrom = editingDeck.id;
+        const nextHidden = [...new Set([...hiddenDefaultDeckIds, editingDeck.id])];
+        setHiddenDefaultDeckIds(nextHidden);
+        saveHiddenDefaultDeckIds(nextHidden);
+      }
+      next = [...customDecks, deck];
+    }
+
     setCustomDecks(next);
     saveCustomDecks(next);
     setChoice(deck.id);
+    const returnToManager = builderReturnsToDeckManager;
+    setEditingDeck(null);
+    setBuilderReturnsToDeckManager(false);
     setShowDeckBuilder(false);
+    setShowDeckManager(returnToManager);
   };
 
   useEffect(() => {
-    if (!engine || automationError) return undefined;
-    const s = engine.state;
+    if (!engine || automationError || paymentPreview || actionPicker || unsupportedInteraction) return undefined;
+    const s = engine.getPlayerStateSnapshot('player');
     if (s.winner) return undefined;
     const actor = automationActor(engine);
     if (!actor) return undefined;
@@ -238,7 +336,8 @@ export default function App() {
       if (decision.mode !== 'AUTO_PASS') return undefined;
       const timer = window.setTimeout(() => {
         try {
-          engine.perform('player', { type: 'PASS_PRIORITY' });
+          const response = engine.passPriority('player');
+          if (!response.ok) throw new Error(response.error.message);
           if (skipNextHumanPriority) setSkipNextHumanPriority(false);
           refresh();
         } catch (err) {
@@ -250,8 +349,10 @@ export default function App() {
 
     if (s.players[actor]?.lost) return undefined;
     let action = null;
+    let aiController = null;
     try {
-      action = new AIController(engine, actor).choose();
+      aiController = new AIController(engine, actor);
+      action = aiController.choose();
     } catch (err) {
       setAutomationError(`AI decision failed for ${s.players[actor]?.name || actor}: ${err.message}`);
       return undefined;
@@ -265,16 +366,28 @@ export default function App() {
     const delay = quietAction ? 70 : 300;
     const timer = window.setTimeout(() => {
       try {
-        engine.perform(actor, action);
+        aiController.submit(action);
         refresh();
       } catch (err) {
         setAutomationError(`AI action ${action.type} failed for ${s.players[actor]?.name || actor}: ${err.message}`);
       }
     }, delay);
     return () => window.clearTimeout(timer);
-  }, [engine, renderTick, autoPassAITurns, holdPriority, skipNextHumanPriority, automationError]);
+  }, [engine, renderTick, autoPassAITurns, holdPriority, skipNextHumanPriority, automationError, paymentPreview, actionPicker, unsupportedInteraction]);
 
-  if (!engine && showDeckBuilder) return <DeckBuilder db={builderDb} catalogStatus={catalogStatus} onCancel={() => setShowDeckBuilder(false)} onSave={saveBuiltDeck} />;
+  if (!engine && showDeckBuilder) return <DeckBuilder db={builderDb} catalogStatus={catalogStatus} initialDeck={editingDeck} onCancel={closeDeckBuilder} onSave={saveBuiltDeck} />;
+  if (!engine && showDeckManager) return <DeckManager
+    decks={selectableDecks}
+    db={builderDb}
+    hiddenDefaultCount={hiddenDefaultDeckIds.length}
+    onBack={() => setShowDeckManager(false)}
+    onEdit={openDeckEditor}
+    onDelete={deleteManagedDeck}
+    onPlay={deck => { setChoice(deck.id); setShowDeckManager(false); }}
+    onBuildNew={openNewDeckBuilderFromManager}
+    onRestoreDefaults={restoreDefaultDecks}
+  />;
+  if (!engine && showSupportDashboard) return <CardSupportDashboard onClose={() => setShowSupportDashboard(false)} />;
 
   if (!engine) return <main className="setup">
     <div className="setup-panel">
@@ -294,10 +407,11 @@ export default function App() {
         {[2,3,4].map(count => <button key={count} type="button" className={playerCount === count ? 'selected' : ''} onClick={() => setPlayerCount(count)}>{count} Players</button>)}
       </div>
       <div className="setup-match-note">You + {playerCount - 1} AI opponent{playerCount === 2 ? '' : 's'}</div>
-      <button className="primary" onClick={start}>Start {playerCount}-Player Match</button>
-      <button className="secondary setup-secondary deck-builder-launch" onClick={() => setShowDeckBuilder(true)}>✦ Build a Commander Deck</button>
+      <button className="primary" onClick={start} disabled={!choice}>Start {playerCount}-Player Match</button>
+      <button className="secondary setup-secondary deck-library-launch" onClick={() => setShowDeckManager(true)}>▦ View / Edit Decks</button>
+      <button className="secondary setup-secondary deck-builder-launch" onClick={() => { setEditingDeck(null); setBuilderReturnsToDeckManager(false); setShowDeckBuilder(true); }}>✦ Build a Commander Deck</button>
+      <button className="secondary setup-secondary coverage-dashboard-launch" onClick={() => setShowSupportDashboard(true)}>Card Support & Rules Coverage</button>
       <button className="secondary setup-secondary" onClick={() => { setDeckImportError(''); setShowDeckImporter(true); }}>+ Import Your Own Deck</button>
-      {customDecks.some(deck => deck.id === choice) && <button className="text-button remove-deck" onClick={removeSelectedCustomDeck}>Remove selected custom deck</button>}
       {referenceDecks.length > 0 && <div className="reference-note"><b>Published deck reference preserved</b><span>{referenceDecks.map(d => d.name).join(', ')} is stored with its exact 100-card list but is disabled until every card mechanic is implemented. The supported trainer version remains playable.</span></div>}
     </div>
     {showDeckImporter && <div className="modal-backdrop" onMouseDown={e => e.target === e.currentTarget && setShowDeckImporter(false)}>
@@ -323,7 +437,9 @@ export default function App() {
     </div>}
   </main>;
 
-  const s = engine.state, p = s.players.player;
+  const s = engine.getPlayerStateSnapshot('player'), cardDb = engine.getCardDatabaseSnapshot(), p = s.players.player;
+  const playerLegalActions = engine.getLegalActions('player');
+  const legalActionIndex = buildLegalActionIndex(playerLegalActions);
   const opponentEntries = s.playerOrder.filter(id => id !== 'player').map(id => [id, s.players[id]]);
   const livingOpponents = opponentEntries.filter(([, player]) => !player.lost);
   const playerLabel = id => id === 'player' ? 'You' : (s.players[id]?.name || 'Opponent');
@@ -331,11 +447,11 @@ export default function App() {
     const entry = [...(s.history || [])].reverse().find(item => item.controller === id && ['LAND_PLAYED', 'SPELL_CAST', 'DECLARE_ATTACKERS', 'DECLARE_BLOCKERS'].includes(item.type));
     if (!entry) return 'Waiting for first action';
     if (entry.type === 'LAND_PLAYED') {
-      const name = engine.db[entry.target?.cardId]?.name || 'a land';
+      const name = cardDb[entry.target?.cardId]?.name || 'a land';
       return `Played ${name} · land play costs 0 mana`;
     }
     if (entry.type === 'SPELL_CAST') {
-      const name = engine.db[entry.card?.cardId]?.name || 'a spell';
+      const name = cardDb[entry.card?.cardId]?.name || 'a spell';
       return `Cast ${name}`;
     }
     if (entry.type === 'DECLARE_ATTACKERS') return 'Declared attackers';
@@ -347,7 +463,12 @@ export default function App() {
     try {
       const onOpponentTurn = !s.pregame.active && s.activePlayer !== 'player';
       const voluntaryResponse = onOpponentTurn && ['CAST_SPELL', 'CAST_COMMANDER', 'ACTIVATE_ABILITY'].includes(action.type);
-      engine.perform('player', action);
+      const response = s.pendingChoice ? engine.submitChoice('player', action) : (action.type === 'PASS_PRIORITY' ? engine.passPriority('player') : engine.submitAction('player', action));
+      if (!response.ok) {
+        const unsupported = normalizeUnsupportedInteraction(response.error, { rulesVersion: engine.rulesVersion });
+        if (unsupported) { setUnsupportedInteraction(unsupported); return; }
+        throw new Error(response.error.message);
+      }
       setChoiceCards([]);
       setTargetingAction(null);
       setTriggerOrder([]);
@@ -363,8 +484,27 @@ export default function App() {
       setHoldPriority(false);
       setSkipNextHumanPriority(voluntaryResponse && autoPassAITurns);
       setAutomationError('');
+      setPaymentPreview(null);
+      setActionPicker(null);
       refresh();
-    } catch (err) { alert(err.message); }
+    } catch (err) {
+      const unsupported = normalizeUnsupportedInteraction(err, { rulesVersion: engine.rulesVersion });
+      if (unsupported) setUnsupportedInteraction(unsupported);
+      else alert(err.message);
+    }
+  };
+
+  const requestActionSubmission = action => {
+    if (!action) return;
+    if (['CAST_SPELL', 'CAST_COMMANDER'].includes(action.type)) {
+      const plan = engine.getPaymentPlanSnapshot('player', action);
+      const needsConfirmation = !!plan && !!(plan.lockedCost?.finalManaCost || plan.lifePayment || plan.activations?.length || plan.lockedCost?.nonManaCosts?.length);
+      if (needsConfirmation) {
+        setPaymentPreview({ action: structuredClone(action), plan, label: 'Confirm spell payment' });
+        return;
+      }
+    }
+    act(action);
   };
 
   const toggleChoiceCard = id => setChoiceCards(xs => xs.includes(id) ? xs.filter(x => x !== id) : [...xs, id]);
@@ -378,7 +518,7 @@ export default function App() {
         <div className="brand-mark">✦</div>
         <h1>Opening Hand</h1>
         <p>{pending ? `Choose exactly ${required} card${required === 1 ? '' : 's'} to put on the bottom of your library.` : `Commander mulligan: your first mulligan is free. Mulligans taken: ${p.mulligans}.`}</p>
-        <div className="pregame-hand">{p.hand.map(c => <Card key={c.instanceId} perm={c} def={engine.db[c.cardId]} selected={choiceCards.includes(c.instanceId)} onClick={() => pending && toggleChoiceCard(c.instanceId)} />)}</div>
+        <div className="pregame-hand">{p.hand.map(c => <Card key={c.instanceId} perm={c} def={cardDb[c.cardId]} selected={choiceCards.includes(c.instanceId)} onClick={() => pending && toggleChoiceCard(c.instanceId)} />)}</div>
         <div className="pregame-actions">
           {pending ? <button className="primary" disabled={choiceCards.length !== required} onClick={() => act({ type: 'BOTTOM_CARDS', cardInstanceIds: choiceCards })}>Put Selected on Bottom</button> : <>
             <button disabled={!canDecide} onClick={() => act({ type: 'MULLIGAN' })}>Mulligan</button>
@@ -389,6 +529,8 @@ export default function App() {
     </main>;
   }
 
+  const choiceRequest = engine.getPendingChoiceRequest();
+  const pendingEngineChoice = s.pendingChoice?.type === 'ENGINE_CHOICE' && choiceRequest?.requestingPlayer === 'player' ? choiceRequest : null;
   const pendingCleanup = s.pendingChoice?.type === 'CLEANUP_DISCARD' && s.pendingChoice.playerId === 'player' ? s.pendingChoice : null;
   const pendingDamageOrder = s.pendingChoice?.type === 'COMBAT_DAMAGE_ORDER' && s.pendingChoice.playerId === 'player' ? s.pendingChoice : null;
   const pendingLegend = s.pendingChoice?.type === 'LEGEND_RULE' && s.pendingChoice.playerId === 'player' ? s.pendingChoice : null;
@@ -417,11 +559,11 @@ export default function App() {
   const pendingEntryReveal = s.pendingChoice?.type === 'ENTRY_REVEAL' && s.pendingChoice.playerId === 'player' ? s.pendingChoice : null;
   const pendingCopyTargets = s.pendingChoice?.type === 'COPY_TARGETS' && s.pendingChoice.playerId === 'player' ? s.pendingChoice : null;
   const legalAttackerIds = new Set(s.turnActionPending === 'DECLARE_ATTACKERS' && s.activePlayer === 'player'
-    ? engine.combat.legalAttackers('player').map(x => x.instanceId)
+    ? engine.getLegalAttackers('player').map(x => x.instanceId)
     : []);
   const blockersValid = (() => {
     if (!(s.turnActionPending === 'DECLARE_BLOCKERS' && s.combat.currentDefender === 'player')) return true;
-    try { engine.combat.validateBlockers('player', blockers); return true; }
+    try { const validation = engine.validateBlockers('player', blockers); if (!validation.ok) throw new Error(validation.error.message); return true; }
     catch { return false; }
   })();
   const damageOrderReady = !pendingDamageOrder || Object.entries(pendingDamageOrder.attackers || {}).every(([aid, bids]) => {
@@ -429,9 +571,9 @@ export default function App() {
     return order.length === bids.length && new Set(order).size === bids.length && order.every(id => bids.includes(id));
   });
 
-  const targetBounds = targetingAction ? engine.targeting.bounds(targetingAction.source) : { min: 0, max: 0 };
+  const targetBounds = targetingAction ? engine.getTargetingBounds(targetingAction.source) : { min: 0, max: 0 };
   const targetingCandidates = targetingAction
-    ? engine.targeting.getCandidates('player', targetingAction.source, targetingAction.selectedTargets, { sourceObject: targetingAction.sourceObject })
+    ? engine.getTargetCandidates('player', targetingAction.source, targetingAction.selectedTargets, { sourceObject: targetingAction.sourceObject })
     : [];
   const targetCandidateIds = new Set(targetingCandidates.map(candidate => candidate.id));
   const selectedTargetIds = new Set(targetingAction?.selectedTargets || []);
@@ -441,7 +583,7 @@ export default function App() {
     && targetingAction.selectedTargets.length >= targetBounds.min
     && targetingAction.selectedTargets.length <= targetBounds.max;
   const copyTargetCandidates = pendingCopyTargets
-    ? engine.targeting.getCandidates('player', pendingCopyTargets.targetSource, copyTargets, { sourceObject: pendingCopyTargets.copyItem?.card })
+    ? engine.getTargetCandidates('player', pendingCopyTargets.targetSource, copyTargets, { sourceObject: pendingCopyTargets.copyItem?.card })
     : [];
   const copyTargetCount = pendingCopyTargets?.originalTargets?.length || 0;
   const copyTargetReady = !!pendingCopyTargets && copyTargets.length === copyTargetCount;
@@ -468,19 +610,17 @@ export default function App() {
     ? ids.filter(x => x !== id)
     : (ids.length < (pendingEffectCards?.max || 1) ? [...ids, id] : ids));
   const cardForInstance = id => {
-    const permanent = engine.findPermanent(id);
-    if (permanent) return permanent;
     for (const player of Object.values(s.players)) {
-      for (const zone of ['hand', 'library', 'graveyard', 'exile', 'command']) {
+      for (const zone of ['battlefield', 'hand', 'library', 'graveyard', 'exile', 'command']) {
         const card = player[zone]?.find(item => item.instanceId === id);
         if (card) return card;
       }
     }
-    return null;
+    return s.stack.find(item => item?.card?.instanceId === id)?.card || null;
   };
   const cardNameForInstance = id => {
     const card = cardForInstance(id);
-    if (card) return engine.db[card.cardId]?.name || card.cardId;
+    if (card) return cardDb[card.cardId]?.name || card.cardId;
     if (s.players[id]) return playerLabel(id);
     return id;
   };
@@ -501,24 +641,33 @@ export default function App() {
   const hideawayLandAction = hideawayPlayActions.find(action => action.type === 'PLAY_HIDEAWAY_LAND') || null;
 
   const beginTargeting = (action, source, sourceObject, label) => {
-    if (!engine.targeting.hasTargets(source)) { act(action); return; }
+    if (!engine.hasTargets(source)) { act(action); return; }
     const { targets: _ignoredTargets, ...baseAction } = action;
     setCombatMessage('');
     setTargetingAction({ baseAction, source, sourceObject, label, selectedTargets: [] });
   };
 
   const chooseCardAction = (card, actions) => {
+    const definition = cardDb[card.cardId];
+    if (definition?.supported === false) {
+      setUnsupportedInteraction(normalizeUnsupportedInteraction(new Error(definition.unsupportedReason || `${definition.name || card.cardId} is unsupported.`), { cardName: definition.name || card.cardId, rulesVersion: engine.rulesVersion }));
+      return;
+    }
     if (!actions.length) return;
-    const definition = engine.db[card.cardId];
     const explicitModes = definition.modes || []; // retained for ordinary modal cards; dynamic X modes are supplied by the engine.
     const foretellAction = actions.find(action => action.type === 'FORETELL_CARD');
     const castActions = actions.filter(action => ['CAST_SPELL', 'CAST_COMMANDER'].includes(action.type));
     if (foretellAction && castActions.length) {
-      const raw = window.prompt(`Choose action for ${definition?.name || card.cardId}:\n1. Cast/play it now\n2. Foretell it for {2}`)?.trim();
-      if (!raw) return;
-      if (raw === '2' || raw.toLowerCase() === 'foretell') { act(foretellAction); return; }
-      if (raw !== '1' && raw.toLowerCase() !== 'cast' && raw.toLowerCase() !== 'play') { alert('Choose 1 to cast or 2 to foretell.'); return; }
-      actions = castActions;
+      setActionPicker({
+        title: definition?.name || card.cardId,
+        prompt: 'Choose how to use this card.',
+        options: [
+          { id: 'cast', label: 'Cast/play it now', detail: 'Use one of the rules-engine cast actions.' },
+          { id: 'foretell', label: 'Foretell it for {2}', detail: 'Use the rules-engine foretell special action.' }
+        ],
+        onPick: option => option.id === 'foretell' ? act(foretellAction) : chooseCardAction(card, castActions)
+      });
+      return;
     } else if (foretellAction && !castActions.length) {
       act(foretellAction);
       return;
@@ -533,31 +682,54 @@ export default function App() {
     if (modeIds.length) {
       let selectedMode = modeIds[0];
       if (modeIds.length > 1) {
-        const menu = modeIds.map((id, index) => `${index + 1}. ${engine.targetSourceForAction({ mode: id }, definition)?.label || explicitModes.find(mode => mode.id === id)?.label || id}`).join('\n');
-        const raw = window.prompt(`Choose mode for ${definition.name}:\n${menu}`)?.trim();
-        if (!raw) return;
-        const numeric = Number(raw);
-        selectedMode = Number.isInteger(numeric) && numeric >= 1 && numeric <= modeIds.length ? modeIds[numeric - 1] : raw;
-        if (!modeIds.includes(selectedMode)) { alert('Choose one of the listed modes.'); return; }
+        const xPrefix = definition.xMode?.prefix;
+        const xValues = xPrefix && modeIds.every(id => String(id).startsWith(xPrefix))
+          ? modeIds.map(id => Number(String(id).slice(String(xPrefix).length))).filter(Number.isFinite)
+          : [];
+        if (xValues.length === modeIds.length) {
+          setActionPicker({
+            title: `Choose X — ${definition.name}`,
+            prompt: 'Enter an X value from the legal values currently exposed by the rules engine.',
+            numberOptions: xValues.map((value, index) => ({ value, id: modeIds[index] })),
+            onPick: option => chooseCardAction(card, actions.filter(candidate => candidate.mode === option.id))
+          });
+        } else {
+          setActionPicker({
+            title: `Choose mode — ${definition.name}`,
+            prompt: 'These modes come directly from the legal actions exposed by the rules engine.',
+            options: modeIds.map(id => ({
+              id,
+              label: engine.getTargetSourceForAction({ mode: id }, definition)?.label || explicitModes.find(mode => mode.id === id)?.label || id
+            })),
+            onPick: option => chooseCardAction(card, actions.filter(candidate => candidate.mode === option.id))
+          });
+        }
+        return;
       }
       actions = actions.filter(candidate => candidate.mode === selectedMode);
       action = actions[0] || action;
-      targetSource = engine.targetSourceForAction({ mode: selectedMode }, definition) || definition;
+      targetSource = engine.getTargetSourceForAction({ mode: selectedMode }, definition) || definition;
       label = `${definition.name} — ${targetSource.label || selectedMode}`;
     }
     const retraceActions = actions.filter(candidate => candidate.castOption === 'retrace' && candidate.retraceLandInstanceId);
     if (retraceActions.length > 1) {
-      const menu = retraceActions.map((candidate, index) => `${index + 1}. ${cardNameForInstance(candidate.retraceLandInstanceId)}`).join('\n');
-      const raw = window.prompt(`Choose the land to discard for retrace:\n${menu}`)?.trim();
-      if (!raw) return;
-      const numeric = Number(raw);
-      if (!Number.isInteger(numeric) || numeric < 1 || numeric > retraceActions.length) { alert('Choose one of the listed lands.'); return; }
-      action = retraceActions[numeric - 1];
+      setActionPicker({
+        title: `Retrace — ${definition.name}`,
+        prompt: 'Choose the land to discard as the additional cost.',
+        options: retraceActions.map((candidate, index) => ({ id: index, label: cardNameForInstance(candidate.retraceLandInstanceId), action: candidate })),
+        onPick: option => {
+          const picked = option.action;
+          const source = engine.getTargetSourceForAction(picked, definition) || definition;
+          if (engine.hasTargets(source)) beginTargeting(picked, source, card, definition.name);
+          else requestActionSubmission(picked);
+        }
+      });
+      return;
     } else if (retraceActions.length === 1) {
       action = retraceActions[0];
     }
-    if (engine.targeting.hasTargets(targetSource)) beginTargeting(action, targetSource, card, label);
-    else act(action);
+    if (engine.hasTargets(targetSource)) beginTargeting(action, targetSource, card, label);
+    else requestActionSubmission(action);
   };
 
   const abilityLabel = (ability, index = 0) => {
@@ -593,16 +765,17 @@ export default function App() {
     }
     let ability = unique[0];
     if (unique.length > 1) {
-      const menu = unique.map((candidate, index) => `${index + 1}. ${abilityLabel(candidate, index)}`).join('\n');
-      const raw = window.prompt(`Choose an ability for ${engine.db[perm.cardId]?.name || perm.cardId}:\n${menu}`)?.trim();
-      if (!raw) return;
-      const index = Number(raw) - 1;
-      if (!Number.isInteger(index) || index < 0 || index >= unique.length) { alert('Choose one of the listed ability numbers.'); return; }
-      ability = unique[index];
+      setActionPicker({
+        title: `Choose ability — ${cardDb[perm.cardId]?.name || perm.cardId}`,
+        prompt: 'Only currently legal activated abilities are listed.',
+        options: unique.map((candidate, index) => ({ id: index, label: abilityLabel(candidate, index), ability: candidate })),
+        onPick: option => chooseActivatedAbility(perm, actions.filter(candidate => JSON.stringify(candidate.ability) === JSON.stringify(option.ability)))
+      });
+      return;
     }
 
     if (ability.selection) {
-      const candidates = engine._selectionCandidates('player', perm, ability.selection).map(card => card.instanceId);
+      const candidates = engine.getSelectionCandidates('player', perm, ability.selection).map(card => card.instanceId);
       setAbilitySelection({
         permanentId: perm.instanceId,
         ability,
@@ -616,7 +789,7 @@ export default function App() {
     }
 
     const action = { type: 'ACTIVATE_ABILITY', permanentId: perm.instanceId, ability, selections: [] };
-    if (engine.targeting.hasTargets(ability)) beginTargeting(action, ability, perm, engine.db[perm.cardId]?.name || 'ability');
+    if (engine.hasTargets(ability)) beginTargeting(action, ability, perm, cardDb[perm.cardId]?.name || 'ability');
     else act(action);
   };
 
@@ -632,12 +805,12 @@ export default function App() {
 
   const confirmAbilitySelection = () => {
     if (!abilitySelection || abilitySelection.selectedIds.length !== abilitySelection.count) return;
-    const perm = engine.findPermanent(abilitySelection.permanentId);
+    const perm = cardForInstance(abilitySelection.permanentId);
     const action = { type: 'ACTIVATE_ABILITY', permanentId: abilitySelection.permanentId, ability: abilitySelection.ability, selections: [...abilitySelection.selectedIds] };
-    if (engine.targeting.hasTargets(abilitySelection.ability)) {
+    if (engine.hasTargets(abilitySelection.ability)) {
       const choice = abilitySelection;
       setAbilitySelection(null);
-      beginTargeting(action, choice.ability, perm, engine.db[perm?.cardId]?.name || 'ability');
+      beginTargeting(action, choice.ability, perm, cardDb[perm?.cardId]?.name || 'ability');
     } else act(action);
   };
 
@@ -650,7 +823,7 @@ export default function App() {
     const nextTargets = [...targetingAction.selectedTargets, targetId];
     setCombatMessage('');
     if (nextTargets.length >= targetBounds.max) {
-      act({ ...targetingAction.baseAction, targets: nextTargets });
+      requestActionSubmission({ ...targetingAction.baseAction, targets: nextTargets });
       return;
     }
     setTargetingAction(current => ({ ...current, selectedTargets: nextTargets }));
@@ -658,7 +831,7 @@ export default function App() {
 
   const confirmTargets = () => {
     if (!targetingAction || !targetSelectionReady) return;
-    act({ ...targetingAction.baseAction, targets: [...targetingAction.selectedTargets] });
+    requestActionSubmission({ ...targetingAction.baseAction, targets: [...targetingAction.selectedTargets] });
   };
 
   const clickOwnPermanent = perm => {
@@ -688,7 +861,7 @@ export default function App() {
       return;
     }
     if (s.turnActionPending === 'DECLARE_BLOCKERS' && s.combat.currentDefender === 'player' && blockTarget) {
-      const attacker = engine.findPermanent(blockTarget);
+      const attacker = cardForInstance(blockTarget);
       const existingAid = Object.entries(blockers).find(([, ids]) => ids.includes(perm.instanceId))?.[0];
       if (existingAid === blockTarget) {
         setCombatMessage('');
@@ -697,7 +870,7 @@ export default function App() {
           .filter(([, ids]) => ids.length)));
         return;
       }
-      if (!engine.combat.canBlock(perm, attacker)) {
+      if (!engine.canBlock(perm, attacker)) {
         setCombatMessage('That permanent cannot legally block the selected attacker.');
         return;
       }
@@ -710,19 +883,20 @@ export default function App() {
       });
       return;
     }
-    const activatedActions = engine.getLegalActions('player').filter(x => x.type === 'ACTIVATE_ABILITY' && x.permanentId === perm.instanceId);
+    const activatedActions = (legalActionIndex.byPermanent.get(perm.instanceId) || []).filter(x => x.type === 'ACTIVATE_ABILITY');
     if (activatedActions.length) {
       chooseActivatedAbility(perm, activatedActions);
       return;
     }
-    const manaActions = engine.getLegalActions('player').filter(x => x.type === 'ACTIVATE_MANA' && x.permanentId === perm.instanceId);
+    const manaActions = (legalActionIndex.byPermanent.get(perm.instanceId) || []).filter(x => x.type === 'ACTIVATE_MANA');
     if (manaActions.length === 1) act(manaActions[0]);
     else if (manaActions.length > 1) {
-      const choices = manaActions.map(x => x.manaColor).filter(Boolean);
-      const selected = window.prompt(`Choose mana color: ${choices.join(', ')}`)?.trim().toUpperCase();
-      const action = manaActions.find(x => x.manaColor === selected);
-      if (action) act(action);
-      else if (selected) alert('Choose one of the listed mana colors.');
+      setActionPicker({
+        title: `Choose mana — ${cardDb[perm.cardId]?.name || perm.cardId}`,
+        prompt: 'Choose one of the mana abilities currently exposed as legal by the engine.',
+        options: manaActions.map((action, index) => ({ id: `${action.manaColor || index}-${index}`, label: action.manaColor ? `Add ${action.manaColor}` : `Mana ability ${index + 1}`, action })),
+        onPick: option => act(option.action)
+      });
     }
   };
 
@@ -816,7 +990,7 @@ export default function App() {
   const castCommander = () => {
     const c = p.command[0];
     if (!c || targetingAction) return;
-    const actions = engine.getLegalActions('player').filter(action => action.cardInstanceId === c.instanceId);
+    const actions = legalActionIndex.byCard.get(c.instanceId) || [];
     chooseCardAction(c, actions);
   };
 
@@ -879,10 +1053,10 @@ export default function App() {
   const aiTurnPausedForHuman = aiTurnHumanPriority && automationDecision.mode === 'PAUSE';
   const topStackItem = s.stack[s.stack.length - 1];
   const topStackName = topStackItem
-    ? (engine.db[topStackItem.card?.cardId]?.name || engine.db[topStackItem.source?.cardId]?.name || (topStackItem.type === 'ward' ? 'Ward ability' : 'spell or ability'))
+    ? (cardDb[topStackItem.card?.cardId]?.name || cardDb[topStackItem.source?.cardId]?.name || (topStackItem.type === 'ward' ? 'Ward ability' : 'spell or ability'))
     : null;
   const specialZoneActionGroups = (() => {
-    const actions = engine.getLegalActions('player').filter(action => action.cardInstanceId && !p.hand.some(card => card.instanceId === action.cardInstanceId) && !p.command.some(card => card.instanceId === action.cardInstanceId));
+    const actions = playerLegalActions.filter(action => action.cardInstanceId && !p.hand.some(card => card.instanceId === action.cardInstanceId) && !p.command.some(card => card.instanceId === action.cardInstanceId));
     const grouped = new Map();
     for (const action of actions) {
       const list = grouped.get(action.cardInstanceId) || [];
@@ -894,15 +1068,19 @@ export default function App() {
 
   return <main className="game-shell">
     <PhaseBanner state={s} attackers={attackers} blockTarget={blockTarget} />
+    <RulesActionPicker picker={actionPicker} onClose={() => setActionPicker(null)} />
+    <PaymentDialog plan={paymentPreview?.plan} state={s} db={cardDb} label={paymentPreview?.label} onCancel={() => setPaymentPreview(null)} onConfirm={() => { const action = paymentPreview?.action; setPaymentPreview(null); if (action) act(action); }} />
+    <UnsupportedInteractionDialog interaction={unsupportedInteraction} onClose={() => setUnsupportedInteraction(null)} />
     {automationError && <div className="decision-banner automation-error" role="alert"><b>Automation paused</b> — {automationError} <button onClick={() => setAutomationError('')}>Retry</button></div>}
     {aiTurnPausedForHuman && !s.pendingChoice && s.turnActionPending !== 'DECLARE_BLOCKERS' && <div className="decision-banner response-window-banner">
       <b>{automationDecision.kind === 'held-priority' ? 'Priority held' : automationDecision.kind === 'manual-priority' ? 'Manual priority' : 'Response window'}</b> — {topStackName && automationDecision.kind === 'stack-response' ? `${topStackName} is on the stack. ` : ''}{automationDecision.reason} Use a highlighted instant/ability, or pass to resume the AI turn.
     </div>}
+    {pendingEngineChoice && <ChoiceDialog request={pendingEngineChoice} onSubmit={response => act({ type: 'SUBMIT_CHOICE', response })} resolveLabel={item => item?.label || cardNameForInstance(item?.value ?? item?.id ?? item)} />}
     {pendingCleanup && <div className="decision-banner">Cleanup: select exactly <b>{pendingCleanup.count}</b> card{pendingCleanup.count === 1 ? '' : 's'} from your hand to discard.</div>}
     {pendingDamageOrder && <div className="decision-banner">Combat damage order: click each blocking creature in the order you want the attacker to assign damage. {Object.entries(pendingDamageOrder.attackers || {}).map(([aid, bids]) => {
-      const attacker = engine.findPermanent(aid);
+      const attacker = cardForInstance(aid);
       const picked = damageOrders[aid] || [];
-      return <span key={aid}> <b>{engine.db[attacker?.cardId]?.name || 'Attacker'}:</b> {picked.length}/{bids.length} ordered.</span>;
+      return <span key={aid}> <b>{cardDb[attacker?.cardId]?.name || 'Attacker'}:</b> {picked.length}/{bids.length} ordered.</span>;
     })}</div>}
     {pendingLegend && <div className="decision-banner">
       Legend rule: choose one <b>{pendingLegend.cardName}</b> to keep.{' '}
@@ -915,7 +1093,7 @@ export default function App() {
     </div>}
     {pendingWard && <div className="decision-banner ward-banner">
       Ward — <b>{pendingWard.sourceName}</b> requires {wardCostLabel || 'its ward cost'}. Pay it or the spell/ability targeting that permanent will be countered.{' '}
-      <button className="primary" disabled={!engine.canPayWard(pendingWard)} onClick={() => act({ type: 'PAY_WARD' })}>Pay {wardCostLabel || 'Ward'}</button>{' '}
+      <button className="primary" disabled={!playerLegalActions.some(action => action.type === 'PAY_WARD')} onClick={() => act({ type: 'PAY_WARD' })}>Pay {wardCostLabel || 'Ward'}</button>{' '}
       <button onClick={() => act({ type: 'DECLINE_WARD' })}>Do Not Pay</button>
     </div>}
     {pendingOptionalTrigger && <div className="decision-banner">
@@ -979,7 +1157,7 @@ export default function App() {
       title="Cultivate — Search Your Library"
       prompt="Choose up to two basic lands from your library."
       cards={cultivateLibraryCards}
-      db={engine.db}
+      db={cardDb}
       selectedIds={cultivateChoices}
       onToggle={toggleCultivateChoice}
       min={0}
@@ -992,7 +1170,7 @@ export default function App() {
       title="Sisay — Search Your Library"
       prompt={`Choose a legendary permanent card with mana value less than ${pendingSisay.sourcePower}.`}
       cards={sisayLibraryCards}
-      db={engine.db}
+      db={cardDb}
       selectedIds={[]}
       onSelect={id => act({ type: 'CHOOSE_SISAY_TUTOR', cardInstanceId: id })}
       min={0}
@@ -1019,7 +1197,7 @@ export default function App() {
       title="Search Your Library"
       prompt={pendingEffectCards.prompt || 'Choose cards from your library.'}
       cards={effectLibraryCards}
-      db={engine.db}
+      db={cardDb}
       selectedIds={effectChoices}
       onToggle={toggleEffectChoice}
       onSelect={id => act({ type: 'CHOOSE_EFFECT_CARDS', cardInstanceIds: [id] })}
@@ -1091,7 +1269,7 @@ export default function App() {
           return null;
         })() : null;
         if (!found) return null;
-        return <button key={cardInstanceId} className="primary" onClick={() => chooseCardAction(found.card, cardActions)}>{found.zone === 'library' ? 'Cast from top' : found.zone === 'graveyard' ? 'Cast from graveyard' : 'Cast foretold'}: {engine.db[found.card.cardId]?.name || found.card.cardId}</button>;
+        return <button key={cardInstanceId} className="primary" onClick={() => chooseCardAction(found.card, cardActions)}>{found.zone === 'library' ? 'Cast from top' : found.zone === 'graveyard' ? 'Cast from graveyard' : 'Cast foretold'}: {cardDb[found.card.cardId]?.name || found.card.cardId}</button>;
       })}
     </div>}
     <div className={`table multiplayer-table opponents-${opponentEntries.length}`}>
@@ -1114,19 +1292,19 @@ export default function App() {
               {seatSelected ? `Assign attackers here${assignedAttackers ? ` (${assignedAttackers})` : ''}` : `Attack ${playerLabel(id)}${assignedAttackers ? ` (${assignedAttackers})` : ''}`}
             </button>}
             <div className="opponent-play-area">
-              <section className="seat-command-slot"><span>COMMANDER</span>{opponent.command.map(c => <Card key={c.instanceId} perm={c} def={engine.db[c.cardId]} />)}</section>
-              <section className="battle-zone opponent-zone"><Battlefield side="opponent" player={opponent} db={engine.db} onCard={perm => clickOpponent(id, perm)} selected={cardId => targetCandidateIds.has(cardId) || selectedTargetIds.has(cardId) || proliferateTargets.includes(cardId) || damageOrderSelected(cardId) || cardId === blockTarget || s.combat.attackers.includes(cardId)} /></section>
+              <section className="seat-command-slot"><span>COMMANDER</span>{opponent.command.map(c => <Card key={c.instanceId} perm={c} def={cardDb[c.cardId]} />)}</section>
+              <section className="battle-zone opponent-zone"><Battlefield side="opponent" player={opponent} db={cardDb} onCard={perm => clickOpponent(id, perm)} selected={cardId => targetCandidateIds.has(cardId) || selectedTargetIds.has(cardId) || proliferateTargets.includes(cardId) || damageOrderSelected(cardId) || cardId === blockTarget || s.combat.attackers.includes(cardId)} /></section>
             </div>
             {opponent.lost && <div className="eliminated-label">ELIMINATED</div>}
           </section>;
         })}
       </section>
 
-      <section className="center-line"><div className="stack-panel"><span>STACK</span><b>{s.stack.length ? s.stack.map(x => x.type === 'ward' ? `Ward — ${engine.db[x.source?.cardId]?.name || 'permanent'}` : engine.db[x.card?.cardId]?.name || 'Triggered/activated ability').join(' → ') : 'Empty'}</b></div></section>
+      <section className="center-line"><StackPriorityPanel engine={engine} db={cardDb} playerLabel={playerLabel} /></section>
 
       <section className="player-play-area">
-        <section className="battle-zone player-zone"><Battlefield side="player" player={p} db={engine.db} onCard={clickOwnPermanent} selected={playerSelected} /></section>
-        <section className="command-slot player-command"><span>COMMANDER</span>{p.command.map(c => <Card key={c.instanceId} perm={c} def={engine.db[c.cardId]} onClick={castCommander} />)}</section>
+        <section className="battle-zone player-zone"><Battlefield side="player" player={p} db={cardDb} onCard={clickOwnPermanent} selected={playerSelected} actionState={perm => cardActionPresentation({ instanceId: perm.instanceId, zone: 'battlefield', index: legalActionIndex, pendingChoice: !!s.pendingChoice, targeting: !!targetingAction, hasPriority: s.priorityPlayer === 'player' })} /></section>
+        <section className="command-slot player-command"><span>COMMANDER</span>{p.command.map(c => <Card key={c.instanceId} perm={c} def={cardDb[c.cardId]} actionState={cardActionPresentation({ instanceId: c.instanceId, zone: 'command', index: legalActionIndex, pendingChoice: !!s.pendingChoice, targeting: !!targetingAction, hasPriority: s.priorityPlayer === 'player' })} onClick={castCommander} />)}</section>
       </section>
 
       <section className="player-strip self">
@@ -1139,12 +1317,12 @@ export default function App() {
     <section className="hand-tray">
       <div className="hand-label"><b>YOUR HAND</b><span>{pendingCleanup ? 'Click cards to choose your cleanup discard' : targetingAction ? 'Choose a highlighted battlefield/player target above' : 'Playable cards are highlighted when you have priority'}</span></div>
       <div className="hand-cards">{p.hand.map(c => {
-        const legal = !pendingCleanup && !targetingAction && engine.getLegalActions('player').some(action => action.cardInstanceId === c.instanceId);
-        const selected = pendingCleanup ? choiceCards.includes(c.instanceId) : (targetingAction?.baseAction.cardInstanceId === c.instanceId || legal);
-        return <Card key={c.instanceId} perm={c} def={engine.db[c.cardId]} selected={selected} onClick={() => {
+        const selected = pendingCleanup ? choiceCards.includes(c.instanceId) : (targetingAction?.baseAction.cardInstanceId === c.instanceId);
+        const actionState = cardActionPresentation({ instanceId: c.instanceId, zone: 'hand', index: legalActionIndex, pendingChoice: !!s.pendingChoice, targeting: !!targetingAction, hasPriority: s.priorityPlayer === 'player' });
+        return <Card key={c.instanceId} perm={c} def={cardDb[c.cardId]} selected={selected} actionState={actionState} onClick={() => {
           if (targetingAction) return;
           if (pendingCleanup) { toggleChoiceCard(c.instanceId); return; }
-          const actions = engine.getLegalActions('player').filter(action => action.cardInstanceId === c.instanceId);
+          const actions = legalActionIndex.byCard.get(c.instanceId) || [];
           chooseCardAction(c, actions);
         }} />;
       })}</div>

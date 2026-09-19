@@ -1,0 +1,17 @@
+MTG Commander Rules Engine — Step 34 Complete
+
+Primary Step 34 additions:
+- tests/step34-cross-system-interactions.test.js
+- scripts/check-step34-interaction-matrix.mjs
+- coverage/step34-interaction-matrix.json
+- coverage/step34-interaction-matrix.md
+- docs/architecture/step34-cross-system-interactions.md
+- .github/workflows/cross-system-interactions.yml
+- STEP34_COMPLETION_REPORT.md
+- STEP34_RELEASE_MANIFEST.txt
+- package.json (Step 34 scripts / verify integration)
+- README.md (checkpoint update)
+
+Dedicated gates:
+- npm run check:step34
+- npm run test:step34

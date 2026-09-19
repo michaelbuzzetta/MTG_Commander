@@ -1,0 +1,26 @@
+MTG Commander Rules Engine - Step 38 Release Manifest
+=====================================================
+Step: 38 - Performance and Scalability Optimization
+
+Primary additions:
+- src/engine/performance/PerformanceProfiler.js
+- src/engine/performance/PerformanceService.js
+- src/engine/performance/HeadlessSimulationRunner.js
+- src/engine/performance/index.js
+- tests/step38-performance-scalability.test.js
+- tests/performance/step38-thresholds.json
+- scripts/run-step38-benchmarks.mjs
+- scripts/check-step38-performance.mjs
+- .github/workflows/step38-performance.yml
+- step38-performance-scalability.md
+- STEP38_COMPLETION_REPORT.md
+
+Key integrations:
+- GameEngine headless/performance options and snapshots
+- Event-driven cache invalidation
+- Continuous-effect memoization
+- Trigger event indexing
+- Replacement event indexing
+- Target-zone candidate indexing
+- Legal-action memoization
+- Stack/copy topology invalidation

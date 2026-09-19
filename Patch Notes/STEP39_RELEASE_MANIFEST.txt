@@ -1,0 +1,31 @@
+MTG Commander Rules Engine — Step 39 Release Manifest
+Checkpoint: Step 39 — Rules-Driven UI Completion
+
+Primary additions:
+- src/ui/RulesUiModel.js
+- src/ui/index.js
+- src/components/RulesActionPicker.jsx
+- src/components/StackPriorityPanel.jsx
+- src/components/UnsupportedInteractionDialog.jsx
+- tests/step39-rules-driven-ui.test.js
+- scripts/check-step39-ui.mjs
+- step39-rules-driven-ui.md
+- STEP39_COMPLETION_REPORT.md
+
+Substantially updated:
+- src/App.jsx
+- src/components/ChoiceDialog.jsx
+- src/components/PaymentDialog.jsx
+- src/components/Card.jsx
+- src/components/Battlefield.jsx
+- src/styles.css
+- package.json
+
+Verification:
+- check:step39 PASS
+- test:step39 5/5 PASS
+- step36 judge scenarios 10/10 PASS
+- step37 fuzz/property tests 5/5 PASS
+- step38 performance/scalability tests 5/5 PASS
+- production Vite build not executable in supplied sandbox because npm dependencies are not installed (vite: not found)
+- one Step 5 elimination/invariant regression is present identically in the untouched Step 38 baseline and was not introduced by Step 39

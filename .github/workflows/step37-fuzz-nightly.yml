@@ -1,0 +1,25 @@
+name: Step 37 Nightly Fuzzing
+on:
+  schedule:
+    - cron: '17 5 * * *'
+  workflow_dispatch:
+jobs:
+  fuzz:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run check:step37
+      - run: npm run test:step37
+      - run: npm run fuzz:step37 -- --seeds=12 --actions=5000 --seed=nightly-${{ github.run_id }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: step37-fuzz-artifacts-${{ github.run_id }}
+          path: fuzz-artifacts/
+          if-no-files-found: ignore

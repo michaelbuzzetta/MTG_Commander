@@ -1,0 +1,14 @@
+{
+  "schema": "mtg-commander-rules-change-impact",
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-17T22:18:34.507Z",
+  "rulesVersion": "mtg-cr-2026-08-07",
+  "pendingRulesUpgrade": false,
+  "sourceOracleDiffGeneratedAt": "2026-09-17T22:13:38.220Z",
+  "changedOracleIdentityCount": 0,
+  "changedOracleIds": [],
+  "impactedCards": [],
+  "impactedSubsystems": [],
+  "reviewRequired": false,
+  "policy": "A historical replay runs only when its rules version is exactly supported or explicitly declared compatible; otherwise execution fails before game actions are applied."
+}

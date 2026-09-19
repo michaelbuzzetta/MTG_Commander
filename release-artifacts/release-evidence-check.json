@@ -1,0 +1,28 @@
+{
+  "schema": "mtg-commander-release-evidence-check",
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-17T22:19:22.917Z",
+  "maxAgeDays": 14,
+  "minimumFuzzActions": 1000000,
+  "currentIdentity": {
+    "rulesVersion": "mtg-cr-2026-08-07",
+    "oracleCatalogSha256": "98378ce484c8a5dfc492e2625ad1883e981b04fcd8c66db3de93849e6524f455",
+    "printingCatalogSha256": "6d76555e6af076f6e1817fb16a97f9d7aac46d7b8be729bf66872c55737e5b82",
+    "compilerSha256": "1132c95e757161d5c5db7c2f56045772020fd74b506cf67656eaa9a14627d006"
+  },
+  "fuzz": {
+    "generatedAt": "2026-09-17T03:03:13.065Z",
+    "seededRuns": 2,
+    "executedActions": 160
+  },
+  "performance": {
+    "generatedAt": "2026-09-17T03:04:00.558Z",
+    "passed": true
+  },
+  "passed": false,
+  "failures": [
+    "Long-fuzz evidence contains 160 executed legal actions; release minimum is 1000000.",
+    "Clean-install platform evidence is missing: release-artifacts/platform/windows.json.",
+    "Clean-install platform evidence is missing: release-artifacts/platform/macos.json."
+  ]
+}

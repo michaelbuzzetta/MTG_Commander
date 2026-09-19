@@ -1,0 +1,33 @@
+MTG Commander - Step 37 Release Manifest
+=========================================
+
+Step 37: Simulation Fuzzing and Property-Based Testing
+
+Added:
+- src/engine/fuzz/FuzzBot.js
+- src/engine/fuzz/PropertyAssertions.js
+- src/engine/fuzz/FailureCorpus.js
+- src/engine/fuzz/ReplayMinimizer.js
+- src/engine/fuzz/index.js
+- tests/step37-simulation-fuzzing.test.js
+- tests/fuzz/failure-corpus/README.md
+- scripts/run-step37-fuzz.mjs
+- scripts/check-step37-fuzzing.mjs
+- .github/workflows/step37-fuzz-nightly.yml
+- step37-simulation-fuzzing.md
+- STEP37_COMPLETION_REPORT.md
+
+Updated:
+- src/engine/index.js (exports fuzzing APIs)
+- package.json (Step 37 test/check/fuzz scripts and verify gate)
+- .gitignore (runtime fuzz artifacts)
+
+Verification completed:
+- npm run check:step37 : PASS
+- npm run test:step37 : PASS (5/5)
+- npm run fuzz:step37 -- --seeds=1 --actions=40 --seed=step37-release-smoke : PASS
+- npm run test:step36 : PASS (10/10)
+- npm run test:step32 : PASS (11/11)
+
+Build note:
+- Production Vite build could not be executed in the sandbox because node_modules was not included in the supplied archive and package installation timed out. Step 37 source/tests execute under the existing Node test environment.

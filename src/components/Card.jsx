@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { resolveCardArt } from '../utils/cardArt.js';
 
-export function Card({ perm, def, onClick, selected = false }) {
+export function Card({ perm, def, onClick, selected = false, actionState = null }) {
   const [url, setUrl] = useState(null);
   const [previewSide, setPreviewSide] = useState(null);
 
@@ -36,7 +36,7 @@ export function Card({ perm, def, onClick, selected = false }) {
           <b>{def.name}</b>
           <small>{def.typeLine}</small>
           <p>{rulesText}</p>
-          {def.supported === false && <em>Reference only — not playable in the trainer.</em>}
+          {def.supported === false && <em>Not fully supported — gameplay will warn before an unsupported interaction is used.</em>}
         </div>
       </div>,
       document.body,
@@ -45,13 +45,14 @@ export function Card({ perm, def, onClick, selected = false }) {
 
   return <>
     <div
-      className={`card ${perm.tapped ? 'tapped' : ''} ${selected ? 'selected' : ''}`}
+      className={`card ${perm.tapped ? 'tapped' : ''} ${selected ? 'selected' : ''} ${actionState?.state === 'legal' ? 'legal-action' : ''} ${actionState?.state === 'blocked' ? 'rules-blocked' : ''} ${perm.phasedOut ? 'phased-out' : ''}`}
       onClick={onClick}
       onMouseEnter={(event) => showPreview(event.currentTarget)}
       onMouseLeave={hidePreview}
       onFocus={(event) => showPreview(event.currentTarget)}
       onBlur={hidePreview}
-      aria-label={`${def.name}. ${def.typeLine}. ${rulesText}`}
+      aria-label={`${def.name}. ${def.typeLine}. ${rulesText}${actionState?.tooltip ? ` ${actionState.tooltip}` : ''}`}
+      title={actionState?.tooltip || undefined}
     >
       <div className="card-inner">
         {url ? <img src={url} alt={def.name} /> : <div className="fallback">
@@ -59,6 +60,11 @@ export function Card({ perm, def, onClick, selected = false }) {
           <p>{rulesText}</p>
         </div>}
         {counters && <span className="counter">{counters}</span>}
+        {perm.attachedTo && <span className="state-badge attachment-badge" title={`Attached to ${perm.attachedTo}`}>ATT</span>}
+        {perm.isToken && <span className="state-badge token-badge">TOKEN</span>}
+        {perm.copyState && <span className="state-badge copy-badge">COPY</span>}
+        {perm.phasedOut && <span className="state-badge phased-badge">PHASED</span>}
+        {(perm.faceDown || Number(perm.faceState?.currentFaceIndex || 0) > 0) && <span className="state-badge face-badge">{perm.faceDown ? 'FACE DOWN' : `FACE ${Number(perm.faceState?.currentFaceIndex || 0) + 1}`}</span>}
       </div>
     </div>
     {preview}

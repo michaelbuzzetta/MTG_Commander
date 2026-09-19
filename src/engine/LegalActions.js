@@ -1,4 +1,5 @@
 import { isType } from './utils.js';
+import { createCardFaceModel, getObjectCardDefinition } from './state/CardFace.js';
 
 function combinations(items, count, limit = 128) {
   if (count === 0) return [[]];
@@ -35,40 +36,64 @@ export class LegalActions {
   }
 
   _pushCardCastActions(out, pid, card, zone, castOption = null, extra = {}) {
-    const e = this.engine, d = e.db[card.cardId];
-    if (!d || isType(d, 'Land')) return;
+    const e = this.engine, root = e.db[card.cardId];
+    if (!root) return;
     const type = card.isCommander && zone === 'command' ? 'CAST_COMMANDER' : 'CAST_SPELL';
-    const modes = [
-      ...(Array.isArray(d.modes) ? d.modes : []),
-      ...e.dynamicXModesFor(pid, card, zone, castOption)
-    ];
-    if (modes.length) {
-      for (const mode of modes) {
-        const modeZone = mode.fromZone || 'hand';
-        const zoneMatches = castOption === 'hideaway'
-          ? (!mode.fromZone || mode.fromZone === 'hand')
-          : zone === modeZone;
-        if (!zoneMatches) continue;
-        if (mode.foretold && !card.foretold) continue;
-        const action = { type, cardInstanceId: card.instanceId, mode: mode.id, ...(castOption ? { castOption } : {}), ...extra };
-        this._pushTargetedVariants(out, pid, action, mode, card);
+    const model = createCardFaceModel(root);
+    const faceIndexes = model.layout === 'modal_dfc' && ['hand', 'command'].includes(zone)
+      ? model.faces.map((_, index) => index)
+      : [null];
+
+    for (const castFaceIndex of faceIndexes) {
+      const d = Number.isInteger(castFaceIndex)
+        ? getObjectCardDefinition(root, { ...card, zone: 'stack', faceState: { ...(card.faceState || {}), castFaceIndex } }, 'stack')
+        : root;
+      if (isType(d, 'Land')) continue;
+      const faceExtra = Number.isInteger(castFaceIndex) ? { castFaceIndex } : {};
+      const modes = [
+        ...(Array.isArray(d.modes) ? d.modes : []),
+        ...(castFaceIndex == null ? e.dynamicXModesFor(pid, card, zone, castOption) : [])
+      ];
+      if (modes.length) {
+        for (const mode of modes) {
+          const modeZone = mode.fromZone || 'hand';
+          const zoneMatches = castOption === 'hideaway'
+            ? (!mode.fromZone || mode.fromZone === 'hand')
+            : zone === modeZone;
+          if (!zoneMatches) continue;
+          if (mode.foretold && !card.foretold) continue;
+          const action = { type, cardInstanceId: card.instanceId, mode: mode.id, ...(castOption ? { castOption } : {}), ...faceExtra, ...extra };
+          this._pushTargetedVariants(out, pid, action, mode, card);
+        }
+        continue;
       }
-      return;
+      const action = { type, cardInstanceId: card.instanceId, ...(castOption ? { castOption } : {}), ...faceExtra, ...extra };
+      this._pushTargetedVariants(out, pid, action, d, card);
     }
-    const action = { type, cardInstanceId: card.instanceId, ...(castOption ? { castOption } : {}), ...extra };
-    this._pushTargetedVariants(out, pid, action, d, card);
   }
 
   get(pid) {
+    const perf = this.engine.performance;
+    if (perf) return perf.memoLegalActions(pid, () => this._getUncached(pid));
+    return this._getUncached(pid);
+  }
+
+  _getUncached(pid) {
     const e = this.engine, s = e.state, p = s.players[pid], out = [];
     if (!p || p.lost || s.winner || !s.started) return out;
 
     if (s.pendingChoice) {
       if (s.pendingChoice.playerId !== pid) return out;
+      if (s.pendingChoice.type === 'ENGINE_CHOICE') return e.choices.legalGenericActions(pid);
       const choice = s.pendingChoice;
       if (choice.type === 'COMBAT_DAMAGE_ORDER') return [{ type: 'ORDER_BLOCKERS', attackers: structuredClone(choice.attackers), reason: choice.type }];
       if (choice.type === 'LEGEND_RULE') return choice.permanentIds.map(keepInstanceId => ({ type: 'CHOOSE_LEGEND', keepInstanceId, cardName: choice.cardName, reason: choice.type }));
       if (choice.type === 'COMMANDER_ZONE') return [true, false].map(moveToCommand => ({ type: 'CHOOSE_COMMANDER_ZONE', moveToCommand, commanderId: choice.commanderId, fromZone: choice.fromZone, reason: choice.type }));
+      if (choice.type === 'PREGAME_ACTION') {
+        const decline = { type: 'CHOOSE_PREGAME_ACTION', accept: false, pregameActionId: choice.pregameActionId, reason: choice.type };
+        if (choice.actionType === 'gemstone-caverns') return [...(choice.eligibleExileIds || []).map(exileCardInstanceId => ({ type: 'CHOOSE_PREGAME_ACTION', accept: true, exileCardInstanceId, pregameActionId: choice.pregameActionId, reason: choice.type })), decline];
+        return [{ type: 'CHOOSE_PREGAME_ACTION', accept: true, pregameActionId: choice.pregameActionId, reason: choice.type }, decline];
+      }
       if (choice.type === 'WARD_PAYMENT') {
         const actions = [];
         if (e.canPayWard(choice)) actions.push({ type: 'PAY_WARD', cost: structuredClone(choice.cost), targetStackItemId: choice.targetStackItemId, reason: choice.type });
@@ -92,7 +117,13 @@ export class LegalActions {
       if (choice.type === 'TRIGGER_TARGET') return [{ type: 'CHOOSE_TRIGGER_TARGET', triggerId: choice.triggerId, candidateIds: [...choice.candidateIds], minTargets: choice.minTargets, maxTargets: choice.maxTargets, reason: choice.type }];
       if (choice.type === 'CREATURE_TYPE') return choice.options.map(creatureType => ({ type: 'CHOOSE_CREATURE_TYPE', creatureType, reason: choice.type }));
       if (choice.type === 'EFFECT_CARD_CHOICE') return [{ type: 'CHOOSE_EFFECT_CARDS', candidateIds: [...choice.candidateIds], min: choice.min, max: choice.max, reason: choice.type }];
+      if (choice.type === 'LIBRARY_SEARCH') return [{ type: 'CHOOSE_LIBRARY_SEARCH', candidateIds: [...choice.candidateIds], min: choice.min, max: choice.max, searchId: choice.searchId, reason: choice.type }];
       if (choice.type === 'COPY_TARGETS') return [{ type: 'CHOOSE_COPY_TARGETS', targetIds: [...choice.originalTargets], reason: choice.type }];
+      if (choice.type === 'COPY_PERMANENT') return [
+        ...choice.candidateIds.map(permanentId => ({ type: 'CHOOSE_PERMANENT_COPY', permanentId, reason: choice.type })),
+        ...(choice.optional ? [{ type: 'CHOOSE_PERMANENT_COPY', permanentId: null, reason: choice.type }] : [])
+      ];
+      if (choice.type === 'ATTACHMENT_ENTRY') return choice.candidateIds.map(hostId => ({ type: 'CHOOSE_ATTACHMENT_HOST', hostId, sourceId: choice.sourceId, reason: choice.type }));
       if (choice.type === 'ENTRY_LIFE_PAYMENT') return [
         { type: 'CHOOSE_ENTRY_LIFE_PAYMENT', pay: true, lifeCost: choice.lifeCost, cardName: choice.cardName, reason: choice.type },
         { type: 'CHOOSE_ENTRY_LIFE_PAYMENT', pay: false, lifeCost: choice.lifeCost, cardName: choice.cardName, reason: choice.type }
@@ -163,6 +194,18 @@ export class LegalActions {
     const top = p.library[0];
     if (top && e.canCastTopCard(pid, top)) this._pushCardCastActions(out, pid, top, 'library', 'top');
 
+    // Step 21 zone permissions are surfaced through the exact same legal-action
+    // list consumed by both the UI and AI. Avoid duplicates with native modes.
+    const existingCasts = new Set(out.filter(action => ['CAST_SPELL', 'CAST_COMMANDER'].includes(action.type)).map(action => `${action.cardInstanceId}:${action.castFaceIndex ?? ''}:${action.mode || ''}:${action.castOption || ''}`));
+    for (const { card, zone } of e.legality.castableCardsFromPermissions(pid)) {
+      const permitted = [];
+      this._pushCardCastActions(permitted, pid, card, zone, 'rule-permission');
+      for (const action of permitted) {
+        const key = `${action.cardInstanceId}:${action.castFaceIndex ?? ''}:${action.mode || ''}:${action.castOption || ''}`;
+        if (!existingCasts.has(key)) { existingCasts.add(key); out.push(action); }
+      }
+    }
+
     for (const perm of p.battlefield) {
       const d = e.db[perm.cardId];
       for (const ability of e.static.effectiveAbilities(perm)) {
@@ -186,6 +229,7 @@ export class LegalActions {
       }
     }
 
+    out.push(...e.getLoopShortcutActions(pid));
     out.push({ type: 'PASS_PRIORITY' });
     return out;
   }

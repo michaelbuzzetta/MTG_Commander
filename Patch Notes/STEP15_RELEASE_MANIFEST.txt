@@ -1,0 +1,42 @@
+MTG Commander Rules Engine — Step 15 Release Manifest
+=====================================================
+Checkpoint: Step 15 — Reusable Mechanic Library
+Release: Release C / Scalable Card Support STARTED
+Next step: Step 16 — Card Scripting Language / Declarative Ability Model
+
+Primary Step 15 modules:
+- src/mechanics/MechanicRegistry.js
+- src/mechanics/MechanicLibrary.js
+- src/mechanics/index.js
+- src/mechanics/packages/evergreen.js
+- src/mechanics/packages/commander.js
+- src/mechanics/packages/casting.js
+- src/mechanics/packages/specialty.js
+
+Key integrations:
+- src/engine/GameEngine.js
+- src/engine/CombatEngine.js
+- src/engine/TargetingEngine.js
+- src/engine/EffectEngine.js
+- src/engine/StaticEngine.js
+- src/engine/costs/CostEngine.js
+- src/engine/replacement/PreventionService.js
+- src/engine/sba/StateBasedActionEngine.js
+- src/engine/triggers/TriggerRegistry.js
+- src/engine/triggers/TriggerMatcher.js
+
+Step 15 tests:
+- tests/step15-reusable-mechanics.test.js
+
+Documentation:
+- STEP15_COMPLETION_REPORT.md
+- docs/architecture/step15-reusable-mechanics.md
+
+Verification:
+- 370/370 non-stress repository tests PASS
+- 13/13 Step 15 tests PASS
+- 64/64 targeted Steps 6 + 10-15 tests PASS
+- check:architecture PASS
+- check-db PASS (647 cards / 13 decks)
+- audit:mutations complete (313 direct mutation paths inventoried)
+- production build attempted; blocked only because dependencies/node_modules are not installed in this sandbox and external Scryfall refresh is unavailable

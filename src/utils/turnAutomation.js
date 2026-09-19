@@ -2,18 +2,19 @@ const RESPONSE_ACTION_TYPES = new Set(['CAST_SPELL', 'CAST_COMMANDER', 'ACTIVATE
 const COMBAT_RESPONSE_PHASES = new Set(['DECLARE_ATTACKERS', 'DECLARE_BLOCKERS']);
 
 export function automationActor(engine) {
-  const s = engine?.state;
+  const s = engine?.getStateSnapshot?.();
   if (!s || s.winner) return null;
   return s.pendingChoice?.playerId || (s.pregame?.active ? s.pregame.currentPlayer : s.priorityPlayer);
 }
 
 export function meaningfulResponseActions(engine, playerId = 'player') {
-  if (!engine?.state?.players?.[playerId] || engine.state.players[playerId].lost) return [];
+  const s = engine?.getStateSnapshot?.();
+  if (!s?.players?.[playerId] || s.players[playerId].lost) return [];
   return engine.getLegalActions(playerId).filter(action => RESPONSE_ACTION_TYPES.has(action.type));
 }
 
 export function combatInvolvesPlayer(engine, playerId = 'player') {
-  const s = engine?.state;
+  const s = engine?.getStateSnapshot?.();
   if (!s?.combat?.attackers?.length) return false;
   return s.combat.attackers.some(attackerId => s.combat.attackTargets?.[attackerId] === playerId);
 }
@@ -24,7 +25,7 @@ export function humanAutomationDecision(engine, {
   holdPriority = false,
   skipNextPriority = false
 } = {}) {
-  const s = engine?.state;
+  const s = engine?.getStateSnapshot?.();
   if (!s || s.winner || !s.started) return { mode: 'WAIT', reason: 'Game is not running.' };
 
   const actor = automationActor(engine);

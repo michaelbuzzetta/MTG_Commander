@@ -1,0 +1,121 @@
+{
+  "schema": "mtg-step38-performance-benchmark",
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-17T03:04:00.558Z",
+  "node": "v22.16.0",
+  "workload": {
+    "players": 4,
+    "battlefieldPermanents": 32,
+    "continuousEffects": 12,
+    "derivedPasses": 8,
+    "targetPasses": 24,
+    "legalActionQueries": 40,
+    "headlessActions": 8
+  },
+  "measured": {
+    "derivedCharacteristicsMs": 15.534,
+    "targetGenerationMs": 38.89,
+    "legalActionRepeatedMs": 1.007,
+    "fourPlayerHeadless8ActionsMs": 2532.943
+  },
+  "thresholds": {
+    "derivedCharacteristicsMs": 8000,
+    "targetGenerationMs": 8000,
+    "legalActionRepeatedMs": 5000,
+    "fourPlayerHeadless8ActionsMs": 30000
+  },
+  "passed": true,
+  "failures": [],
+  "cacheStats": {
+    "enabled": true,
+    "profiling": true,
+    "stateRevision": 13,
+    "topologyRevision": 1,
+    "lastMutationReason": "continuous:register",
+    "cacheSizes": {
+      "derived": 32,
+      "legalActions": 0,
+      "zones": 1
+    },
+    "stats": {
+      "mutations": 13,
+      "topologyMutations": 1,
+      "derivedHits": 1034,
+      "derivedMisses": 54,
+      "legalActionHits": 0,
+      "legalActionMisses": 0,
+      "zoneHits": 24,
+      "zoneMisses": 1
+    },
+    "profiler": {
+      "zone-index.battlefield": {
+        "count": 1,
+        "totalMs": 0.076,
+        "averageMs": 0.076,
+        "p50Ms": 0.076,
+        "p95Ms": 0.076,
+        "maxMs": 0.076
+      }
+    }
+  },
+  "headlessSimulation": {
+    "stateHash": "1db132921e5ead50",
+    "actionsExecuted": 8,
+    "performance": {
+      "enabled": true,
+      "profiling": true,
+      "stateRevision": 130,
+      "topologyRevision": 119,
+      "lastMutationReason": "action:complete",
+      "cacheSizes": {
+        "derived": 0,
+        "legalActions": 0,
+        "zones": 0
+      },
+      "stats": {
+        "mutations": 130,
+        "topologyMutations": 119,
+        "derivedHits": 0,
+        "derivedMisses": 0,
+        "legalActionHits": 0,
+        "legalActionMisses": 8,
+        "zoneHits": 0,
+        "zoneMisses": 1
+      },
+      "profiler": {
+        "replacement-index.rebuild": {
+          "count": 70,
+          "totalMs": 0.165,
+          "averageMs": 0.002,
+          "p50Ms": 0.002,
+          "p95Ms": 0.004,
+          "maxMs": 0.006
+        },
+        "trigger-index.rebuild": {
+          "count": 122,
+          "totalMs": 10.324,
+          "averageMs": 0.085,
+          "p50Ms": 0.074,
+          "p95Ms": 0.155,
+          "maxMs": 0.556
+        },
+        "legal-actions.compute": {
+          "count": 8,
+          "totalMs": 4.779,
+          "averageMs": 0.597,
+          "p50Ms": 0.017,
+          "p95Ms": 4.664,
+          "maxMs": 4.664
+        },
+        "zone-index.battlefield": {
+          "count": 1,
+          "totalMs": 0.01,
+          "averageMs": 0.01,
+          "p50Ms": 0.01,
+          "p95Ms": 0.01,
+          "maxMs": 0.01
+        }
+      }
+    }
+  }
+}

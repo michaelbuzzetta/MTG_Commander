@@ -1,0 +1,16 @@
+MTG Commander Rules Engine — Step 31
+Rules and Event Logging
+
+ADDED
+- src/engine/diagnostics/RulesLogger.js
+- src/engine/diagnostics/index.js
+- tests/step31-rules-event-logging.test.js
+- step31-rules-event-logging.md
+- STEP31_COMPLETION_REPORT.md
+- STEP31_RELEASE_MANIFEST.txt
+
+UPDATED
+- src/engine/GameEngine.js
+- src/engine/replay/ReplayService.js
+- src/engine/index.js
+- package.json

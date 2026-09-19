@@ -1,0 +1,21 @@
+MTG Commander Rules Engine — Step 22 Complete
+=============================================
+Base checkpoint: Step 21 Complete
+Workflow step: 22 — Copy and Copiable Values
+
+Primary additions:
+- src/engine/copy/CopiableValues.js
+- src/engine/copy/CopyService.js
+- src/engine/copy/index.js
+- tests/step22-copy-copiable-values.test.js
+- docs/architecture/step22-copy-copiable-values.md
+- STEP22_COMPLETION_REPORT.md
+
+Verification target:
+- 469/469 non-stress tests
+- 15/15 Step 22 tests
+- 163/163 targeted Step 6 + Steps 10–22 tests
+- 647 cards / 13 decks validated
+- support/oracle-template/architecture gates pass
+
+Next: Step 23 — Attachments

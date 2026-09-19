@@ -1,0 +1,162 @@
+{
+  "step": 36,
+  "schemaVersion": 1,
+  "rulesVersion": "workflow-step30-v1",
+  "scenarioCount": 9,
+  "executableScenarioCount": 9,
+  "criticalTraceSnapshotCount": 8,
+  "categories": [
+    "ability-change",
+    "apnap",
+    "attachments",
+    "blood-moon-like",
+    "bug-regression",
+    "choice",
+    "commander",
+    "control-change",
+    "copy",
+    "damage",
+    "dependencies",
+    "humility-like",
+    "invariants",
+    "layers",
+    "library-search",
+    "multiplayer",
+    "opalescence-like",
+    "ordering",
+    "ownership",
+    "player-elimination",
+    "replacement",
+    "simultaneous-deaths",
+    "simultaneous-triggers",
+    "stack",
+    "state-based-actions",
+    "triggers",
+    "type-change",
+    "zone-change"
+  ],
+  "requiredCategories": [
+    "layers",
+    "dependencies",
+    "replacement",
+    "simultaneous-deaths",
+    "multiplayer",
+    "player-elimination",
+    "control-change",
+    "commander",
+    "copy",
+    "bug-regression"
+  ],
+  "pass": true,
+  "errors": [],
+  "scenarios": [
+    {
+      "id": "J36-LAYERS-DEPENDENCY-001",
+      "title": "Type, ability, and power/toughness layer dependency analogue",
+      "complexity": "expert",
+      "tags": [
+        "layers",
+        "dependencies",
+        "blood-moon-like",
+        "humility-like",
+        "opalescence-like"
+      ],
+      "traceSnapshot": "layers-dependency"
+    },
+    {
+      "id": "J36-REPLACEMENTS-ORDER-002",
+      "title": "Multiple noncommutative replacement effects require affected-player ordering",
+      "complexity": "expert",
+      "tags": [
+        "replacement",
+        "choice",
+        "ordering"
+      ],
+      "traceSnapshot": "replacement-order"
+    },
+    {
+      "id": "J36-SIMULTANEOUS-DEATHS-003",
+      "title": "Simultaneous lethal damage produces one SBA batch and simultaneous death triggers",
+      "complexity": "expert",
+      "tags": [
+        "state-based-actions",
+        "damage",
+        "simultaneous-deaths",
+        "triggers"
+      ],
+      "traceSnapshot": "simultaneous-deaths"
+    },
+    {
+      "id": "J36-APNAP-004",
+      "title": "Four-player simultaneous triggers use rotated APNAP stack ordering",
+      "complexity": "expert",
+      "tags": [
+        "multiplayer",
+        "apnap",
+        "simultaneous-triggers"
+      ],
+      "traceSnapshot": "four-player-apnap"
+    },
+    {
+      "id": "J36-PLAYER-ELIMINATION-005",
+      "title": "Four-player elimination unwinds ownership, control, stack, choices, turns, and combat references atomically",
+      "complexity": "expert",
+      "tags": [
+        "multiplayer",
+        "player-elimination",
+        "ownership",
+        "control-change",
+        "stack"
+      ],
+      "traceSnapshot": "player-elimination"
+    },
+    {
+      "id": "J36-CONTROL-ATTACHMENT-006",
+      "title": "Control change invalidates a control-sensitive Aura and SBA removes it",
+      "complexity": "advanced",
+      "tags": [
+        "control-change",
+        "attachments",
+        "state-based-actions"
+      ],
+      "traceSnapshot": null
+    },
+    {
+      "id": "J36-COMMANDER-MOVE-007",
+      "title": "Commander movement uses replacement timing for hand/library and SBA timing for graveyard/exile",
+      "complexity": "expert",
+      "tags": [
+        "commander",
+        "zone-change",
+        "replacement",
+        "state-based-actions"
+      ],
+      "traceSnapshot": "commander-movement"
+    },
+    {
+      "id": "J36-COPY-LAYERS-008",
+      "title": "Copied permanent receives copiable base values, then later type and ability layers recalculate",
+      "complexity": "expert",
+      "tags": [
+        "copy",
+        "layers",
+        "type-change",
+        "ability-change"
+      ],
+      "traceSnapshot": "copy-plus-layers"
+    },
+    {
+      "id": "J36-BUG-SEARCH-RESOLUTION-009",
+      "title": "Regression: resolving search spell remains authoritative while waiting for a library choice",
+      "complexity": "expert",
+      "tags": [
+        "bug-regression",
+        "stack",
+        "library-search",
+        "choice",
+        "invariants"
+      ],
+      "traceSnapshot": "search-resolution-regression"
+    }
+  ]
+}

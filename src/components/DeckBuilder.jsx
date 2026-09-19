@@ -100,11 +100,16 @@ function Curve({ values }) {
   </div>;
 }
 
-export function DeckBuilder({ db, catalogStatus, onCancel, onSave }) {
-  const [commander, setCommander] = useState(null);
-  const [showCommanderPicker, setShowCommanderPicker] = useState(true);
-  const [deckName, setDeckName] = useState('New Commander Deck');
-  const [entries, setEntries] = useState([]);
+export function DeckBuilder({ db, catalogStatus, onCancel, onSave, initialDeck = null }) {
+  const initialCommander = initialDeck ? db?.[initialDeck.commander] || null : null;
+  const initialEntries = initialDeck ? (initialDeck.cards || [])
+    .filter(entry => entry.id !== initialDeck.commander)
+    .map(entry => ({ id: entry.id, quantity: Number(entry.quantity || 0) }))
+    .filter(entry => entry.quantity > 0 && db?.[entry.id]) : [];
+  const [commander, setCommander] = useState(initialCommander);
+  const [showCommanderPicker, setShowCommanderPicker] = useState(!initialCommander);
+  const [deckName, setDeckName] = useState(initialDeck?.name || 'New Commander Deck');
+  const [entries, setEntries] = useState(initialEntries);
   const [search, setSearch] = useState('');
   const [role, setRole] = useState('Recommended');
   const [strategyKey, setStrategyKey] = useState(null);

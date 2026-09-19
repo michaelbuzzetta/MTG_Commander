@@ -1,0 +1,36 @@
+MTG Commander Rules Engine — Step 19 Complete
+Baseline: MTG_Commander_Step18_Complete.zip
+Workflow step: Loop Detection and Gameplay Shortcuts
+
+Major additions:
+- src/engine/loops/LoopTypes.js
+- src/engine/loops/LoopStateHasher.js
+- src/engine/loops/LoopService.js
+- src/engine/loops/LoopShortcutController.js
+- src/engine/loops/SimulationSafetyBudget.js
+- src/engine/loops/index.js
+- tests/step19-loop-detection-shortcuts.test.js
+- docs/architecture/step19-loop-detection-shortcuts.md
+- step19-loop-detection-shortcuts.md
+- STEP19_COMPLETION_REPORT.md
+
+Major integrations:
+- GameEngine owns loop detection and safety services
+- LOOP_SHORTCUT added to the canonical action vocabulary
+- EventDispatcher detects exact mandatory recursive no-progress cycles
+- LegalActions exposes executable loop-shortcut candidates
+- public API exposes loop/safety snapshots
+- replay stores semantic shortcut sequence/signature instead of expanded clicks
+- reset/start clear and reseed loop/safety state
+
+Verification checkpoint:
+- 426/426 non-stress repository tests PASS (run in three clean batches)
+- 13/13 Step 19 dedicated tests PASS
+- 120/120 targeted Steps 6 + 10–19 tests PASS
+- database: 647 cards / 13 decks PASS
+- Step 17 support data: 26 full / 621 partial / 0 explicitly unsupported PASS
+- Step 18 compiler artifacts: 647 analyzed / 4 exact / 643 review-required PASS
+- architecture guard PASS
+- mutation audit: 316 internal direct mutation paths inventoried
+- deterministic stress corpus: all 50 seeded scenarios PASS when run in bounded batches/individually
+- production Vite build not executable in this dependency-free container (vite not installed)

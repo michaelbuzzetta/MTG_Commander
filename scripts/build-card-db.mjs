@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { normalizeCommanderIds, validateCommanderSelection } from '../src/engine/multiplayer/CommanderRules.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const rawArgs = process.argv.slice(2);
@@ -98,20 +99,20 @@ function validateDecks(deckEntries, cards) {
     seenIds.add(deck.id);
     assert(typeof deck.name === 'string' && deck.name.trim(), `${label} is missing name.`);
     assert(deck.format === 'Commander', `${label} must declare format Commander.`);
-    assert(typeof deck.commander === 'string' && deck.commander.trim(), `${label} is missing commander id.`);
-    assert(cards[deck.commander], `${label} references unresolved commander ${deck.commander}.`);
+    const commanderIds = normalizeCommanderIds(deck);
+    assert(commanderIds.length >= 1 && commanderIds.length <= 2, `${label} must designate one commander or one legal paired-commander pair.`);
+    for (const commanderId of commanderIds) assert(cards[commanderId], `${label} references unresolved commander ${commanderId}.`);
     assert(Array.isArray(deck.colorIdentity), `${label} colorIdentity must be an array.`);
     assert(deck.colorIdentity.every(color => ['W','U','B','R','G'].includes(color)), `${label} has an invalid color identity.`);
     assert(Array.isArray(deck.cards) && deck.cards.length > 0, `${label} must contain a cards array.`);
 
-    const commander = cards[deck.commander];
-    assert(/Legendary/i.test(commander.typeLine || '') && (/Creature/i.test(commander.typeLine || '') || commander.creatureAtCounter), `${label} commander ${deck.commander} must be a legendary creature or a supported creature-transforming commander in the current trainer rules.`);
-    assert(sameColorIdentity(deck.colorIdentity, commander.colorIdentity), `${label} color identity must exactly match commander ${deck.commander}.`);
+    const commanderValidation = validateCommanderSelection(deck, cards, { requireColorIdentityMatch: true });
+    assert(commanderValidation.ok, `${label} has an invalid commander designation: ${commanderValidation.errors.join(' ')}`);
 
     let total = 0;
-    let commanderQuantity = 0;
+    const commanderQuantities = Object.fromEntries(commanderIds.map(id => [id, 0]));
     const entryIds = new Set();
-    const deckIdentity = new Set(deck.colorIdentity);
+    const deckIdentity = new Set(commanderValidation.colorIdentity);
     for (const entry of deck.cards) {
       assert(entry && typeof entry === 'object', `${label} contains an invalid card entry.`);
       assert(typeof entry.id === 'string' && entry.id.trim(), `${label} has a card entry without id.`);
@@ -121,14 +122,14 @@ function validateDecks(deckEntries, cards) {
       assert(card, `${label} references unresolved card ${entry.id}.`);
       assert(Number.isInteger(entry.quantity) && entry.quantity > 0, `${label} has invalid quantity for ${entry.id}.`);
       assert(isBasicLand(card) || entry.quantity === 1, `${label} violates Commander singleton construction with ${entry.quantity} copies of ${card.name}.`);
-      assert(card.colorIdentity.every(color => deckIdentity.has(color)), `${label} contains off-color card ${card.name} (${card.colorIdentity.join('') || 'colorless'}) outside commander identity ${deck.colorIdentity.join('') || 'colorless'}.`);
+      assert(card.colorIdentity.every(color => deckIdentity.has(color)), `${label} contains off-color card ${card.name} (${card.colorIdentity.join('') || 'colorless'}) outside commander identity ${commanderValidation.colorIdentity.join('') || 'colorless'}.`);
       if (deck.playable !== false) assert(card.supported !== false, `${label} is playable but contains unsupported card ${card.name}.`);
       total += entry.quantity;
-      if (entry.id === deck.commander) commanderQuantity += entry.quantity;
+      if (entry.id in commanderQuantities) commanderQuantities[entry.id] += entry.quantity;
     }
 
-    assert(commanderQuantity === 1, `${label} must contain exactly one copy of its commander entry; found ${commanderQuantity}.`);
-    assert(total === 100, `${label} must contain exactly 100 cards including its commander; found ${total}.`);
+    for (const commanderId of commanderIds) assert(commanderQuantities[commanderId] === 1, `${label} must contain exactly one copy of designated commander ${commanderId}; found ${commanderQuantities[commanderId]}.`);
+    assert(total === 100, `${label} must contain exactly 100 cards including designated commander(s); found ${total}.`);
     if (deck.cardCount != null) assert(deck.cardCount === total, `${label} cardCount=${deck.cardCount} does not match actual total ${total}.`);
   }
 }

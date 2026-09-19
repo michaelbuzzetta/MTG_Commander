@@ -6,7 +6,12 @@
   },
   "runtimeGenerated": {
     "cards": "src/data/generated/cards.json",
-    "decks": "src/data/generated/decks.json"
+    "decks": "src/data/generated/decks.json",
+    "oracleRegistry": "src/data/generated/oracle-registry.json",
+    "cardSupport": "src/data/generated/card-support.json",
+    "deckReadiness": "src/data/generated/deck-readiness.json",
+    "coverageReport": "src/data/generated/coverage-report.json",
+    "legacyHandlerRemoval": "src/data/generated/legacy-handler-removal.json"
   },
   "cardSchema": {
     "shape": "object keyed by card id",
@@ -44,12 +49,34 @@
       "colorIdentity",
       "legalities",
       "supported",
-      "unsupportedReason"
+      "unsupportedReason",
+      "oracleIdentity",
+      "rulesImplementationId",
+      "printingMetadata",
+      "supportStatus",
+      "supportMetadata"
     ],
     "validationNotes": [
       "supported cards must include non-empty local oracleText/rules text for UI readability",
       "reference-only cards set supported=false and are rejected from playable decks"
-    ]
+    ],
+    "supportMetadata": {
+      "identity": "rules implementations are keyed by Oracle identity when available; a deterministic normalized-name fallback is recorded when local Scryfall metadata lacks oracleId",
+      "printingSeparation": "set, collector number, artwork/image, and printing ids remain printing metadata and do not create separate rules implementations unless Oracle text differs",
+      "statuses": [
+        "fully_supported",
+        "partially_supported",
+        "unsupported"
+      ],
+      "implementationPaths": [
+        "auto-template-candidate",
+        "declarative-scripted",
+        "complex-scripted",
+        "custom-hook-required",
+        "non-digital-unsupported"
+      ],
+      "fullySupportedPolicy": "requires explicit certification, executable rules data, at least one card-specific behavioral test, and no untracked caveat/custom-hook requirement"
+    }
   },
   "deckSchema": {
     "shape": "array of deck objects",
@@ -93,6 +120,9 @@
     "defaultBuild": "npm run build-db",
     "validationOnly": "npm run check-db",
     "metadataRefresh": "npm run build-db:refresh",
-    "rule": "Runtime imports only src/data/generated. Generated files are produced only from the authoritative src/data/source schema; Scryfall refresh may add descriptive metadata but never replaces local machine-readable rules fields."
+    "rule": "Runtime imports only src/data/generated. Generated files are produced only from the authoritative src/data/source schema; Scryfall refresh may add descriptive metadata but never replaces local machine-readable rules fields.",
+    "supportBuild": "npm run build-support",
+    "supportValidationOnly": "npm run check-support",
+    "supportRule": "Step 17 coverage is generated from machine-readable support records and test evidence; no card is treated as fully supported solely because it parses or appears in a deck."
   }
 }

@@ -1,0 +1,359 @@
+{
+  "schemaVersion": 1,
+  "contractVersion": "step35-golden-v1",
+  "engineRulesVersion": "mtg-cr-2026-08-07",
+  "generatedForSupportRulesVersion": "mtg-cr-2026-08-07",
+  "policy": "Every fully supported card must have at least one executable golden behavior case. Oracle-text fingerprints are review locks: a text change must update the fixture intentionally after behavior review.",
+  "cards": {
+    "academy-manufactor": {
+      "name": "Academy Manufactor",
+      "oracleIdentity": "local-name:academy manufactor",
+      "oracleTextFingerprint": "74675bc62f2ddf3a",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "utility-token-triplicate"
+        }
+      ]
+    },
+    "arcane-signet": {
+      "name": "Arcane Signet",
+      "oracleIdentity": "oracle:0bc7f093-bef0-4f1a-852c-4b75ebf54838",
+      "oracleTextFingerprint": "ef99a3cd50fadce5",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "commander-color-mana"
+        }
+      ]
+    },
+    "arch-disenchant": {
+      "name": "Disenchant",
+      "oracleIdentity": "local-name:disenchant",
+      "oracleTextFingerprint": "1c50bfdd31a28155",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "cast-destroy-artifact-or-enchantment"
+        }
+      ]
+    },
+    "arch-memnite": {
+      "name": "Memnite",
+      "oracleIdentity": "local-name:memnite",
+      "oracleTextFingerprint": "53329a7529e5ebab",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "cast-characteristic-permanent"
+        }
+      ]
+    },
+    "arch-rampant-growth": {
+      "name": "Rampant Growth",
+      "oracleIdentity": "local-name:rampant growth",
+      "oracleTextFingerprint": "59e6972a275d4ffb",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "search-basic-to-battlefield-tapped"
+        }
+      ]
+    },
+    "arch-yargle-and-multani": {
+      "name": "Yargle and Multani",
+      "oracleIdentity": "local-name:yargle and multani",
+      "oracleTextFingerprint": "53329a7529e5ebab",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "cast-characteristic-permanent"
+        }
+      ]
+    },
+    "branching-evolution": {
+      "name": "Branching Evolution",
+      "oracleIdentity": "local-name:branching evolution",
+      "oracleTextFingerprint": "e2136c50ff3a314e",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "plus-one-counter-double"
+        }
+      ]
+    },
+    "command-tower": {
+      "name": "Command Tower",
+      "oracleIdentity": "oracle:0895c9b7-ae7d-4bb3-af17-3b75deb50a25",
+      "oracleTextFingerprint": "ef99a3cd50fadce5",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "commander-color-mana"
+        }
+      ]
+    },
+    "divination": {
+      "name": "Divination",
+      "oracleIdentity": "local-name:divination",
+      "oracleTextFingerprint": "6fad500ac8bcb754",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "cast-draw-two"
+        }
+      ]
+    },
+    "doubling-season": {
+      "name": "Doubling Season",
+      "oracleIdentity": "local-name:doubling season",
+      "oracleTextFingerprint": "15fe416077ef919d",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "counter-double"
+        },
+        {
+          "id": "token-double"
+        }
+      ]
+    },
+    "esika": {
+      "name": "Esika, God of the Tree",
+      "oracleIdentity": "local-name:esika, god of the tree",
+      "oracleTextFingerprint": "166f89ea66f766d4",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "esika-front-mana-and-grant"
+        },
+        {
+          "id": "mdfc-esika-and-bridge"
+        }
+      ]
+    },
+    "evolution-sage": {
+      "name": "Evolution Sage",
+      "oracleIdentity": "local-name:evolution sage",
+      "oracleTextFingerprint": "7b18cb3bf94fed80",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "landfall-proliferate"
+        }
+      ]
+    },
+    "forest": {
+      "name": "Forest",
+      "oracleIdentity": "oracle:b34bb2dc-c1af-4d77-b0b3-a0fb342a5fc6",
+      "oracleTextFingerprint": "9231ec8ed88e95d1",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "basic-mana"
+        }
+      ]
+    },
+    "giant-spider": {
+      "name": "Giant Spider",
+      "oracleIdentity": "local-name:giant spider",
+      "oracleTextFingerprint": "2068b81b75d4b2b1",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "reach-blocks-flying"
+        }
+      ]
+    },
+    "grizzly-bears": {
+      "name": "Grizzly Bears",
+      "oracleIdentity": "local-name:grizzly bears",
+      "oracleTextFingerprint": "7392352aba22251f",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "cast-vanilla-permanent"
+        }
+      ]
+    },
+    "hardened-scales": {
+      "name": "Hardened Scales",
+      "oracleIdentity": "local-name:hardened scales",
+      "oracleTextFingerprint": "09c57d7f068cd8a0",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "plus-one-counter-add-one"
+        }
+      ]
+    },
+    "indestructible-god": {
+      "name": "Indestructible God",
+      "oracleIdentity": "local-name:indestructible god",
+      "oracleTextFingerprint": "f4e52cab09f7e110",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "indestructible-survives-destroy"
+        }
+      ]
+    },
+    "island": {
+      "name": "Island",
+      "oracleIdentity": "oracle:b2c6aa39-2d2a-459c-a555-fb48ba993373",
+      "oracleTextFingerprint": "8ae83cb569a9767a",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "basic-mana"
+        }
+      ]
+    },
+    "lightning-bolt": {
+      "name": "Lightning Bolt",
+      "oracleIdentity": "local-name:lightning bolt",
+      "oracleTextFingerprint": "71ae9e43e3dc968f",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "cast-deal-three"
+        }
+      ]
+    },
+    "menace-ogre": {
+      "name": "Menace Ogre",
+      "oracleIdentity": "local-name:menace ogre",
+      "oracleTextFingerprint": "ec6cf5ad71d5e427",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "menace-requires-two-blockers"
+        }
+      ]
+    },
+    "merfolk-mistbinder": {
+      "name": "Merfolk Mistbinder",
+      "oracleIdentity": "local-name:merfolk mistbinder",
+      "oracleTextFingerprint": "ac26fc0080723f2a",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "other-merfolk-plus-one"
+        }
+      ]
+    },
+    "mountain": {
+      "name": "Mountain",
+      "oracleIdentity": "oracle:a3fb7228-e76b-4e96-a40e-20b5fed75685",
+      "oracleTextFingerprint": "535bb08cb15181c5",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "basic-mana"
+        }
+      ]
+    },
+    "murder": {
+      "name": "Murder",
+      "oracleIdentity": "local-name:murder",
+      "oracleTextFingerprint": "4450f881acf81db3",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "cast-destroy-creature"
+        }
+      ]
+    },
+    "parallel-lives": {
+      "name": "Parallel Lives",
+      "oracleIdentity": "local-name:parallel lives",
+      "oracleTextFingerprint": "7baccbab37d7d451",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "token-double"
+        }
+      ]
+    },
+    "plains": {
+      "name": "Plains",
+      "oracleIdentity": "local-name:plains",
+      "oracleTextFingerprint": "6e43960c60e63aa3",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "basic-mana"
+        }
+      ]
+    },
+    "sol-ring": {
+      "name": "Sol Ring",
+      "oracleIdentity": "oracle:6ad8011d-3471-4369-9d68-b264cc027487",
+      "oracleTextFingerprint": "8310b06afdea748a",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "fixed-colorless-mana"
+        }
+      ]
+    },
+    "swamp": {
+      "name": "Swamp",
+      "oracleIdentity": "local-name:swamp",
+      "oracleTextFingerprint": "e3446c7d22984e13",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "basic-mana"
+        }
+      ]
+    },
+    "trampling-rhino": {
+      "name": "Trampling Rhino",
+      "oracleIdentity": "local-name:trampling rhino",
+      "oracleTextFingerprint": "06d375c77047aa37",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "trample-over-blocker"
+        }
+      ]
+    },
+    "vampire-nighthawk": {
+      "name": "Vampire Nighthawk",
+      "oracleIdentity": "local-name:vampire nighthawk",
+      "oracleTextFingerprint": "d7e700ce939f0f5d",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "flying-block-restriction"
+        },
+        {
+          "id": "deathtouch-lifelink-damage"
+        }
+      ]
+    },
+    "vigilant-knight": {
+      "name": "Vigilant Knight",
+      "oracleIdentity": "local-name:vigilant knight",
+      "oracleTextFingerprint": "7b186aaf815451ab",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "vigilance-does-not-tap-attacking"
+        }
+      ]
+    },
+    "wind-drake": {
+      "name": "Wind Drake",
+      "oracleIdentity": "local-name:wind drake",
+      "oracleTextFingerprint": "75a4c2fe3b9e4d3c",
+      "supportRulesVersion": "mtg-cr-2026-08-07",
+      "cases": [
+        {
+          "id": "flying-block-restriction"
+        }
+      ]
+    }
+  }
+}

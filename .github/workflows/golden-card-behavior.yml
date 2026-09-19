@@ -1,0 +1,21 @@
+name: Golden Card Behavior Gate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  golden-cards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check-db
+      - run: npm run check-support
+      - run: npm run check:step35
+      - run: npm run test:step35
+      - run: npm run test:step17

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "acknowledgedAt": "2026-09-17T22:13:38.067Z",
+  "plan": {
+    "schemaVersion": 1,
+    "createdAt": "2026-09-17T22:11:58.056Z",
+    "previousVersion": null,
+    "candidateVersion": null,
+    "previousCount": 647,
+    "candidateCount": 647,
+    "changeCount": 1,
+    "changes": [
+      {
+        "type": "oracle_text_change",
+        "oracleId": "esika",
+        "name": "Esika, God of the Tree",
+        "beforeFingerprint": "c698d87ce01509b23ee9ff5199a01cda0d51ef0ba689b513df967e310353e7cb",
+        "afterFingerprint": "33f741a51665dde800550c24ec9fbb0bd12acc1b1c50a52ca09fb0af927dde4d"
+      }
+    ],
+    "affectedOracleIds": [
+      "esika"
+    ],
+    "legalityOracleIds": [],
+    "printingOnlyOracleIds": [],
+    "requiresImplementationReview": true,
+    "requiresLegalityRefresh": false,
+    "canReuseExistingImplementationsForPrintingOnly": true
+  },
+  "review": {
+    "schemaVersion": 1,
+    "generatedAt": "2026-09-17T22:11:58.060Z",
+    "sourceVersion": null,
+    "changeCount": 1,
+    "requiresReviewCount": 1,
+    "changes": [
+      {
+        "type": "oracle_text_change",
+        "oracleId": "esika",
+        "name": "Esika, God of the Tree",
+        "beforeFingerprint": "c698d87ce01509b23ee9ff5199a01cda0d51ef0ba689b513df967e310353e7cb",
+        "afterFingerprint": "33f741a51665dde800550c24ec9fbb0bd12acc1b1c50a52ca09fb0af927dde4d"
+      }
+    ],
+    "policy": "New printings reuse an existing Oracle implementation. New/changed Oracle identities, semantic text changes, ruling metadata, and new mechanic indicators require review before full support is granted."
+  },
+  "affectedTests": {
+    "schemaVersion": 1,
+    "affectedOracleIds": [
+      "esika"
+    ],
+    "affectedCardIds": [],
+    "testFiles": [],
+    "includeCompilerValidation": true,
+    "includeSupportValidation": true,
+    "includeGoldenValidation": false,
+    "noRuntimeImplementationWorkForPrintingOnly": false
+  },
+  "state": {
+    "schemaVersion": 1,
+    "generatedAt": "2026-09-17T22:11:58.061Z",
+    "status": "offline-fallback",
+    "catalogComplete": false,
+    "catalogCount": 647,
+    "oracleCatalogComplete": false,
+    "printingCatalogComplete": false,
+    "printingCatalogCount": 647,
+    "sourceUpdatedAt": null,
+    "lastSuccessfulRefreshAt": null,
+    "lastCheckAt": "2026-09-17T22:11:56.565Z",
+    "etag": null,
+    "sourceType": "trainer_seed+trainer_seed_printings",
+    "oracleCatalogSha256": "98378ce484c8a5dfc492e2625ad1883e981b04fcd8c66db3de93849e6524f455",
+    "printingCatalogSha256": "6d76555e6af076f6e1817fb16a97f9d7aac46d7b8be729bf66872c55737e5b82",
+    "oracleBulkSha256": null,
+    "printingBulkSha256": null,
+    "oracleBulkBytes": null,
+    "printingBulkBytes": null,
+    "printingSourceUpdatedAt": null,
+    "changeCount": 1,
+    "pendingImplementationReview": 1,
+    "pendingLegalityRefresh": 0,
+    "atomicUpdatePolicy": "Candidate artifacts are written to temporary files and renamed only after validation; the prior catalog/snapshot remains usable if refresh or validation fails."
+  }
+}

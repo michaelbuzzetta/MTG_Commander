@@ -1,0 +1,334 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-18T00:02:43.561Z",
+  "purpose": "Gameplay-focused release audit: exercise the user-facing 100-card decks through authoritative legal actions with invariant checks enabled. This is interaction-failure discovery, not a win-rate benchmark.",
+  "actionBudgetPerRun": 20,
+  "perRunTimeoutMs": 30000,
+  "scenarioCount": 4,
+  "simulationCount": 7,
+  "totalActions": 140,
+  "failureCount": 0,
+  "passed": true,
+  "supportPolicy": "Partial support is allowed for this exploratory gameplay audit. Any actually encountered unsupported runtime interaction still fails closed in standard mode; no sandbox approximation is enabled.",
+  "scenarios": [
+    {
+      "id": "temporal-vs-never-ending",
+      "deckIds": [
+        "temporal-paradox",
+        "never-ending-story"
+      ],
+      "deckNames": [
+        "Temporal Paradox",
+        "Never Ending Story"
+      ],
+      "playerCount": 2,
+      "requestedRuns": 2,
+      "actionBudgetPerRun": 20,
+      "preflight": {
+        "strictReady": false,
+        "blockerCount": 177,
+        "decks": [
+          {
+            "deckId": "temporal-paradox",
+            "name": "Temporal Paradox",
+            "cardCount": 100,
+            "statusCounts": {
+              "fully_supported": 19,
+              "partially_supported": 81,
+              "unsupported": 0,
+              "missing": 0
+            },
+            "blockerCount": 81,
+            "silentUnsupportedCount": 0
+          },
+          {
+            "deckId": "never-ending-story",
+            "name": "Never Ending Story",
+            "cardCount": 100,
+            "statusCounts": {
+              "fully_supported": 4,
+              "partially_supported": 96,
+              "unsupported": 0,
+              "missing": 0
+            },
+            "blockerCount": 96,
+            "silentUnsupportedCount": 0
+          }
+        ]
+      },
+      "runs": [
+        {
+          "ok": true,
+          "seed": "gameplay-release:temporal-vs-never-ending:0",
+          "elapsedMs": 3647,
+          "botSeed": "gameplay-release:temporal-vs-never-ending:0:bot",
+          "stopReason": "action-budget",
+          "actionsExecuted": 20,
+          "winner": null,
+          "turn": 1,
+          "phase": "POSTCOMBAT_MAIN",
+          "stateHash": "c83baf330ff0ccf7",
+          "replayActions": 20,
+          "botRandomCalls": 20,
+          "unsupportedDiagnosticCount": 0,
+          "statisticsEligible": true
+        },
+        {
+          "ok": true,
+          "seed": "gameplay-release:temporal-vs-never-ending:1",
+          "elapsedMs": 3687,
+          "botSeed": "gameplay-release:temporal-vs-never-ending:1:bot",
+          "stopReason": "action-budget",
+          "actionsExecuted": 20,
+          "winner": null,
+          "turn": 1,
+          "phase": "END_COMBAT",
+          "stateHash": "40541ee3f00ce407",
+          "replayActions": 20,
+          "botRandomCalls": 20,
+          "unsupportedDiagnosticCount": 0,
+          "statisticsEligible": true
+        }
+      ]
+    },
+    {
+      "id": "temporal-vs-explorers",
+      "deckIds": [
+        "temporal-paradox",
+        "explorers"
+      ],
+      "deckNames": [
+        "Temporal Paradox",
+        "Explorers of the Deep"
+      ],
+      "playerCount": 2,
+      "requestedRuns": 2,
+      "actionBudgetPerRun": 20,
+      "preflight": {
+        "strictReady": false,
+        "blockerCount": 154,
+        "decks": [
+          {
+            "deckId": "temporal-paradox",
+            "name": "Temporal Paradox",
+            "cardCount": 100,
+            "statusCounts": {
+              "fully_supported": 19,
+              "partially_supported": 81,
+              "unsupported": 0,
+              "missing": 0
+            },
+            "blockerCount": 81,
+            "silentUnsupportedCount": 0
+          },
+          {
+            "deckId": "explorers",
+            "name": "Explorers of the Deep",
+            "cardCount": 100,
+            "statusCounts": {
+              "fully_supported": 27,
+              "partially_supported": 73,
+              "unsupported": 0,
+              "missing": 0
+            },
+            "blockerCount": 73,
+            "silentUnsupportedCount": 0
+          }
+        ]
+      },
+      "runs": [
+        {
+          "ok": true,
+          "seed": "gameplay-release:temporal-vs-explorers:0",
+          "elapsedMs": 4264,
+          "botSeed": "gameplay-release:temporal-vs-explorers:0:bot",
+          "stopReason": "action-budget",
+          "actionsExecuted": 20,
+          "winner": null,
+          "turn": 1,
+          "phase": "COMBAT_DAMAGE",
+          "stateHash": "a99575a13727f42e",
+          "replayActions": 20,
+          "botRandomCalls": 27,
+          "unsupportedDiagnosticCount": 0,
+          "statisticsEligible": true
+        },
+        {
+          "ok": true,
+          "seed": "gameplay-release:temporal-vs-explorers:1",
+          "elapsedMs": 4041,
+          "botSeed": "gameplay-release:temporal-vs-explorers:1:bot",
+          "stopReason": "action-budget",
+          "actionsExecuted": 20,
+          "winner": null,
+          "turn": 1,
+          "phase": "COMBAT_DAMAGE",
+          "stateHash": "b931c46ce11b3ba1",
+          "replayActions": 20,
+          "botRandomCalls": 20,
+          "unsupportedDiagnosticCount": 0,
+          "statisticsEligible": true
+        }
+      ]
+    },
+    {
+      "id": "never-ending-vs-explorers",
+      "deckIds": [
+        "never-ending-story",
+        "explorers"
+      ],
+      "deckNames": [
+        "Never Ending Story",
+        "Explorers of the Deep"
+      ],
+      "playerCount": 2,
+      "requestedRuns": 2,
+      "actionBudgetPerRun": 20,
+      "preflight": {
+        "strictReady": false,
+        "blockerCount": 169,
+        "decks": [
+          {
+            "deckId": "never-ending-story",
+            "name": "Never Ending Story",
+            "cardCount": 100,
+            "statusCounts": {
+              "fully_supported": 4,
+              "partially_supported": 96,
+              "unsupported": 0,
+              "missing": 0
+            },
+            "blockerCount": 96,
+            "silentUnsupportedCount": 0
+          },
+          {
+            "deckId": "explorers",
+            "name": "Explorers of the Deep",
+            "cardCount": 100,
+            "statusCounts": {
+              "fully_supported": 27,
+              "partially_supported": 73,
+              "unsupported": 0,
+              "missing": 0
+            },
+            "blockerCount": 73,
+            "silentUnsupportedCount": 0
+          }
+        ]
+      },
+      "runs": [
+        {
+          "ok": true,
+          "seed": "gameplay-release:never-ending-vs-explorers:0",
+          "elapsedMs": 4747,
+          "botSeed": "gameplay-release:never-ending-vs-explorers:0:bot",
+          "stopReason": "action-budget",
+          "actionsExecuted": 20,
+          "winner": null,
+          "turn": 1,
+          "phase": "DECLARE_BLOCKERS",
+          "stateHash": "1caa172ce22c64b7",
+          "replayActions": 20,
+          "botRandomCalls": 27,
+          "unsupportedDiagnosticCount": 0,
+          "statisticsEligible": true
+        },
+        {
+          "ok": true,
+          "seed": "gameplay-release:never-ending-vs-explorers:1",
+          "elapsedMs": 3650,
+          "botSeed": "gameplay-release:never-ending-vs-explorers:1:bot",
+          "stopReason": "action-budget",
+          "actionsExecuted": 20,
+          "winner": null,
+          "turn": 1,
+          "phase": "DECLARE_BLOCKERS",
+          "stateHash": "c40327c9e82172b2",
+          "replayActions": 20,
+          "botRandomCalls": 20,
+          "unsupportedDiagnosticCount": 0,
+          "statisticsEligible": true
+        }
+      ]
+    },
+    {
+      "id": "three-deck-user-pod",
+      "deckIds": [
+        "explorers",
+        "temporal-paradox",
+        "never-ending-story"
+      ],
+      "deckNames": [
+        "Explorers of the Deep",
+        "Temporal Paradox",
+        "Never Ending Story"
+      ],
+      "playerCount": 3,
+      "requestedRuns": 1,
+      "actionBudgetPerRun": 20,
+      "preflight": {
+        "strictReady": false,
+        "blockerCount": 250,
+        "decks": [
+          {
+            "deckId": "explorers",
+            "name": "Explorers of the Deep",
+            "cardCount": 100,
+            "statusCounts": {
+              "fully_supported": 27,
+              "partially_supported": 73,
+              "unsupported": 0,
+              "missing": 0
+            },
+            "blockerCount": 73,
+            "silentUnsupportedCount": 0
+          },
+          {
+            "deckId": "temporal-paradox",
+            "name": "Temporal Paradox",
+            "cardCount": 100,
+            "statusCounts": {
+              "fully_supported": 19,
+              "partially_supported": 81,
+              "unsupported": 0,
+              "missing": 0
+            },
+            "blockerCount": 81,
+            "silentUnsupportedCount": 0
+          },
+          {
+            "deckId": "never-ending-story",
+            "name": "Never Ending Story",
+            "cardCount": 100,
+            "statusCounts": {
+              "fully_supported": 4,
+              "partially_supported": 96,
+              "unsupported": 0,
+              "missing": 0
+            },
+            "blockerCount": 96,
+            "silentUnsupportedCount": 0
+          }
+        ]
+      },
+      "runs": [
+        {
+          "ok": true,
+          "seed": "gameplay-release:three-deck-user-pod:0",
+          "elapsedMs": 6857,
+          "botSeed": "gameplay-release:three-deck-user-pod:0:bot",
+          "stopReason": "action-budget",
+          "actionsExecuted": 20,
+          "winner": null,
+          "turn": 1,
+          "phase": "PRECOMBAT_MAIN",
+          "stateHash": "21fe13f0cfb51a4a",
+          "replayActions": 20,
+          "botRandomCalls": 34,
+          "unsupportedDiagnosticCount": 0,
+          "statisticsEligible": true
+        }
+      ]
+    }
+  ]
+}

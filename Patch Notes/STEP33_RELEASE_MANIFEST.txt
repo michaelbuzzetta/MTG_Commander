@@ -1,0 +1,20 @@
+MTG Commander Rules Engine — Step 33 Complete
+
+Primary Step 33 additions/changes:
+- tests/step33-rules-primitives.test.js
+- tests/fixtures/primitive-fixtures.js
+- scripts/check-rule-primitive-coverage.mjs
+- coverage/step33-primitive-coverage.json
+- coverage/step33-primitive-coverage.md
+- coverage/step33-node-coverage.txt
+- .github/workflows/rules-primitives.yml
+- docs/architecture/step33-rules-primitives.md
+- src/engine/diagnostics/InvariantChecker.js
+- src/engine/GameEngine.js
+- tests/helpers.js
+- tests/core.test.js
+- tests/step3-actions-events.test.js
+- tests/category6.test.js
+- package.json
+- STEP33_COMPLETION_REPORT.md
+- STEP33_RELEASE_MANIFEST.txt

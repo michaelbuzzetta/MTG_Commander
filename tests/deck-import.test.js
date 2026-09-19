@@ -42,7 +42,7 @@ test('Archidekt set, collector, category, and commander decorations are removed 
   assert.equal(custom.cards.reduce((sum, entry) => sum + entry.quantity, 0), 100);
 });
 
-test('missing Archidekt cards can be fetched and normalized for local custom-deck storage', async () => {
+test('missing Archidekt cards can be fetched for metadata but stay unsupported without certified runtime behavior', async () => {
   const fetched = {
     id: '00000000-1111-2222-3333-444444444444',
     oracle_id: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee',
@@ -62,7 +62,69 @@ test('missing Archidekt cards can be fetched and normalized for local custom-dec
   const definitions = await fetchMissingCardDefinitions(['Akroma, Vision of Ixidor (cmr) 2 [Pump]'], db, mockFetch);
   const definition = Object.values(definitions)[0];
   assert.equal(definition.name, 'Akroma, Vision of Ixidor');
-  assert.equal(definition.supported, true);
+  assert.equal(definition.supported, false);
+  assert.equal(definition.certificationEligible, false);
+  assert.match(definition.unsupportedReason, /no certified runtime implementation/i);
   assert.deepEqual(definition.colorIdentity, ['W']);
   assert.ok(definition.keywords.includes('flying'));
+  const imported = buildCustomDeck(
+    { name: 'Unsupported Metadata Allowed', commander: definition.name, list: '99 Plains' },
+    { ...db, [definition.id]: definition }
+  );
+  assert.equal(imported.cardCount, 100);
+  assert.equal(imported.strictReady, false);
+  assert.equal(imported.unsupportedCards.length, 1);
+  assert.equal(imported.unsupportedCards[0].name, 'Akroma, Vision of Ixidor');
+  assert.equal(imported.unsupportedCards[0].commander, true);
+});
+
+
+test('unsupported catalog/runtime cards do not block deck saving and are recorded on the deck', () => {
+  const unsupported = {
+    id: 'unsupported-test-card',
+    name: 'Unsupported Test Card',
+    typeLine: 'Artifact',
+    manaCost: '{1}',
+    manaValue: 1,
+    colorIdentity: [],
+    supported: false,
+    unsupportedReason: 'Test-only unsupported interaction.'
+  };
+  const localDb = { ...db, [unsupported.id]: unsupported };
+  const stock = structuredClone(decks.find(d => d.id === 'explorers'));
+  const main = stock.cards.filter(entry => entry.id !== stock.commander);
+  const firstNonBasic = main.find(entry => !/Basic Land/i.test(db[entry.id]?.typeLine || ''));
+  const lines = [];
+  let replaced = false;
+  for (const entry of main) {
+    if (!replaced && entry.id === firstNonBasic.id && entry.quantity === 1) {
+      lines.push('1 Unsupported Test Card');
+      replaced = true;
+    } else {
+      lines.push(`${entry.quantity} ${db[entry.id].name}`);
+    }
+  }
+  const built = buildCustomDeck({ name: 'Contains Unsupported', commander, list: lines.join('\n') }, localDb, []);
+  assert.equal(built.cardCount, 100);
+  assert.equal(built.strictReady, false);
+  assert.ok(built.unsupportedCards.some(card => card.id === unsupported.id));
+  assert.ok(built.cards.some(card => card.id === unsupported.id));
+});
+
+test('missing-card heuristic behavior is executable only with an explicit sandbox opt-in', async () => {
+  const fetched = {
+    id: '00000000-1111-2222-3333-444444444444',
+    oracle_id: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee',
+    name: 'Sandbox Angel',
+    type_line: 'Legendary Creature — Angel',
+    mana_cost: '{3}{W}', cmc: 4, power: '4', toughness: '4',
+    colors: ['W'], color_identity: ['W'], keywords: ['Flying'],
+    oracle_text: 'Flying', legalities: { commander: 'legal' }
+  };
+  const mockFetch = async () => ({ ok: true, status: 200, json: async () => ({ data: [fetched], not_found: [] }) });
+  const definitions = await fetchMissingCardDefinitions(['Sandbox Angel'], db, mockFetch, { allowApproximation: true });
+  const definition = Object.values(definitions)[0];
+  assert.equal(definition.supported, true);
+  assert.equal(definition.sandboxApproximation, true);
+  assert.equal(definition.certificationEligible, false);
 });

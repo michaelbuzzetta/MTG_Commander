@@ -1,0 +1,24 @@
+MTG Commander Rules Engine — Step 32 Release Manifest
+=====================================================
+Release: Step 32 — Runtime Invariant Checker
+
+Primary additions / modifications:
+- src/engine/diagnostics/InvariantChecker.js
+- src/engine/diagnostics/RulesLogger.js
+- src/engine/diagnostics/index.js
+- src/engine/GameEngine.js
+- tests/step32-runtime-invariants.test.js
+- package.json
+- step32-runtime-invariants.md
+- STEP32_COMPLETION_REPORT.md
+- STEP32_RELEASE_MANIFEST.txt
+
+Acceptance focus:
+- physical object zone uniqueness and non-disappearance
+- stable object/stack references
+- valid turn order / active player / priority ownership
+- attachment reference and host legality
+- finite authoritative and derived numeric state
+- unsupported runtime-node detection
+- transaction-boundary failure capture
+- reproducible diagnostic bundle generation

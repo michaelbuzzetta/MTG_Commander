@@ -1,0 +1,21 @@
+export const COMMANDER_MECHANICS = [
+  { id: 'goad', name: 'Goad', category: 'commander', dependencies: ['combat','multiplayer'], hooks: ['attack-requirement'], oraclePatterns: [/\bgoad(?:ed)?\b/], conformance: ['combat','multiplayer'] },
+  { id: 'myriad', name: 'Myriad', category: 'commander', dependencies: ['combat','triggers','tokens','multiplayer'], hooks: ['attack-trigger'], oraclePatterns: [/\bmyriad\b/], conformance: ['combat','triggers','zones','multiplayer'] },
+  { id: 'encore', name: 'Encore', category: 'commander', dependencies: ['costs','zones','tokens','triggers','multiplayer'], hooks: ['graveyard-activation'], oraclePatterns: [/\bencore\b/], conformance: ['costs','zones','triggers','multiplayer'] },
+  { id: 'cascade', name: 'Cascade', category: 'commander', dependencies: ['triggers','zones','stack','choices'], hooks: ['cast-trigger','library-iteration'], oraclePatterns: [/\bcascade\b/], conformance: ['triggers','zones','stack'] },
+  { id: 'discover', name: 'Discover', category: 'commander', dependencies: ['zones','stack','choices'], hooks: ['library-iteration'], oraclePatterns: [/\bdiscover\s+\d+\b/], conformance: ['zones','stack','choices'] },
+  { id: 'proliferate', name: 'Proliferate', category: 'commander', dependencies: ['events','choices','counters'], hooks: ['counter-choice'], oraclePatterns: [/\bproliferate\b/], conformance: ['events','replacement','choices'] },
+  { id: 'populate', name: 'Populate', category: 'commander', dependencies: ['tokens','choices'], hooks: ['token-copy'], oraclePatterns: [/\bpopulate\b/], conformance: ['tokens','choices','zones'] },
+  { id: 'investigate', name: 'Investigate', category: 'commander', dependencies: ['tokens','events'], hooks: ['utility-token'], oraclePatterns: [/\binvestigate\b/], conformance: ['tokens','events'] },
+  { id: 'treasure', name: 'Treasure', category: 'commander', dependencies: ['tokens','costs'], hooks: ['utility-token'], oraclePatterns: [/\btreasure token/], conformance: ['tokens','costs'] },
+  { id: 'clue', name: 'Clue', category: 'commander', dependencies: ['tokens','costs'], hooks: ['utility-token'], oraclePatterns: [/\bclue token/], conformance: ['tokens','costs'] },
+  { id: 'food', name: 'Food', category: 'commander', dependencies: ['tokens','costs'], hooks: ['utility-token'], oraclePatterns: [/\bfood token/], conformance: ['tokens','costs'] },
+  { id: 'surveil', name: 'Surveil', category: 'commander', dependencies: ['zones','choices','hidden-information'], hooks: ['top-library-choice'], oraclePatterns: [/\bsurveil\s+\d+\b/], conformance: ['zones','choices','hidden-information'] },
+  { id: 'scry', name: 'Scry', category: 'commander', dependencies: ['zones','choices','hidden-information'], hooks: ['top-library-choice'], oraclePatterns: [/\bscry\s+\d+\b/], conformance: ['zones','choices','hidden-information'] },
+  { id: 'connive', name: 'Connive', category: 'commander', dependencies: ['draw','discard','counters','choices'], hooks: ['draw-discard-counter'], oraclePatterns: [/\bconnive\b/], conformance: ['events','choices','counters'] },
+  { id: 'landfall', name: 'Landfall', category: 'commander', dependencies: ['triggers','zones'], hooks: ['land-entry-trigger'], oraclePatterns: [/\blandfall\b/, /whenever a land enters the battlefield under your control/], conformance: ['triggers','zones'] },
+  { id: 'prowess', name: 'Prowess', category: 'commander', dependencies: ['triggers','continuous'], hooks: ['noncreature-cast-trigger'], oraclePatterns: [/\bprowess\b/], conformance: ['triggers','continuous'] },
+  { id: 'exalted', name: 'Exalted', category: 'commander', dependencies: ['triggers','combat','continuous'], hooks: ['attack-alone-trigger'], oraclePatterns: [/\bexalted\b/], conformance: ['triggers','combat','continuous'] },
+  { id: 'devotion', name: 'Devotion', category: 'commander', dependencies: ['continuous'], hooks: ['game-state-value'], oraclePatterns: [/\bdevotion to\b/], conformance: ['continuous'] },
+  { id: 'domain', name: 'Domain', category: 'commander', dependencies: ['continuous','zones'], hooks: ['game-state-value'], oraclePatterns: [/\bdomain\b/, /basic land types among lands you control/], conformance: ['continuous','zones'] }
+];

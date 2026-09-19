@@ -1,0 +1,39 @@
+MTG Commander Rules Engine — Step 16 Release Manifest
+=====================================================
+Checkpoint: Step 16 — Card Scripting Language / Declarative Ability Model
+Release: Release C / Scalable Card Support
+Next step: Step 17 — Card Library Migration and Support Classification
+
+Primary Step 16 modules:
+- src/cards/scripts/AbilityIR.js
+- src/cards/scripts/SelectorDSL.js
+- src/cards/scripts/EffectPrimitiveLibrary.js
+- src/cards/scripts/ScriptValidator.js
+- src/cards/scripts/CardScriptCompiler.js
+- src/cards/scripts/CardScriptRuntime.js
+- src/cards/scripts/CardScriptService.js
+- src/cards/scripts/CustomHookRegistry.js
+- src/cards/scripts/index.js
+- src/cards/index.js
+
+Key integrations:
+- src/engine/GameEngine.js
+- src/engine/EffectEngine.js
+- src/engine/continuous/ContinuousEffectEngine.js
+
+Step 16 tests:
+- tests/step16-card-scripting.test.js
+
+Documentation:
+- STEP16_COMPLETION_REPORT.md
+- step16-card-scripting.md
+- docs/architecture/step16-card-scripting.md
+
+Verification:
+- 386/386 non-stress repository tests PASS
+- 16/16 Step 16 tests PASS
+- 80/80 targeted Steps 6 + 10-16 tests PASS
+- check:architecture PASS
+- check-db PASS (647 cards / 13 decks)
+- audit:mutations complete (315 direct mutation paths inventoried)
+- production build attempted; blocked only because installed Vite/node_modules are absent in this sandbox and external Scryfall refresh is unavailable

@@ -1,0 +1,28 @@
+name: Step 38 Performance Benchmarks
+
+on:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '37 6 * * *'
+
+jobs:
+  step38-performance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check:step38
+      - run: npm run test:step38
+      - run: npm run benchmark:step38
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: step38-performance-report
+          path: performance-artifacts/step38-benchmarks.json
+          if-no-files-found: warn

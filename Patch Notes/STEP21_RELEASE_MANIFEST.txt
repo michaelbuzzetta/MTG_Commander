@@ -1,0 +1,36 @@
+MTG Commander Rules Engine — Step 21 Complete
+Baseline: MTG_Commander_Step20_Complete.zip
+Workflow step: Permissions, Restrictions and Requirements
+
+Major additions:
+- src/engine/legality/RuleTypes.js
+- src/engine/legality/LegalityService.js
+- src/engine/legality/StaxRuleAdapter.js
+- src/engine/legality/index.js
+- tests/step21-permissions-restrictions.test.js
+- docs/architecture/step21-permissions-restrictions.md
+- step21-permissions-restrictions.md
+- STEP21_COMPLETION_REPORT.md
+
+Major integrations:
+- GameEngine checks normal actions through the centralized legality service before costs/mutation
+- DRAW, SEARCH, GAIN_LIFE, TARGET and UNTAP use the same rule layer
+- LegalActions surfaces rule-granted zone/timing permissions to both UI and AI
+- PaymentService reserves attackers while validating/paying attack taxes
+- EffectEngine search effects honor search restrictions without aborting unrelated resolution
+- TurnBasedActions enforces untap restrictions
+- GameState/schema/serialization preserve legality usage/diagnostics
+- public API exposes legality snapshots, diagnostics and rule registration
+- conservative stax adapter migrates recurring lock patterns to rule objects
+
+Verification checkpoint:
+- 454/454 non-stress repository tests PASS (49 files, bounded complete batches)
+- 16/16 Step 21 dedicated tests PASS
+- 148/148 targeted Step 6 + Steps 10–21 tests PASS
+- database: 647 cards / 13 decks PASS
+- Step 17 support data: 26 full / 621 partial / 0 explicitly unsupported PASS
+- Step 18 compiler artifacts: 647 analyzed / 4 exact / 643 review-required PASS
+- architecture guard PASS
+- mutation audit: 321 internal direct mutation paths inventoried
+- deterministic stress corpus: all 50 seeded scenarios PASS in ten bounded five-game batches
+- production Vite build not executable in this dependency-free container (vite not installed)

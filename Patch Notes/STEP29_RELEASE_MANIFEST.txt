@@ -1,0 +1,47 @@
+MTG Commander Rules Engine — Step 29 Release Manifest
+=====================================================
+Status: COMPLETE
+Step: 29 — AI Migration to Authoritative Legal Actions
+
+Primary additions
+-----------------
+src/ai/AIEngineFacade.js
+src/ai/AIKnowledgeView.js
+src/ai/AILegalActionAdapter.js
+src/ai/AIActionScorer.js
+src/ai/AIChoiceEvaluator.js
+tests/step29-ai-authoritative-actions.test.js
+docs/architecture/step29-ai-authoritative-actions.md
+step29-ai-authoritative-actions.md
+STEP29_COMPLETION_REPORT.md
+STEP29_RELEASE_MANIFEST.txt
+
+Primary integrations
+--------------------
+src/ai/AIController.js
+src/ai/index.js
+src/engine/GameEngine.js
+src/engine/public/api.js
+src/App.jsx
+package.json
+README.md
+
+Verification
+------------
+npm run test:step29: 8/8 PASS
+node --test tests/step*.test.js: 361/361 PASS
+node --test tests/ai.test.js: 16/16 PASS
+core + explorers integration: 47/47 PASS
+npm run check:architecture: PASS
+npm run check-db: PASS (647 cards / 13 decks)
+npm run check-support: PASS (26 full / 621 partial / 0 unsupported)
+npm run check-oracle-templates: PASS (4 exact / 643 review-required)
+
+Milestone
+---------
+Release D / Gate 4 — Full-game completeness: COMPLETE
+AI strategy now consumes authoritative legal actions and cannot bypass engine legality.
+
+Next workflow step
+------------------
+Step 30 — Deterministic Replay and Seeded Randomness

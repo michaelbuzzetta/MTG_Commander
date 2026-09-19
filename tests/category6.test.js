@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { makeCardInstance } from '../src/engine/GameState.js';
 import { AIController } from '../src/ai/AIController.js';
-import { engine, putBattlefield, setPhase } from './helpers.js';
+import { engine, putBattlefield, setPhase, relocateZone } from './helpers.js';
 
 function putHand(e, pid, cardId) {
   const card = makeCardInstance(cardId, pid, 'hand');
@@ -188,7 +188,7 @@ test('Category 6 stack rules: multi-target objects affect only targets that rema
 test('Category 6 AI: generated targeted actions already contain legal chosen targets', () => {
   const e = engine();
   setPhase(e, 'PRECOMBAT_MAIN', { activePlayer: 'ai', priorityPlayer: 'ai' });
-  e.state.players.ai.hand = [];
+  relocateZone(e, 'ai', 'hand', 'library');
   const murder = putHand(e, 'ai', 'murder');
   const target = putBattlefield(e, 'player', 'grizzly-bears');
   giveMana(e, 'ai', { B: 3 });

@@ -1,0 +1,31 @@
+MTG Commander Rules Engine — Step 17 Complete
+Baseline: MTG_Commander_Step16_Complete.zip
+Workflow step: Card Library Migration and Support Classification
+
+Major additions:
+- src/cards/support/OracleIdentity.js
+- src/cards/support/OracleImplementationRegistry.js
+- src/cards/support/CardSupportService.js
+- src/cards/support/index.js
+- src/data/support/certifications.json
+- scripts/build-card-support.mjs
+- tests/step17-card-library-support.test.js
+- src/data/generated/card-support.json
+- src/data/generated/oracle-registry.json
+- src/data/generated/deck-readiness.json
+- src/data/generated/coverage-report.json
+- src/data/generated/legacy-handler-removal.json
+- docs/architecture/step17-card-library-support.md
+- STEP17_COMPLETION_REPORT.md
+
+Modified integration files include GameEngine, cards module exports, package scripts, database schema, README, and the refreshed Step 1 mutation inventory.
+
+Verification checkpoint:
+- 398/398 non-stress repository tests PASS
+- 12/12 Step 17 dedicated tests PASS
+- 92/92 targeted Steps 6 + 10–17 tests PASS
+- database: 647 cards / 13 decks PASS
+- support-data consistency PASS
+- architecture guard PASS
+- mutation audit: 313 internal direct mutation paths inventoried
+- production Vite build not executable in this dependency-free container (vite not installed)

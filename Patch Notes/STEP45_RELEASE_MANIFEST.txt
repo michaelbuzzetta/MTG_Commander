@@ -1,0 +1,22 @@
+MTG Commander Rules Engine — Step 45 Release Manifest
+Generated: 2026-09-17T03:07:10.367Z
+
+Primary deliverables:
+- src/support/PracticalCoverageService.js
+- scripts/build-step45-final-coverage.mjs
+- scripts/check-step45-practical-coverage.mjs
+- scripts/check-step45-fuzz-artifact.mjs
+- scripts/run-step45-verification.mjs
+- tests/step45-final-edge-case-pass.test.js
+- src/data/generated/step45-remaining-card-triage.json
+- src/data/generated/non-digital-exclusions.json
+- src/data/generated/practical-100-coverage-report.json
+- release-artifacts/step45-full-verification.json
+- STEP45_REMAINING_CARD_TRIAGE.md
+- PRACTICAL_100_COVERAGE_RELEASE_NOTES.md
+- step45-final-edge-case-practical-100.md
+- STEP45_COMPLETION_REPORT.md
+
+Engineering verification: PASS
+Practical-100 certification: BLOCKED
+Strict support coverage: 4.02%

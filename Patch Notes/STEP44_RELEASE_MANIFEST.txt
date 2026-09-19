@@ -1,0 +1,21 @@
+MTG Commander Rules Engine — Step 44 Release Manifest
+=====================================================
+Step: 44 — Rules Versioning and Compatibility
+Status: COMPLETE
+
+Primary deliverables:
+- src/engine/rules-version/RulesVersionService.js
+- src/engine/rules-version/index.js
+- ReplayRunner rules-version compatibility enforcement
+- Replay metadata rules-version descriptor
+- scripts/build-step44-rules-impact.mjs
+- scripts/check-step44-rules-versioning.mjs
+- src/data/generated/rules-change-impact-report.json
+- tests/step44-rules-versioning-compatibility.test.js
+- step44-rules-versioning-compatibility.md
+- STEP44_COMPLETION_REPORT.md
+
+Verification:
+- Step 44: 6/6 PASS
+- Targeted replay/strict/update/version regression: 25/25 PASS
+- Step 44 deliverable gate: PASS

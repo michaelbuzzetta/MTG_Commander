@@ -1,0 +1,46 @@
+{
+  "schema": "mtg-commander-step45-practical-100-coverage",
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-17T23:43:48.752Z",
+  "status": "blocked",
+  "practical100Ready": false,
+  "rulesVersion": "mtg-cr-2026-08-07",
+  "packageVersion": "3.0.0",
+  "compilerSha256": "1132c95e757161d5c5db7c2f56045772020fd74b506cf67656eaa9a14627d006",
+  "oracleCatalogSha256": "00bded18f14739afd5f7329cb592bc96439e5500bec44de609f4e5fc153f85e0",
+  "printingCatalogSha256": "7097978c63e72c31027da7ff42b0766fbc850cb283dbaaf93c2d24f8833a5e59",
+  "catalogSourceUpdatedAt": "2026-09-17T21:05:31Z",
+  "declaredScope": "All Commander-legal and Commander-banned Oracle identities in the complete production catalog. Commander-not-legal identities are explicitly recorded as format-scope exclusions; genuinely non-digital in-scope cards require separate explicit non-digital exclusions.",
+  "catalogComplete": true,
+  "catalogSourceType": "oracle_cards+default_cards",
+  "catalogCount": 38891,
+  "censusCatalogCount": 38891,
+  "censusCoversDeclaredCatalog": true,
+  "productionUniverseLoaded": true,
+  "pendingImplementationReview": 38891,
+  "pendingLegalityRefresh": 0,
+  "step43ReviewClear": false,
+  "inScopeCount": 31913,
+  "fullySupportedCount": 9,
+  "unresolvedInScopeCount": 31904,
+  "strictCoveragePercent": 0.03,
+  "explicitNonDigitalExclusionCount": 0,
+  "explicitFormatScopeExclusionCount": 6978,
+  "explicitExclusionCount": 6978,
+  "blockers": [
+    "38891 Oracle identities remain in the Step 43 semantic implementation-review queue.",
+    "31904 in-scope card definitions are not yet fully strict-certified."
+  ],
+  "rulesChangeImpact": {
+    "changedOracleIdentities": 0
+  },
+  "dashboardCriticalVerificationGreen": true,
+  "acceptance": {
+    "productionCatalogUniverseEnumerated": true,
+    "step43SemanticAndLegalityReviewClear": false,
+    "everyInScopeOracleCardFullySupportedAndTested": false,
+    "everyOutOfScopeCardExplicitlyListed": true,
+    "noUnknownOrPartialCardCanEnterStrictMode": true,
+    "sameTaggedVersionsVerificationRequired": true
+  }
+}

@@ -1,0 +1,32 @@
+MTG AI Trainer — Step 30 Release Manifest
+=========================================
+Release: Step 30 — Deterministic Replay and Seeded Randomness
+Status: COMPLETE
+
+Primary additions:
+- src/engine/replay/StateHasher.js
+- src/engine/replay/ReplayService.js
+- src/engine/replay/ReplayRunner.js
+- src/engine/replay/index.js
+- tests/step30-deterministic-replay.test.js
+- docs/architecture/step30-deterministic-replay.md
+- STEP30_COMPLETION_REPORT.md
+
+Primary modified files:
+- src/engine/GameEngine.js
+- src/engine/GameState.js
+- src/engine/utils.js
+- src/engine/pregame/SeededRandom.js
+- src/engine/public/api.js
+- src/engine/index.js
+- package.json
+- README.md
+
+Acceptance status:
+- deterministic seeded RNG: PASS
+- per-action replay state hashes: PASS
+- replay runner: PASS
+- tamper/hash mismatch detection: PASS
+- checkpoint save/load with RNG restore: PASS
+- rules/AI direct Math.random scan: PASS
+- dedicated Step 30 suite: 8/8 PASS

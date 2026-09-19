@@ -1,0 +1,48 @@
+MTG Commander Rules Engine — Step 42 Release Manifest
+Checkpoint: Step 42 — Strict Rules Mode and Release Gate
+
+Primary additions:
+- src/engine/strict/StrictRulesService.js
+- src/engine/strict/index.js
+- tests/step42-strict-rules-release-gate.test.js
+- scripts/check-step42-strict-release.mjs
+- scripts/run-step42-release-gate.mjs
+- step42-release-checklist.json
+- step42-strict-rules-mode-release-gate.md
+- STEP42_COMPLETION_REPORT.md
+- release-artifacts/step42-release-gate.json
+
+Substantially updated:
+- src/engine/GameEngine.js
+- src/engine/replay/ReplayService.js
+- src/engine/performance/HeadlessSimulationRunner.js
+- src/engine/public/api.js
+- src/engine/tokens/TokenService.js
+- tests/helpers.js
+- generated Step 17 support artifacts
+- src/data/generated/rules-coverage-dashboard.json
+- package.json
+
+Step 42 behavior:
+- versioned strict-rules configuration
+- fail-closed strict unsupported-interaction policy
+- startup deck/card/version/module/mechanic/hook/RNG/invariant preflight
+- strict developer/manual mutation-tool lock
+- internal transactional rollback preserved
+- official simulation strict-mode enforcement
+- replay/simulation certification metadata
+- 14-gate machine-readable release checklist
+- canonical trigger-test fixture repair
+
+Verification:
+- check:step42 PASS
+- test:step42 6/6 PASS
+- release:step42 14/14 gates PASS
+- Step 33–42 targeted/full verification runs: 100/100 tests PASS
+- Step 9 trigger tests 13/13 PASS
+- Step 32 invariant tests 11/11 PASS
+- check:architecture PASS
+- check-support PASS after generated support refresh
+- Step 39 UI gate/tests PASS
+- Step 40 data/deliverable/tests PASS after dashboard refresh
+- production Vite build attempted but not executable because supplied checkpoint has no node_modules (vite: not found); offline Scryfall refresh retained local 647-card seed

@@ -1,0 +1,311 @@
+{
+  "schema": "mtg-commander-step42-release-gate-result",
+  "schemaVersion": 1,
+  "strictModeVersion": "step42-strict-rules-v1",
+  "engineBuild": "step42-strict-release-gate",
+  "passed": true,
+  "completedGates": 14,
+  "totalGates": 14,
+  "results": [
+    {
+      "id": "architecture",
+      "purpose": "UI/AI cannot become authoritative mutation paths.",
+      "command": "node scripts/check-architecture.mjs",
+      "ok": true,
+      "status": 0,
+      "durationMs": 47,
+      "outputTail": [
+        "Architecture boundary check passed: UI/AI consumers use only public GameEngine interfaces and player-zone mutations are isolated to src/engine/zones/."
+      ]
+    },
+    {
+      "id": "support-metadata",
+      "purpose": "Card support records and strict eligibility remain internally consistent.",
+      "command": "node scripts/build-card-support.mjs --check",
+      "ok": true,
+      "status": 0,
+      "durationMs": 261,
+      "outputTail": [
+        "Validated Step 17 support data for 647 cards / 13 decks (26 fully supported, 621 partial, 0 unsupported)."
+      ]
+    },
+    {
+      "id": "triggers",
+      "purpose": "Mandatory/simultaneous triggered ability behavior remains authoritative.",
+      "command": "node --test tests/step9-triggered-abilities.test.js",
+      "ok": true,
+      "status": 0,
+      "durationMs": 4222,
+      "outputTail": [
+        "  duration_ms: 279.61294",
+        "  type: 'test'",
+        "  ...",
+        "# Subtest: Step 9: TriggerDefinition source and affected filters use the shared composable filter library",
+        "ok 11 - Step 9: TriggerDefinition source and affected filters use the shared composable filter library",
+        "  ---",
+        "  duration_ms: 252.450743",
+        "  type: 'test'",
+        "  ...",
+        "# Subtest: Step 9: every existing data-declared triggered ability normalizes into a TriggerDefinition",
+        "ok 12 - Step 9: every existing data-declared triggered ability normalizes into a TriggerDefinition",
+        "  ---",
+        "  duration_ms: 1.815652",
+        "  type: 'test'",
+        "  ...",
+        "# Subtest: Step 9: Bygone Marvels cast trigger is data-driven from the spell on the stack",
+        "ok 13 - Step 9: Bygone Marvels cast trigger is data-driven from the spell on the stack",
+        "  ---",
+        "  duration_ms: 251.833841",
+        "  type: 'test'",
+        "  ...",
+        "1..13",
+        "# tests 13",
+        "# suites 0",
+        "# pass 13",
+        "# fail 0",
+        "# cancelled 0",
+        "# skipped 0",
+        "# todo 0",
+        "# duration_ms 4186.294931"
+      ]
+    },
+    {
+      "id": "ai-legality",
+      "purpose": "AI can act only through engine-provided legal actions.",
+      "command": "node --test --test-name-pattern='even deliberately buggy strategy code' tests/step29-ai-authoritative-actions.test.js",
+      "ok": true,
+      "status": 0,
+      "durationMs": 528,
+      "outputTail": [
+        "TAP version 13",
+        "# Subtest: Step 29: even deliberately buggy strategy code cannot make AI submit an illegal move",
+        "ok 1 - Step 29: even deliberately buggy strategy code cannot make AI submit an illegal move",
+        "  ---",
+        "  duration_ms: 350.409459",
+        "  type: 'test'",
+        "  ...",
+        "1..1",
+        "# tests 1",
+        "# suites 0",
+        "# pass 1",
+        "# fail 0",
+        "# cancelled 0",
+        "# skipped 0",
+        "# todo 0",
+        "# duration_ms 498.174125"
+      ]
+    },
+    {
+      "id": "replay",
+      "purpose": "Seeded randomness and deterministic replay remain reproducible.",
+      "command": "node --test --test-name-pattern='same seed reproduces opening state and RNG ledger' tests/step30-deterministic-replay.test.js",
+      "ok": true,
+      "status": 0,
+      "durationMs": 455,
+      "outputTail": [
+        "TAP version 13",
+        "# Subtest: Step 30: same seed reproduces opening state and RNG ledger",
+        "ok 1 - Step 30: same seed reproduces opening state and RNG ledger",
+        "  ---",
+        "  duration_ms: 281.663322",
+        "  type: 'test'",
+        "  ...",
+        "1..1",
+        "# tests 1",
+        "# suites 0",
+        "# pass 1",
+        "# fail 0",
+        "# cancelled 0",
+        "# skipped 0",
+        "# todo 0",
+        "# duration_ms 423.876821"
+      ]
+    },
+    {
+      "id": "invariants",
+      "purpose": "Impossible game states halt instead of contaminating simulation output.",
+      "command": "node --test tests/step32-runtime-invariants.test.js",
+      "ok": true,
+      "status": 0,
+      "durationMs": 1741,
+      "outputTail": [
+        "  duration_ms: 132.970764",
+        "  type: 'test'",
+        "  ...",
+        "# Subtest: Step 32 invariant checks can be disabled for explicit developer setup only",
+        "ok 9 - Step 32 invariant checks can be disabled for explicit developer setup only",
+        "  ---",
+        "  duration_ms: 85.341951",
+        "  type: 'test'",
+        "  ...",
+        "# Subtest: Step 32 detects a non-token physical card disappearing from authoritative zones",
+        "ok 10 - Step 32 detects a non-token physical card disappearing from authoritative zones",
+        "  ---",
+        "  duration_ms: 151.875159",
+        "  type: 'test'",
+        "  ...",
+        "# Subtest: Step 32 detects duplicate active gameObjectIds",
+        "ok 11 - Step 32 detects duplicate active gameObjectIds",
+        "  ---",
+        "  duration_ms: 123.218347",
+        "  type: 'test'",
+        "  ...",
+        "1..11",
+        "# tests 11",
+        "# suites 0",
+        "# pass 11",
+        "# fail 0",
+        "# cancelled 0",
+        "# skipped 0",
+        "# todo 0",
+        "# duration_ms 1707.886156"
+      ]
+    },
+    {
+      "id": "primitives",
+      "purpose": "Every public rules primitive retains dedicated behavior coverage.",
+      "command": "node scripts/check-rule-primitive-coverage.mjs",
+      "ok": true,
+      "status": 0,
+      "durationMs": 31,
+      "outputTail": [
+        "Step 33 primitive behavior coverage: 13/13 (PASS)"
+      ]
+    },
+    {
+      "id": "interactions",
+      "purpose": "High-risk cross-system rules interactions remain covered.",
+      "command": "node scripts/check-step34-interaction-matrix.mjs",
+      "ok": true,
+      "status": 0,
+      "durationMs": 31,
+      "outputTail": [
+        "Step 34 interaction matrix PASS: 15/15 required pairs present."
+      ]
+    },
+    {
+      "id": "golden-cards",
+      "purpose": "Fully supported card behavior contracts remain green.",
+      "command": "node scripts/check-step35-golden-cards.mjs",
+      "ok": true,
+      "status": 0,
+      "durationMs": 43,
+      "outputTail": [
+        "Step 35 golden-card gate PASS: 26/26 fully supported cards covered by 28 golden behavior cases."
+      ]
+    },
+    {
+      "id": "judge-scenarios",
+      "purpose": "Curated difficult rules scenarios remain green.",
+      "command": "node scripts/check-step36-judge-scenarios.mjs",
+      "ok": true,
+      "status": 0,
+      "durationMs": 41,
+      "outputTail": [
+        "Step 36 judge-scenario gate PASS: 9 curated scenarios, 8 critical trace snapshots."
+      ]
+    },
+    {
+      "id": "fuzzing",
+      "purpose": "Property-based legal-action exploration remains green.",
+      "command": "node scripts/check-step37-fuzzing.mjs",
+      "ok": true,
+      "status": 0,
+      "durationMs": 29,
+      "outputTail": [
+        "Step 37 fuzzing deliverables present."
+      ]
+    },
+    {
+      "id": "performance",
+      "purpose": "Strictness changes do not invalidate the performance/scalability contract.",
+      "command": "node scripts/check-step38-performance.mjs",
+      "ok": true,
+      "status": 0,
+      "durationMs": 31,
+      "outputTail": [
+        "Step 38 performance/scalability deliverables present."
+      ]
+    },
+    {
+      "id": "unsupported-failsafes",
+      "purpose": "Unsupported behavior remains fail-closed outside sandbox.",
+      "command": "node --test tests/step41-unsupported-interactions.test.js",
+      "ok": true,
+      "status": 0,
+      "durationMs": 865,
+      "outputTail": [
+        "  duration_ms: 116.158433",
+        "  type: 'test'",
+        "  ...",
+        "# Subtest: Step 41 permissive sandbox labels approximations and excludes the run from official statistics",
+        "ok 4 - Step 41 permissive sandbox labels approximations and excludes the run from official statistics",
+        "  ---",
+        "  duration_ms: 106.465603",
+        "  type: 'test'",
+        "  ...",
+        "# Subtest: Step 41 strict headless/official batch simulation excludes decks with support blockers",
+        "ok 5 - Step 41 strict headless/official batch simulation excludes decks with support blockers",
+        "  ---",
+        "  duration_ms: 83.316947",
+        "  type: 'test'",
+        "  ...",
+        "# Subtest: Step 41 benchmark simulations require an explicit partial-support override and record that override",
+        "ok 6 - Step 41 benchmark simulations require an explicit partial-support override and record that override",
+        "  ---",
+        "  duration_ms: 118.918432",
+        "  type: 'test'",
+        "  ...",
+        "1..6",
+        "# tests 6",
+        "# suites 0",
+        "# pass 6",
+        "# fail 0",
+        "# cancelled 0",
+        "# skipped 0",
+        "# todo 0",
+        "# duration_ms 834.753554"
+      ]
+    },
+    {
+      "id": "strict-mode",
+      "purpose": "Step 42 startup preflight, developer locks, and certification remain green.",
+      "command": "node --test tests/step42-strict-rules-release-gate.test.js",
+      "ok": true,
+      "status": 0,
+      "durationMs": 1476,
+      "outputTail": [
+        "  duration_ms: 106.832847",
+        "  type: 'test'",
+        "  ...",
+        "# Subtest: Step 42 strict certification is attached to replay output with versions, preflight result, seed, and replay hash",
+        "ok 4 - Step 42 strict certification is attached to replay output with versions, preflight result, seed, and replay hash",
+        "  ---",
+        "  duration_ms: 137.683361",
+        "  type: 'test'",
+        "  ...",
+        "# Subtest: Step 42 official headless simulation emits a valid strict certification and cannot enable partial/sandbox escape hatches",
+        "ok 5 - Step 42 official headless simulation emits a valid strict certification and cannot enable partial/sandbox escape hatches",
+        "  ---",
+        "  duration_ms: 813.313445",
+        "  type: 'test'",
+        "  ...",
+        "# Subtest: Step 42 release checklist declares all strict release gates and package scripts wire the gate into verification",
+        "ok 6 - Step 42 release checklist declares all strict release gates and package scripts wire the gate into verification",
+        "  ---",
+        "  duration_ms: 0.698205",
+        "  type: 'test'",
+        "  ...",
+        "1..6",
+        "# tests 6",
+        "# suites 0",
+        "# pass 6",
+        "# fail 0",
+        "# cancelled 0",
+        "# skipped 0",
+        "# todo 0",
+        "# duration_ms 1444.65655"
+      ]
+    }
+  ]
+}

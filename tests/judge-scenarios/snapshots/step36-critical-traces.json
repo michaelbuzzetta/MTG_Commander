@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "snapshots": {
+    "layers-dependency": ["type-maker", "type-dependent", "ability-strip", "pt-set", "pt-modify"],
+    "replacement-order": ["choice:REPLACEMENT_ORDER", "replacement:judge-add-one", "replacement:judge-double", "life:+4"],
+    "simultaneous-deaths": ["damage-batch:2", "sba:lethal-damage:2", "triggers:2"],
+    "four-player-apnap": ["ai2", "ai3", "player", "ai"],
+    "player-elimination": ["owned-objects-removed", "control-restored-or-cleaned", "stack-cleaned", "turn-order-cleaned"],
+    "commander-movement": ["choice:replacement-before-hand", "move:graveyard", "choice:sba-after-graveyard", "move:command"],
+    "copy-plus-layers": ["copy", "type-change", "ability-removal"],
+    "search-resolution-regression": ["stack:resolving-spell", "choice:CULTIVATE_SEARCH", "pending-resolution:retained", "resolution:graveyard"]
+  }
+}

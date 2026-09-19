@@ -209,7 +209,7 @@ function customCardId(card) {
   return `custom-scryfall-${slug}-${String(card.oracle_id || card.id || '').slice(0, 8)}`;
 }
 
-export function normalizeFetchedCard(card, requestedName = card?.name) {
+export function normalizeFetchedCard(card, requestedName = card?.name, { allowApproximation = false } = {}) {
   const face = fetchedFaces(card)[0] || card;
   const text = fetchedOracle(card);
   const typeLine = card.type_line || face.type_line || '';
@@ -226,7 +226,16 @@ export function normalizeFetchedCard(card, requestedName = card?.name) {
     keywords: [...new Set((card.keywords || []).map(value => String(value).toLowerCase()).filter(value => SUPPORTED_KEYWORDS.includes(value)))],
     abilities: fetchedAbilities(card, text, typeLine), spellEffects, oracleText: text,
     image: card.image_uris?.normal || face.image_uris?.normal || '', scryfallId: card.id || null,
-    legalities: card.legalities || {}, supported: true, genericImported: true, source: 'Scryfall custom-deck import'
+    legalities: card.legalities || {},
+    supported: !!allowApproximation,
+    genericImported: true,
+    approximateRules: true,
+    sandboxApproximation: !!allowApproximation,
+    certificationEligible: false,
+    unsupportedReason: allowApproximation ? null : 'No certified runtime implementation exists for this Oracle identity.',
+    source: allowApproximation
+      ? 'Scryfall custom-deck import → explicit sandbox heuristic approximation'
+      : 'Scryfall custom-deck import → uncertified metadata/heuristic preview'
   };
   const target = fetchedTarget(text, spellEffects);
   if (target) definition.targets = target;
@@ -234,7 +243,7 @@ export function normalizeFetchedCard(card, requestedName = card?.name) {
   return definition;
 }
 
-export async function fetchMissingCardDefinitions(rawNames, db, fetchImpl = globalThis.fetch) {
+export async function fetchMissingCardDefinitions(rawNames, db, fetchImpl = globalThis.fetch, { allowApproximation = false } = {}) {
   if (typeof fetchImpl !== 'function') throw new Error('Card lookup is unavailable in this browser.');
   const lookup = cardLookup(db);
   const missing = [...new Set(rawNames.map(importableCardName).filter(name => name && !resolveCard(name, lookup)))];
@@ -257,7 +266,7 @@ export async function fetchMissingCardDefinitions(rawNames, db, fetchImpl = glob
     for (const card of payload.data || []) {
       const aliases = [card.name, ...(card.card_faces || []).map(face => face.name)];
       const requestedName = requested.find(name => aliases.some(alias => normalizeCardName(alias) === normalizeCardName(name))) || card.name;
-      const definition = normalizeFetchedCard(card, requestedName);
+      const definition = normalizeFetchedCard(card, requestedName, { allowApproximation });
       definitions[definition.id] = definition;
       for (const alias of definition.aliases) foundNames.add(normalizeCardName(alias));
       foundNames.add(normalizeCardName(definition.name));
@@ -288,7 +297,6 @@ export function buildCustomDeck({ name, commander, list }, db, existingDecks = [
   if (!commanderText) throw new Error('Enter your commander.');
   const commanderCard = resolveCard(commanderText, lookup);
   if (!commanderCard) throw new Error(`Commander not found in the local card database: ${commanderText}`);
-  if (commanderCard.def?.supported === false) throw new Error(`${commanderCard.def.name} is in the database, but its mechanics are not yet supported by the trainer.`);
 
   const parsed = parseMassEntry(list);
   if (parsed.errors.length) throw new Error(parsed.errors.slice(0, 5).join('\n'));
@@ -296,7 +304,15 @@ export function buildCustomDeck({ name, commander, list }, db, existingDecks = [
 
   const combined = new Map();
   const unknown = [];
-  const unsupported = [];
+  const unsupported = new Map();
+  if (commanderCard.def?.supported === false) {
+    unsupported.set(commanderCard.id, {
+      id: commanderCard.id,
+      name: commanderCard.def?.name || commanderCard.id,
+      commander: true,
+      reason: commanderCard.def?.unsupportedReason || 'This card does not yet have a certified runtime implementation.'
+    });
+  }
   for (const entry of parsed.entries) {
     const found = resolveCard(entry.name, lookup);
     if (!found) {
@@ -304,8 +320,12 @@ export function buildCustomDeck({ name, commander, list }, db, existingDecks = [
       continue;
     }
     if (found.def?.supported === false) {
-      unsupported.push(found.def.name);
-      continue;
+      unsupported.set(found.id, {
+        id: found.id,
+        name: found.def?.name || found.id,
+        commander: false,
+        reason: found.def?.unsupportedReason || 'This card does not yet have a certified runtime implementation.'
+      });
     }
     const current = combined.get(found.id) || { id: found.id, quantity: 0, def: found.def };
     current.quantity += entry.quantity;
@@ -313,7 +333,6 @@ export function buildCustomDeck({ name, commander, list }, db, existingDecks = [
   }
 
   if (unknown.length) throw new Error(`These cards are not in the local card database:\n${unknown.slice(0, 8).join('\n')}${unknown.length > 8 ? `\n…and ${unknown.length - 8} more` : ''}`);
-  if (unsupported.length) throw new Error(`These cards are not yet supported by the trainer:\n${[...new Set(unsupported)].slice(0, 8).join('\n')}`);
   if (combined.has(commanderCard.id)) throw new Error('Do not include the commander in the 99-card main-deck list.');
 
   const duplicateErrors = [];
@@ -334,6 +353,8 @@ export function buildCustomDeck({ name, commander, list }, db, existingDecks = [
   let suffix = 2;
   while (existingIds.has(id)) id = `custom-${slug}-${suffix++}`;
 
+  const unsupportedCards = [...unsupported.values()];
+
   return {
     id,
     name: deckName,
@@ -344,6 +365,10 @@ export function buildCustomDeck({ name, commander, list }, db, existingDecks = [
     custom: true,
     cards,
     cardCount: 100,
-    notes: 'User-imported deck saved in this browser.'
+    strictReady: unsupportedCards.length === 0,
+    unsupportedCards,
+    notes: unsupportedCards.length
+      ? `User-imported deck saved in this browser. ${unsupportedCards.length} card${unsupportedCards.length === 1 ? '' : 's'} currently require unsupported-interaction handling during gameplay.`
+      : 'User-imported deck saved in this browser.'
   };
 }

@@ -23,8 +23,13 @@ function addToHand(e, pid, cardId) {
 }
 
 function setLibrary(e, pid, cardIds) {
+  // Preserve every physical card tracked by the runtime invariant checker. These
+  // are fixture replacements, so move the pre-existing library to an authoritative
+  // holding zone rather than orphaning those instances by overwriting the array.
+  const player = e.state.players[pid];
+  for (const existing of [...player.library]) e.zones.move(existing.instanceId, 'exile', pid);
   const cards = cardIds.map(cardId => cardInZone(cardId, pid, 'library'));
-  e.state.players[pid].library = cards;
+  player.library.push(...cards);
   return cards;
 }
 
@@ -202,9 +207,9 @@ test('Category 9 BUG-047: Esika makes any color and grants vigilance plus the sa
   assert.deepEqual(new Set(esikaMana.map(action => action.manaColor)), new Set(['W', 'U', 'B', 'R', 'G']));
   assert.equal(e.static.effectiveAbilities(bear).some(ability => ability.type === 'mana' && ability.grantedBy === 'esika'), false);
 
-  assert.equal(e.db.esika.alternateFace?.name, 'The Prismatic Bridge');
-  assert.equal(e.db.esika.alternateFace?.supported, false, 'unsupported MDFC casting is explicit rather than silently omitted');
-  assert.match(e.db.esika.alternateFace?.unsupportedReason || '', /not implemented/i);
+  assert.equal(e.db.esika.layout, 'modal_dfc');
+  assert.equal(e.db.esika.cardFaces?.[1]?.name, 'The Prismatic Bridge');
+  assert.equal(e.db.esika.cardFaces?.[1]?.typeLine, 'Legendary Enchantment');
 });
 
 test('Category 9 BUG-048: Sisay gets +1/+1 for all five colors among other legendary permanents', () => {

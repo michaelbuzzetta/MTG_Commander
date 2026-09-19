@@ -1,0 +1,7 @@
+MTG Commander Rules Engine — Step 24 Complete
+Baseline: Step 23
+Feature: Generic Counter System
+Dedicated tests: 19/19
+Non-stress repository tests: 508/508
+Targeted Steps 6 + 10–24 tests: 202/202
+Next: Step 25 — Token Registry and Generated Game Objects

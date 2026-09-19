@@ -1,0 +1,78 @@
+{
+  "schema": "mtg-commander-step42-release-checklist",
+  "schemaVersion": 1,
+  "strictModeVersion": "step42-strict-rules-v1",
+  "engineBuild": "step42-strict-release-gate",
+  "gates": [
+    {
+      "id": "architecture",
+      "purpose": "UI/AI cannot become authoritative mutation paths.",
+      "command": "node scripts/check-architecture.mjs"
+    },
+    {
+      "id": "support-metadata",
+      "purpose": "Card support records and strict eligibility remain internally consistent.",
+      "command": "node scripts/build-card-support.mjs --check"
+    },
+    {
+      "id": "triggers",
+      "purpose": "Mandatory/simultaneous triggered ability behavior remains authoritative.",
+      "command": "node --test tests/step9-triggered-abilities.test.js"
+    },
+    {
+      "id": "ai-legality",
+      "purpose": "AI can act only through engine-provided legal actions.",
+      "command": "node --test --test-name-pattern='even deliberately buggy strategy code' tests/step29-ai-authoritative-actions.test.js"
+    },
+    {
+      "id": "replay",
+      "purpose": "Seeded randomness and deterministic replay remain reproducible.",
+      "command": "node --test --test-name-pattern='same seed reproduces opening state and RNG ledger' tests/step30-deterministic-replay.test.js"
+    },
+    {
+      "id": "invariants",
+      "purpose": "Impossible game states halt instead of contaminating simulation output.",
+      "command": "node --test tests/step32-runtime-invariants.test.js"
+    },
+    {
+      "id": "primitives",
+      "purpose": "Every public rules primitive retains dedicated behavior coverage.",
+      "command": "node scripts/check-rule-primitive-coverage.mjs"
+    },
+    {
+      "id": "interactions",
+      "purpose": "High-risk cross-system rules interactions remain covered.",
+      "command": "node scripts/check-step34-interaction-matrix.mjs"
+    },
+    {
+      "id": "golden-cards",
+      "purpose": "Fully supported card behavior contracts remain green.",
+      "command": "node scripts/check-step35-golden-cards.mjs"
+    },
+    {
+      "id": "judge-scenarios",
+      "purpose": "Curated difficult rules scenarios remain green.",
+      "command": "node scripts/check-step36-judge-scenarios.mjs"
+    },
+    {
+      "id": "fuzzing",
+      "purpose": "Property-based legal-action exploration remains green.",
+      "command": "node scripts/check-step37-fuzzing.mjs"
+    },
+    {
+      "id": "performance",
+      "purpose": "Strictness changes do not invalidate the performance/scalability contract.",
+      "command": "node scripts/check-step38-performance.mjs"
+    },
+    {
+      "id": "unsupported-failsafes",
+      "purpose": "Unsupported behavior remains fail-closed outside sandbox.",
+      "command": "node --test tests/step41-unsupported-interactions.test.js"
+    },
+    {
+      "id": "strict-mode",
+      "purpose": "Step 42 startup preflight, developer locks, and certification remain green.",
+      "command": "node --test tests/step42-strict-rules-release-gate.test.js"
+    }
+  ]
+}

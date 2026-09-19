@@ -1,0 +1,53 @@
+MTG Commander Rules Engine — Step 41 Release Manifest
+Checkpoint: Step 41 — Unsupported-Interaction Fail-Safes
+
+Primary additions:
+- src/engine/diagnostics/UnsupportedInteraction.js
+- scripts/check-step41-unsupported-failsafes.mjs
+- tests/step41-unsupported-interactions.test.js
+- step41-unsupported-interaction-failsafes.md
+- STEP41_COMPLETION_REPORT.md
+
+Substantially updated:
+- src/engine/diagnostics/index.js
+- src/engine/GameEngine.js
+- src/engine/EffectEngine.js
+- src/engine/events/EventDispatcher.js
+- src/engine/stack/ResolutionPipeline.js
+- src/engine/replay/ReplayService.js
+- src/engine/performance/HeadlessSimulationRunner.js
+- src/engine/public/api.js
+- src/ui/RulesUiModel.js
+- src/components/UnsupportedInteractionDialog.jsx
+- src/App.jsx
+- scripts/run-step38-benchmarks.mjs
+- performance-artifacts/step38-benchmarks.json
+- src/data/generated/rules-coverage-dashboard.json
+- package.json
+
+Step 41 behavior:
+- structured UNSUPPORTED_INTERACTION diagnostics
+- fail-before-mutation action support guard
+- exact action/resolution checkpoint rollback
+- strict deck/support preflight
+- strict official headless simulation gating
+- explicit benchmark partial-support override
+- sandbox-only labeled approximations
+- sandbox statistics exclusion
+- replay policy/diagnostic persistence
+- UI preservation of diagnostic context
+
+Verification:
+- check:step41 PASS
+- test:step41 6/6 PASS
+- Step 33–41 combined regression 94/94 PASS
+- check:step38 PASS
+- test:step38 5/5 PASS
+- benchmark:step38 PASS
+- check:architecture PASS
+- check:step39 PASS
+- check:step40:data PASS after dashboard refresh
+- check:step40 PASS
+- test:step40 5/5 PASS
+- repository-wide npm test attempted but exceeded 115-second sandbox limit
+- production Vite build not executable because supplied checkpoint has no installed npm dependencies (vite: not found); offline Scryfall refresh retained local 647-card seed

@@ -1,0 +1,45 @@
+MTG Commander Rules Engine — Step 14 Release Manifest
+=====================================================
+Checkpoint: Step 14 — Commander and Multiplayer Rules
+Release gate: Release B / Core Rules Correctness COMPLETE
+Next step: Step 15 — Reusable Mechanic Library
+
+Primary Step 14 modules:
+- src/engine/multiplayer/CommanderRules.js
+- src/engine/multiplayer/MultiplayerRelations.js
+- src/engine/multiplayer/PlayerEliminationService.js
+- src/engine/multiplayer/index.js
+
+Key integrations:
+- src/engine/GameState.js
+- src/engine/GameEngine.js
+- src/engine/EffectEngine.js
+- src/engine/TargetingEngine.js
+- src/engine/StaticEngine.js
+- src/engine/public/api.js
+- src/engine/choices/TargetFilter.js
+- src/engine/continuous/ContinuousEffectEngine.js
+- src/engine/costs/CostEngine.js
+- src/engine/replacement/ReplacementRegistry.js
+- src/engine/sba/StateBasedActionEngine.js
+- src/engine/state/GameStateSchema.js
+- src/engine/state/types.d.ts
+- src/engine/zones/LastKnownInformation.js
+- src/engine/zones/ZoneService.js
+- scripts/build-card-db.mjs
+
+Step 14 tests:
+- tests/step14-commander-multiplayer.test.js
+
+Documentation:
+- STEP14_COMPLETION_REPORT.md
+- step14-commander-multiplayer.md
+- docs/architecture/step14-commander-multiplayer.md
+
+Verification:
+- 357/357 non-stress repository tests PASS
+- 10/10 Step 14 tests PASS
+- check:architecture PASS
+- check-db PASS (647 cards / 13 decks)
+- audit:mutations complete (313 direct mutation paths inventoried)
+- production build attempted; blocked only because dependencies/node_modules are not installed in this sandbox and external Scryfall refresh is unavailable

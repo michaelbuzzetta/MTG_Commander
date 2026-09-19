@@ -1,4 +1,5 @@
 import { hasSubtype, isType } from './utils.js';
+import { getObjectCardDefinition } from './state/CardFace.js';
 
 const COLOR_SYMBOLS = ['W', 'U', 'B', 'R', 'G'];
 
@@ -23,49 +24,37 @@ function counterCount(permanent, type) {
 export class StaticEngine {
   constructor(engine) { this.engine = engine; }
 
-  devotion(playerId, colors) {
-    const wanted = new Set(Array.isArray(colors) ? colors : [colors]);
-    let total = 0;
-    for (const permanent of this.engine.state.players[playerId]?.battlefield || []) {
-      if (permanent.phasedOut) continue;
-      const definition = this.engine.db[permanent.cardId] || {};
-      for (const symbol of manaSymbols(definition.manaCost || '')) {
-        const parts = symbol.split('/');
-        if (parts.some(part => wanted.has(part))) total += 1;
-      }
-    }
-    return total;
+  definitionFor(object) {
+    if (!object) return {};
+    return this.engine.copy?.definitionForObject(object) || getObjectCardDefinition(this.engine.db[object.cardId] || {}, object);
   }
+
+  devotion(playerId, colors) { return this.engine.mechanics.devotion(playerId, colors); }
 
   isType(permanent, type) {
     if (!permanent || permanent.phasedOut) return false;
-    const definition = this.engine.db[permanent.cardId];
-    const requestedCreature = String(type).toLowerCase() === 'creature';
-    if (permanent.faceDown) return requestedCreature;
-    const stationRule = definition?.creatureAtCounter;
-    const stationed = requestedCreature && stationRule
-      && counterCount(permanent, stationRule.counter || 'charge') >= Number(stationRule.amount || 1);
-    if (!isType(definition, type) && !stationed) return false;
-    if (!requestedCreature) return true;
-    if (stationRule && !stationed) return false;
-    const devotionRule = definition?.creatureUnlessDevotion;
-    if (!devotionRule || permanent.zone !== 'battlefield') return true;
-    return this.devotion(permanent.controller, devotionRule.colors || []) >= Number(devotionRule.threshold || 0);
+    const chars = this.engine.continuous?.characteristics(permanent);
+    if (!chars) return false;
+    const wanted = String(type).toLowerCase();
+    return [...chars.supertypes, ...chars.types].some(value => String(value).toLowerCase() === wanted);
   }
 
   hasSubtype(permanent, subtype) {
     if (!permanent || permanent.phasedOut) return false;
-    const definition = this.engine.db[permanent.cardId] || {};
-    if (hasSubtype(definition, subtype)) return true;
-    if (definition.chosenTypeAddsSubtype && permanent.chosenType && permanent.chosenType.toLowerCase() === String(subtype).toLowerCase()) return true;
-    if (String(subtype).toLowerCase() === 'island' && counterCount(permanent, 'flood') > 0 && isType(definition, 'Land')) return true;
-    return false;
+    const chars = this.engine.continuous?.characteristics(permanent);
+    if (!chars) return false;
+    const wanted = String(subtype).toLowerCase();
+    if (chars.subtypes.some(value => String(value).toLowerCase() === wanted)) return true;
+    const nonCreatureSubtypes = new Set(['plains','island','swamp','mountain','forest','aura','equipment','fortification','vehicle','clue','food','treasure','map']);
+    const isCreature = chars.types.some(value => String(value).toLowerCase() === 'creature');
+    const changeling = chars.keywords.some(value => String(value).toLowerCase() === 'changeling');
+    return isCreature && changeling && !nonCreatureSubtypes.has(wanted);
   }
 
   sharesSubtype(a, b) {
     if (!a || !b) return false;
-    const aDef = this.engine.db[a.cardId] || a;
-    const bDef = this.engine.db[b.cardId] || b;
+    const aDef = this.definitionFor(a);
+    const bDef = this.definitionFor(b);
     const aTypes = [...(aDef.subtypes || []), ...(a.chosenType ? [a.chosenType] : [])];
     const bTypes = [...(bDef.subtypes || []), ...(b.chosenType ? [b.chosenType] : [])];
     return aTypes.some(type => this.hasSubtype(b, type)) || bTypes.some(type => this.hasSubtype(a, type));
@@ -98,11 +87,17 @@ export class StaticEngine {
 
   _matchesFilter(filter = {}, source, target) {
     if (!source || !target || target.phasedOut) return false;
-    const targetDef = this.engine.db[target.cardId];
+    const targetDef = this.definitionFor(target);
     if (filter.zone && filter.zone !== 'battlefield') return false;
-    if (filter.controller === 'you' && target.controller !== source.controller) return false;
-    if (filter.controller === 'opponent' && target.controller === source.controller) return false;
-    if (filter.controller && !['you', 'opponent', 'any'].includes(filter.controller) && target.controller !== filter.controller) return false;
+    if (filter.controller && filter.controller !== 'any') {
+      if (this.engine.multiplayer?.matches) {
+        if (!this.engine.multiplayer.matches(filter.controller, target.controller, { actorPlayerId: source.controller, sourceObject: source })) return false;
+      } else {
+        if (filter.controller === 'you' && target.controller !== source.controller) return false;
+        if (filter.controller === 'opponent' && target.controller === source.controller) return false;
+        if (!['you', 'opponent'].includes(filter.controller) && target.controller !== filter.controller) return false;
+      }
+    }
     if (filter.self && target.instanceId !== source.instanceId) return false;
     if ((filter.notSelf || filter.other) && target.instanceId === source.instanceId) return false;
     if (filter.attachedToSource && source.attachedTo !== target.instanceId) return false;
@@ -122,7 +117,7 @@ export class StaticEngine {
     const colors = new Set();
     for (const permanent of this.engine.state.players[controller]?.battlefield || []) {
       if (permanent.phasedOut || permanent.instanceId === excludeInstanceId) continue;
-      const definition = this.engine.db[permanent.cardId] || {};
+      const definition = this.definitionFor(permanent);
       if (!isType(definition, 'Legendary')) continue;
       for (const color of colorsFromDefinition(definition)) colors.add(color);
     }
@@ -130,74 +125,29 @@ export class StaticEngine {
   }
 
   derivedStats(permanent) {
-    const definition = this.engine.db[permanent.cardId] || {};
-    let basePower = permanent.faceDown ? 2 : Number(definition?.power || 0);
-    let baseToughness = permanent.faceDown ? 2 : Number(definition?.toughness || 0);
-    if (definition.dynamicPowerToughness === 'handSize') {
-      const count = this.engine.state.players[permanent.controller]?.hand?.length || 0;
-      basePower = count;
-      baseToughness = count;
-    }
-    let power = basePower + counterCount(permanent, '+1/+1') - counterCount(permanent, '-1/-1') + Number(permanent.modifiers?.power || 0);
-    let toughness = baseToughness + counterCount(permanent, '+1/+1') - counterCount(permanent, '-1/-1') + Number(permanent.modifiers?.toughness || 0);
-    const keywords = new Set([...(permanent.faceDown ? [] : (definition?.keywords || [])), ...(permanent.modifiers?.keywords || [])]);
-
-    for (const player of Object.values(this.engine.state.players)) {
-      for (const source of player.battlefield) {
-        if (source.phasedOut) continue;
-        const sourceDef = this.engine.db[source.cardId];
-        for (const ability of sourceDef?.abilities || []) {
-          if (ability.type !== 'static' || !this._abilityActive(ability, source)) continue;
-          if (!this._matchesFilter(ability.filter || {}, source, permanent)) continue;
-          if (ability.effect?.power) power += Number(ability.effect.power);
-          if (ability.effect?.toughness) toughness += Number(ability.effect.toughness);
-          if (ability.effect?.keyword) keywords.add(ability.effect.keyword);
-          for (const keyword of ability.effect?.keywords || []) keywords.add(keyword);
-          if (ability.effect?.powerToughnessPerLegendaryColor) {
-            const count = this._legendaryColors(source.controller, source.instanceId).size;
-            power += count;
-            toughness += count;
-          }
-        }
-      }
-    }
-    return { power, toughness, keywords: [...keywords] };
+    const chars = this.engine.continuous?.characteristics(permanent);
+    if (!chars) return { power: 0, toughness: 0, keywords: [] };
+    return { power: Number(chars.power || 0), toughness: Number(chars.toughness || 0), keywords: [...chars.keywords] };
   }
 
   effectiveAbilities(permanent) {
-    const definition = this.engine.db[permanent?.cardId];
+    const definition = this.definitionFor(permanent);
     if (permanent?.faceDown) {
       const cost = definition?.manaCost || '';
       return cost ? [{ type: 'activated', cost: { mana: cost }, sorcerySpeed: true, effect: { type: 'turnFaceUp' } }] : [];
     }
-    const abilities = structuredClone(definition?.abilities || []).filter(ability => ability.type !== 'static' && ability.type !== 'replacement');
-    if (!permanent || permanent.zone !== 'battlefield' || permanent.phasedOut) return abilities;
-
-    for (const player of Object.values(this.engine.state.players)) {
-      for (const source of player.battlefield) {
-        if (source.phasedOut) continue;
-        const sourceDef = this.engine.db[source.cardId];
-        for (const ability of sourceDef?.abilities || []) {
-          if (ability.type !== 'static' || !ability.effect?.grantAbility || !this._abilityActive(ability, source)) continue;
-          if (!this._matchesFilter(ability.filter || {}, source, permanent)) continue;
-          abilities.push(structuredClone(ability.effect.grantAbility));
-        }
-      }
-    }
-
-    const seen = new Set();
-    return abilities.filter(ability => {
-      const key = JSON.stringify(ability);
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    });
+    const chars = this.engine.continuous?.characteristics(permanent);
+    const abilities = structuredClone(chars?.abilities || []);
+    // Step 23 models equip/fortify/reconfigure through the same authoritative
+    // activated-ability stack/cost/targeting path as printed activated abilities.
+    abilities.push(...structuredClone(this.engine.attachments?.syntheticAbilities(permanent) || []));
+    return abilities;
   }
 
   maximumHandSize(playerId) {
     for (const source of this.engine.state.players[playerId]?.battlefield || []) {
       if (source.phasedOut) continue;
-      const def = this.engine.db[source.cardId] || {};
+      const def = this.definitionFor(source);
       if (def.noMaximumHandSize) return Infinity;
       for (const ability of def.abilities || []) if (ability.type === 'static' && ability.effect?.noMaximumHandSize) return Infinity;
     }
@@ -209,7 +159,7 @@ export class StaticEngine {
       if (controller === playerId) continue;
       for (const source of player.battlefield) {
         if (source.phasedOut) continue;
-        const definition = this.engine.db[source.cardId];
+        const definition = this.definitionFor(source);
         for (const ability of definition?.abilities || []) {
           if (ability.type === 'static' && ability.effect?.opponentsCantGainLife) return false;
         }
@@ -218,12 +168,12 @@ export class StaticEngine {
     return true;
   }
 
-  spellGenericCostReduction(playerId, card) {
+  spellGenericCostReduction(playerId, card, definitionOverride = null) {
     let reduction = 0;
-    const def = this.engine.db[card?.cardId] || card || {};
+    const def = definitionOverride || this.definitionFor(card) || this.engine.db[card?.cardId] || card || {};
     for (const source of this.engine.state.players[playerId]?.battlefield || []) {
       if (source.phasedOut) continue;
-      const sourceDef = this.engine.db[source.cardId] || {};
+      const sourceDef = this.definitionFor(source);
       for (const ability of sourceDef.abilities || []) {
         if (ability.type !== 'static' || !ability.effect?.spellCostReduction) continue;
         const filter = ability.filter || {};
@@ -243,7 +193,7 @@ export class StaticEngine {
       if (controller === actorPid) continue;
       for (const source of player.battlefield) {
         if (source.phasedOut) continue;
-        const def = this.engine.db[source.cardId] || {};
+        const def = this.definitionFor(source);
         for (const ability of def.abilities || []) {
           if (ability.type !== 'static' || !ability.effect?.targetingTax) continue;
           const filter = ability.filter || {};
@@ -263,7 +213,7 @@ export class StaticEngine {
     const def = this.engine.db[card?.cardId] || card || {};
     for (const source of this.engine.state.players[playerId]?.battlefield || []) {
       if (source.phasedOut) continue;
-      const sourceDef = this.engine.db[source.cardId] || {};
+      const sourceDef = this.definitionFor(source);
       for (const ability of sourceDef.abilities || []) {
         if (ability.type !== 'static' || !ability.effect?.castAsFlash) continue;
         const filter = ability.filter || {};
@@ -279,7 +229,7 @@ export class StaticEngine {
     const def = this.engine.db[card?.cardId] || card || {};
     for (const source of this.engine.state.players[playerId]?.battlefield || []) {
       if (source.phasedOut) continue;
-      const sourceDef = this.engine.db[source.cardId] || {};
+      const sourceDef = this.definitionFor(source);
       for (const ability of sourceDef.abilities || []) {
         if (ability.type !== 'static' || !ability.effect?.grantRetrace) continue;
         const filter = ability.filter || {};

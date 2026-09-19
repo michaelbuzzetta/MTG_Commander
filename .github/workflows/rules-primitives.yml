@@ -1,0 +1,21 @@
+name: Rules Primitive Gate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  rules-primitives:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check:architecture
+      - run: npm run test:step32
+      - run: npm run check:step33
+      - run: npm run test:step33
+      - run: npm run test:step33:coverage

@@ -53,25 +53,37 @@ test('builder database keeps hand-authored runtime mechanics over same-name cata
   assert.equal(merged['catalog-unique-card'].name, 'Unique Catalog Card');
 });
 
-test('catalog records are promoted through the existing generic Scryfall rules parser before gameplay', () => {
+test('catalog-only records stay unsupported on the default production path', () => {
   const source = catalogCard();
   const promoted = promoteCatalogCard(source);
+  assert.equal(promoted.supported, false);
+  assert.equal(promoted.id, source.id);
+  assert.equal(promoted.name, source.name);
+  assert.equal(promoted.certificationEligible, false);
+  assert.match(promoted.unsupportedReason, /no certified runtime implementation/i);
+});
+
+test('catalog heuristic parsing requires an explicit sandbox approximation opt-in', () => {
+  const source = catalogCard();
+  const promoted = promoteCatalogCard(source, { allowApproximation: true });
   assert.equal(promoted.supported, true);
   assert.equal(promoted.genericImported, true);
+  assert.equal(promoted.sandboxApproximation, true);
+  assert.equal(promoted.certificationEligible, false);
   assert.equal(promoted.catalogOriginId, source.id);
-  assert.equal(promoted.name, source.name);
-  assert.deepEqual(promoted.colorIdentity, ['W']);
   assert.ok(promoted.keywords.includes('vigilance'));
   assert.ok(promoted.abilities.some(ability => ability.type === 'triggered'));
 });
 
-test('catalog promotion helpers only promote requested catalog cards', () => {
+test('catalog promotion helpers only expose requested catalog cards and keep them unsupported by default', () => {
   const wanted = catalogCard();
   const other = catalogCard({ id: 'catalog-other', oracleId: 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', scryfallId: '22222222-2222-2222-2222-222222222222', name: 'Other Card', aliases: ['Other Card'] });
   const builderDb = mergeBuilderDatabase(db, [wanted, other]);
   const byName = promoteCatalogNames(['Catalog Human'], builderDb);
   assert.equal(Object.keys(byName).length, 1);
   assert.equal(Object.values(byName)[0].name, 'Catalog Human');
+  assert.equal(Object.values(byName)[0].supported, false);
   const many = promoteCatalogDefinitions([wanted, other]);
   assert.equal(Object.keys(many).length, 2);
+  assert.ok(Object.values(many).every(def => def.supported === false));
 });

@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "description": "Step 17 cards whose complete currently-modeled behavior is explicitly covered by repository regression tests. This is intentionally conservative; absence means partial/unreviewed, not broken.",
+  "cards": {
+    "plains": {
+      "notes": "Basic mana ability"
+    },
+    "island": {
+      "notes": "Basic mana ability"
+    },
+    "swamp": {
+      "notes": "Basic mana ability"
+    },
+    "mountain": {
+      "notes": "Basic mana ability"
+    },
+    "forest": {
+      "notes": "Basic mana ability"
+    },
+    "command-tower": {
+      "notes": "Commander-identity mana production"
+    },
+    "sol-ring": {
+      "notes": "Colorless mana production"
+    },
+    "arcane-signet": {
+      "notes": "Commander-identity mana production"
+    },
+    "grizzly-bears": {
+      "notes": "Vanilla creature baseline"
+    },
+    "wind-drake": {
+      "notes": "Flying"
+    },
+    "giant-spider": {
+      "notes": "Reach"
+    },
+    "vigilant-knight": {
+      "notes": "Vigilance"
+    },
+    "trampling-rhino": {
+      "notes": "Trample"
+    },
+    "vampire-nighthawk": {
+      "notes": "Flying, deathtouch, lifelink"
+    },
+    "menace-ogre": {
+      "notes": "Menace"
+    },
+    "indestructible-god": {
+      "notes": "Indestructible"
+    },
+    "divination": {
+      "notes": "Draw spell primitive"
+    },
+    "lightning-bolt": {
+      "notes": "Direct damage spell primitive"
+    },
+    "murder": {
+      "notes": "Destroy spell primitive"
+    },
+    "hardened-scales": {
+      "notes": "+1/+1 counter replacement"
+    },
+    "branching-evolution": {
+      "notes": "Counter doubling replacement"
+    },
+    "doubling-season": {
+      "notes": "Token/counter replacement"
+    },
+    "parallel-lives": {
+      "notes": "Token doubling replacement"
+    },
+    "academy-manufactor": {
+      "notes": "Token-type replacement"
+    },
+    "evolution-sage": {
+      "notes": "Landfall/proliferate trigger"
+    },
+    "merfolk-mistbinder": {
+      "notes": "Static tribal continuous effect"
+    },
+    "arch-memnite": {
+      "notes": "Base-characteristic artifact creature with no additional rules text"
+    },
+    "arch-yargle-and-multani": {
+      "notes": "Base-characteristic legendary creature with no additional rules text"
+    },
+    "arch-disenchant": {
+      "notes": "Single authoritative destroy effect with artifact/enchantment target restriction"
+    },
+    "arch-rampant-growth": {
+      "notes": "Single basic-land search effect to the battlefield tapped followed by shuffle"
+    },
+    "esika": {
+      "notes": "Both modal DFC cast faces, front-face mana/static abilities, Bridge upkeep reveal-until behavior, face persistence, and command-zone face selection are covered by release regressions and the Step 35 golden contract."
+    }
+  }
+}

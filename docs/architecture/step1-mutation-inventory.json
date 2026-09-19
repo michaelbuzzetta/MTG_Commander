@@ -1,0 +1,2040 @@
+{
+  "generatedAt": "2026-09-16T18:37:02.460Z",
+  "total": 339,
+  "entries": [
+    {
+      "file": "src/engine/CombatEngine.js",
+      "line": 139,
+      "category": "core engine",
+      "code": "for (const player of Object.values(this.engine.state.players)) for (const permanent of player.battlefield) { permanent.attacking = false; permanent.attackTarget = null; }"
+    },
+    {
+      "file": "src/engine/CombatEngine.js",
+      "line": 142,
+      "category": "core engine",
+      "code": "combat.attackers = []; combat.attackTargets = {}; combat.attackDefendingPlayers = {}; combat.defendingEntities = {};"
+    },
+    {
+      "file": "src/engine/CombatEngine.js",
+      "line": 143,
+      "category": "core engine",
+      "code": "combat.blockers = {}; combat.blocked = {}; combat.damageAssignments = {}; combat.defendingPlayers = []; combat.blockerQueue = []; combat.currentDefender = null;"
+    },
+    {
+      "file": "src/engine/CombatEngine.js",
+      "line": 148,
+      "category": "core engine",
+      "code": "permanent.attacking = true; permanent.attackTarget = targets[id];"
+    },
+    {
+      "file": "src/engine/CombatEngine.js",
+      "line": 151,
+      "category": "core engine",
+      "code": "combat.attackers.push(id); combat.attackTargets[id] = targets[id]; combat.attackDefendingPlayers[id] = entity?.defendingPlayer || targets[id];"
+    },
+    {
+      "file": "src/engine/CombatEngine.js",
+      "line": 252,
+      "category": "core engine",
+      "code": "for (const permanent of this.engine.state.players[pid].battlefield) permanent.blocking = null;"
+    },
+    {
+      "file": "src/engine/CombatEngine.js",
+      "line": 256,
+      "category": "core engine",
+      "code": "combat.blockers[aid] = bids; combat.blocked[aid] = bids.length > 0;"
+    },
+    {
+      "file": "src/engine/CombatEngine.js",
+      "line": 260,
+      "category": "core engine",
+      "code": "if (blocker) blocker.blocking = blocker.blocking == null ? aid : (Array.isArray(blocker.blocking) ? [...blocker.blocking, aid] : [blocker.blocking, aid]);"
+    },
+    {
+      "file": "src/engine/CombatEngine.js",
+      "line": 358,
+      "category": "core engine",
+      "code": "for (const player of Object.values(this.engine.state.players)) for (const permanent of player.battlefield) { permanent.attacking = false; permanent.attackTarget = null; permanent.blocking = null; }"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 53,
+      "category": "card/mechanic engine",
+      "code": "e.state.pendingChoice = { type: 'EFFECT_CARD_CHOICE', playerId: pid, candidateIds: [...candidateIds], min, max, prompt, continuation, resume: this._choiceResume() };"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 54,
+      "category": "card/mechanic engine",
+      "code": "e.state.priorityPlayer = pid;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 214,
+      "category": "card/mechanic engine",
+      "code": "twin.summoningSick = false;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 215,
+      "category": "card/mechanic engine",
+      "code": "twin.tapped = true;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 216,
+      "category": "card/mechanic engine",
+      "code": "twin.attacking = true;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 220,
+      "category": "card/mechanic engine",
+      "code": "s.combat.attackTargets[twin.instanceId] = twin.attackTarget;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 237,
+      "category": "card/mechanic engine",
+      "code": "copy.summoningSick = false;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 238,
+      "category": "card/mechanic engine",
+      "code": "copy.tapped = true;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 239,
+      "category": "card/mechanic engine",
+      "code": "copy.attacking = true;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 243,
+      "category": "card/mechanic engine",
+      "code": "s.combat.attackTargets[copy.instanceId] = opponentId;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 256,
+      "category": "card/mechanic engine",
+      "code": "moved.summoningSick = true;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 275,
+      "category": "card/mechanic engine",
+      "code": "card.summoningSick = false;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 389,
+      "category": "card/mechanic engine",
+      "code": "token.summoningSick = false;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 485,
+      "category": "card/mechanic engine",
+      "code": "s.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 493,
+      "category": "card/mechanic engine",
+      "code": "s.priorityPlayer = pid;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 646,
+      "category": "card/mechanic engine",
+      "code": "s.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 652,
+      "category": "card/mechanic engine",
+      "code": "s.priorityPlayer = pid;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 661,
+      "category": "card/mechanic engine",
+      "code": "s.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 667,
+      "category": "card/mechanic engine",
+      "code": "s.priorityPlayer = pid;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 683,
+      "category": "card/mechanic engine",
+      "code": "s.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 692,
+      "category": "card/mechanic engine",
+      "code": "s.priorityPlayer = prepared.request.chooserPlayerId;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 713,
+      "category": "card/mechanic engine",
+      "code": "s.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 722,
+      "category": "card/mechanic engine",
+      "code": "s.priorityPlayer = prepared.request.chooserPlayerId;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 728,
+      "category": "card/mechanic engine",
+      "code": "s.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 736,
+      "category": "card/mechanic engine",
+      "code": "s.priorityPlayer = pid;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 780,
+      "category": "card/mechanic engine",
+      "code": "s.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 799,
+      "category": "card/mechanic engine",
+      "code": "s.priorityPlayer = pid;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 803,
+      "category": "card/mechanic engine",
+      "code": "s.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 822,
+      "category": "card/mechanic engine",
+      "code": "s.priorityPlayer = pid;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 835,
+      "category": "card/mechanic engine",
+      "code": "s.winner = pid;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 929,
+      "category": "card/mechanic engine",
+      "code": "s.pendingChoice = { type: 'HIDEAWAY', playerId: pid, sourceId: source.instanceId, candidateIds: top.map(card => card.instanceId), count: top.length, resume: this._choiceResume() };"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 930,
+      "category": "card/mechanic engine",
+      "code": "s.priorityPlayer = pid;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 940,
+      "category": "card/mechanic engine",
+      "code": "s.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 944,
+      "category": "card/mechanic engine",
+      "code": "s.priorityPlayer = pid;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 1024,
+      "category": "card/mechanic engine",
+      "code": "this.engine.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 1091,
+      "category": "card/mechanic engine",
+      "code": "state.pendingChoice = { ...deferred, type: 'EXPLORE_NONLAND' };"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 1092,
+      "category": "card/mechanic engine",
+      "code": "state.priorityPlayer = deferred.playerId;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 1129,
+      "category": "card/mechanic engine",
+      "code": "card.tapped = true;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 1207,
+      "category": "card/mechanic engine",
+      "code": "s.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 1216,
+      "category": "card/mechanic engine",
+      "code": "s.priorityPlayer = copyItem.controller;"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 1219,
+      "category": "card/mechanic engine",
+      "code": "e.stack.push({ ...copyItem, gameObjectId: copyItem.gameObjectId || undefined });"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 1227,
+      "category": "card/mechanic engine",
+      "code": "const stacked = e.stack.push(item);"
+    },
+    {
+      "file": "src/engine/EffectEngine.js",
+      "line": 1257,
+      "category": "card/mechanic engine",
+      "code": "this.engine.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 93,
+      "category": "core engine",
+      "code": "this.counters = new CounterService(this);"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 115,
+      "category": "core engine",
+      "code": "this.turn = new TurnEngine(this, INTERNAL);"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 188,
+      "category": "core engine",
+      "code": "event.payload.owner = oldOwner;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 212,
+      "category": "core engine",
+      "code": "if (entryState.tapped === true) moved.tapped = true;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 276,
+      "category": "core engine",
+      "code": "this.state.cardsDrawnThisTurn[pid] = drawNumber;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 301,
+      "category": "core engine",
+      "code": "this.state.players[playerId].life += n;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 317,
+      "category": "core engine",
+      "code": "this.state.players[playerId].life -= n;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 329,
+      "category": "core engine",
+      "code": "permanent.tapped = true;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 342,
+      "category": "core engine",
+      "code": "permanent.tapped = false;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 417,
+      "category": "core engine",
+      "code": "permanent.controller = newController;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 420,
+      "category": "core engine",
+      "code": "permanent.summoningSick = !this.mechanics.canIgnoreSummoningSickness(permanent);"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 458,
+      "category": "core engine",
+      "code": "permanent.damageMarked = 0;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 864,
+      "category": "core engine",
+      "code": "this.state.started = true;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 904,
+      "category": "core engine",
+      "code": "this.state.history.push({ turn: this.state.turn, phase: this.state.phase, type, ...data });"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 1106,
+      "category": "core engine",
+      "code": "this.state.priorityPlayer = this.state.pendingChoice.playerId;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 1166,
+      "category": "core engine",
+      "code": "this.state.priorityPlayer = this.state.pendingChoice.playerId;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 1807,
+      "category": "core engine",
+      "code": "this.state.priorityPlayer = pid;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 1815,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = { type: 'MULLIGAN_BOTTOM', playerId: pid, count: bottoms };"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 1816,
+      "category": "core engine",
+      "code": "this.state.priorityPlayer = pid;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 1828,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 1840,
+      "category": "core engine",
+      "code": "s.priorityPlayer = next;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 1848,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 1875,
+      "category": "core engine",
+      "code": "const item = this.stack.push({ id: `suspend-${card.instanceId}`, type: 'spell', controller, card, targets: [], mode: null, castOption: 'suspend' });"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 1900,
+      "category": "core engine",
+      "code": "this.stack.push({"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 1913,
+      "category": "core engine",
+      "code": "s.priorityPlayer = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 1914,
+      "category": "core engine",
+      "code": "s.passes = 0;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 1919,
+      "category": "core engine",
+      "code": "s.pendingChoice = { type: 'CLEANUP_DISCARD', playerId: s.activePlayer, count: excess };"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 1920,
+      "category": "core engine",
+      "code": "s.priorityPlayer = s.activePlayer;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 1933,
+      "category": "core engine",
+      "code": "c.damageMarked = 0;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 1947,
+      "category": "core engine",
+      "code": "s.priorityPlayer = s.pendingChoice.playerId;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 1950,
+      "category": "core engine",
+      "code": "if (s.winner) { s.priorityPlayer = null; return; }"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 1953,
+      "category": "core engine",
+      "code": "s.priorityPlayer = s.activePlayer;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 1954,
+      "category": "core engine",
+      "code": "s.passes = 0;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2068,
+      "category": "core engine",
+      "code": "card.summoningSick = isType(d, 'Creature') && !this.mechanics.canIgnoreSummoningSickness(d);"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2071,
+      "category": "core engine",
+      "code": "card.tapped = this._permanentEntersTapped(card, item.controller);"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2145,
+      "category": "core engine",
+      "code": "this.stack.push({"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2154,
+      "category": "core engine",
+      "code": "this.state.priorityPlayer = pid;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2155,
+      "category": "core engine",
+      "code": "this.state.passes = 0;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2177,
+      "category": "core engine",
+      "code": "this.state.priorityPlayer = pid;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2178,
+      "category": "core engine",
+      "code": "this.state.passes = 0;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2214,
+      "category": "core engine",
+      "code": "const item = this.stack.push({"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2226,
+      "category": "core engine",
+      "code": "this.state.priorityPlayer = pid;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2227,
+      "category": "core engine",
+      "code": "this.state.passes = 0;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2245,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2254,
+      "category": "core engine",
+      "code": "this.state.priorityPlayer = pid;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2255,
+      "category": "core engine",
+      "code": "this.state.passes = 0;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2263,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2273,
+      "category": "core engine",
+      "code": "this.state.priorityPlayer = pid;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2274,
+      "category": "core engine",
+      "code": "this.state.passes = 0;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2281,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2290,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2300,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2317,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2339,
+      "category": "core engine",
+      "code": "card.tapped = !!tapped || naturalTapped;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2360,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2364,
+      "category": "core engine",
+      "code": "this.state.priorityPlayer = pid;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2365,
+      "category": "core engine",
+      "code": "this.state.passes = 0;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2390,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2394,
+      "category": "core engine",
+      "code": "this.state.priorityPlayer = pid;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2395,
+      "category": "core engine",
+      "code": "this.state.passes = 0;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2433,
+      "category": "core engine",
+      "code": "c.tapped = entersTapped;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2443,
+      "category": "core engine",
+      "code": "this.state.priorityPlayer = this.state.pendingChoice?.playerId || pid;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2444,
+      "category": "core engine",
+      "code": "this.state.passes = 0;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2464,
+      "category": "core engine",
+      "code": "this.state.priorityPlayer = this.state.pendingChoice?.playerId || pid;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2465,
+      "category": "core engine",
+      "code": "this.state.passes = 0;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2476,
+      "category": "core engine",
+      "code": "const item = this.stack.push({"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2492,
+      "category": "core engine",
+      "code": "this.state.priorityPlayer = this.state.pendingChoice?.playerId || pid;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2493,
+      "category": "core engine",
+      "code": "this.state.passes = 0;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2500,
+      "category": "core engine",
+      "code": "const wardItem = this.stack.push({ id: `ward-${Date.now()}-${Math.random()}`, ...trigger });"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2525,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2539,
+      "category": "core engine",
+      "code": "if (this.state.pendingChoice) this.state.priorityPlayer = this.state.pendingChoice.playerId;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2540,
+      "category": "core engine",
+      "code": "else if (this.state.winner) this.state.priorityPlayer = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2541,
+      "category": "core engine",
+      "code": "else this.state.priorityPlayer = this.state.activePlayer;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2542,
+      "category": "core engine",
+      "code": "this.state.passes = 0;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2564,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2577,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2589,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2614,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2645,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2654,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2666,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2673,
+      "category": "core engine",
+      "code": "card.tapped = true;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2691,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2702,
+      "category": "core engine",
+      "code": "card.summoningSick = isType(definition, 'Creature') && !this.mechanics.canIgnoreSummoningSickness(definition);"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2716,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2740,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2756,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2765,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2775,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2783,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2792,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2803,
+      "category": "core engine",
+      "code": "this.state.turnActionPending = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2804,
+      "category": "core engine",
+      "code": "this.state.priorityPlayer = this.state.activePlayer;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2805,
+      "category": "core engine",
+      "code": "this.state.passes = 0;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2811,
+      "category": "core engine",
+      "code": "this.state.passes = 0;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2818,
+      "category": "core engine",
+      "code": "this.state.combat.currentDefender = queue[0] || null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2820,
+      "category": "core engine",
+      "code": "this.state.turnActionPending = 'DECLARE_BLOCKERS';"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2821,
+      "category": "core engine",
+      "code": "this.state.priorityPlayer = this.state.combat.currentDefender;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2825,
+      "category": "core engine",
+      "code": "this.state.turnActionPending = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2828,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2834,
+      "category": "core engine",
+      "code": "this.state.priorityPlayer = this.state.activePlayer;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2840,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2841,
+      "category": "core engine",
+      "code": "this.state.priorityPlayer = this.state.activePlayer;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2842,
+      "category": "core engine",
+      "code": "this.state.passes = 0;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2850,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2863,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2888,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2904,
+      "category": "core engine",
+      "code": "this.state.priorityPlayer = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2908,
+      "category": "core engine",
+      "code": "this.state.priorityPlayer = this.state.pendingChoice.playerId;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2915,
+      "category": "core engine",
+      "code": "this.state.priorityPlayer = this.state.activePlayer;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 2916,
+      "category": "core engine",
+      "code": "this.state.passes = 0;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 3040,
+      "category": "core engine",
+      "code": "this.state.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 3051,
+      "category": "core engine",
+      "code": "this.state.priorityPlayer = found.card.owner;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 3116,
+      "category": "core engine",
+      "code": "state.winner = alive[0];"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 3117,
+      "category": "core engine",
+      "code": "state.priorityPlayer = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 3121,
+      "category": "core engine",
+      "code": "state.winner = 'draw';"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 3122,
+      "category": "core engine",
+      "code": "state.priorityPlayer = null;"
+    },
+    {
+      "file": "src/engine/GameEngine.js",
+      "line": 3126,
+      "category": "core engine",
+      "code": "if (state.priorityPlayer && state.players[state.priorityPlayer]?.lost) state.priorityPlayer = this.nextPriorityPlayer(state.priorityPlayer);"
+    },
+    {
+      "file": "src/engine/ManaEngine.js",
+      "line": 64,
+      "category": "core engine",
+      "code": "for (const c of EXACT_COLORS) player.manaPool[c] -= r[c];"
+    },
+    {
+      "file": "src/engine/ManaEngine.js",
+      "line": 67,
+      "category": "core engine",
+      "code": "player.manaPool[c] -= n;"
+    },
+    {
+      "file": "src/engine/ManaEngine.js",
+      "line": 74,
+      "category": "core engine",
+      "code": "for (const c of Object.keys(player.manaPool)) player.manaPool[c] = 0;"
+    },
+    {
+      "file": "src/engine/ManaEngine.js",
+      "line": 79,
+      "category": "core engine",
+      "code": "player.manaPool[c] = (player.manaPool[c] || 0) + n;"
+    },
+    {
+      "file": "src/engine/ManaEngine.js",
+      "line": 259,
+      "category": "core engine",
+      "code": "else activation.permanent.tapped = true;"
+    },
+    {
+      "file": "src/engine/ManaEngine.js",
+      "line": 267,
+      "category": "core engine",
+      "code": "player.manaPool = poolBefore;"
+    },
+    {
+      "file": "src/engine/ManaEngine.js",
+      "line": 268,
+      "category": "core engine",
+      "code": "for (const activation of plan.activations) activation.permanent.tapped = tappedBefore.get(activation.permanentId);"
+    },
+    {
+      "file": "src/engine/TriggerEngine.js",
+      "line": 102,
+      "category": "card/mechanic engine",
+      "code": "this.engine.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/TriggerEngine.js",
+      "line": 119,
+      "category": "card/mechanic engine",
+      "code": "this.engine.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/TriggerEngine.js",
+      "line": 129,
+      "category": "card/mechanic engine",
+      "code": "this.engine.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/TriggerEngine.js",
+      "line": 154,
+      "category": "card/mechanic engine",
+      "code": "s.pendingTriggers.shift();"
+    },
+    {
+      "file": "src/engine/TriggerEngine.js",
+      "line": 168,
+      "category": "card/mechanic engine",
+      "code": "s.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/TriggerEngine.js",
+      "line": 177,
+      "category": "card/mechanic engine",
+      "code": "s.priorityPlayer = undecided.controller;"
+    },
+    {
+      "file": "src/engine/TriggerEngine.js",
+      "line": 187,
+      "category": "card/mechanic engine",
+      "code": "s.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/TriggerEngine.js",
+      "line": 199,
+      "category": "card/mechanic engine",
+      "code": "s.priorityPlayer = controller;"
+    },
+    {
+      "file": "src/engine/TriggerEngine.js",
+      "line": 222,
+      "category": "card/mechanic engine",
+      "code": "s.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/TriggerEngine.js",
+      "line": 234,
+      "category": "card/mechanic engine",
+      "code": "s.priorityPlayer = trigger.controller;"
+    },
+    {
+      "file": "src/engine/TriggerEngine.js",
+      "line": 239,
+      "category": "card/mechanic engine",
+      "code": "this.engine.stack.push({"
+    },
+    {
+      "file": "src/engine/ZoneManager.js",
+      "line": 31,
+      "category": "core engine",
+      "code": "card.tapped = false;"
+    },
+    {
+      "file": "src/engine/ZoneManager.js",
+      "line": 32,
+      "category": "core engine",
+      "code": "card.summoningSick = false;"
+    },
+    {
+      "file": "src/engine/ZoneManager.js",
+      "line": 33,
+      "category": "core engine",
+      "code": "card.counters = {};"
+    },
+    {
+      "file": "src/engine/ZoneManager.js",
+      "line": 34,
+      "category": "core engine",
+      "code": "card.damageMarked = 0;"
+    },
+    {
+      "file": "src/engine/ZoneManager.js",
+      "line": 37,
+      "category": "core engine",
+      "code": "card.attacking = false;"
+    },
+    {
+      "file": "src/engine/ZoneManager.js",
+      "line": 39,
+      "category": "core engine",
+      "code": "card.blocking = null;"
+    },
+    {
+      "file": "src/engine/attachments/AttachmentService.js",
+      "line": 311,
+      "category": "core engine",
+      "code": "this.engine.state.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/attachments/AttachmentService.js",
+      "line": 316,
+      "category": "core engine",
+      "code": "this.engine.state.priorityPlayer = playerId;"
+    },
+    {
+      "file": "src/engine/attachments/AttachmentService.js",
+      "line": 317,
+      "category": "core engine",
+      "code": "this.engine.state.passes = 0;"
+    },
+    {
+      "file": "src/engine/choices/ChoiceService.js",
+      "line": 136,
+      "category": "core engine",
+      "code": "this.engine.state.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/choices/ChoiceService.js",
+      "line": 143,
+      "category": "core engine",
+      "code": "this.engine.state.priorityPlayer = normalized.requestingPlayer;"
+    },
+    {
+      "file": "src/engine/choices/ChoiceService.js",
+      "line": 274,
+      "category": "core engine",
+      "code": "this.engine.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/continuous/ContinuousEffectEngine.js",
+      "line": 324,
+      "category": "core engine",
+      "code": "if (transform.controller) chars.controller = transform.controller === 'source-controller' ? context.source?.controller : transform.controller;"
+    },
+    {
+      "file": "src/engine/copy/CopyService.js",
+      "line": 134,
+      "category": "core engine",
+      "code": "this.engine.state.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/copy/CopyService.js",
+      "line": 147,
+      "category": "core engine",
+      "code": "this.engine.state.priorityPlayer = controller;"
+    },
+    {
+      "file": "src/engine/copy/CopyService.js",
+      "line": 148,
+      "category": "core engine",
+      "code": "this.engine.state.passes = 0;"
+    },
+    {
+      "file": "src/engine/copy/CopyService.js",
+      "line": 206,
+      "category": "core engine",
+      "code": "copyCard.zone = 'stack';"
+    },
+    {
+      "file": "src/engine/copy/CopyService.js",
+      "line": 207,
+      "category": "core engine",
+      "code": "copyCard.controller = controller;"
+    },
+    {
+      "file": "src/engine/costs/PaymentService.js",
+      "line": 94,
+      "category": "core engine",
+      "code": "player.manaPool[color] -= amount;"
+    },
+    {
+      "file": "src/engine/counters/CounterService.js",
+      "line": 227,
+      "category": "core engine",
+      "code": "for (const permanent of player.battlefield || []) if (!permanent.phasedOut && this.types(permanent).length) out.push(permanent.instanceId);"
+    },
+    {
+      "file": "src/engine/counters/CounterService.js",
+      "line": 235,
+      "category": "core engine",
+      "code": "this.engine.state.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/counters/CounterService.js",
+      "line": 239,
+      "category": "core engine",
+      "code": "this.engine.state.priorityPlayer = playerId;"
+    },
+    {
+      "file": "src/engine/counters/CounterService.js",
+      "line": 248,
+      "category": "core engine",
+      "code": "this.engine.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/counters/CounterService.js",
+      "line": 289,
+      "category": "core engine",
+      "code": "state.pendingChoice = { type: 'PHASE_OUT_PROLIFERATED', playerId: controller, eligibleIds, resume: state.phase === 'CLEANUP' ? 'CLEANUP' : 'PRIORITY' };"
+    },
+    {
+      "file": "src/engine/counters/CounterService.js",
+      "line": 290,
+      "category": "core engine",
+      "code": "state.priorityPlayer = controller;"
+    },
+    {
+      "file": "src/engine/counters/CounterStore.js",
+      "line": 10,
+      "category": "core engine",
+      "code": "if (!target.counters || typeof target.counters !== 'object' || Array.isArray(target.counters)) target.counters = {};"
+    },
+    {
+      "file": "src/engine/damage/DamageService.js",
+      "line": 98,
+      "category": "core engine",
+      "code": "target.damageMarked = Math.max(0, Number(target.damageMarked || 0)) + amount;"
+    },
+    {
+      "file": "src/engine/events/EventDispatcher.js",
+      "line": 262,
+      "category": "core engine",
+      "code": "this.engine.state.history.push({"
+    },
+    {
+      "file": "src/engine/library/LibraryOperationService.js",
+      "line": 61,
+      "category": "core engine",
+      "code": "history.push(row);"
+    },
+    {
+      "file": "src/engine/library/LibraryOperationService.js",
+      "line": 62,
+      "category": "core engine",
+      "code": "if (history.length > 256) history.splice(0, history.length - 256);"
+    },
+    {
+      "file": "src/engine/library/LibraryOperationService.js",
+      "line": 150,
+      "category": "core engine",
+      "code": "this.engine.state.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/library/LibraryOperationService.js",
+      "line": 164,
+      "category": "core engine",
+      "code": "this.engine.state.priorityPlayer = request.chooserPlayerId;"
+    },
+    {
+      "file": "src/engine/library/LibraryOperationService.js",
+      "line": 187,
+      "category": "core engine",
+      "code": "this.engine.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/library/LibraryOperationService.js",
+      "line": 220,
+      "category": "core engine",
+      "code": "moved.tapped = !!(plan.tapped ?? request.tapped);"
+    },
+    {
+      "file": "src/engine/library/LibraryOperationService.js",
+      "line": 258,
+      "category": "core engine",
+      "code": "library.splice(0, n, ...orderedIds.map(id => byId.get(id)));"
+    },
+    {
+      "file": "src/engine/loops/LoopService.js",
+      "line": 207,
+      "category": "core engine",
+      "code": "this.engine.state.winner = 'draw';"
+    },
+    {
+      "file": "src/engine/loops/LoopService.js",
+      "line": 208,
+      "category": "core engine",
+      "code": "this.engine.state.priorityPlayer = null;"
+    },
+    {
+      "file": "src/engine/multiplayer/CommanderRules.js",
+      "line": 182,
+      "category": "core engine",
+      "code": "for (const item of this.engine.state.stack || []) if (item.card?.isCommander && item.card.owner === playerId) cards.push(item.card);"
+    },
+    {
+      "file": "src/engine/multiplayer/CommanderRules.js",
+      "line": 224,
+      "category": "core engine",
+      "code": "player.commanderDamage[identity] = Math.max(0, Number(player.commanderDamage[identity] || 0)) + dealt;"
+    },
+    {
+      "file": "src/engine/multiplayer/PlayerEliminationService.js",
+      "line": 7,
+      "category": "core engine",
+      "code": "player.lost = true;"
+    },
+    {
+      "file": "src/engine/multiplayer/PlayerEliminationService.js",
+      "line": 22,
+      "category": "core engine",
+      "code": "const candidate = history.pop();"
+    },
+    {
+      "file": "src/engine/multiplayer/PlayerEliminationService.js",
+      "line": 92,
+      "category": "core engine",
+      "code": "card.controller = restored;"
+    },
+    {
+      "file": "src/engine/multiplayer/PlayerEliminationService.js",
+      "line": 94,
+      "category": "core engine",
+      "code": "card.attacking = false; card.attackTarget = null; card.blocking = null;"
+    },
+    {
+      "file": "src/engine/multiplayer/PlayerEliminationService.js",
+      "line": 119,
+      "category": "core engine",
+      "code": "state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/multiplayer/PlayerEliminationService.js",
+      "line": 138,
+      "category": "core engine",
+      "code": "state.combat.attackers = (state.combat.attackers || []).filter(id => !!e.findPermanent(id));"
+    },
+    {
+      "file": "src/engine/multiplayer/PlayerEliminationService.js",
+      "line": 139,
+      "category": "core engine",
+      "code": "state.combat.attackTargets = Object.fromEntries(Object.entries(state.combat.attackTargets || {}).filter(([aid, target]) => e.findPermanent(aid) && combatTargetStillExists(target)));"
+    },
+    {
+      "file": "src/engine/multiplayer/PlayerEliminationService.js",
+      "line": 145,
+      "category": "core engine",
+      "code": "state.combat.blockers = Object.fromEntries(Object.entries(state.combat.blockers || {}).filter(([aid]) => e.findPermanent(aid)).map(([aid, ids]) => [aid, (ids || []).filter(id => !!e.findPermanent(id))]));"
+    },
+    {
+      "file": "src/engine/multiplayer/PlayerEliminationService.js",
+      "line": 150,
+      "category": "core engine",
+      "code": "if (state.combat.currentDefender && eliminated.has(state.combat.currentDefender)) state.combat.currentDefender = state.combat.blockerQueue[0] || null;"
+    },
+    {
+      "file": "src/engine/pregame/PregameActionService.js",
+      "line": 93,
+      "category": "core engine",
+      "code": "this.engine.state.pendingChoice = this._choiceFor(entry);"
+    },
+    {
+      "file": "src/engine/pregame/PregameActionService.js",
+      "line": 94,
+      "category": "core engine",
+      "code": "this.engine.state.priorityPlayer = entry.playerId;"
+    },
+    {
+      "file": "src/engine/pregame/PregameActionService.js",
+      "line": 119,
+      "category": "core engine",
+      "code": "this.engine.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/pregame/PregameService.js",
+      "line": 37,
+      "category": "core engine",
+      "code": "state.activePlayer = state.playerOrder[0];"
+    },
+    {
+      "file": "src/engine/pregame/PregameService.js",
+      "line": 61,
+      "category": "core engine",
+      "code": "state.priorityPlayer = state.pregame.currentPlayer;"
+    },
+    {
+      "file": "src/engine/pregame/PregameService.js",
+      "line": 75,
+      "category": "core engine",
+      "code": "state.priorityPlayer = null;"
+    },
+    {
+      "file": "src/engine/pregame/PregameService.js",
+      "line": 85,
+      "category": "core engine",
+      "code": "state.gameBegun = true;"
+    },
+    {
+      "file": "src/engine/pregame/PregameService.js",
+      "line": 86,
+      "category": "core engine",
+      "code": "state.priorityPlayer = null;"
+    },
+    {
+      "file": "src/engine/replacement/ReplacementEffect.js",
+      "line": 100,
+      "category": "core engine",
+      "code": "this.controller = controller || null;"
+    },
+    {
+      "file": "src/engine/replacement/ReplacementService.js",
+      "line": 136,
+      "category": "core engine",
+      "code": "this.engine.state.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/replacement/ReplacementService.js",
+      "line": 144,
+      "category": "core engine",
+      "code": "this.engine.state.priorityPlayer = playerId;"
+    },
+    {
+      "file": "src/engine/replacement/ReplacementService.js",
+      "line": 152,
+      "category": "core engine",
+      "code": "this.engine.state.pendingChoice = null;"
+    },
+    {
+      "file": "src/engine/sba/StateBasedActionEngine.js",
+      "line": 141,
+      "category": "core engine",
+      "code": "this.engine.state.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/sba/StateBasedActionEngine.js",
+      "line": 146,
+      "category": "core engine",
+      "code": "this.engine.state.priorityPlayer = commander.owner;"
+    },
+    {
+      "file": "src/engine/sba/StateBasedActionEngine.js",
+      "line": 164,
+      "category": "core engine",
+      "code": "this.engine.state.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/sba/StateBasedActionEngine.js",
+      "line": 169,
+      "category": "core engine",
+      "code": "this.engine.state.priorityPlayer = controller;"
+    },
+    {
+      "file": "src/engine/stack/PriorityManager.js",
+      "line": 15,
+      "category": "core engine",
+      "code": "this.engine.state.passes = 0;"
+    },
+    {
+      "file": "src/engine/stack/PriorityManager.js",
+      "line": 20,
+      "category": "core engine",
+      "code": "if (s.winner) { s.priorityPlayer = null; return null; }"
+    },
+    {
+      "file": "src/engine/stack/PriorityManager.js",
+      "line": 22,
+      "category": "core engine",
+      "code": "s.priorityPlayer = playerId || null;"
+    },
+    {
+      "file": "src/engine/stack/PriorityManager.js",
+      "line": 23,
+      "category": "core engine",
+      "code": "s.passes = 0;"
+    },
+    {
+      "file": "src/engine/stack/PriorityManager.js",
+      "line": 30,
+      "category": "core engine",
+      "code": "s.priorityPlayer = playerId;"
+    },
+    {
+      "file": "src/engine/stack/PriorityManager.js",
+      "line": 31,
+      "category": "core engine",
+      "code": "s.passes = 0;"
+    },
+    {
+      "file": "src/engine/stack/PriorityManager.js",
+      "line": 42,
+      "category": "core engine",
+      "code": "s.passes += 1;"
+    },
+    {
+      "file": "src/engine/stack/PriorityManager.js",
+      "line": 45,
+      "category": "core engine",
+      "code": "s.priorityPlayer = e.nextPriorityPlayer(playerId);"
+    },
+    {
+      "file": "src/engine/stack/PriorityManager.js",
+      "line": 53,
+      "category": "core engine",
+      "code": "s.passes = 0;"
+    },
+    {
+      "file": "src/engine/stack/PriorityManager.js",
+      "line": 60,
+      "category": "core engine",
+      "code": "e.state.priorityPlayer = choicePlayer;"
+    },
+    {
+      "file": "src/engine/stack/PriorityManager.js",
+      "line": 63,
+      "category": "core engine",
+      "code": "e.state.priorityPlayer = e.state.players[active] && !e.state.players[active].lost"
+    },
+    {
+      "file": "src/engine/stack/PriorityManager.js",
+      "line": 70,
+      "category": "core engine",
+      "code": "e.state.passes = passCheckpoint.passes;"
+    },
+    {
+      "file": "src/engine/stack/PriorityManager.js",
+      "line": 71,
+      "category": "core engine",
+      "code": "e.state.priorityPlayer = passCheckpoint.priorityPlayer;"
+    },
+    {
+      "file": "src/engine/stack/ResolutionPipeline.js",
+      "line": 55,
+      "category": "core engine",
+      "code": "const item = e.stack.pop();"
+    },
+    {
+      "file": "src/engine/stack/ResolutionPipeline.js",
+      "line": 62,
+      "category": "core engine",
+      "code": "e.state.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/stack/ResolutionPipeline.js",
+      "line": 71,
+      "category": "core engine",
+      "code": "e.state.priorityPlayer = item.payingPlayer;"
+    },
+    {
+      "file": "src/engine/stack/ResolutionPipeline.js",
+      "line": 170,
+      "category": "core engine",
+      "code": "card.owner = item.controller;"
+    },
+    {
+      "file": "src/engine/stack/ResolutionPipeline.js",
+      "line": 190,
+      "category": "core engine",
+      "code": "e.state.pendingChoice = {"
+    },
+    {
+      "file": "src/engine/stack/ResolutionPipeline.js",
+      "line": 198,
+      "category": "core engine",
+      "code": "e.state.priorityPlayer = item.controller;"
+    },
+    {
+      "file": "src/engine/stack/StackService.js",
+      "line": 10,
+      "category": "core engine",
+      "code": "this.engine.state.stack.push(item);"
+    },
+    {
+      "file": "src/engine/stack/StackService.js",
+      "line": 14,
+      "category": "core engine",
+      "code": "pop() { return this.engine.state.stack.pop() || null; }"
+    },
+    {
+      "file": "src/engine/stack/StackService.js",
+      "line": 23,
+      "category": "core engine",
+      "code": "return this.engine.state.stack.splice(index, 1)[0] || null;"
+    },
+    {
+      "file": "src/engine/stack/StackService.js",
+      "line": 31,
+      "category": "core engine",
+      "code": "removed.unshift(this.engine.state.stack.splice(index, 1)[0]);"
+    },
+    {
+      "file": "src/engine/state/GameObject.js",
+      "line": 74,
+      "category": "core engine",
+      "code": "card.zone = toZone;"
+    },
+    {
+      "file": "src/engine/state/GameObject.js",
+      "line": 75,
+      "category": "core engine",
+      "code": "if (toZone === 'battlefield' || toZone === 'stack') card.controller = destinationController ?? card.controller ?? card.owner;"
+    },
+    {
+      "file": "src/engine/state/GameObject.js",
+      "line": 76,
+      "category": "core engine",
+      "code": "else card.controller = card.owner;"
+    },
+    {
+      "file": "src/engine/state/GameStateSchema.js",
+      "line": 83,
+      "category": "core engine",
+      "code": "if (!Number.isInteger(state.phaseIndex)) state.phaseIndex = state.phase === 'PREGAME' ? -1 : Math.max(0, state.turnSequence.findIndex(node => node.key === state.phase));"
+    },
+    {
+      "file": "src/engine/state/GameStateSchema.js",
+      "line": 143,
+      "category": "core engine",
+      "code": "card.zone = zone;"
+    },
+    {
+      "file": "src/engine/state/GameStateSchema.js",
+      "line": 174,
+      "category": "core engine",
+      "code": "item.card.zone = 'stack';"
+    },
+    {
+      "file": "src/engine/tokens/TokenService.js",
+      "line": 84,
+      "category": "core engine",
+      "code": "card.summoningSick = this.engine.static.isType(card, 'Creature');"
+    },
+    {
+      "file": "src/engine/tokens/TokenService.js",
+      "line": 91,
+      "category": "core engine",
+      "code": "if (copyMetadata.tapped) card.tapped = true;"
+    },
+    {
+      "file": "src/engine/tokens/TokenService.js",
+      "line": 93,
+      "category": "core engine",
+      "code": "card.attacking = true;"
+    },
+    {
+      "file": "src/engine/tokens/TokenService.js",
+      "line": 96,
+      "category": "core engine",
+      "code": "if (card.attackTarget) this.engine.state.combat.attackTargets[card.instanceId] = card.attackTarget;"
+    },
+    {
+      "file": "src/engine/triggers/PendingTriggerQueue.js",
+      "line": 42,
+      "category": "core engine",
+      "code": "this.engine.state.pendingTriggers.push(trigger);"
+    },
+    {
+      "file": "src/engine/turn/TurnBasedActions.js",
+      "line": 27,
+      "category": "core engine",
+      "code": "s.cardsDrawnThisTurn[s.activePlayer] = 0;"
+    },
+    {
+      "file": "src/engine/turn/TurnBasedActions.js",
+      "line": 28,
+      "category": "core engine",
+      "code": "s.priorityPlayer = null;"
+    },
+    {
+      "file": "src/engine/turn/TurnBasedActions.js",
+      "line": 35,
+      "category": "core engine",
+      "code": "if (c.summoningSick && controlledSince != null && controlledSince < s.turn) c.summoningSick = false;"
+    },
+    {
+      "file": "src/engine/turn/TurnBasedActions.js",
+      "line": 48,
+      "category": "core engine",
+      "code": "s.turnActionPending = 'DECLARE_ATTACKERS';"
+    },
+    {
+      "file": "src/engine/turn/TurnBasedActions.js",
+      "line": 49,
+      "category": "core engine",
+      "code": "s.priorityPlayer = s.activePlayer;"
+    },
+    {
+      "file": "src/engine/turn/TurnBasedActions.js",
+      "line": 55,
+      "category": "core engine",
+      "code": "s.combat.currentDefender = s.combat.blockerQueue[0] || null;"
+    },
+    {
+      "file": "src/engine/turn/TurnBasedActions.js",
+      "line": 57,
+      "category": "core engine",
+      "code": "s.turnActionPending = 'DECLARE_BLOCKERS';"
+    },
+    {
+      "file": "src/engine/turn/TurnBasedActions.js",
+      "line": 58,
+      "category": "core engine",
+      "code": "s.priorityPlayer = s.combat.currentDefender;"
+    },
+    {
+      "file": "src/engine/turn/TurnBasedActions.js",
+      "line": 60,
+      "category": "core engine",
+      "code": "s.turnActionPending = null;"
+    },
+    {
+      "file": "src/engine/turn/TurnBasedActions.js",
+      "line": 61,
+      "category": "core engine",
+      "code": "s.priorityPlayer = s.activePlayer;"
+    },
+    {
+      "file": "src/engine/turn/TurnBasedActions.js",
+      "line": 68,
+      "category": "core engine",
+      "code": "s.priorityPlayer = s.winner ? null : s.activePlayer;"
+    },
+    {
+      "file": "src/engine/turn/TurnBasedActions.js",
+      "line": 73,
+      "category": "core engine",
+      "code": "s.priorityPlayer = s.winner ? null : s.activePlayer;"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 120,
+      "category": "core engine",
+      "code": "s.phaseIndex = index;"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 131,
+      "category": "core engine",
+      "code": "s.turn = 1;"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 132,
+      "category": "core engine",
+      "code": "s.activePlayer = s.playerOrder.find(id => !s.players[id].lost) || 'player';"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 136,
+      "category": "core engine",
+      "code": "s.phaseIndex = 0;"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 137,
+      "category": "core engine",
+      "code": "s.phase = s.turnSequence[0]?.key || 'CLEANUP';"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 147,
+      "category": "core engine",
+      "code": "if (!p || s.winner) { s.priorityPlayer = null; return null; }"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 152,
+      "category": "core engine",
+      "code": "s.passes = 0;"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 153,
+      "category": "core engine",
+      "code": "s.turnActionPending = null;"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 155,
+      "category": "core engine",
+      "code": "s.priorityPlayer = node.grantsPriority ? s.activePlayer : null;"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 225,
+      "category": "core engine",
+      "code": "if (s.winner) { s.priorityPlayer = null; return null; }"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 227,
+      "category": "core engine",
+      "code": "s.passes = 0;"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 228,
+      "category": "core engine",
+      "code": "s.priorityPlayer = null;"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 229,
+      "category": "core engine",
+      "code": "s.turnActionPending = null;"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 243,
+      "category": "core engine",
+      "code": "s.phaseIndex = nextIndex;"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 244,
+      "category": "core engine",
+      "code": "s.phase = s.turnSequence[nextIndex].key;"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 317,
+      "category": "core engine",
+      "code": "if (s.winner) { s.priorityPlayer = null; return null; }"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 326,
+      "category": "core engine",
+      "code": "if (!next) { s.priorityPlayer = null; return null; }"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 327,
+      "category": "core engine",
+      "code": "s.turn += 1;"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 328,
+      "category": "core engine",
+      "code": "s.activePlayer = next.playerId;"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 331,
+      "category": "core engine",
+      "code": "s.phaseIndex = 0;"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 332,
+      "category": "core engine",
+      "code": "s.phase = s.turnSequence[0]?.key || 'CLEANUP';"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 333,
+      "category": "core engine",
+      "code": "s.passes = 0;"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 334,
+      "category": "core engine",
+      "code": "s.priorityPlayer = null;"
+    },
+    {
+      "file": "src/engine/turn/TurnEngine.js",
+      "line": 335,
+      "category": "core engine",
+      "code": "s.turnActionPending = null;"
+    },
+    {
+      "file": "src/engine/zones/HiddenInformation.js",
+      "line": 135,
+      "category": "core engine",
+      "code": "state.pendingChoice = scrubOtherPlayersChoice(authoritative.pendingChoice, viewerId);"
+    },
+    {
+      "file": "src/engine/zones/ZoneService.js",
+      "line": 11,
+      "category": "core engine",
+      "code": "card.tapped = false;"
+    },
+    {
+      "file": "src/engine/zones/ZoneService.js",
+      "line": 12,
+      "category": "core engine",
+      "code": "card.summoningSick = false;"
+    },
+    {
+      "file": "src/engine/zones/ZoneService.js",
+      "line": 13,
+      "category": "core engine",
+      "code": "card.counters = {};"
+    },
+    {
+      "file": "src/engine/zones/ZoneService.js",
+      "line": 14,
+      "category": "core engine",
+      "code": "card.damageMarked = 0;"
+    },
+    {
+      "file": "src/engine/zones/ZoneService.js",
+      "line": 17,
+      "category": "core engine",
+      "code": "card.attacking = false;"
+    },
+    {
+      "file": "src/engine/zones/ZoneService.js",
+      "line": 19,
+      "category": "core engine",
+      "code": "card.blocking = null;"
+    },
+    {
+      "file": "src/engine/zones/ZoneService.js",
+      "line": 150,
+      "category": "core engine",
+      "code": "const [card] = found.player.battlefield.splice(found.index, 1);"
+    },
+    {
+      "file": "src/engine/zones/ZoneService.js",
+      "line": 151,
+      "category": "core engine",
+      "code": "destination.battlefield.push(card);"
+    },
+    {
+      "file": "src/engine/zones/legacyStateZoneApi.js",
+      "line": 9,
+      "category": "core engine",
+      "code": "card.tapped = false;"
+    },
+    {
+      "file": "src/engine/zones/legacyStateZoneApi.js",
+      "line": 10,
+      "category": "core engine",
+      "code": "card.summoningSick = false;"
+    },
+    {
+      "file": "src/engine/zones/legacyStateZoneApi.js",
+      "line": 11,
+      "category": "core engine",
+      "code": "card.counters = {};"
+    },
+    {
+      "file": "src/engine/zones/legacyStateZoneApi.js",
+      "line": 12,
+      "category": "core engine",
+      "code": "card.damageMarked = 0;"
+    },
+    {
+      "file": "src/engine/zones/legacyStateZoneApi.js",
+      "line": 15,
+      "category": "core engine",
+      "code": "card.attacking = false;"
+    },
+    {
+      "file": "src/engine/zones/legacyStateZoneApi.js",
+      "line": 17,
+      "category": "core engine",
+      "code": "card.blocking = null;"
+    },
+    {
+      "file": "src/engine/zones/legacyStateZoneApi.js",
+      "line": 57,
+      "category": "core engine",
+      "code": "const [item] = state.stack.splice(found.index, 1);"
+    },
+    {
+      "file": "src/engine/zones/legacyStateZoneApi.js",
+      "line": 66,
+      "category": "core engine",
+      "code": "if (found.zone === 'stack') return state.stack.splice(found.index, 1)[0]?.card || null;"
+    }
+  ]
+}

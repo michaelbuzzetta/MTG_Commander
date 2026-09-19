@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { engine, rawEngine, db, decks, putBattlefield, setPhase } from './helpers.js';
+import { engine, rawEngine, db, decks, putBattlefield, setPhase, relocateZone } from './helpers.js';
 import { ManaEngine } from '../src/engine/ManaEngine.js';
 
 test('all configured decks are 100-card Commander decks with resolvable commanders', () => {
@@ -96,7 +96,7 @@ test('authoritative gateway rejects casting an opponent-owned card from opponent
 
 test('caster retains priority after putting a spell on the stack', () => {
   const e = engine(), p = e.state.players.player;
-  p.hand = [];
+  relocateZone(e, 'player', 'hand', 'library');
   const spell = { instanceId: 'spell-priority', cardId: 'merfolk-mistbinder', owner: 'player', controller: 'player', zone: 'hand', tapped: false, summoningSick: false, counters: {}, damageMarked: 0, modifiers: { power: 0, toughness: 0, keywords: [] } };
   p.hand.push(spell);
   putBattlefield(e, 'player', 'forest');
@@ -167,7 +167,7 @@ test('commander owner may return a destroyed commander to the command zone', () 
 
 test('untapped lands count toward castability before mana is manually floated', () => {
   const e = engine(), p = e.state.players.player;
-  p.hand = [];
+  relocateZone(e, 'player', 'hand', 'library');
   const spell = { instanceId: 'spell-test', cardId: 'merfolk-mistbinder', owner: 'player', controller: 'player', zone: 'hand', tapped: false, summoningSick: false, counters: {}, damageMarked: 0, modifiers: { power: 0, toughness: 0, keywords: [] } };
   p.hand.push(spell); putBattlefield(e, 'player', 'forest'); putBattlefield(e, 'player', 'island');
   setPhase(e, 'PRECOMBAT_MAIN');
@@ -176,7 +176,7 @@ test('untapped lands count toward castability before mana is manually floated', 
 
 test('casting automatically taps appropriate lands and puts spell on stack', () => {
   const e = engine(), p = e.state.players.player;
-  p.hand = [];
+  relocateZone(e, 'player', 'hand', 'library');
   const spell = { instanceId: 'spell-test-2', cardId: 'merfolk-mistbinder', owner: 'player', controller: 'player', zone: 'hand', tapped: false, summoningSick: false, counters: {}, damageMarked: 0, modifiers: { power: 0, toughness: 0, keywords: [] } };
   p.hand.push(spell); const f = putBattlefield(e, 'player', 'forest'); const i = putBattlefield(e, 'player', 'island');
   setPhase(e, 'PRECOMBAT_MAIN');
@@ -186,7 +186,7 @@ test('casting automatically taps appropriate lands and puts spell on stack', () 
 
 test('generic costs auto-tap enough sources without requiring manual mana activation', () => {
   const e = engine(), p = e.state.players.player;
-  p.hand = [];
+  relocateZone(e, 'player', 'hand', 'library');
   const spell = { instanceId: 'spell-test-3', cardId: 'divination', owner: 'player', controller: 'player', zone: 'hand', tapped: false, summoningSick: false, counters: {}, damageMarked: 0, modifiers: { power: 0, toughness: 0, keywords: [] } };
   p.hand.push(spell); putBattlefield(e, 'player', 'island'); putBattlefield(e, 'player', 'forest'); putBattlefield(e, 'player', 'forest');
   setPhase(e, 'PRECOMBAT_MAIN');

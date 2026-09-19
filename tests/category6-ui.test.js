@@ -9,7 +9,7 @@ const app = fs.readFileSync(path.join(ROOT, 'src/App.jsx'), 'utf8');
 
 test('Category 6 UI: target selection is an explicit decision before casting', () => {
   assert.match(app, /targetingAction/);
-  assert.match(app, /engine\.targeting\.getCandidates\('player'/);
+  assert.match(app, /engine\.getTargetCandidates\('player'/);
   assert.match(app, /beginTargeting/);
   assert.match(app, /chooseCardAction/);
   assert.match(app, /Choose a legal target/);
@@ -20,5 +20,5 @@ test('Category 6 UI: ward exposes pay and decline decisions', () => {
   assert.match(app, /WARD_PAYMENT/);
   assert.match(app, /PAY_WARD/);
   assert.match(app, /DECLINE_WARD/);
-  assert.match(app, /engine\.canPayWard\(pendingWard\)/);
+  assert.match(app, /engine\.getLegalActions\('player'\)\.some\(action => action\.type === 'PAY_WARD'\)/);
 });

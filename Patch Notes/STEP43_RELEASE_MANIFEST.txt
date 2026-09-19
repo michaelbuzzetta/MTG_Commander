@@ -1,0 +1,20 @@
+MTG Commander Rules Engine — Step 43
+Oracle/Card Database Update Pipeline
+
+Primary additions:
+- src/database/update/CardDatabaseUpdateService.js
+- src/database/update/index.js
+- scripts/update-card-database-step43.mjs
+- scripts/run-step43-affected-tests.mjs
+- scripts/check-step43-update-pipeline.mjs
+- tests/step43-oracle-card-update-pipeline.test.js
+- src/data/updates/step43-*.json
+- step43-oracle-card-database-update-pipeline.md
+- STEP43_COMPLETION_REPORT.md
+
+Acceptance focus:
+- no unnecessary full refresh when source snapshot is unchanged
+- new printings reuse Oracle implementations
+- semantic Oracle changes enter explicit review
+- affected tests are targetable
+- failed/offline refresh preserves prior usable data

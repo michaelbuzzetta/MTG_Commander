@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "rulesVersion": "mtg-cr-2026-08-07",
+  "generatedAt": "2026-09-17T23:51:28.560Z",
+  "cardCount": 647,
+  "oracleImplementationCount": 647,
+  "identityCoverage": {
+    "cardsWithOracleId": 178,
+    "cardsUsingLocalNameFallback": 469,
+    "oracleIdPercent": 27.51,
+    "cachedScryfallSnapshotCards": 178,
+    "cachedScryfallCapturedAt": "2026-09-02T18:55:35.121Z"
+  },
+  "statusCounts": {
+    "fully_supported": 31,
+    "partially_supported": 616
+  },
+  "statusPercent": {
+    "fully_supported": 4.79,
+    "partially_supported": 95.21
+  },
+  "implementationPathCounts": {
+    "auto-template-candidate": 187,
+    "complex-scripted": 13,
+    "declarative-scripted": 447
+  },
+  "cardsWithCardSpecificTests": 84,
+  "cardsWithGoldenBehaviorTests": 31,
+  "goldenBehaviorCaseCount": 34,
+  "cardsWithFullCertification": 31,
+  "currentDecks": {
+    "count": 13,
+    "allCardsMapped": true,
+    "silentlyUnsupportedCards": 0,
+    "strictReadyDecks": []
+  },
+  "metricPolicy": "Coverage is computed exclusively from card-support records. Full support requires explicit Step 17 certification, at least one repository behavioral test, at least one current Step 35 golden behavior contract locked to Oracle text/rules version, executable machine-readable behavior, and zero tracked caveats."
+}

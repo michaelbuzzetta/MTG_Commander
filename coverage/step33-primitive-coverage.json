@@ -1,0 +1,39 @@
+{
+  "requiredPrimitiveCount": 13,
+  "coveredPrimitiveCount": 13,
+  "requiredPrimitives": [
+    "draw",
+    "damage",
+    "moveZone",
+    "destroy",
+    "exile",
+    "sacrifice",
+    "counters",
+    "createToken",
+    "search",
+    "targeting",
+    "costPayment",
+    "copy",
+    "controlChange"
+  ],
+  "missingPrimitives": [],
+  "eventCritical": [
+    "DRAW_CARD",
+    "DEAL_DAMAGE",
+    "MOVE_ZONE",
+    "DESTROY",
+    "EXILE",
+    "SACRIFICE",
+    "ADD_COUNTER",
+    "CREATE_TOKEN",
+    "CONTROL_CHANGE"
+  ],
+  "missingEventCritical": [],
+  "hasAtomicityAssertions": true,
+  "hasPartialResolutionAssertion": true,
+  "hasReplacementCoverage": true,
+  "hasPreventionCoverage": true,
+  "hasSbaSchedulingCoverage": true,
+  "hasTableDrivenCoverage": true,
+  "status": "pass"
+}

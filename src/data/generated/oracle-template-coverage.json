@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "parserVersion": "1.3.0",
+  "generatedAt": "2026-09-17T23:42:35.082Z",
+  "cardCount": 38891,
+  "productionCatalogUniverse": true,
+  "catalogComplete": true,
+  "exactHighConfidenceCompilations": 1536,
+  "exactHighConfidencePercent": 3.95,
+  "reviewRequired": 37355,
+  "highPriorityTemplateQueue": 189,
+  "templateCounts": {
+    "activated.tap-damage-any-target": 6,
+    "activated.tap-gain-one-life": 4,
+    "activated.white-tap-target-creature": 9,
+    "card.keyword-only": 936,
+    "card.keyword-plus-dies-draw-one": 12,
+    "card.keyword-plus-etb-draw-one": 11,
+    "card.vanilla-creature": 350,
+    "spell.counter-target-creature-spell": 4,
+    "spell.damage-any-target": 22,
+    "spell.destroy-target": 28,
+    "spell.destroy-target-tapped-creature": 5,
+    "spell.draw-fixed": 11,
+    "spell.exile-target": 15,
+    "spell.pump-until-eot": 42,
+    "spell.reanimate-target-creature": 5,
+    "spell.search-basic-land": 4,
+    "trigger.combat-damage-player-draw-one": 4,
+    "trigger.dies-draw-one": 5,
+    "trigger.etb-create-common-token": 5,
+    "trigger.etb-destroy-artifact": 5,
+    "trigger.etb-draw-fixed": 17,
+    "trigger.etb-gain-life": 27,
+    "trigger.etb-target-plus-counter": 9
+  },
+  "availableTemplates": [
+    {
+      "id": "card.vanilla-creature",
+      "description": "A normal creature with no rules text has no executable abilities beyond its copiable characteristics.",
+      "confidence": "high"
+    },
+    {
+      "id": "card.keyword-only",
+      "description": "One or more exact generic keywords whose semantics are implemented by the reusable mechanic engine.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.draw-fixed",
+      "description": "Draw a fixed number of cards.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.destroy-target",
+      "description": "Destroy one target matching a supported selector.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.exile-target",
+      "description": "Exile one target matching a supported selector.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.pump-until-eot",
+      "description": "Give a target creature a fixed power/toughness change until end of turn.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.damage-any-target",
+      "description": "Deal a fixed amount of damage to any target.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.search-basic-land",
+      "description": "Search for a basic land, move it to the battlefield, then shuffle.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.create-common-token",
+      "description": "Create a fixed number of Treasure, Clue, or Food tokens.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.etb-gain-life",
+      "description": "Gain a fixed amount of life when this permanent enters.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.etb-draw-fixed",
+      "description": "Draw a fixed number of cards when this permanent enters.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.etb-create-common-token",
+      "description": "Create common utility tokens when this permanent enters.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.etb-plus-counter",
+      "description": "Put fixed +1/+1 counters on this permanent when it enters.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.etb-target-plus-counter",
+      "description": "Put fixed +1/+1 counters on a target creature when this permanent enters.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.etb-destroy-artifact",
+      "description": "Destroy target artifact when this permanent enters.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.etb-damage-any-target",
+      "description": "Deal a fixed amount of damage to any target when this permanent enters.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.dies-draw-one",
+      "description": "Draw a card when this creature dies.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.combat-damage-player-draw-one",
+      "description": "Draw a card when this creature deals combat damage to a player.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.destroy-target-tapped-creature",
+      "description": "Destroy target tapped creature.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.counter-target-creature-spell",
+      "description": "Counter target creature spell.",
+      "confidence": "high"
+    },
+    {
+      "id": "card.keyword-plus-etb-draw-one",
+      "description": "Exact simple keyword line plus an ETB draw-one trigger.",
+      "confidence": "high"
+    },
+    {
+      "id": "card.keyword-plus-dies-draw-one",
+      "description": "Exact simple keyword line plus a dies draw-one trigger.",
+      "confidence": "high"
+    },
+    {
+      "id": "activated.tap-damage-any-target",
+      "description": "Tap this permanent to deal one damage to any target.",
+      "confidence": "high"
+    },
+    {
+      "id": "activated.white-tap-target-creature",
+      "description": "Pay white and tap this permanent to tap target creature.",
+      "confidence": "high"
+    },
+    {
+      "id": "activated.tap-gain-one-life",
+      "description": "Tap this permanent to gain one life.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.reanimate-target-creature",
+      "description": "Return target creature card from your graveyard to the battlefield.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.cast-type-plus-counter",
+      "description": "Put a +1/+1 counter on this creature after casting a simple permanent-type spell.",
+      "confidence": "high"
+    }
+  ],
+  "metricPolicy": "Only unique exact full-text high-confidence matches count as auto-compiled. Unknown, partial, or ambiguous Oracle text remains review-required."
+}

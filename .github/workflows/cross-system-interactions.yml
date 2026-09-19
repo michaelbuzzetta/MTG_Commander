@@ -1,0 +1,26 @@
+name: Cross-System Interaction Gate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  interactions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check:architecture
+      - run: npm run check:step33
+      - run: npm run check:step34
+      - run: npm run test:step34
+      - run: npm run test:step9
+      - run: npm run test:step10
+      - run: npm run test:step11
+      - run: npm run test:step13
+      - run: npm run test:step14
+      - run: npm run test:step23

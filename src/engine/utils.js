@@ -1,7 +1,13 @@
 let seq=0;
 export const uid=(prefix='id')=>`${prefix}-${++seq}`;
+export function reserveUid(value){
+  const match=String(value||'').match(/-(\d+)$/);
+  if(match) seq=Math.max(seq, Number(match[1])||0);
+}
+export function currentUidSequence(){ return seq; }
+export function setUidSequence(value=0){ seq=Math.max(0, Number(value)||0); return seq; }
 export const clone=x=>structuredClone(x);
-export function shuffle(a,rng=Math.random){ const b=[...a]; for(let i=b.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; }
+export function shuffle(a,rng){ if(typeof rng!=='function') throw new Error('shuffle requires the game RNG service'); const b=[...a]; for(let i=b.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; }
 export function parseManaCost(cost=''){ const req={generic:0,W:0,U:0,B:0,R:0,G:0,C:0}; for(const m of cost.matchAll(/\{([^}]+)\}/g)){const x=String(m[1]).toUpperCase(); if(/^\d+$/.test(x))req.generic+=+x; else if(req[x]!=null)req[x]++; else if(x.includes('/') && x.split('/').every(part=>['W','U','B','R','G','C'].includes(part))) req.generic+=1;} return req; }
 export function manaValue(cost=''){return [...cost.matchAll(/\{([^}]+)\}/g)].reduce((n,m)=>n+(/^\d+$/.test(m[1])?+m[1]:['X','Y','Z'].includes(m[1])?0:1),0)}
 export const isType=(c,t)=>(c?.typeLine||'').toLowerCase().includes(t.toLowerCase());

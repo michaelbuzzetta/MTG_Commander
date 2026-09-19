@@ -1,0 +1,44 @@
+MTG Commander Rules Engine — Step 28 Release Manifest
+=====================================================
+Status: COMPLETE
+Step: 28 — Timing Restrictions and Activation/Casting Windows
+
+Primary additions
+-----------------
+src/engine/timing/TimingTypes.js
+src/engine/timing/TimingPermission.js
+src/engine/timing/TimingService.js
+src/engine/timing/index.js
+tests/step28-timing-restrictions.test.js
+docs/architecture/step28-timing-restrictions.md
+step28-timing-restrictions.md
+STEP28_COMPLETION_REPORT.md
+STEP28_RELEASE_MANIFEST.txt
+
+Primary integrations
+--------------------
+src/engine/GameEngine.js
+src/engine/GameState.js
+src/engine/state/GameStateSchema.js
+src/engine/state/types.d.ts
+src/engine/turn/TurnBasedActions.js
+src/engine/public/api.js
+src/engine/index.js
+src/cards/scripts/CardScriptCompiler.js
+src/cards/scripts/ScriptValidator.js
+package.json
+README.md
+
+Verification
+------------
+npm run test:step28: 14/14 PASS
+node --test tests/step*.test.js: 353/353 PASS
+core + explorers integration: 47/47 PASS
+npm run check:architecture: PASS
+npm run check-db: PASS (647 cards / 13 decks)
+npm run check-support: PASS (26 full / 621 partial / 0 unsupported)
+npm run check-oracle-templates: PASS (4 exact / 643 review-required)
+
+Next workflow step
+------------------
+Step 29 — AI Migration to Authoritative Legal Actions

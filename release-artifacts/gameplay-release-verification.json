@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "release": "gameplay-focused-2026-09-17",
+  "acceptancePolicy": "Reusable rules primitives and their cross-system interactions are the release target. Unknown/unusual runtime behavior fails closed with explicit unsupported diagnostics rather than being silently approximated.",
+  "sourceChecks": {
+    "database": { "passed": true, "cards": 647, "decks": 13 },
+    "supportCatalog": { "passed": true, "fullySupported": 31, "partiallySupported": 616, "unsupported": 0 },
+    "architectureBoundary": { "passed": true },
+    "changedJavaScriptSyntax": { "passed": true }
+  },
+  "focusedGameplayTests": {
+    "passed": true,
+    "tests": 168,
+    "failures": 0,
+    "suites": 12,
+    "includes": [
+      "stack and priority",
+      "costs and activated abilities",
+      "triggered abilities",
+      "replacement and prevention",
+      "continuous effects and layers",
+      "combat",
+      "generic card scripting",
+      "Compiler 1.3 paragraph composition",
+      "cross-system interactions",
+      "golden real-card behavior",
+      "judge scenarios",
+      "unsupported interaction fail-safes"
+    ]
+  },
+  "realDeckAudit": {
+    "passed": true,
+    "simulations": 7,
+    "authoritativeActions": 140,
+    "interactionFailures": 0,
+    "unsupportedRuntimeDiagnostics": 0,
+    "decks": ["Explorers of the Deep", "Temporal Paradox", "Never Ending Story"]
+  },
+  "fixedDuringRelease": [
+    "Counter/token provenance now reports source card instance identity consistently.",
+    "Priority/invariant handling now permits the active player to be eliminated during stack resolution and skips that eliminated player correctly.",
+    "Compiler 1.3 now composes multiple independently exact Oracle ability paragraphs through the generic card-script path while remaining fail-closed on unknown/ambiguous text.",
+    "Stale generated support metadata was rebuilt, restoring the intended 31 golden-certified fully-supported cards."
+  ],
+  "productionBundle": {
+    "passedInThisSandbox": false,
+    "reason": "The extracted checkpoint did not include node_modules, and locked dependency installation could not complete in the sandbox. Source/tests are verified; run npm ci followed by npm run build:offline locally."
+  }
+}

@@ -1,0 +1,32 @@
+MTG Commander Rules Engine — Step 36 Release Manifest
+=====================================================
+
+Step: 36 — Judge Scenario Regression Library
+Status: COMPLETE
+
+Key additions:
+- tests/judge-scenarios/scenario.schema.json
+- tests/judge-scenarios/step36-scenarios.json
+- tests/judge-scenarios/ScenarioHarness.js
+- tests/judge-scenarios/Step36ScenarioLibrary.js
+- tests/judge-scenarios/snapshots/step36-critical-traces.json
+- tests/judge-scenarios/BUG_TO_REGRESSION_POLICY.md
+- tests/step36-judge-scenarios.test.js
+- scripts/check-step36-judge-scenarios.mjs
+- .github/workflows/judge-scenarios.yml
+- coverage/step36-judge-scenario-coverage.json
+- coverage/step36-judge-scenario-coverage.md
+- step36-judge-scenario-regression-library.md
+- STEP36_COMPLETION_REPORT.md
+
+Verification at release:
+- Step 36 gate: PASS (9 scenarios / 8 critical trace snapshots)
+- Step 36 tests: PASS (10/10)
+- Architecture: PASS
+- Database: PASS (647 cards / 13 decks)
+- Support database: PASS (26 full / 621 partial / 0 unsupported)
+- Oracle compiler: PASS
+- Step 34: PASS (13/13)
+- Step 35: PASS (30/30)
+- Step 32: PASS (11/11)
+- Step 33: PASS (15/15)

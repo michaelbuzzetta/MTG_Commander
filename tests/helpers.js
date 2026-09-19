@@ -1,6 +1,7 @@
 import db from '../src/data/generated/cards.json' with { type: 'json' };
 import decks from '../src/data/generated/decks.json' with { type: 'json' };
 import { GameEngine } from '../src/engine/GameEngine.js';
+import { makeCardInstance } from '../src/engine/GameState.js';
 export { db, decks };
 
 export function rawEngine(a = 'explorers', b = 'blech') {
@@ -19,12 +20,9 @@ export function engine(a = 'explorers', b = 'blech') {
 
 export function putBattlefield(e, pid, cardId, extra = {}) {
   const p = e.state.players[pid];
-  const c = {
-    instanceId: `test-${Math.random()}`,
-    cardId,
-    owner: pid,
+  const definition = e.db?.[cardId] || db?.[cardId] || {};
+  const c = makeCardInstance(cardId, pid, 'battlefield', {
     controller: pid,
-    zone: 'battlefield',
     tapped: false,
     summoningSick: false,
     counters: {},
@@ -35,7 +33,7 @@ export function putBattlefield(e, pid, cardId, extra = {}) {
     createdTurn: e.state.turn,
     controlledSinceTurn: e.state.turn,
     ...extra
-  };
+  }, definition);
   p.battlefield.push(c);
   return c;
 }
@@ -48,4 +46,12 @@ export function setPhase(e, phase, { activePlayer = 'player', priorityPlayer = a
   e.state.turnActionPending = turnActionPending;
   e.state.passes = 0;
   e.state.stack = [];
+}
+
+export function relocateZone(e, playerId, fromZone, toZone = 'library') {
+  const player = e.state.players[playerId];
+  if (!player) throw new Error(`Unknown player ${playerId}`);
+  const cards = [...player[fromZone]];
+  for (const card of cards) e.zones.move(card.instanceId, toZone, playerId);
+  return cards.length;
 }

@@ -12,6 +12,7 @@ export async function loadCardCatalog(fetchImpl = globalThis.fetch) {
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const payload = await response.json();
       if (!payload || !Array.isArray(payload.cards)) throw new Error('Invalid card catalog payload.');
+      if (payload.cards.length < 10000 || payload.complete !== true) throw new Error(`Incomplete card catalog (${payload.cards.length} cards).`);
       return payload;
     } catch (error) {
       lastError = error;
@@ -86,29 +87,46 @@ function catalogToScryfallShape(def) {
   };
 }
 
-export function promoteCatalogCard(def) {
+export function promoteCatalogCard(def, { allowApproximation = false } = {}) {
   if (!def || def.supported !== false || !def.catalogCard) return def || null;
-  const promoted = normalizeFetchedCard(catalogToScryfallShape(def), def.name);
+
+  // Production/strict paths must never convert descriptive catalog metadata into
+  // executable rules. A catalog-only card stays unsupported until a certified
+  // runtime implementation exists. Heuristic parsing is available only through
+  // an explicit sandbox opt-in and is always marked ineligible for certification.
+  if (!allowApproximation) {
+    return {
+      ...def,
+      supported: false,
+      certificationEligible: false,
+      unsupportedReason: def.unsupportedReason || 'No certified runtime implementation exists for this Oracle identity.'
+    };
+  }
+
+  const promoted = normalizeFetchedCard(catalogToScryfallShape(def), def.name, { allowApproximation: true });
   return {
     ...promoted,
-    source: 'Scryfall full catalog → generic trainer rules parser',
+    source: 'Scryfall full catalog → explicit sandbox heuristic approximation',
     catalogOriginId: def.id,
     catalogCard: true,
-    supported: true
+    supported: true,
+    approximateRules: true,
+    sandboxApproximation: true,
+    certificationEligible: false
   };
 }
 
-export function promoteCatalogDefinitions(definitions = []) {
+export function promoteCatalogDefinitions(definitions = [], options = {}) {
   const promoted = {};
   for (const def of definitions) {
     if (!def?.catalogCard || def.supported !== false) continue;
-    const runtime = promoteCatalogCard(def);
+    const runtime = promoteCatalogCard(def, options);
     if (runtime?.id) promoted[runtime.id] = runtime;
   }
   return promoted;
 }
 
-export function promoteCatalogNames(names = [], builderDb = {}) {
+export function promoteCatalogNames(names = [], builderDb = {}, options = {}) {
   const wanted = new Set(names.map(normalizeCardName).filter(Boolean));
   const definitions = [];
   for (const def of Object.values(builderDb || {})) {
@@ -116,5 +134,5 @@ export function promoteCatalogNames(names = [], builderDb = {}) {
     const aliases = [def.name, ...(def.aliases || [])].map(normalizeCardName);
     if (aliases.some(alias => wanted.has(alias))) definitions.push(def);
   }
-  return promoteCatalogDefinitions(definitions);
+  return promoteCatalogDefinitions(definitions, options);
 }

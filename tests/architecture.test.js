@@ -81,13 +81,18 @@ test('audited migration-era modules are removed', () => {
   for (const rel of removed) assert.equal(fs.existsSync(path.join(ROOT, rel)), false, `${rel} should not exist`);
 });
 
-test('runtime app and tests import generated data, not abandoned public data', () => {
+test('runtime app and tests use the generated database through the read-only production facade', () => {
   const app = fs.readFileSync(path.join(ROOT, 'src/App.jsx'), 'utf8');
+  const database = fs.readFileSync(path.join(ROOT, 'src/database/index.js'), 'utf8');
   const helpers = fs.readFileSync(path.join(ROOT, 'tests/helpers.js'), 'utf8');
   const builder = fs.readFileSync(path.join(ROOT, 'scripts/build-card-db.mjs'), 'utf8');
 
-  assert.match(app, /data\/generated\/cards\.json/);
-  assert.match(app, /data\/generated\/decks\.json/);
+  assert.match(app, /from '\.\/database\/index\.js'/);
+  assert.doesNotMatch(app, /data\/generated\/(?:cards|decks)\.json/);
+  assert.match(database, /data\/generated\/cards\.json/);
+  assert.match(database, /data\/generated\/decks\.json/);
+  assert.match(database, /getBuiltInCardDatabase/);
+  assert.match(database, /getBuiltInDecks/);
   assert.match(helpers, /data\/generated\/cards\.json/);
   assert.match(helpers, /data\/generated\/decks\.json/);
   assert.doesNotMatch(app, /public\/data|\/data\/cards\.json|\/data\/decks\.json/);
