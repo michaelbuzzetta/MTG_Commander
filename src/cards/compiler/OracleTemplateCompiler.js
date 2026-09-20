@@ -8,6 +8,12 @@ function stable(value) {
   if (value && typeof value === 'object') return `{${Object.keys(value).sort().map(key => `${JSON.stringify(key)}:${stable(value[key])}`).join(',')}}`;
   return JSON.stringify(value);
 }
+function equivalentHighConfidenceMatches(matches = []) {
+  if (!matches.length || matches.some(row => row.confidence !== 'high')) return null;
+  const first = stable(matches[0].ast);
+  return matches.every(row => stable(row.ast) === first) ? matches[0] : null;
+}
+
 function behaviorFingerprint(value) {
   const text = stable(value);
   let hash = 0x811c9dc5;
@@ -23,20 +29,38 @@ export class OracleTemplateCompiler {
   }
 
   _composeExactParagraphs(card, normalizedText) {
-    const paragraphs = normalizedText.split('\n').map(value => value.trim()).filter(Boolean);
+    const rawParagraphs = normalizedText.split('\n').map(value => value.trim()).filter(value => value && value !== '//');
+    const paragraphs = [];
+    for (let i = 0; i < rawParagraphs.length; i++) {
+      if (/^(?:When this creature enters, )?choose (?:one|two|three|one or both|one or more)(?:\. If you control a commander as you cast this spell, you may choose both instead)? [—-]$/i.test(rawParagraphs[i])) {
+        const grouped = [rawParagraphs[i]];
+        while (i + 1 < rawParagraphs.length && /^•\s*/.test(rawParagraphs[i + 1])) grouped.push(rawParagraphs[++i]);
+        paragraphs.push(grouped.join('\n'));
+      } else paragraphs.push(rawParagraphs[i]);
+    }
     if (paragraphs.length < 2) return null;
 
     const abilities = [];
+    const castingOptions = [];
+    const cardPatch = {};
     const matchedTemplates = [];
     for (const paragraph of paragraphs) {
       const matches = this.templateLibrary.match({ ...card, oracleText: paragraph });
-      if (matches.length !== 1 || matches[0].confidence !== 'high') return null;
-      const match = matches[0];
+      let match = matches.length === 1 && matches[0].confidence === 'high' ? matches[0] : equivalentHighConfidenceMatches(matches);
+      if (!match && matches.length > 1) {
+        const specific = matches.filter(row => !row.templateId.startsWith('phase69.'));
+        const foundational = specific.filter(row => !/^phase\d+\./.test(row.templateId));
+        if (foundational.length === 1 && foundational[0].confidence === 'high') match = foundational[0];
+      }
+      if (!match) return null;
       // A textless-card template is meaningful only for a whole card and must
       // never be used as a paragraph-level building block.
       if (match.templateId === 'card.vanilla-creature') return null;
-      matchedTemplates.push(match.templateId);
+      matchedTemplates.push(...(matches.length > 1 ? matches.map(row => row.templateId) : [match.templateId]));
       abilities.push(...structuredClone(match.ast?.abilities || []));
+      const patch = structuredClone(match.ast?.cardPatch || {});
+      if (Array.isArray(patch.castingOptions)) castingOptions.push(...patch.castingOptions);
+      for (const [key, value] of Object.entries(patch)) if (key !== 'castingOptions') cardPatch[key] = value;
     }
 
     // CardScriptCompiler has one card-level target contract for ordinary spell
@@ -47,7 +71,7 @@ export class OracleTemplateCompiler {
     if (targetedSpellAbilities.length > 1) return null;
 
     return {
-      ast: { type: 'card', abilities },
+      ast: { type: 'card', abilities, ...(castingOptions.length || Object.keys(cardPatch).length ? { cardPatch: { ...cardPatch, ...(castingOptions.length ? { castingOptions } : {}) } } : {}) },
       matchedTemplates,
       composedParagraphs: paragraphs.length
     };
@@ -69,6 +93,18 @@ export class OracleTemplateCompiler {
       return { parserVersion: ORACLE_PARSER_VERSION, cardId: card.id || null, name: card.name || null, oracleFingerprint: oracleFingerprint(normalizedText), normalizedText, tokens, status: 'review_required', confidence: 'none', matchedTemplates: [], diagnostics: ['No exact high-confidence Oracle template or complete paragraph composition matched the rules text.'] };
     }
     if (matches.length > 1) {
+      const equivalent = equivalentHighConfidenceMatches(matches);
+      if (equivalent) return { parserVersion: ORACLE_PARSER_VERSION, cardId: card.id || null, name: card.name || null, oracleFingerprint: oracleFingerprint(normalizedText), normalizedText, tokens, status: 'matched', confidence: 'high', matchedTemplates: matches.map(row => row.templateId), ast: structuredClone(equivalent.ast), composed: false, diagnostics: ['Multiple exact templates matched with identical executable semantics; safely collapsed.'] };
+      // Coverage phases may rediscover a family already represented by one
+      // foundational exact template. Prefer that established implementation
+      // for execution while keeping the library's complete match list intact
+      // for coverage/regression tooling.
+      const specific = matches.filter(row => !row.templateId.startsWith('phase69.'));
+      const foundational = specific.filter(row => !/^phase\d+\./.test(row.templateId));
+      if (foundational.length === 1) {
+        const chosen = foundational[0];
+        return { parserVersion: ORACLE_PARSER_VERSION, cardId: card.id || null, name: card.name || null, oracleFingerprint: oracleFingerprint(normalizedText), normalizedText, tokens, status: 'matched', confidence: 'high', matchedTemplates: [chosen.templateId], ast: structuredClone(chosen.ast), composed: false, diagnostics: ['A foundational exact template was preferred over later duplicate coverage templates.'] };
+      }
       return { parserVersion: ORACLE_PARSER_VERSION, cardId: card.id || null, name: card.name || null, oracleFingerprint: oracleFingerprint(normalizedText), normalizedText, tokens, status: 'review_required', confidence: 'ambiguous', matchedTemplates: matches.map(row => row.templateId), diagnostics: ['Multiple exact templates matched; manual review is required before execution.'] };
     }
     return { parserVersion: ORACLE_PARSER_VERSION, cardId: card.id || null, name: card.name || null, oracleFingerprint: oracleFingerprint(normalizedText), normalizedText, tokens, status: 'matched', confidence: matches[0].confidence, matchedTemplates: [matches[0].templateId], ast: structuredClone(matches[0].ast), composed: false, diagnostics: [] };

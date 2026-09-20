@@ -2,7 +2,7 @@ const LEAF_KEYS = new Set([
   'kind','zone','controller','owner','player','type','types','allTypes','subtype','subtypes',
   'manaValue','manaValueMin','manaValueMax','color','colors','allColors','colorless','legendary',
   'nonland','cardId','name','names','attacking','blocking','tapped','hasCounter','withoutCounter',
-  'notSelf','self','other','minTargets','maxTargets','optional','allowDuplicateTargets'
+  'notSelf','self','other','attachedToSource','fromZone','toZone','counterType','minTargets','maxTargets','optional','allowDuplicateTargets'
 ]);
 const BOOLEAN_KEYS = new Set(['and','or','not']);
 const VALID_ZONES = new Set(['library','hand','battlefield','graveyard','exile','command','stack']);

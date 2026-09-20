@@ -149,6 +149,7 @@ export class ResolutionPipeline {
         targeted: targetedResolution,
         mode: item.mode,
         castOption: item.castOption,
+        xValue: item.xValue ?? selectedMode?.xValue ?? null,
         stackObjectId: item.id,
         abilityId: eff?.scriptAbilityId || item.scriptAbilityId || null
       });
@@ -167,8 +168,28 @@ export class ResolutionPipeline {
     }
 
     if (isType(d, 'Instant') || isType(d, 'Sorcery')) {
-      const afterZone = selectedMode?.afterResolutionZone || d.afterResolutionZone || 'graveyard';
-      e._moveZoneNow(card, afterZone, card.owner);
+      // Ascend on an instant or sorcery is evaluated during that spell's resolution.
+      if ((d.ascend || (d.keywords || []).some(keyword => String(keyword).toLowerCase() === 'ascend'))
+          && !e.state.players[item.controller]?.citysBlessing
+          && (e.state.players[item.controller]?.battlefield || []).length >= 10) {
+        e.state.players[item.controller].citysBlessing = true;
+        e.log('CITYS_BLESSING_GAINED', { playerId: item.controller, reason: 'ascend-spell' });
+      }
+      const hasRebound = !!d.rebound || (d.keywords || []).some(keyword => String(keyword).toLowerCase() === 'rebound');
+      if (hasRebound && item.castFromZone === 'hand' && item.castOption !== 'rebound') {
+        e._moveZoneNow(card, 'exile', card.owner);
+        e.state.reboundPending ||= [];
+        e.state.reboundPending.push({
+          playerId: item.controller,
+          cardInstanceId: card.instanceId,
+          cardId: card.cardId,
+          createdTurn: e.state.turn
+        });
+        e.log('REBOUND_EXILED', { playerId: item.controller, cardInstanceId: card.instanceId, cardId: card.cardId });
+      } else {
+        const afterZone = selectedMode?.afterResolutionZone || d.afterResolutionZone || 'graveyard';
+        e._moveZoneNow(card, afterZone, card.owner);
+      }
     } else {
       if (item.isCopy) {
         card.isToken = true;
@@ -187,6 +208,15 @@ export class ResolutionPipeline {
           prompt: spec.prompt || `Choose a permanent for ${d.name || 'this permanent'} to copy`,
           resume: e.state.phase === 'CLEANUP' ? 'CLEANUP' : 'PRIORITY'
         });
+        return item;
+      }
+      if (d.asEntersChooseColor && !card.chosenColor) {
+        e.state.pendingResolution = { kind: 'permanent', item: structuredClone(item), resolutionTargets: [...resolutionTargets] };
+        e.state.pendingChoice = {
+          type: 'COLOR', playerId: item.controller, cardInstanceId: card.instanceId, cardName: d.name,
+          options: ['W','U','B','R','G'], resume: e.state.phase === 'CLEANUP' ? 'CLEANUP' : 'PRIORITY'
+        };
+        e.state.priorityPlayer = item.controller;
         return item;
       }
       if (d.asEntersChooseType && !card.chosenType) {

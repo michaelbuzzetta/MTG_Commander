@@ -342,3 +342,6 @@ Unsupported interactions now fail closed instead of being silently approximated.
 ## Current rules-engine checkpoint — Step 41
 
 This archive is the **Step 41 complete** checkpoint. Unsupported behavior can no longer silently contaminate authoritative gameplay or official simulation output, and diagnostic/replay metadata makes every unsupported encounter reproducible. The next workflow stage is **Step 42 — Strict Rules Mode and Release Gate**.
+
+### MongoDB Ability System Phase 8
+The Oracle compiler is now v2.0.0 and includes generalized replacement/prevention templates. This phase also fixes pre-battlefield self replacement discovery for effects such as "This permanent enters tapped." See `tests/phase8-oracle-replacement-compiler.test.js`.

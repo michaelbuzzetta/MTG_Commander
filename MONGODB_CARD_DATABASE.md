@@ -41,3 +41,15 @@ Open MongoDB Shell and run:
 `db.cards.findOne({name:"Jon Irenicus, Shattered One"})`
 
 A healthy full catalog should contain far more than 10,000 Oracle identities. The exact count changes as Scryfall adds cards. Jon Irenicus should return a document regardless of whether his gameplay rules are implemented by the trainer.
+
+## Ability System Phase 4 (Oracle compiler v1.6.0)
+
+Phase 4 expands the declarative MongoDB behavior compiler with locked-X value expressions, optional (`may`) effects, additional attack/cast/dies/ETB trigger families, and sacrifice-self activated costs. It also fixes compiled `{T}` activated costs so the authoritative runtime receives the top-level `tap` contract used by legality/payment checks. Spell resolution now propagates the locked X value into scripted effect resolution. Unknown or partially matched Oracle text continues to fail closed to `review_required`.
+
+## Ability System Phase 7
+
+Oracle compiler v1.9.0 adds fail-closed compilation for common static/continuous battlefield effects. Supported exact families now include fixed P/T modifications for creatures you control, other creatures you control, and creatures opponents control, plus reusable keyword grants/removal for those creature groups. These lower into existing static Ability IR and the authoritative continuous-effect layer engine (layer 6 for ability changes and layer 7c-style P/T modification in this engine's model) rather than mutating permanent base characteristics. Unknown keyword/static text remains review-required.
+
+## Ability System Phase 8 — replacement and prevention effects
+
+Oracle compiler v2.0.0 adds fail-closed, declarative compilation for common replacement/prevention families, including self enter-tapped replacements, battlefield-to-graveyard exile replacements, token/counter/life multipliers, additional +1/+1 counters, and full damage-prevention replacements. Replacement filters now carry event constraints (`fromZone`, `toZone`, `counterType`) in addition to object/player selectors. The replacement registry also evaluates self-scoped MOVE_ZONE replacement abilities on an object that is entering the battlefield, so an entering permanent can modify its own entry event before it exists on the battlefield. Unknown or partial Oracle wording remains review-required.

@@ -1,3 +1,2 @@
-// Legacy root-level compatibility forwarder.
-// Canonical module: ./turn/TurnBasedActions.js
+// Compatibility barrel: canonical implementation lives in ./turn/TurnBasedActions.js
 export * from './turn/TurnBasedActions.js';

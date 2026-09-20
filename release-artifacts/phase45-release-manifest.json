@@ -1,0 +1,33 @@
+{
+  "schema": "mtg-phase45-release-candidate",
+  "generatedAt": "2026-09-20T00:38:57.260Z",
+  "version": "3.0.0-phase45-rc",
+  "practicalCoveragePolicy": {
+    "explicitUnsupportedClassification": true,
+    "noSilentApproximation": true,
+    "authoritativeStateChangesThroughRulesEngine": true
+  },
+  "fullCatalogAudit": {
+    "total": 38681,
+    "compiled": 2139,
+    "partiallyCompiled": 11271,
+    "manualReview": 25271,
+    "failed": 0,
+    "fullyCompiledPct": 5.53,
+    "atLeastPartiallyCompiledPct": 34.67
+  },
+  "hardening": {
+    "cardPairAudit": {
+      "pairs": 5000,
+      "passed": true,
+      "failures": 0
+    }
+  },
+  "artifacts": {
+    "fullCatalogAudit": {
+      "path": "coverage/phase43-final-full-catalog-audit.json",
+      "sha256": "8c06db4b7fb6de4d265cdb7f90329035bf642c5d5fd0106f55eb28eb149c8558"
+    }
+  },
+  "knownExceptions": "Cards classified partially_compiled or manual_review are not certified as fully digitally represented; their unmatched Oracle text remains explicit rather than approximated."
+}

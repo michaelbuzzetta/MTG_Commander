@@ -185,7 +185,38 @@ export class TurnEngine {
     // Step-specific rule processing that is not itself a turn-based action.
     switch (node.key) {
       case 'UPKEEP':
+        // Legacy Innistrad werewolves transform from their own upkeep trigger,
+        // based on the number of spells cast during the immediately prior turn.
+        for (const player of Object.values(s.players)) for (const permanent of [...player.battlefield]) {
+          const definition = e.copy?.definitionForObject(permanent) || e.db[permanent.cardId] || {};
+          if ((definition.transformIfNoSpellsLastTurn && Number(s.spellsCastLastTurn || 0) === 0)
+              || (definition.transformIfTwoSpellsLastTurn && Number(s.spellsCastLastTurn || 0) >= 2)) {
+            e.events.dispatch('TRANSFORM', { permanentId: permanent.instanceId }, { cause:'werewolf-upkeep', stabilize:false });
+          }
+        }
         e._processSuspendUpkeep(s.activePlayer);
+        // Rebound creates a one-shot permission at the controller's next upkeep.
+        // Keep the card in exile if the player declines to cast it.
+        s.reboundPending ||= [];
+        s.castingPermissions ||= [];
+        for (const pending of s.reboundPending.filter(entry => entry.playerId === s.activePlayer && Number(entry.createdTurn) < Number(s.turn))) {
+          const found = e.zones.find(pending.cardInstanceId);
+          if (found?.zone === 'exile' && found.player?.id === s.activePlayer) {
+            s.castingPermissions.push({
+              playerId: s.activePlayer,
+              cardId: pending.cardId,
+              cardInstanceId: pending.cardInstanceId,
+              fromZone: 'exile',
+              timing: 'any',
+              freeCast: true,
+              castOption: 'rebound',
+              untilTurn: s.turn
+            });
+            found.card.freeCast = true;
+            e.log('REBOUND_CAST_AVAILABLE', { playerId: s.activePlayer, cardInstanceId: pending.cardInstanceId });
+          }
+        }
+        s.reboundPending = s.reboundPending.filter(entry => !(entry.playerId === s.activePlayer && Number(entry.createdTurn) < Number(s.turn)));
         break;
       case 'PRECOMBAT_MAIN':
         e._advanceSagas(s.activePlayer);
@@ -321,6 +352,10 @@ export class TurnEngine {
     // equal; extra turns intentionally keep the normal-turn anchor unchanged.
     if (s.turnKind === 'normal' && s.normalTurnPlayer !== s.activePlayer) s.normalTurnPlayer = s.activePlayer;
     this._recordCompletedTurn();
+    s.spellsCastThisTurn ||= {};
+    s.spellsCastLastTurn = Number(s.spellsCastThisTurn[s.activePlayer] || 0);
+    s.spellsCastThisTurn[s.activePlayer] = 0;
+    for (const pid of Object.keys(s.turnMemory || {})) s.turnMemory[pid] = {};
 
     const next = this._nextTurnPlayer();
     if (!next) { s.priorityPlayer = null; return null; }

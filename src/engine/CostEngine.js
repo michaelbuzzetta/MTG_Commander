@@ -1,3 +1,2 @@
-// Legacy root-level compatibility forwarder.
-// Canonical module: ./costs/CostEngine.js
+// Compatibility barrel: canonical implementation lives in ./costs/CostEngine.js
 export * from './costs/CostEngine.js';

@@ -1,0 +1,2 @@
+import test from 'node:test'; import assert from 'node:assert/strict'; import { OracleTemplateCompiler } from '../src/cards/compiler/OracleTemplateCompiler.js';
+test('Phase 84 artifact/enchantment as-enters creature type choice compiles',()=>{const c=new OracleTemplateCompiler(); for(const kind of ['artifact','enchantment']) {const r=c.compileCard({id:kind,name:kind,typeLine:kind,oracleText:`As this ${kind} enters, choose a creature type.`}); assert.equal(r.status,'compiled'); assert.equal(r.compiledCard.asEntersChooseType,true);}});

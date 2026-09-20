@@ -1,3 +1,2 @@
-// Legacy root-level compatibility forwarder.
-// Canonical module: ./multiplayer/MultiplayerRelations.js
+// Compatibility barrel: canonical implementation lives in ./multiplayer/MultiplayerRelations.js
 export * from './multiplayer/MultiplayerRelations.js';

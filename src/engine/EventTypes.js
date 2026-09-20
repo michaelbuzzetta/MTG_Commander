@@ -28,7 +28,8 @@ export const ENGINE_EVENT = Object.freeze({
   TRANSFORM: 'TRANSFORM',
   CONTROL_CHANGE: 'CONTROL_CHANGE',
   ATTACH: 'ATTACH',
-  DETACH: 'DETACH'
+  DETACH: 'DETACH',
+  BECOME_MONARCH: 'BECOME_MONARCH'
 });
 
 export const ENGINE_EVENT_TYPES = Object.freeze(new Set(Object.values(ENGINE_EVENT)));

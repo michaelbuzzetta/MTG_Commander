@@ -124,10 +124,12 @@ export class TimingService {
     const card = found?.card || null;
     const definition = this._definitionFor(card, action.castFaceIndex);
     const mode = definition && action.mode ? this.engine._modeFor(definition, action.mode) : null;
+    const castingOption = (definition?.castingOptions || []).find(option => option.castOption === action.castOption && (!option.fromZone || option.fromZone === (found?.zone || card?.zone))) || null;
     return {
       card,
       definition,
       mode,
+      castingOption,
       zone: found?.zone || card?.zone || null,
       sourceObjectId: card?.gameObjectId || card?.instanceId || null,
       usageKey: `cast:${card?.gameObjectId || card?.instanceId || card?.cardId || 'unknown'}:${action.castFaceIndex ?? 'front'}:${action.mode || 'default'}`
@@ -199,8 +201,8 @@ export class TimingService {
     }
 
     if (actionKind === TIMING_ACTION.CAST) {
-      const { card, definition = {}, mode, zone } = context;
-      let timing = mode?.timing ?? definition.timing ?? null;
+      const { card, definition = {}, mode, castingOption, zone } = context;
+      let timing = castingOption?.timing ?? mode?.timing ?? definition.timing ?? null;
       let defaultSpeed = isType(definition, 'Instant') ? TIMING_SPEED.INSTANT : TIMING_SPEED.SORCERY;
       if (this._hasInstantCastPermission(playerId, card, zone, definition)) defaultSpeed = TIMING_SPEED.INSTANT;
       if (timing == null) return normalizeTimingPermission({ speed: defaultSpeed, source: 'card-type/default-cast-timing' });
@@ -315,15 +317,16 @@ export class TimingService {
     throw new TimingError(result.denials[0]?.message || 'Action is not legal at this time', diagnostic);
   }
 
-  allowsSpell(playerId, card, zone, modeId = null, castFaceIndex = null) {
+  allowsSpell(playerId, card, zone, modeId = null, castFaceIndex = null, castOption = null) {
     const definition = this._definitionFor(card, castFaceIndex);
     const mode = modeId ? this.engine._modeFor(definition, modeId) : null;
-    const action = { type: card?.isCommander && zone === 'command' ? 'CAST_COMMANDER' : 'CAST_SPELL', cardInstanceId: card?.instanceId, mode: modeId, ...(Number.isInteger(castFaceIndex) ? { castFaceIndex } : {}) };
+    const action = { type: card?.isCommander && zone === 'command' ? 'CAST_COMMANDER' : 'CAST_SPELL', cardInstanceId: card?.instanceId, mode: modeId, ...(castOption ? { castOption } : {}), ...(Number.isInteger(castFaceIndex) ? { castFaceIndex } : {}) };
     const context = {
       actionKind: TIMING_ACTION.CAST,
       card,
       definition,
       mode,
+      castingOption: (definition?.castingOptions || []).find(option => option.castOption === castOption && (!option.fromZone || option.fromZone === zone)) || null,
       zone,
       sourceObjectId: card?.gameObjectId || card?.instanceId || null,
       usageKey: `cast:${card?.gameObjectId || card?.instanceId || card?.cardId || 'unknown'}:${castFaceIndex ?? 'front'}:${modeId || 'default'}`

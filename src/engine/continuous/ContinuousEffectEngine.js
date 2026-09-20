@@ -263,6 +263,8 @@ export class ContinuousEffectEngine {
       }});
     }
     if (definition.chosenTypeAddsSubtype && object.chosenType) push({ layer: LAYER.TYPE, transform: { addSubtypes: [object.chosenType] } });
+    if (definition.livingMetal && this.engine.state.activePlayer === object.controller) push({ layer: LAYER.TYPE, transform: { addType: 'Creature' } });
+    if (Array.isArray(definition.ownTurnKeywords) && this.engine.state.activePlayer === object.controller) push({ layer: LAYER.ABILITY, transform: { addKeywords: definition.ownTurnKeywords } });
     // Step 23 Reconfigure: an attached reconfigured Equipment creature is not a
     // creature. This is derived in layer 4 rather than mutating its base type.
     if (this.engine.attachments?.isReconfigured(object)) push({ layer: LAYER.TYPE, transform: { removeType: 'Creature' } });
@@ -298,7 +300,18 @@ export class ContinuousEffectEngine {
           if (effect.keyword || effect.keywords || effect.grantAbility || effect.removeAbilities || effect.removeKeywords) effects.push({ ...baseSpec, layer: LAYER.ABILITY, transform: {
             addKeywords: unique([...(effect.keywords || []), ...(effect.keyword ? [effect.keyword] : [])]), removeKeywords: effect.removeKeywords || [], addAbilities: effect.grantAbility ? [effect.grantAbility] : [], removeAbilities: effect.removeAbilities
           }});
-          if (effect.setPower != null || effect.setToughness != null) effects.push({ ...baseSpec, layer: ability.cda ? LAYER.PT_CDA : LAYER.PT_SET, transform: { setPower: effect.setPower, setToughness: effect.setToughness } });
+          if (effect.setPower != null || effect.setToughness != null || effect.setPowerFrom || effect.setToughnessFrom) effects.push({ ...baseSpec, layer: ability.cda ? LAYER.PT_CDA : LAYER.PT_SET, transform: chars => {
+            const dynamic = key => {
+              if (key === 'controller-hand-size') return this.engine.state.players[source.controller]?.hand?.length || 0;
+              if (key === 'creatures-you-control') return (this.engine.state.players[source.controller]?.battlefield || []).filter(p => this.baseCharacteristics(p).types.includes('Creature')).length;
+              if (key === 'cards-in-your-graveyard') return this.engine.state.players[source.controller]?.graveyard?.length || 0;
+              return null;
+            };
+            if (effect.setPower != null) chars.power = Number(effect.setPower);
+            else if (effect.setPowerFrom) chars.power = dynamic(effect.setPowerFrom);
+            if (effect.setToughness != null) chars.toughness = Number(effect.setToughness);
+            else if (effect.setToughnessFrom) chars.toughness = dynamic(effect.setToughnessFrom);
+          } });
           if (effect.power || effect.toughness || effect.powerToughnessPerLegendaryColor) effects.push({ ...baseSpec, layer: LAYER.PT_MODIFY, transform: chars => {
             if (effect.power) chars.power += Number(effect.power);
             if (effect.toughness) chars.toughness += Number(effect.toughness);

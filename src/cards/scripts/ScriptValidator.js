@@ -44,7 +44,7 @@ function validateCondition(condition, path, diagnostics) {
   if (condition == null) return;
   if (typeof condition === 'boolean') return;
   if (typeof condition !== 'object') return add(diagnostics, path, 'condition must be boolean or object');
-  const allowed = new Set(['always','not','and','or','sourceHasCounter','controllerLifeAtMost','controllerLifeAtLeast','eventFieldEquals','targetExists','variableExists']);
+  const allowed = new Set(['always','not','and','or','sourceHasCounter','controllerLifeAtMost','controllerLifeAtLeast','eventFieldEquals','targetExists','variableExists','controllerControls','opponentControls']);
   for (const key of Object.keys(condition)) if (!allowed.has(key)) add(diagnostics, `${path}.${key}`, `unknown condition operator "${key}"`);
   if (condition.and) [].concat(condition.and).forEach((child, index) => validateCondition(child, `${path}.and[${index}]`, diagnostics));
   if (condition.or) [].concat(condition.or).forEach((child, index) => validateCondition(child, `${path}.or[${index}]`, diagnostics));
@@ -116,11 +116,12 @@ export class ScriptValidator {
       if (kind === 'characteristic') {
         if (!ability.characteristic && !ability.derive) add(diagnostics, `${path}.characteristic`, 'characteristic ability requires characteristic/derive data');
       } else if (kind === 'static') {
-        if (!ability.effect) add(diagnostics, `${path}.effect`, 'static ability requires an effect object');
+        if (!ability.effect && !ability.ruleObject && !Array.isArray(ability.ruleObjects)) add(diagnostics, `${path}.effect`, 'static ability requires an effect object or legality rule object');
       } else if (kind === 'replacement') {
         if (!ability.replacement && ability.effect == null) add(diagnostics, `${path}.replacement`, 'replacement ability requires replacement/effect data');
-      } else if (ability.effect == null && ability.effects == null) add(diagnostics, `${path}.effect`, `${kind || 'ability'} requires effect/effects`);
-      if (!['static','replacement','characteristic'].includes(kind)) validateEffect(ability.effect ?? ability.effects, `${path}.effect`, diagnostics, this.primitives, this.customHooks);
+      } else if (ability.effect == null && ability.effects == null && !(kind === 'triggered' && Array.isArray(ability.modes) && ability.modes.length)) add(diagnostics, `${path}.effect`, `${kind || 'ability'} requires effect/effects`);
+      if (Array.isArray(ability.modes)) for (const [modeIndex, mode] of ability.modes.entries()) { const mp = `${path}.modes[${modeIndex}]`; if (!mode.id) add(diagnostics, `${mp}.id`, 'mode requires an id'); if (mode.targets || mode.target) diagnostics.push(...validateSelector(mode.targets || mode.target, { path: `${mp}.targets` })); validateEffect(mode.effect ?? mode.effects, `${mp}.effect`, diagnostics, this.primitives, this.customHooks); }
+      if (!['static','replacement','characteristic'].includes(kind) && ability.effect != null) validateEffect(ability.effect ?? ability.effects, `${path}.effect`, diagnostics, this.primitives, this.customHooks);
     });
     for (const [index, mode] of (script.modes || []).entries()) {
       const path = `script.modes[${index}]`;

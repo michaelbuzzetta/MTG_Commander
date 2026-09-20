@@ -1,0 +1,11 @@
+import test from 'node:test'; import assert from 'node:assert/strict';
+import { DependencyResolver, LAYER } from '../src/engine/continuous/ContinuousEffectEngine.js';
+import { OracleTemplateCompiler } from '../src/cards/compiler/OracleTemplateCompiler.js';
+import { classifyCatalog, summarizeCoverage, remainingOracleFamilies } from '../src/cards/support/CoverageSweep.js';
+import { IndividualCardImplementationRegistry } from '../src/cards/support/IndividualCardImplementationRegistry.js';
+const compiler=new OracleTemplateCompiler();
+test('Step61 dependency beats timestamp within same layer',()=>{const r=new DependencyResolver().order([{id:'b',layer:LAYER.ABILITY,timestamp:1,dependsOn:['a']},{id:'a',layer:LAYER.ABILITY,timestamp:9}]);assert.deepEqual(r.map(x=>x.id),['a','b']);});
+test('Step62 common copy/control Oracle families compile',()=>{for(const text of ["Create a token that's a copy of target creature.",'Gain control of target creature until end of turn.'])assert.equal(compiler.compileCard({id:text,name:'x',typeLine:'Sorcery',oracleText:text,keywords:[]}).autoAccepted,true);});
+test('Step63 remaining keyword sweep includes basic landcycling',()=>{const r=compiler.compileCard({id:'b',name:'b',typeLine:'Creature',oracleText:'Basic landcycling {2}',keywords:['Basic landcycling']});assert.equal(r.autoAccepted,true);});
+test('Step64 census clusters unresolved Oracle families',()=>{const cards=[{id:'a',name:'a',typeLine:'Instant',oracleText:'Unmodeled action 2.'},{id:'b',name:'b',typeLine:'Instant',oracleText:'Unmodeled action 4.'}];const rows=classifyCatalog(cards,compiler);assert.equal(summarizeCoverage(rows).total,2);assert.equal(remainingOracleFamilies(rows,cards)[0].count,2);});
+test('Step65 individual-card registry is deterministic and explicit',()=>{const r=new IndividualCardImplementationRegistry();r.register({name:'Odd Card',compile:()=>({ok:true})});assert.deepEqual(r.compile({name:'Odd Card'}),{ok:true});assert.equal(r.resolve({name:'Other'}),null);});

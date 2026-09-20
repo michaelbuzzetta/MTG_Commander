@@ -67,13 +67,7 @@ export class TriggerEngine {
     return this.engine.state.phase === 'CLEANUP' ? 'CLEANUP' : 'PRIORITY';
   }
 
-  _apnapOrder() {
-    const s = this.engine.state;
-    const order = (s.playerOrder || Object.keys(s.players)).filter(id => !s.players[id]?.lost);
-    const index = order.indexOf(s.activePlayer);
-    if (index < 0) return order;
-    return [...order.slice(index), ...order.slice(0, index)];
-  }
+  _apnapOrder() { return this.engine.multiplayer.apnapOrder(); }
 
   /**
    * A trigger batch may be stacked only after the current event transaction is
@@ -119,6 +113,19 @@ export class TriggerEngine {
     this.engine.state.pendingChoice = null;
     this.flush();
     return triggerIds;
+  }
+
+  chooseMode(triggerId, modeId) {
+    const trigger = this.engine.state.pendingTriggers.find(item => item.id === triggerId);
+    if (!trigger) throw new Error('Triggered ability is no longer pending');
+    const mode = (trigger.ability?.modes || []).find(item => item.id === modeId);
+    if (!mode) throw new Error('Triggered ability mode is not legal');
+    trigger.selectedMode = modeId;
+    trigger.ability = { ...trigger.ability, ...(mode.targets ? { targets: structuredClone(mode.targets) } : { targets: undefined }), effect: structuredClone(mode.effect), modes: undefined };
+    trigger.effect = structuredClone(mode.effect);
+    this.engine.state.pendingChoice = null;
+    this.flush();
+    return modeId;
   }
 
   chooseTargets(triggerId, targetIds) {
@@ -208,6 +215,16 @@ export class TriggerEngine {
         });
 
         for (const trigger of ordered) {
+          if (Array.isArray(trigger.ability?.modes) && trigger.ability.modes.length && !trigger.selectedMode) {
+            s.pendingChoice = {
+              type: 'TRIGGER_MODE', playerId: trigger.controller, triggerId: trigger.id,
+              sourceName: this.engine.db[trigger.source?.cardId]?.name || 'Triggered ability',
+              modes: trigger.ability.modes.map(mode => ({ id: mode.id, label: mode.label || mode.id })),
+              resume: this._choiceResume()
+            };
+            s.priorityPlayer = trigger.controller;
+            return;
+          }
           if (this.engine.targeting.hasTargets(trigger.ability) && trigger.targets == null) {
             const targetSets = this.engine.targeting.generateTargetSets(trigger.controller, trigger.ability, { sourceObject: trigger.source });
             if (!targetSets.length) {

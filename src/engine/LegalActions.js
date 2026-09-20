@@ -114,6 +114,8 @@ export class LegalActions {
       if (choice.type === 'CULTIVATE_SEARCH') return [{ type: 'CHOOSE_CULTIVATE', eligibleIds: [...choice.eligibleIds], max: 2, reason: choice.type }];
       if (choice.type === 'SISAY_TUTOR') return [...choice.eligibleIds.map(cardInstanceId => ({ type: 'CHOOSE_SISAY_TUTOR', cardInstanceId, reason: choice.type })), { type: 'CHOOSE_SISAY_TUTOR', cardInstanceId: null, reason: choice.type }];
       if (choice.type === 'SCRY') return [false, true].map(putOnBottom => ({ type: 'CHOOSE_SCRY', putOnBottom, cardInstanceId: choice.cardInstanceId, reason: choice.type }));
+      if (choice.type === 'SURVEIL') return [false, true].map(putInGraveyard => ({ type: 'CHOOSE_SURVEIL', putInGraveyard, cardInstanceId: choice.cardInstanceId, reason: choice.type }));
+      if (choice.type === 'TRIGGER_MODE') return choice.modes.map(mode => ({ type: 'CHOOSE_TRIGGER_MODE', triggerId: choice.triggerId, modeId: mode.id, label: mode.label, reason: choice.type }));
       if (choice.type === 'TRIGGER_TARGET') return [{ type: 'CHOOSE_TRIGGER_TARGET', triggerId: choice.triggerId, candidateIds: [...choice.candidateIds], minTargets: choice.minTargets, maxTargets: choice.maxTargets, reason: choice.type }];
       if (choice.type === 'CREATURE_TYPE') return choice.options.map(creatureType => ({ type: 'CHOOSE_CREATURE_TYPE', creatureType, reason: choice.type }));
       if (choice.type === 'EFFECT_CARD_CHOICE') return [{ type: 'CHOOSE_EFFECT_CARDS', candidateIds: [...choice.candidateIds], min: choice.min, max: choice.max, reason: choice.type }];
@@ -169,10 +171,23 @@ export class LegalActions {
         if (e.isActionLegal(pid, action)) out.push(action);
       } else {
         this._pushCardCastActions(out, pid, c, 'hand');
+        if (d?.faceDownCasting?.castOption) this._pushCardCastActions(out, pid, c, 'hand', d.faceDownCasting.castOption);
         if (d?.foretellCost) {
           const action = { type: 'FORETELL_CARD', cardInstanceId: c.instanceId };
           if (e.isActionLegal(pid, action)) out.push(action);
         }
+        if (d?.suspend?.cost && Number(d.suspend.timeCounters) > 0) {
+          const action = { type: 'SUSPEND_CARD', cardInstanceId: c.instanceId };
+          if (e.isActionLegal(pid, action)) out.push(action);
+        }
+      }
+    }
+
+    for (const permanent of p.battlefield || []) {
+      const d = e.db[permanent.cardId];
+      if (permanent.faceDown && d?.faceDownCasting?.faceUpCost) {
+        const action = { type: 'TURN_FACE_UP', permanentId: permanent.instanceId };
+        if (e.isActionLegal(pid, action)) out.push(action);
       }
     }
 
@@ -184,13 +199,18 @@ export class LegalActions {
         if (e.isActionLegal(pid, encore)) out.push(encore);
       }
       if (Array.isArray(d?.modes) && d.modes.some(mode => mode.fromZone === 'graveyard')) this._pushCardCastActions(out, pid, c, 'graveyard');
+      for (const option of d?.castingOptions || []) if (option.fromZone === 'graveyard') this._pushCardCastActions(out, pid, c, 'graveyard', option.castOption);
       if (e.static.hasRetrace(pid, c)) {
         for (const land of p.hand.filter(card => isType(e.db[card.cardId], 'Land'))) {
           this._pushCardCastActions(out, pid, c, 'graveyard', 'retrace', { retraceLandInstanceId: land.instanceId });
         }
       }
     }
-    for (const c of p.exile) if (c.foretold) this._pushCardCastActions(out, pid, c, 'exile', 'foretold');
+    for (const c of p.exile) {
+      if (c.foretold) this._pushCardCastActions(out, pid, c, 'exile', 'foretold');
+      const d = e.db[c.cardId];
+      for (const option of d?.castingOptions || []) if (option.fromZone === 'exile') this._pushCardCastActions(out, pid, c, 'exile', option.castOption);
+    }
     const top = p.library[0];
     if (top && e.canCastTopCard(pid, top)) this._pushCardCastActions(out, pid, top, 'library', 'top');
 

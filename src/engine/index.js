@@ -1,4 +1,5 @@
-export { FuzzBot } from './FuzzBot.js';
-export { PropertyAssertions, FuzzPropertyError } from './PropertyAssertions.js';
-export { FailureCorpus } from './FailureCorpus.js';
-export { ReplayMinimizer } from './ReplayMinimizer.js';
+export { CounterStore, normalizeCounterType } from './CounterStore.js';
+export { CounterService } from './CounterService.js';
+export { COUNTER_SEMANTIC, BUILTIN_COUNTER_SEMANTICS } from './CounterSemantics.js';
+
+export { GameEngine, createGame } from './GameEngine.js';

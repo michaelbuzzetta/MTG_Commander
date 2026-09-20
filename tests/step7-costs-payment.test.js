@@ -143,3 +143,11 @@ test('Step 7: normal spell casting uses the locked payment plan and commits paym
   assert.ok(e.state.stack[0].lockedCost);
   assert.ok(e.state.stack[0].paymentPlan);
 });
+
+test('Phase 12: selection-backed sacrifice is locked as a non-mana cost', () => {
+  const e = engine();
+  const source = putBattlefield(e, 'player', 'grizzly-bears');
+  const helper = putBattlefield(e, 'player', 'grizzly-bears');
+  const locked = e.costs.determineAbilityCost('player', source, { cost:{ sacrificeSelection:true }, selection:{ count:1, type:'Creature', other:true, tap:false } }, { selections:[helper.instanceId] });
+  assert.deepEqual(locked.nonManaCosts, [{ type:'sacrifice', permanentId:helper.instanceId }]);
+});

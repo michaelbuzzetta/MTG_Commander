@@ -253,6 +253,7 @@ export class ChoiceService {
       case 'MULLIGAN_BOTTOM': return { type: 'BOTTOM_CARDS', cardInstanceIds: selected };
       case 'CLEANUP_DISCARD': return { type: 'DISCARD_CARDS', cardInstanceIds: selected };
       case 'SCRY': return { type: 'CHOOSE_SCRY', putOnBottom: !!first };
+      case 'SURVEIL': return { type: 'CHOOSE_SURVEIL', putInGraveyard: !!first };
       case 'EXPLORE_NONLAND': return { type: 'CHOOSE_EXPLORE', putInGraveyard: !!first };
       case 'HAKBAL_ATTACK': return { type: 'CHOOSE_HAKBAL_ATTACK', landInstanceId: first ?? null };
       case 'ENTRY_REVEAL': return { type: 'CHOOSE_ENTRY_REVEAL', cardInstanceId: first ?? null };

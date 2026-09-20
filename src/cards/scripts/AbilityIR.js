@@ -28,6 +28,7 @@ export function normalizeAbilityIR(input = {}, index = 0) {
     interveningIf: clone(input.interveningIf, null),
     optional: !!input.optional,
     timing: clone(input.timing, null),
+    modes: clone(input.modes, []),
     cost: clone(input.cost, null),
     targets: clone(input.targets || input.target, null),
     minTargets: input.minTargets ?? null,
@@ -35,9 +36,12 @@ export function normalizeAbilityIR(input = {}, index = 0) {
     filter: clone(input.filter, null),
     affectedFilter: clone(input.affectedFilter, null),
     replacement: clone(input.replacement, null),
+    ruleObject: clone(input.ruleObject, null),
+    ruleObjects: clone(input.ruleObjects, []),
     effect: clone(input.effect ?? input.effects, null),
     characteristic: clone(input.characteristic || input.derive, null),
-    metadata: clone(input.metadata, {})
+    metadata: clone(input.metadata, {}),
+    dependsOn: clone(input.dependsOn, [])
   };
 }
 

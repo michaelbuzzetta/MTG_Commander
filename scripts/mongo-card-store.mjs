@@ -15,6 +15,7 @@ export async function mongoDb() {
 export async function ensureCardIndexes(db) {
   const cards = db.collection('cards');
   const printings = db.collection('printings');
+  const behaviors = db.collection('card_behaviors');
   await Promise.all([
     cards.createIndex({ oracleId: 1 }, { unique: true, sparse: true }),
     cards.createIndex({ name: 1 }),
@@ -23,6 +24,19 @@ export async function ensureCardIndexes(db) {
     printings.createIndex({ scryfallId: 1 }, { unique: true }),
     printings.createIndex({ oracleId: 1 }),
     printings.createIndex({ name: 1 }),
-    printings.createIndex({ oracleId: 1, releasedAt: -1 })
+    printings.createIndex({ oracleId: 1, releasedAt: -1 }),
+    behaviors.createIndex({ oracleId: 1 }, { unique: true }),
+    behaviors.createIndex({ status: 1 }),
+    behaviors.createIndex({ parserVersion: 1, status: 1 })
   ]);
+}
+
+export async function closeMongo() {
+  if (!clientPromise) return;
+  try {
+    const client = await clientPromise;
+    await client.close();
+  } finally {
+    clientPromise = undefined;
+  }
 }

@@ -7,6 +7,24 @@ export class MultiplayerRelationService {
 
   livingPlayerIds() { return this.engine.playerIds().filter(id => !this.engine.state.players[id]?.lost); }
 
+
+  /** APNAP order: active player first, then each other living player in turn order. */
+  apnapOrder(activePlayerId = this.engine.state.activePlayer) {
+    const order = (this.engine.state.playerOrder || []).filter(id => this.engine.state.players[id] && !this.engine.state.players[id].lost);
+    const index = order.indexOf(activePlayerId);
+    return index < 0 ? order : [...order.slice(index), ...order.slice(0, index)];
+  }
+
+  /** Deterministic APNAP grouping for simultaneous choices/triggers. */
+  apnapGroups(items = [], controllerOf = item => item?.controller) {
+    const groups = [];
+    for (const playerId of this.apnapOrder()) {
+      const controlled = items.filter(item => controllerOf(item) === playerId);
+      if (controlled.length) groups.push({ playerId, items: controlled });
+    }
+    return groups;
+  }
+
   opponentsOf(playerId) {
     return this.livingPlayerIds().filter(id => id !== playerId && !this.areTeammates(playerId, id));
   }

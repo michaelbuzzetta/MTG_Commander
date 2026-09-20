@@ -108,6 +108,10 @@ export class DamageService {
     if (damage.properties.lifelink && damage.sourceController && e.state.players[damage.sourceController] && !e.state.players[damage.sourceController].lost) {
       e.events.dispatch(ENGINE_EVENT.GAIN_LIFE, { playerId: damage.sourceController, amount: dealt, source: damage.sourceSnapshot || damage.source }, { cause: 'lifelink', stabilize: false });
     }
+    if (damage.recipient.kind === 'player' && dealt > 0 && damage.sourceController && damage.sourceController !== damage.recipient.id) {
+      e.state.turnMemory ||= {}; e.state.turnMemory[damage.sourceController] ||= {};
+      e.state.turnMemory[damage.sourceController].opponentDamagedThisTurn = true;
+    }
     if (damage.recipient.kind === 'player' && damage.combat && damage.commanderIdentity) {
       e.commanders.recordCombatDamageByIdentity(damage.recipient.id, damage.commanderIdentity, dealt);
     }

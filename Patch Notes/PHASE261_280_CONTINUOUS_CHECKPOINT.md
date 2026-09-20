@@ -1,0 +1,7 @@
+# Phases 261–280 Continuous Checkpoint
+
+Implemented twenty additional high-frequency unresolved Oracle semantic families: linked exile return on source leaving, team anthem activation, player hexproof, protection from artifacts, provoke, tapped land color choice, noncreature-cast oil counters, Ready to Run commander pairing, instant/sorcery graveyard cost reduction, storage-counter lands, X-life additional costs, temporary creature-type choice, damaged-creature death growth, Madness, legendary-sorcery legality, +1/+1-counter trample grants, Specialize, opponent-creature death-to-exile replacement, once-per-turn pump activations, and Friends Forever commander pairing.
+
+Verification: Phase 261–280 compiler coverage passed 20/20. Combined Phase 221–280 focused suite passed 72/72. A fresh full-catalog audit was attempted after the batch but exceeded the execution window. The newest completed audit file already present in the Phase 260 checkpoint is dated 2026-09-20T17:38:08.851Z and reports 4,551 fully executable/compiler-classified, 13,463 partial, 20,412 unresolved/manual, 255 explicit non-digital exceptions, and 0 compiler failures across 38,681 entries. Those figures are therefore the latest completed audit baseline, not a post-Phase-280 recount.
+
+Do not treat compiler recognition alone as strict runtime verification. Provoke, Madness, Specialize, cost reduction, commander pairing, replacement effects, and some static grants still require deeper end-to-end runtime enforcement before satisfying the user's strict fully-implemented definition.

@@ -1,40 +1,1095 @@
 {
   "schemaVersion": 1,
-  "parserVersion": "1.3.0",
-  "generatedAt": "2026-09-17T23:42:35.082Z",
-  "cardCount": 38891,
-  "productionCatalogUniverse": true,
-  "catalogComplete": true,
-  "exactHighConfidenceCompilations": 1536,
-  "exactHighConfidencePercent": 3.95,
-  "reviewRequired": 37355,
-  "highPriorityTemplateQueue": 189,
+  "parserVersion": "4.5.0",
+  "generatedAt": "2026-09-20T01:46:14.094Z",
+  "cardCount": 647,
+  "productionCatalogUniverse": false,
+  "catalogComplete": false,
+  "exactHighConfidenceCompilations": 86,
+  "exactHighConfidencePercent": 13.29,
+  "reviewRequired": 561,
+  "highPriorityTemplateQueue": 184,
   "templateCounts": {
-    "activated.tap-damage-any-target": 6,
-    "activated.tap-gain-one-life": 4,
-    "activated.white-tap-target-creature": 9,
-    "card.keyword-only": 936,
-    "card.keyword-plus-dies-draw-one": 12,
-    "card.keyword-plus-etb-draw-one": 11,
-    "card.vanilla-creature": 350,
-    "spell.counter-target-creature-spell": 4,
-    "spell.damage-any-target": 22,
-    "spell.destroy-target": 28,
-    "spell.destroy-target-tapped-creature": 5,
-    "spell.draw-fixed": 11,
-    "spell.exile-target": 15,
-    "spell.pump-until-eot": 42,
-    "spell.reanimate-target-creature": 5,
-    "spell.search-basic-land": 4,
-    "trigger.combat-damage-player-draw-one": 4,
-    "trigger.dies-draw-one": 5,
-    "trigger.etb-create-common-token": 5,
-    "trigger.etb-destroy-artifact": 5,
-    "trigger.etb-draw-fixed": 17,
-    "trigger.etb-gain-life": 27,
-    "trigger.etb-target-plus-counter": 9
+    "activated.tap-sacrifice-self-draw": 1,
+    "attachment.equip-clause": 1,
+    "attachment.equipped-pt-clause": 1,
+    "card.keyword-only": 14,
+    "card.keyword-plus-etb-draw-one": 1,
+    "casting.flashback": 1,
+    "cost.additional-sacrifice-creature": 2,
+    "keyword.basic-landcycling": 1,
+    "keyword.cycling-mana": 4,
+    "mana.tap-any-color": 1,
+    "mana.tap-fixed": 27,
+    "mana.tap-two-colors": 17,
+    "mechanic.affinity-artifacts": 1,
+    "mechanic.delve": 1,
+    "phase69.enters-x-counters": 1,
+    "phase69.generic-activated-simple": 1,
+    "phase69.land-entry-conditional": 21,
+    "phase69.land-etb-bounce": 5,
+    "phase69.land-etb-damage-opponent": 4,
+    "phase69.land-parenthetical-mana": 16,
+    "phase69.when-this-land-enters-the-battlefield-": 3,
+    "phase70.landcycling": 1,
+    "phase70.mana-three": 1,
+    "phase70.mana-two-pain": 3,
+    "phase71.three-blockers": 1,
+    "replacement.double-tokens-you-create": 1,
+    "replacement.self-enters-tapped": 20,
+    "spell.counter-target-spell": 1,
+    "spell.damage-each-opponent-fixed": 1,
+    "spell.destroy-target": 2,
+    "spell.draw-fixed": 4,
+    "spell.draw-then-discard-fixed": 1,
+    "spell.search-basic-land": 1,
+    "static.creatures-you-control-keywords": 1,
+    "static.no-maximum-hand-size": 1,
+    "trigger.dies-draw-for-each-counter": 1,
+    "trigger.etb-create-common-token": 1,
+    "trigger.etb-draw-fixed": 1
   },
   "availableTemplates": [
+    {
+      "id": "spell.uncounterable-self",
+      "description": "This spell cannot be countered.",
+      "confidence": "high"
+    },
+    {
+      "id": "cost.additional-sacrifice-creature",
+      "description": "Sacrifice a creature as an additional casting cost.",
+      "confidence": "high"
+    },
+    {
+      "id": "mechanic.affinity-artifacts",
+      "description": "Affinity for artifacts, enforced by CostEngine/MechanicLibrary.",
+      "confidence": "high"
+    },
+    {
+      "id": "mechanic.delve",
+      "description": "Delve, enforced by authoritative cost contribution/payment.",
+      "confidence": "high"
+    },
+    {
+      "id": "mechanic.improvise",
+      "description": "Improvise, enforced by authoritative cost contribution/payment.",
+      "confidence": "high"
+    },
+    {
+      "id": "keyword.protection-simple",
+      "description": "Protection from a color or everything.",
+      "confidence": "high"
+    },
+    {
+      "id": "static.additional-land",
+      "description": "One additional land play each turn.",
+      "confidence": "high"
+    },
+    {
+      "id": "activated.loot-one",
+      "description": "Tap: draw then discard.",
+      "confidence": "high"
+    },
+    {
+      "id": "mana.generic-tap-any-color",
+      "description": "Generic mana plus tap to add one mana of any color.",
+      "confidence": "high"
+    },
+    {
+      "id": "static.cant-untap-self",
+      "description": "This permanent does not untap during your untap step.",
+      "confidence": "high"
+    },
+    {
+      "id": "static.aura-cant-attack-block",
+      "description": "Enchanted creature cannot attack or block.",
+      "confidence": "high"
+    },
+    {
+      "id": "pregame.opening-battlefield",
+      "description": "Opening-hand battlefield pregame action; PregameActionService enforces the choice.",
+      "confidence": "high"
+    },
+    {
+      "id": "continuous.loses-all-abilities",
+      "description": "Remove all abilities from a supported permanent set in layer 6.",
+      "confidence": "high"
+    },
+    {
+      "id": "continuous.becomes-base-pt",
+      "description": "Set creature base power/toughness in layer 7b.",
+      "confidence": "high"
+    },
+    {
+      "id": "keyword.basic-landcycling",
+      "description": "Basic landcycling with a fixed mana cost.",
+      "confidence": "high"
+    },
+    {
+      "id": "casting.alternative-rather-than",
+      "description": "Cast for a printed alternative mana cost rather than the mana cost.",
+      "confidence": "high"
+    },
+    {
+      "id": "casting.without-mana-cost",
+      "description": "Permission to cast this spell without paying its mana cost.",
+      "confidence": "high"
+    },
+    {
+      "id": "cost.activated-life",
+      "description": "Activated ability with a fixed life payment.",
+      "confidence": "high"
+    },
+    {
+      "id": "cost.activated-sacrifice-self",
+      "description": "Activated ability that sacrifices this permanent as a cost.",
+      "confidence": "high"
+    },
+    {
+      "id": "replacement.draw-double",
+      "description": "A declarative draw-doubling replacement effect.",
+      "confidence": "high"
+    },
+    {
+      "id": "mechanic.crew",
+      "description": "Crew N selects any number of untapped creatures with sufficient combined power and taps them as the activation cost.",
+      "confidence": "high"
+    },
+    {
+      "id": "mechanic.read-ahead",
+      "description": "Read Ahead marks a Saga for chosen-chapter entry.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.landfall-simple",
+      "description": "Landfall-style land entry trigger with a simple payload.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.cast-any-simple",
+      "description": "Whenever you cast a spell with a simple payload.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.permanent-leaves-simple",
+      "description": "Whenever another permanent you control leaves the battlefield with a simple payload.",
+      "confidence": "high"
+    },
+    {
+      "id": "keyword.kicker-mana",
+      "description": "Kicker with a fixed mana additional cost.",
+      "confidence": "high"
+    },
+    {
+      "id": "keyword.cycling-mana",
+      "description": "Cycling with a fixed mana cost: pay the cost, discard this card, then draw a card.",
+      "confidence": "high"
+    },
+    {
+      "id": "mana.tap-fixed",
+      "description": "Tap this permanent to add one or more fixed mana symbols.",
+      "confidence": "high"
+    },
+    {
+      "id": "mana.tap-any-color",
+      "description": "Tap this permanent to add one mana of any color.",
+      "confidence": "high"
+    },
+    {
+      "id": "keyword.ward-mana",
+      "description": "Parameterized Ward backed by the targeting/ward stack implementation.",
+      "confidence": "high"
+    },
+    {
+      "id": "keyword.convoke",
+      "description": "Convoke backed by authoritative cost-payment mechanics.",
+      "confidence": "high"
+    },
+    {
+      "id": "keyword.changeling",
+      "description": "Changeling backed by all-zone creature-subtype mechanics.",
+      "confidence": "high"
+    },
+    {
+      "id": "commander.partner",
+      "description": "Standalone Partner backed by Commander deck-construction rules.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.flanking",
+      "description": "Flanking combat trigger.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.mentor",
+      "description": "Mentor attack trigger.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.myriad",
+      "description": "Myriad multiplayer attack trigger.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.battle-cry",
+      "description": "Battle cry attack trigger.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.ingest",
+      "description": "Ingest combat damage trigger.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.energy-etb",
+      "description": "ETB grants energy counters.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.training",
+      "description": "Training attack trigger.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.dethrone",
+      "description": "Dethrone attack trigger.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.landfall-counter",
+      "description": "Landfall adds a +1/+1 counter.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.second-draw-counter",
+      "description": "Second card drawn each turn adds counter.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.etb-loot",
+      "description": "ETB optional discard then draw.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.etb-opponents-discard",
+      "description": "ETB each opponent discards.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.life-drain-trigger",
+      "description": "Life gain drains opponents.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.skip-draw",
+      "description": "Skip your draw step.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.play-top-revealed",
+      "description": "Top library is revealed.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.play-lands-graveyard",
+      "description": "Play lands from graveyard.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.no-life-gain",
+      "description": "Opponents cannot gain life.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.must-block",
+      "description": "Source must be blocked if able.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.all-must-block",
+      "description": "All creatures able to block source do so.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.three-blockers",
+      "description": "Source needs three or more blockers.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.damage-as-unblocked",
+      "description": "May assign combat damage as unblocked.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.etb-basic-land-hand",
+      "description": "ETB may tutor basic land to hand.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.etb-grave-spell-hand",
+      "description": "ETB returns instant/sorcery from graveyard.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.sac-destroy-ae",
+      "description": "Sacrifice self to destroy artifact/enchantment.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.exile-grave-activation",
+      "description": "Mana activation exiles graveyard card.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.destroy-all-enchantments",
+      "description": "Destroy all enchantments.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.return-card-grave-hand",
+      "description": "Return target card from your graveyard to hand.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.return-up-to-two-creatures",
+      "description": "Return up to two creature cards from graveyard.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.counter-unless-two",
+      "description": "Counter unless pays two.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.search-any-card",
+      "description": "Tutor any card to hand.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.artifact-dies-draw",
+      "description": "Artifact death draws a card.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase71.static-attacking-pump",
+      "description": "Attacking creatures you control get +1/+0.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.mana-three",
+      "description": "Tap for one of three colors.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.mana-two-pain",
+      "description": "Tap for one of two colors and source deals 1 damage to you.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.mana-sac-double",
+      "description": "Tap and sacrifice land to add two mana of one color.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.activated-aura-pump",
+      "description": "Mana activation pumps enchanted creature.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.team-pump-spell",
+      "description": "Instant/sorcery pumps creatures you control.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.opponent-team-shrink",
+      "description": "Instant/sorcery shrinks opponents creatures.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.static-other-flying-anthem",
+      "description": "Other flying creatures you control get fixed P/T.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.combat-damage-discard",
+      "description": "Combat damage to player makes that player discard.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.damage-lifelink-worded",
+      "description": "Whenever source deals damage, gain that much life.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.spell-target-discard",
+      "description": "Target player discards one card.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.spell-exile-grave-card",
+      "description": "Exile target card from graveyard.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.destroy-artifact-land",
+      "description": "Destroy target artifact or land.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.tap-up-to-two",
+      "description": "Tap up to two target creatures.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.block-flying-pump",
+      "description": "Blocking flying creature pumps source.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.cast-is-pump",
+      "description": "Instant/sorcery cast trigger pumps source.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.heroic-counter",
+      "description": "Heroic targeting trigger adds counter.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.foretell",
+      "description": "Foretell casting option.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.retrace",
+      "description": "Retrace graveyard casting permission.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.buyback",
+      "description": "Buyback additional cost and return-on-resolution option.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.storm",
+      "description": "Storm spell-copy trigger.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.persist",
+      "description": "Persist death replacement/trigger.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.undying",
+      "description": "Undying death trigger.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.evolve",
+      "description": "Evolve ETB comparison trigger.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.renown",
+      "description": "Renown combat-damage trigger.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.bushido",
+      "description": "Bushido block combat trigger.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.toxic",
+      "description": "Toxic poison combat damage.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.unearth",
+      "description": "Unearth graveyard activation.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.landcycling",
+      "description": "Basic typed landcycling.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.static-threshold-pump",
+      "description": "Threshold graveyard static pump.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.additional-block",
+      "description": "Can block one additional creature.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.skulk",
+      "description": "Skulk blocker power restriction.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase70.split-second",
+      "description": "Split second stack restriction.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.land-entry-conditional",
+      "description": "Common exact conditional tapped-land entry rules.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.block-power-restriction",
+      "description": "Source cannot be blocked by creatures at or below a power threshold.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.max-one-blocker",
+      "description": "Source cannot be blocked by more than one creature.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.island-home",
+      "description": "Source cannot attack unless defending player controls an Island.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.may-skip-untap",
+      "description": "Controller may choose not to untap source.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.spell-cost-reduction-type",
+      "description": "Controller instant and sorcery spells cost one generic less.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.chosen-color-mana",
+      "description": "Tap to add one mana of the previously chosen color.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.upkeep-spore",
+      "description": "Upkeep puts a spore counter on source.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.draw-delayed-next-upkeep",
+      "description": "Schedule one card draw for next turn upkeep.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.targeted-sacrifice-on-target",
+      "description": "Sacrifice source whenever it becomes targeted.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.draw-counter-self",
+      "description": "Whenever controller draws, put a +1/+1 counter on source.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.life-counter-self",
+      "description": "Whenever controller gains life, put a +1/+1 counter on source.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.sac-mana-any-color",
+      "description": "Tap and sacrifice source to add one mana of any color.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.landfall-self-pump",
+      "description": "Landfall pumps source +2/+2 until end of turn.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.equipment-autoattach",
+      "description": "Equipment ETB attaches to target creature you control.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.aura-return-hand",
+      "description": "Aura dying from battlefield returns itself to owner hand.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.etb-initiative",
+      "description": "Source ETB makes controller take initiative.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.prevent-combat-turn",
+      "description": "Prevent all combat damage this turn.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.target-unblockable",
+      "description": "Target creature cannot be blocked this turn.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.counter-unless-one",
+      "description": "Counter target spell unless controller pays one.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.additional-discard-cost",
+      "description": "Discard a card as an additional casting cost.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.additional-sac-ac-cost",
+      "description": "Sacrifice artifact or creature as additional casting cost.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.etb-explore",
+      "description": "Source explores when it enters.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.damage-shield-counter",
+      "description": "Damage to source is prevented by removing a +1/+1 counter.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.ally-etb-counter",
+      "description": "Ally rally-style ETB may put a +1/+1 counter on source.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.simple-spell-payload",
+      "description": "Fallback exact grammar for a single simple instant/sorcery payload.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.land-parenthetical-mana",
+      "description": "Parenthetical land mana reminder is executable mana behavior.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.land-etb-bounce",
+      "description": "Land ETB returns a land you control to owner hand.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.enters-x-counters",
+      "description": "Creature enters with X +1/+1 counters.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.combat-damage-counter-self",
+      "description": "Combat damage to player puts a +1/+1 counter on source.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.land-etb-damage-opponent",
+      "description": "Land ETB deals 1 damage to target opponent.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.tribal-other-plus-one",
+      "description": "Other creatures of a named subtype you control get +1/+1.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.when-this-creature-enters-the-battlefield-",
+      "description": "Catalog batch trigger grammar: When this creature enters(?: the battlefield)?",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.when-this-artifact-enters-the-battlefield-",
+      "description": "Catalog batch trigger grammar: When this artifact enters(?: the battlefield)?",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.when-this-enchantment-enters-the-battlefield-",
+      "description": "Catalog batch trigger grammar: When this enchantment enters(?: the battlefield)?",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.when-this-land-enters-the-battlefield-",
+      "description": "Catalog batch trigger grammar: When this land enters(?: the battlefield)?",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.when-this-creature-dies",
+      "description": "Catalog batch trigger grammar: When this creature dies",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.whenever-this-creature-attacks",
+      "description": "Catalog batch trigger grammar: Whenever this creature attacks",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.whenever-this-creature-deals-combat-damage-to-a-player",
+      "description": "Catalog batch trigger grammar: Whenever this creature deals combat damage to a player",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.at-the-beginning-of-your-upkeep",
+      "description": "Catalog batch trigger grammar: At the beginning of your upkeep",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.at-the-beginning-of-your-end-step",
+      "description": "Catalog batch trigger grammar: At the beginning of your end step",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.whenever-you-cast-a-spell",
+      "description": "Catalog batch trigger grammar: Whenever you cast a spell",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.whenever-you-cast-a-noncreature-spell",
+      "description": "Catalog batch trigger grammar: Whenever you cast a noncreature spell",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.whenever-another-creature-you-control-enters-the-battlefield-",
+      "description": "Catalog batch trigger grammar: Whenever another creature you control enters(?: the battlefield)?",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.aura-tap-on-entry",
+      "description": "Aura ETB taps enchanted creature.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.aura-no-untap",
+      "description": "Enchanted creature does not untap during its controller untap step.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.aura-control",
+      "description": "Controller controls enchanted permanent.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.aura-keyword",
+      "description": "Enchanted creature has a supported evergreen keyword.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.equipment-keyword",
+      "description": "Equipped creature has a supported evergreen keyword.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.aura-pt",
+      "description": "Enchanted creature gets a fixed P/T modification.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.equipment-pt",
+      "description": "Equipped creature gets a fixed P/T modification.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.aura-pt-keyword",
+      "description": "Enchanted creature gets fixed P/T and a supported keyword.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.equipment-pt-keyword",
+      "description": "Equipped creature gets fixed P/T and a supported keyword.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.endstep-sacrifice-self",
+      "description": "Sacrifice this creature at beginning of end step.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.activated-regenerate",
+      "description": "Fixed mana activation regenerates this creature.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.activated-pump",
+      "description": "Fixed mana activation pumps this creature until EOT.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.generic-activated-simple",
+      "description": "Simple activated ability with mana/tap/sacrifice costs and a supported payload.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.combat-block-flying-only",
+      "description": "This creature can block only creatures with flying.",
+      "confidence": "high"
+    },
+    {
+      "id": "phase69.top-library-visible",
+      "description": "Controller may look at top card of library any time.",
+      "confidence": "high"
+    },
+    {
+      "id": "keyword.devoid",
+      "description": "Devoid is represented by the card color/color-indicator characteristics and the reusable devoid mechanic.",
+      "confidence": "high"
+    },
+    {
+      "id": "combat.cant-block-self",
+      "description": "This creature cannot block.",
+      "confidence": "high"
+    },
+    {
+      "id": "combat.cant-be-blocked-self",
+      "description": "This creature cannot be blocked.",
+      "confidence": "high"
+    },
+    {
+      "id": "combat.must-attack-self",
+      "description": "This creature attacks each combat if able.",
+      "confidence": "high"
+    },
+    {
+      "id": "mana.tap-two-colors",
+      "description": "Tap this permanent to add one of two specified colors.",
+      "confidence": "high"
+    },
+    {
+      "id": "replacement.enters-plus-counters",
+      "description": "This creature enters with a fixed number of +1/+1 counters.",
+      "confidence": "high"
+    },
+    {
+      "id": "activated.firebreathing",
+      "description": "Pay one colored mana to give this creature a fixed power/toughness modifier until end of turn.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.counter-target-spell",
+      "description": "Counter target spell.",
+      "confidence": "high"
+    },
+    {
+      "id": "static.no-maximum-hand-size",
+      "description": "Controller has no maximum hand size.",
+      "confidence": "high"
+    },
+    {
+      "id": "multiplayer.become-monarch",
+      "description": "A spell or self-ETB ability makes its controller the monarch.",
+      "confidence": "high"
+    },
+    {
+      "id": "modal.choose-one-simple",
+      "description": "Choose one among two to four exact simple modes; the chosen mode is locked on the stack.",
+      "confidence": "high"
+    },
+    {
+      "id": "target.optional-up-to-one-destroy",
+      "description": "Destroy up to one target permanent of a supported kind.",
+      "confidence": "high"
+    },
+    {
+      "id": "target.optional-up-to-one-exile",
+      "description": "Exile up to one target permanent of a supported kind.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.opponent-casts-draw",
+      "description": "Draw when an opponent casts a spell.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.other-creature-enters-draw",
+      "description": "Draw when another creature enters under your control.",
+      "confidence": "high"
+    },
+    {
+      "id": "conditional.spell-control",
+      "description": "A simple spell effect occurs only if its controller controls a specified permanent type or subtype.",
+      "confidence": "high"
+    },
+    {
+      "id": "conditional.spell-opponent-control",
+      "description": "A simple spell effect occurs only if an opponent controls a specified permanent type or subtype.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.etb-intervening-control",
+      "description": "An ETB trigger with an intervening-if control condition is checked both when triggering and on resolution.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.upkeep-intervening-control",
+      "description": "A beginning-of-upkeep trigger with an intervening-if control condition is checked at trigger and resolution.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.attack-intervening-control",
+      "description": "A self-attack trigger with an intervening-if control condition is checked at trigger and resolution.",
+      "confidence": "high"
+    },
+    {
+      "id": "casting.flashback",
+      "description": "Flashback grants a graveyard casting option with an alternative mana cost and exile-on-leave-stack handling.",
+      "confidence": "high"
+    },
+    {
+      "id": "casting.self-from-graveyard",
+      "description": "This card may be cast from its owner graveyard for its normal cost.",
+      "confidence": "high"
+    },
+    {
+      "id": "casting.self-from-exile",
+      "description": "This card may be cast from exile for its normal cost.",
+      "confidence": "high"
+    },
+    {
+      "id": "casting.self-from-graveyard-flash",
+      "description": "This card may be cast from its owner graveyard at instant timing.",
+      "confidence": "high"
+    },
+    {
+      "id": "casting.self-from-exile-flash",
+      "description": "This card may be cast from exile at instant timing.",
+      "confidence": "high"
+    },
+    {
+      "id": "casting.graveyard-alternative-cost",
+      "description": "This card may be cast from the graveyard for a printed alternative mana cost.",
+      "confidence": "high"
+    },
+    {
+      "id": "casting.exile-alternative-cost",
+      "description": "This card may be cast from exile for a printed alternative mana cost.",
+      "confidence": "high"
+    },
+    {
+      "id": "casting.graveyard-without-mana-cost",
+      "description": "This card may be cast from the graveyard without paying its mana cost.",
+      "confidence": "high"
+    },
+    {
+      "id": "casting.exile-without-mana-cost",
+      "description": "This card may be cast from exile without paying its mana cost.",
+      "confidence": "high"
+    },
+    {
+      "id": "replacement.self-enters-tapped",
+      "description": "This permanent enters tapped via a MOVE_ZONE replacement effect.",
+      "confidence": "high"
+    },
+    {
+      "id": "replacement.creature-dies-exile",
+      "description": "Creatures that would die are exiled instead.",
+      "confidence": "high"
+    },
+    {
+      "id": "replacement.self-dies-exile",
+      "description": "This permanent is exiled instead of going to a graveyard when it would die.",
+      "confidence": "high"
+    },
+    {
+      "id": "replacement.double-tokens-you-create",
+      "description": "Token creation is doubled for the source controller.",
+      "confidence": "high"
+    },
+    {
+      "id": "replacement.double-counters-you-permanent",
+      "description": "Counters placed on permanents you control are doubled.",
+      "confidence": "high"
+    },
+    {
+      "id": "replacement.extra-plus-counter-you-permanent",
+      "description": "One additional +1/+1 counter is placed on affected permanents you control.",
+      "confidence": "high"
+    },
+    {
+      "id": "replacement.double-life-gain-you",
+      "description": "Life gain by the source controller is doubled.",
+      "confidence": "high"
+    },
+    {
+      "id": "replacement.prevent-damage-you",
+      "description": "Damage that would be dealt to the source controller is prevented.",
+      "confidence": "high"
+    },
+    {
+      "id": "replacement.prevent-damage-self",
+      "description": "Damage that would be dealt to this permanent is prevented.",
+      "confidence": "high"
+    },
+    {
+      "id": "static.creatures-you-control-pt",
+      "description": "Creatures you control receive a fixed power/toughness modification through the continuous-effect layer system.",
+      "confidence": "high"
+    },
+    {
+      "id": "static.other-creatures-you-control-pt",
+      "description": "Other creatures you control receive a fixed power/toughness modification.",
+      "confidence": "high"
+    },
+    {
+      "id": "static.opponents-creatures-pt",
+      "description": "Creatures opponents control receive a fixed power/toughness modification.",
+      "confidence": "high"
+    },
+    {
+      "id": "static.creatures-you-control-keywords",
+      "description": "Creatures you control gain one or more reusable keywords in layer 6.",
+      "confidence": "high"
+    },
+    {
+      "id": "static.other-creatures-you-control-keywords",
+      "description": "Other creatures you control gain one or more reusable keywords in layer 6.",
+      "confidence": "high"
+    },
+    {
+      "id": "static.opponents-creatures-lose-keywords",
+      "description": "Creatures opponents control lose one or more reusable keywords in layer 6.",
+      "confidence": "high"
+    },
+    {
+      "id": "attachment.aura-enchant-clause",
+      "description": "Standalone Aura enchant restriction used during paragraph composition.",
+      "confidence": "high"
+    },
+    {
+      "id": "attachment.equip-clause",
+      "description": "Standalone fixed equip cost used during paragraph composition.",
+      "confidence": "high"
+    },
+    {
+      "id": "attachment.equipped-pt-clause",
+      "description": "Standalone equipped-creature fixed power/toughness modifier.",
+      "confidence": "high"
+    },
+    {
+      "id": "attachment.enchanted-pt-clause",
+      "description": "Standalone enchanted-creature fixed power/toughness modifier.",
+      "confidence": "high"
+    },
+    {
+      "id": "attachment.equipment-pt",
+      "description": "Equipment with a fixed equipped-creature power/toughness bonus and a fixed equip cost.",
+      "confidence": "high"
+    },
+    {
+      "id": "attachment.equipment-keywords",
+      "description": "Equipment granting exact reusable keywords with a fixed equip cost.",
+      "confidence": "high"
+    },
+    {
+      "id": "attachment.aura-creature-pt",
+      "description": "Creature Aura with a fixed enchanted-creature power/toughness bonus.",
+      "confidence": "high"
+    },
+    {
+      "id": "attachment.aura-creature-keywords",
+      "description": "Creature Aura granting exact reusable keywords to the enchanted creature.",
+      "confidence": "high"
+    },
     {
       "id": "card.vanilla-creature",
       "description": "A normal creature with no rules text has no executable abilities beyond its copiable characteristics.",
@@ -48,6 +1103,46 @@
     {
       "id": "spell.draw-fixed",
       "description": "Draw a fixed number of cards.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.gain-life-fixed",
+      "description": "Gain a fixed amount of life.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.lose-life-fixed",
+      "description": "You lose a fixed amount of life.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.mill-self-fixed",
+      "description": "Mill a fixed number of cards.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.discard-self-fixed",
+      "description": "Discard a fixed number of cards.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.tap-target-creature",
+      "description": "Tap target creature.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.untap-target-creature",
+      "description": "Untap target creature.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.bounce-target",
+      "description": "Return one supported target permanent to its owner hand.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.add-counter-target-creature",
+      "description": "Put fixed +1/+1 counters on target creature.",
       "confidence": "high"
     },
     {
@@ -81,6 +1176,211 @@
       "confidence": "high"
     },
     {
+      "id": "spell.draw-then-discard-fixed",
+      "description": "Draw a fixed number of cards, then discard a fixed number of cards.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.scry-one",
+      "description": "Scry 1 using the authoritative hidden-information choice pipeline.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.surveil-one",
+      "description": "Surveil 1 using the authoritative hidden-information choice pipeline.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.two-creatures-fight",
+      "description": "Two target creatures fight using simultaneous noncombat damage.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.target-gains-keyword-eot",
+      "description": "Grant a supported keyword to target creature until end of turn.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.return-graveyard-card-to-hand",
+      "description": "Return a supported target card from your graveyard to your hand.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.upkeep-fixed-life",
+      "description": "Gain or lose a fixed amount of life at the beginning of your upkeep.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.end-step-draw-fixed",
+      "description": "Draw a fixed number of cards at the beginning of your end step.",
+      "confidence": "high"
+    },
+    {
+      "id": "activated.generic-mana-tap-basic",
+      "description": "Pay generic mana and tap this permanent for a simple reusable effect.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.draw-for-each-creature-you-control",
+      "description": "Draw a card for each creature you control.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.draw-for-each-artifact-you-control",
+      "description": "Draw a card for each artifact you control.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.draw-equal-cards-in-hand",
+      "description": "Draw cards equal to the number of cards in your hand.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.etb-draw-equal-source-power",
+      "description": "Draw cards equal to this permanent power when it enters.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.dies-draw-for-each-counter",
+      "description": "Draw a card for each +1/+1 counter on this creature when it dies.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.each-opponent-loses-life-fixed",
+      "description": "Each opponent loses a fixed amount of life.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.each-opponent-draws-fixed",
+      "description": "Each opponent draws a fixed number of cards.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.each-player-draws-fixed",
+      "description": "Each player draws a fixed number of cards.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.destroy-all-creatures",
+      "description": "Destroy all creatures.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.exile-all-creatures",
+      "description": "Exile all creatures.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.tap-creatures-you-control",
+      "description": "Tap all creatures you control.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.untap-creatures-you-control",
+      "description": "Untap all creatures you control.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.damage-each-opponent-fixed",
+      "description": "Deal a fixed amount of damage to each opponent.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.draw-x",
+      "description": "Draw X cards using the locked X value chosen while casting the spell.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.mill-x",
+      "description": "Mill X cards using the locked X value chosen while casting the spell.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.may-draw-one",
+      "description": "Optionally draw one card.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.upkeep-draw-fixed",
+      "description": "Draw a fixed number of cards at the beginning of your upkeep.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.upkeep-create-common-token",
+      "description": "Create common utility tokens at the beginning of your upkeep.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.end-step-gain-life",
+      "description": "Gain a fixed amount of life at the beginning of your end step.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.end-step-create-common-token",
+      "description": "Create common utility tokens at the beginning of your end step.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.attacks-gain-life",
+      "description": "Gain a fixed amount of life whenever this creature attacks.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.dies-gain-life",
+      "description": "Gain a fixed amount of life when this creature dies.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.controlled-creature-dies-draw",
+      "description": "Draw when another creature you control dies.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.dies-may-draw-one",
+      "description": "Optionally draw a card when this creature dies.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.attacks-draw-fixed",
+      "description": "Draw a fixed number of cards whenever this creature attacks.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.cast-draw-fixed",
+      "description": "Draw a fixed number of cards whenever you cast a spell.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.etb-may-draw-one",
+      "description": "Optionally draw a card when this permanent enters.",
+      "confidence": "high"
+    },
+    {
+      "id": "activated.pay-life-draw",
+      "description": "Pay a fixed amount of life, optionally with mana, to draw cards.",
+      "confidence": "high"
+    },
+    {
+      "id": "activated.remove-counter-self-draw",
+      "description": "Remove a named counter from this permanent, optionally with mana, to draw cards.",
+      "confidence": "high"
+    },
+    {
+      "id": "activated.sacrifice-another-creature-draw",
+      "description": "Sacrifice another creature, optionally with mana, to draw cards.",
+      "confidence": "high"
+    },
+    {
+      "id": "activated.sacrifice-self-draw",
+      "description": "Sacrifice this permanent, optionally with generic mana, to draw cards.",
+      "confidence": "high"
+    },
+    {
+      "id": "activated.tap-sacrifice-self-draw",
+      "description": "Pay generic mana, tap, and sacrifice this permanent to draw cards.",
+      "confidence": "high"
+    },
+    {
       "id": "trigger.etb-gain-life",
       "description": "Gain a fixed amount of life when this permanent enters.",
       "confidence": "high"
@@ -103,6 +1403,21 @@
     {
       "id": "trigger.etb-target-plus-counter",
       "description": "Put fixed +1/+1 counters on a target creature when this permanent enters.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.etb-destroy-supported-target",
+      "description": "Destroy a supported target when this permanent enters.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.etb-exile-supported-target",
+      "description": "Exile a supported target when this permanent enters.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.etb-bounce-supported-target",
+      "description": "Return a supported target permanent to its owner hand when this permanent enters.",
       "confidence": "high"
     },
     {
@@ -163,6 +1478,111 @@
     {
       "id": "spell.reanimate-target-creature",
       "description": "Return target creature card from your graveyard to the battlefield.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.reanimate-target-creature-any-graveyard",
+      "description": "Return target creature card from a graveyard to the battlefield under your control.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.dies-return-self-to-hand",
+      "description": "When this creature dies, return it to its owner hand.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.dies-return-self-battlefield",
+      "description": "When this creature dies, return it to the battlefield under its owner control.",
+      "confidence": "high"
+    },
+    {
+      "id": "spell.flicker-target-creature-you-control",
+      "description": "Exile target creature you control, then return it to the battlefield under its owner control.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.etb-exile-until-leaves",
+      "description": "ETB linked temporary exile until this permanent leaves the battlefield.",
+      "confidence": "high"
+    },
+    {
+      "id": "combat.cant-attack-this-turn",
+      "description": "A targeted creature cannot attack this turn.",
+      "confidence": "high"
+    },
+    {
+      "id": "combat.must-attack-this-turn",
+      "description": "A targeted creature must attack this turn if able.",
+      "confidence": "high"
+    },
+    {
+      "id": "copy.target-spell",
+      "description": "Copy a targeted spell and optionally choose new targets.",
+      "confidence": "high"
+    },
+    {
+      "id": "copy.token-target-creature",
+      "description": "Create a token copy of target creature.",
+      "confidence": "high"
+    },
+    {
+      "id": "control.gain-target-permanent",
+      "description": "Gain control of a targeted creature or permanent.",
+      "confidence": "high"
+    },
+    {
+      "id": "control.gain-creature-until-eot",
+      "description": "Temporarily gain control of a creature, optionally untapping it.",
+      "confidence": "high"
+    },
+    {
+      "id": "cda.pt-hand-size",
+      "description": "Power and toughness equal the number of cards in your hand.",
+      "confidence": "high"
+    },
+    {
+      "id": "cda.pt-creatures-you-control",
+      "description": "Power and toughness equal creatures you control.",
+      "confidence": "high"
+    },
+    {
+      "id": "cda.pt-graveyard-cards",
+      "description": "Power and toughness equal cards in your graveyard.",
+      "confidence": "high"
+    },
+    {
+      "id": "transform.self",
+      "description": "Transform this permanent.",
+      "confidence": "high"
+    },
+    {
+      "id": "trigger.transform-self",
+      "description": "Triggered self-transform.",
+      "confidence": "high"
+    },
+    {
+      "id": "mechanic.morph",
+      "description": "Morph face-down cast and turn-face-up cost.",
+      "confidence": "high"
+    },
+    {
+      "id": "mechanic.disguise",
+      "description": "Disguise face-down cast and turn-face-up cost.",
+      "confidence": "high"
+    },
+    {
+      "id": "mechanic.suspend",
+      "description": "Suspend N—cost special action.",
+      "confidence": "high"
+    },
+    {
+      "id": "mechanic.cascade",
+      "description": "Cascade cast trigger.",
+      "confidence": "high"
+    },
+    {
+      "id": "action.discover",
+      "description": "Discover a fixed value.",
       "confidence": "high"
     },
     {

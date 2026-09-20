@@ -13,6 +13,8 @@ export class CombatEngine {
     const def = this.#definition(permanent);
     if (def?.[name] != null) return def[name];
     if (def?.combat?.[name] != null) return def.combat[name];
+    const attachedRestriction = this.engine.attachments?.restrictionsForHost?.(permanent)?.[name];
+    if (attachedRestriction != null) return attachedRestriction;
     return fallback;
   }
 
@@ -166,6 +168,8 @@ export class CombatEngine {
 
   canBlock(blocker, attacker) {
     if (!this.#isCreature(blocker) || !this.#isCreature(attacker) || blocker.tapped || blocker.phasedOut) return false;
+    if (this.#combatFlag(blocker, 'cantBlock', false)) return false;
+    if ((this.engine.db[blocker.cardId]?.unleash || blocker.unleashed) && Number(blocker.counters?.['+1/+1'] || 0) > 0) return false;
     const defender = this.#defendingPlayerFor(attacker);
     if (defender && blocker.controller !== defender) return false;
     const ak = this.#keywords(attacker);

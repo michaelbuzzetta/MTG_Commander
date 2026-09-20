@@ -550,6 +550,7 @@ export default function App() {
   const pendingCultivate = s.pendingChoice?.type === 'CULTIVATE_SEARCH' && s.pendingChoice.playerId === 'player' ? s.pendingChoice : null;
   const pendingSisay = s.pendingChoice?.type === 'SISAY_TUTOR' && s.pendingChoice.playerId === 'player' ? s.pendingChoice : null;
   const pendingScry = s.pendingChoice?.type === 'SCRY' && s.pendingChoice.playerId === 'player' ? s.pendingChoice : null;
+  const pendingSurveil = s.pendingChoice?.type === 'SURVEIL' && s.pendingChoice.playerId === 'player' ? s.pendingChoice : null;
   const pendingTriggerTarget = s.pendingChoice?.type === 'TRIGGER_TARGET' && s.pendingChoice.playerId === 'player' ? s.pendingChoice : null;
   const pendingCreatureType = s.pendingChoice?.type === 'CREATURE_TYPE' && s.pendingChoice.playerId === 'player' ? s.pendingChoice : null;
   const pendingEffectCards = s.pendingChoice?.type === 'EFFECT_CARD_CHOICE' && s.pendingChoice.playerId === 'player' ? s.pendingChoice : null;
@@ -925,7 +926,7 @@ export default function App() {
   };
 
   const next = () => {
-    if (targetingAction || pendingWard || pendingLegend || pendingCommander || pendingOptionalTrigger || pendingOptionalManaPayment || pendingTapOrUntap || pendingOptionalEffect || pendingExplore || pendingHakbal || pendingSisay || pendingScry || pendingCreatureType || pendingHideaway || pendingHideawayPlay || pendingEntryLifePayment || pendingEntryReveal || pendingCopyTargets) return;
+    if (targetingAction || pendingWard || pendingLegend || pendingCommander || pendingOptionalTrigger || pendingOptionalManaPayment || pendingTapOrUntap || pendingOptionalEffect || pendingExplore || pendingHakbal || pendingSisay || pendingScry || pendingSurveil || pendingCreatureType || pendingHideaway || pendingHideawayPlay || pendingEntryLifePayment || pendingEntryReveal || pendingCopyTargets) return;
     if (abilitySelection) {
       confirmAbilitySelection();
       return;
@@ -995,7 +996,7 @@ export default function App() {
   };
 
   const buttonText = targetingAction ? 'Choose Target'
-    : pendingWard || pendingOptionalTrigger || pendingOptionalManaPayment || pendingTapOrUntap || pendingOptionalEffect || pendingExplore || pendingHakbal || pendingSisay || pendingScry || pendingCreatureType || pendingHideaway || pendingHideawayPlay || pendingEntryLifePayment || pendingEntryReveal || pendingCopyTargets ? 'Resolve Required Choice'
+    : pendingWard || pendingOptionalTrigger || pendingOptionalManaPayment || pendingTapOrUntap || pendingOptionalEffect || pendingExplore || pendingHakbal || pendingSisay || pendingScry || pendingSurveil || pendingCreatureType || pendingHideaway || pendingHideawayPlay || pendingEntryLifePayment || pendingEntryReveal || pendingCopyTargets ? 'Resolve Required Choice'
       : abilitySelection ? `Confirm ${abilitySelection.selectedIds.length}/${abilitySelection.count} Selected`
         : pendingEffectCards ? `Confirm ${effectChoices.length} Card${effectChoices.length === 1 ? '' : 's'}`
       : pendingExploreOrder ? 'Confirm Explore Order'
@@ -1024,6 +1025,7 @@ export default function App() {
     || !!pendingHakbal
     || !!pendingSisay
     || !!pendingScry
+    || !!pendingSurveil
     || !!pendingCreatureType
     || !!pendingHideaway
     || !!pendingHideawayPlay
@@ -1182,6 +1184,11 @@ export default function App() {
       Scry 1 — top card: <b>{pendingScry.cardName}</b>.{' '}
       <button className="primary" onClick={() => act({ type: 'CHOOSE_SCRY', putOnBottom: false })}>Keep on Top</button>{' '}
       <button onClick={() => act({ type: 'CHOOSE_SCRY', putOnBottom: true })}>Put on Bottom</button>
+    </div>}
+    {pendingSurveil && <div className="decision-banner">
+      Surveil 1 — top card: <b>{pendingSurveil.cardName}</b>.{' '}
+      <button className="primary" onClick={() => act({ type: 'CHOOSE_SURVEIL', putInGraveyard: false })}>Keep on Top</button>{' '}
+      <button onClick={() => act({ type: 'CHOOSE_SURVEIL', putInGraveyard: true })}>Put in Graveyard</button>
     </div>}
     {pendingCreatureType && <div className="decision-banner">
       <b>{pendingCreatureType.cardName || 'Choose a creature type'}</b> — choose a creature type.{' '}

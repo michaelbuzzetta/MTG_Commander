@@ -1,0 +1,4458 @@
+{
+  "tested": 3554,
+  "promoted": 599,
+  "cards": [
+    {
+      "id": "catalog-0049438b-e37e-4c57-820e-f2ddf3322170",
+      "name": "High-Rise Sawjack",
+      "templates": [
+        "card.keyword-only",
+        "phase70.block-flying-pump"
+      ]
+    },
+    {
+      "id": "catalog-00e35322-1a9a-41e3-9ce1-359c8eaa3bc7",
+      "name": "Talisman of Progress",
+      "templates": [
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-019461d9-63ae-43d3-a9d4-bd745d0cf46c",
+      "name": "Rhox Maulers",
+      "templates": [
+        "card.keyword-only",
+        "phase70.renown"
+      ]
+    },
+    {
+      "id": "catalog-022c9e4a-915d-4844-a384-3ecea9377ab6",
+      "name": "Thunderbolts",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-027484b8-0df5-48b6-b69b-bb4e39c5ba81",
+      "name": "Selesnya Sagittars",
+      "templates": [
+        "card.keyword-only",
+        "phase70.additional-block"
+      ]
+    },
+    {
+      "id": "catalog-02ba4a13-9599-4d61-9dce-fd5be5513562",
+      "name": "Heavily Armored",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-02e81bb8-ba80-4483-9b9f-973dcae0fc9d",
+      "name": "Obelisk of Naya",
+      "templates": [
+        "phase70.mana-three"
+      ]
+    },
+    {
+      "id": "catalog-03110c7d-83fc-4f0b-a7c4-04e802d98f88",
+      "name": "Coalition Corps",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-032327b6-c6b8-4712-8a79-78bac2206336",
+      "name": "Gigantic",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-04a164be-2951-4a4e-9fc1-5c418c453886",
+      "name": "Airbending",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-05eccdee-84f8-42d5-b79c-36d081656915",
+      "name": "Flame Jab",
+      "templates": [
+        "spell.damage-any-target",
+        "phase70.retrace"
+      ]
+    },
+    {
+      "id": "catalog-0674e5e6-deaf-4f06-9fbb-ba84550e142f",
+      "name": "Fearless",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-067bcc18-4bb6-4de2-9ba2-5f4ac473fc70",
+      "name": "Cult of Rakdos",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-06d379bd-d408-4d59-b772-8b1bf1742d7b",
+      "name": "Counterargument",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-06e23be9-25b7-49e1-b51d-a4588d5ecbda",
+      "name": "Azorius Senate",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-080c4761-66d7-47cd-9f32-61afe924a48c",
+      "name": "Marauders",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-08261b68-b261-4e47-a085-c489ba394108",
+      "name": "Tyrranax Atrocity",
+      "templates": [
+        "card.keyword-only",
+        "phase70.toxic"
+      ]
+    },
+    {
+      "id": "catalog-08c6d2fd-d9ae-4f95-bb9d-7e16b1039814",
+      "name": "Demolish",
+      "templates": [
+        "phase70.destroy-artifact-land"
+      ]
+    },
+    {
+      "id": "catalog-094b778f-95a0-436f-a9d0-20a46a674486",
+      "name": "Elvish Bard",
+      "templates": [
+        "phase71.all-must-block"
+      ]
+    },
+    {
+      "id": "catalog-09cc2cda-14d1-424e-a688-1b49b1b4c392",
+      "name": "Stalwart Aven",
+      "templates": [
+        "card.keyword-only",
+        "phase70.renown"
+      ]
+    },
+    {
+      "id": "catalog-09f75f28-09b9-4a6e-a1b0-671208d274d3",
+      "name": "Sunder from Within",
+      "templates": [
+        "phase70.destroy-artifact-land"
+      ]
+    },
+    {
+      "id": "catalog-0a56e2ad-684d-45a7-9145-479d1505bba2",
+      "name": "Adaptive Snapjaw",
+      "templates": [
+        "phase70.evolve"
+      ]
+    },
+    {
+      "id": "catalog-0b16a650-68b0-44dc-a9e1-15b7966e0b18",
+      "name": "Orcish Oriflamme",
+      "templates": [
+        "phase71.static-attacking-pump"
+      ]
+    },
+    {
+      "id": "catalog-0b49b919-e459-4383-8bf0-a684b374106f",
+      "name": "Bad Advice",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-0baf75b3-cc02-47cc-873a-8d5f17da0ec9",
+      "name": "Implement of Examination",
+      "templates": [
+        "phase69.generic-activated-simple",
+        "phase71.artifact-dies-draw"
+      ]
+    },
+    {
+      "id": "catalog-0be1ace3-2b3d-4465-b63a-be523f73df36",
+      "name": "Breaker of Armies",
+      "templates": [
+        "phase71.all-must-block"
+      ]
+    },
+    {
+      "id": "catalog-0bf619f9-4b19-404c-995f-f23a4b859dd4",
+      "name": "Benalish Cavalry",
+      "templates": [
+        "phase71.flanking"
+      ]
+    },
+    {
+      "id": "catalog-0c3b370e-cf07-474d-adc5-7dd7448e5558",
+      "name": "Pym Particles",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-0c451330-1154-474d-8b69-626420a7ec75",
+      "name": "Savage Lands",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-0ccd1084-64bb-41ee-81c0-666af434b8df",
+      "name": "Storm Skreelix",
+      "templates": [
+        "card.keyword-only",
+        "phase69.spell-cost-reduction-type",
+        "phase70.cast-is-pump"
+      ]
+    },
+    {
+      "id": "catalog-0d5a1870-6d26-47e7-a86c-f3ff15cb0707",
+      "name": "Lat-Nam Adept",
+      "templates": [
+        "phase71.second-draw-counter"
+      ]
+    },
+    {
+      "id": "catalog-0d668abc-7de6-4620-be3f-c8815b4233bb",
+      "name": "Battalion",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-0da6692f-7b92-49ec-9dcb-3104d87510c5",
+      "name": "Bookworms",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-0ddb3fa0-447c-40c5-928a-541f3d543014",
+      "name": "Netcaster Spider",
+      "templates": [
+        "card.keyword-only",
+        "phase70.block-flying-pump"
+      ]
+    },
+    {
+      "id": "catalog-0e235b96-9507-4f4b-9578-4fb8ed854cc2",
+      "name": "Shambleshark",
+      "templates": [
+        "card.keyword-only",
+        "phase70.evolve"
+      ]
+    },
+    {
+      "id": "catalog-0e49ec18-f979-4168-b7df-7728f3fe442e",
+      "name": "War-Wing Siren",
+      "templates": [
+        "card.keyword-only",
+        "phase70.heroic-counter"
+      ]
+    },
+    {
+      "id": "catalog-0edf5bac-36a9-4f35-afd1-73f7e1aab51b",
+      "name": "Mtenda Herder",
+      "templates": [
+        "phase71.flanking"
+      ]
+    },
+    {
+      "id": "catalog-0f58f791-469a-4a22-996e-4906c0914858",
+      "name": "Monstrify",
+      "templates": [
+        "spell.pump-until-eot",
+        "phase70.retrace"
+      ]
+    },
+    {
+      "id": "catalog-0f63de7b-03f2-49ad-b217-88fe9c50d68a",
+      "name": "Snarespinner",
+      "templates": [
+        "card.keyword-only",
+        "phase70.block-flying-pump"
+      ]
+    },
+    {
+      "id": "catalog-0f9672ac-f4fc-46e8-9fe5-93b3e66810a4",
+      "name": "Nezumi Ronin",
+      "templates": [
+        "phase70.bushido"
+      ]
+    },
+    {
+      "id": "catalog-0fafbffe-ac7f-422c-95da-d1b64256ed52",
+      "name": "Feathered Friends",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-0fe16212-66c3-4e45-a641-7391e9b2e304",
+      "name": "Shivan Reef",
+      "templates": [
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-10167322-8ea9-4c58-a752-d64abc4a0bbd",
+      "name": "Basri",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-10821e37-8a83-4d8e-a12f-249a10933a22",
+      "name": "Qasali Pridemage",
+      "templates": [
+        "card.keyword-only",
+        "phase71.sac-destroy-ae"
+      ]
+    },
+    {
+      "id": "catalog-117a5fae-7fc4-4e24-b646-5727ea392fa7",
+      "name": "Skyshroud Forest",
+      "templates": [
+        "replacement.self-enters-tapped",
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-11951c32-9926-4a8c-868a-c8d6e3a64bca",
+      "name": "Fiery",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-11b14eab-5268-485b-ad39-a0c0dfef9f28",
+      "name": "Inferno",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-11e4c731-4212-4aad-891f-fe066ed0436f",
+      "name": "Skulking Knight",
+      "templates": [
+        "phase71.flanking",
+        "phase69.targeted-sacrifice-on-target"
+      ]
+    },
+    {
+      "id": "catalog-127f1cc5-2548-42b9-a212-891f91141845",
+      "name": "Iron Man",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-1317de61-b5e0-438c-9c2a-884cc6334f30",
+      "name": "Cycling",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-13274b60-3352-4191-958b-53a81add9792",
+      "name": "Kyoshi",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-137594f7-2422-461b-a3ae-7ce3c135e0c7",
+      "name": "Hill Gigas",
+      "templates": [
+        "card.keyword-only",
+        "phase70.landcycling"
+      ]
+    },
+    {
+      "id": "catalog-13cfc92c-142a-4016-b86f-ace6bda1a69c",
+      "name": "Chilling Apparition",
+      "templates": [
+        "phase69.activated-regenerate",
+        "phase70.combat-damage-discard"
+      ]
+    },
+    {
+      "id": "catalog-14a71dee-d434-4d42-9591-a9efde2b6ff0",
+      "name": "Giddyap",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-14af3ec5-d90a-4560-a70a-8645765f1253",
+      "name": "Jawbone Duelist",
+      "templates": [
+        "card.keyword-only",
+        "phase70.toxic"
+      ]
+    },
+    {
+      "id": "catalog-14d2979d-5728-42d7-a027-0eb1f754655d",
+      "name": "Talisman of Creativity",
+      "templates": [
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-150e7211-a583-4712-bd4b-bd4e57d75f95",
+      "name": "Vehicles",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-15c84d06-430e-4b85-9437-2e2ed88facf8",
+      "name": "Legion",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-16e2109f-3d6e-4b42-b37c-f5b4ff70321d",
+      "name": "Pirates",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-16f5c704-9314-4d90-999f-572ad86244d2",
+      "name": "Rats",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-177248b7-f3fd-42f8-b325-2625a2bb28ff",
+      "name": "Jade Avenger",
+      "templates": [
+        "phase70.bushido"
+      ]
+    },
+    {
+      "id": "catalog-17ec1066-0d2b-42c4-82c8-f1dc25a7643b",
+      "name": "Ready to Attack",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-18a45b81-1946-4be6-8f2c-8c21d11c86f8",
+      "name": "Flowstone Embrace",
+      "templates": [
+        "attachment.aura-enchant-clause",
+        "phase70.activated-aura-pump"
+      ]
+    },
+    {
+      "id": "catalog-18cbb47a-85b1-48f6-a024-8c3bbffa0d87",
+      "name": "Havenwood Battleground",
+      "templates": [
+        "replacement.self-enters-tapped",
+        "mana.tap-fixed",
+        "phase70.mana-sac-double"
+      ]
+    },
+    {
+      "id": "catalog-18d8b720-b56f-42fc-a8ae-3549aa06754f",
+      "name": "Wolves",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-18f9574a-cfd3-4088-a46e-f2f434d36bf8",
+      "name": "Angels",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-1915a311-209b-4628-8122-af3055a78fed",
+      "name": "Cliffhaven Vampire",
+      "templates": [
+        "card.keyword-only",
+        "phase71.life-drain-trigger"
+      ]
+    },
+    {
+      "id": "catalog-1a2c9d72-61a4-44e3-a651-9717d75893f7",
+      "name": "Raphael",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-1a7e0e55-41c3-4fd8-b718-55b59b5cab90",
+      "name": "Liliana's Specter",
+      "templates": [
+        "card.keyword-only",
+        "phase71.etb-opponents-discard"
+      ]
+    },
+    {
+      "id": "catalog-1abc7c2b-477c-4ce3-ab49-fedbf84b610c",
+      "name": "Ready to Charge",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-1b27303b-756e-45b9-956f-6bbbd83d31ab",
+      "name": "Pestilent Syphoner",
+      "templates": [
+        "card.keyword-only",
+        "phase70.toxic"
+      ]
+    },
+    {
+      "id": "catalog-1b553ed4-12eb-4a53-8e1f-d47ec92b1d65",
+      "name": "Fiery Mantle",
+      "templates": [
+        "attachment.aura-enchant-clause",
+        "phase70.activated-aura-pump",
+        "phase69.aura-return-hand"
+      ]
+    },
+    {
+      "id": "catalog-1b58cbe9-3be8-4b06-99df-358e09876b67",
+      "name": "Squadron",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-1b64b74a-ed7b-4595-abb7-c3bbc9dbb352",
+      "name": "Expendable",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-1bb7009b-aeb0-4545-be4c-c8c5d723bcf5",
+      "name": "Morbid Plunder",
+      "templates": [
+        "phase71.return-up-to-two-creatures"
+      ]
+    },
+    {
+      "id": "catalog-1c482b20-b423-48ef-b162-53960d43b4f7",
+      "name": "Armor of Faith",
+      "templates": [
+        "attachment.aura-enchant-clause",
+        "attachment.enchanted-pt-clause",
+        "phase70.activated-aura-pump"
+      ]
+    },
+    {
+      "id": "catalog-1caa0d37-e009-4290-834c-85ac0d98562d",
+      "name": "Go to School",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-1cabeb91-fa84-4327-9652-0a9ae205bca1",
+      "name": "Aang",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-1cd9a3ba-a115-4e59-983d-605e4435f3a8",
+      "name": "Searing Touch",
+      "templates": [
+        "phase70.buyback",
+        "spell.damage-any-target"
+      ]
+    },
+    {
+      "id": "catalog-1d25b831-c1de-4f79-bbb3-1582eda96452",
+      "name": "Elvish Aberration",
+      "templates": [
+        "mana.tap-fixed",
+        "phase70.landcycling"
+      ]
+    },
+    {
+      "id": "catalog-1d33a321-c795-4654-9a47-f3d8b7ec3fba",
+      "name": "Fangs",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-1d9aeaaa-66f6-41cb-9bac-162d6fd8662c",
+      "name": "Talisman of Indulgence",
+      "templates": [
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-1dafc03b-6c45-4f28-8a1f-b4f1044adc97",
+      "name": "Purify the Grave",
+      "templates": [
+        "phase70.spell-exile-grave-card",
+        "casting.flashback"
+      ]
+    },
+    {
+      "id": "catalog-1edbb131-0dd0-4438-826f-3bfa787b8371",
+      "name": "Shrines",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-1f6bff6c-a2f0-4ed7-8169-acb4d31a7187",
+      "name": "Mercurial Geists",
+      "templates": [
+        "card.keyword-only",
+        "phase70.cast-is-pump"
+      ]
+    },
+    {
+      "id": "catalog-2029954b-6fa7-40d7-bb19-d7534c62be5d",
+      "name": "Cackling Fiend",
+      "templates": [
+        "phase71.etb-opponents-discard"
+      ]
+    },
+    {
+      "id": "catalog-2071f278-77ba-46f8-85a0-ccd761199f29",
+      "name": "Crocanura",
+      "templates": [
+        "card.keyword-only",
+        "phase70.evolve"
+      ]
+    },
+    {
+      "id": "catalog-21a5f96b-f080-4414-a60f-e6a83f8b0482",
+      "name": "Smashing",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-222fd9fc-7af4-4269-bbb9-cd7b8ac029bd",
+      "name": "Troll of Khazad-dûm",
+      "templates": [
+        "phase71.three-blockers",
+        "phase70.landcycling"
+      ]
+    },
+    {
+      "id": "catalog-2284420f-1773-409f-b330-964a1267b13d",
+      "name": "Lightning",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-23660a36-6194-4ef8-8ae0-691d9b259ee1",
+      "name": "Katara",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-23e98711-0b3f-446d-abcc-9b0378178feb",
+      "name": "Cursed Ronin",
+      "templates": [
+        "phase70.bushido",
+        "activated.firebreathing"
+      ]
+    },
+    {
+      "id": "catalog-23edd36f-c547-495b-9eb3-4a276add1d43",
+      "name": "Kang Dynasty (Theme)",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-249938dc-cdb2-4a45-a9bf-f60215717e1b",
+      "name": "Minotaurs",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-250a027f-2b3e-4eaf-899a-a9da8be20070",
+      "name": "Cadaverous Knight",
+      "templates": [
+        "phase71.flanking",
+        "phase69.activated-regenerate"
+      ]
+    },
+    {
+      "id": "catalog-2562e9e6-569d-496d-b005-b13c0e5584a8",
+      "name": "Roku",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-2667d723-01c8-4ea3-ac17-cedb3b842c3b",
+      "name": "Phyrexian Mite",
+      "templates": [
+        "phase70.toxic",
+        "combat.cant-block-self"
+      ]
+    },
+    {
+      "id": "catalog-27196aad-73ac-4759-99f4-0b9af7b8d3a6",
+      "name": "Fantastic",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-2836e7bb-3576-4fc9-ad4b-b6b9e74b5d54",
+      "name": "Villains",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-2863282d-fb91-4009-9cb9-2fd1b06dc2d6",
+      "name": "Enchanted",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-28806925-a1c4-4d03-b516-560d5c978f8b",
+      "name": "Spider-Verse",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-2896f01d-003b-4d68-9d0a-64990ba59cbe",
+      "name": "Scabland",
+      "templates": [
+        "replacement.self-enters-tapped",
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-29263d48-cb28-478b-a99e-5a18dbc924f0",
+      "name": "Dawnbringer Charioteers",
+      "templates": [
+        "card.keyword-only",
+        "phase70.heroic-counter"
+      ]
+    },
+    {
+      "id": "catalog-29326487-6d95-40a8-9bcc-f94ada4e27c3",
+      "name": "Slavering Branchsnapper",
+      "templates": [
+        "card.keyword-only",
+        "phase70.landcycling"
+      ]
+    },
+    {
+      "id": "catalog-29e13ec1-a239-4217-a2bd-24ff90745ec0",
+      "name": "Withered Wretch",
+      "templates": [
+        "phase71.exile-grave-activation"
+      ]
+    },
+    {
+      "id": "catalog-2a97f937-740e-463d-9311-3f4596c6d626",
+      "name": "Minions",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-2aca7d5b-df86-44f4-ba92-ef25e6c60ef2",
+      "name": "Tenacious",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-2ae77795-6a80-498b-bf69-6fd612f601e4",
+      "name": "Seaside Citadel",
+      "templates": [
+        "replacement.self-enters-tapped",
+        "phase70.mana-three"
+      ]
+    },
+    {
+      "id": "catalog-2bdeba2c-5314-472c-b6a3-b52a667c4ccb",
+      "name": "Vehicles",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-2c741cc0-b588-4cc0-b12f-c8738488fbf0",
+      "name": "Blink",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-2d297469-1f04-4de4-b6e8-cbaa7830fd5e",
+      "name": "Tricksy",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-2d6f6592-c6b0-4c67-a7c6-f71b4844f9fa",
+      "name": "Unearth (Theme)",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-2db73fff-1a89-4006-945d-a244ff2f0bef",
+      "name": "Kitsune Blademaster",
+      "templates": [
+        "card.keyword-only",
+        "phase70.bushido"
+      ]
+    },
+    {
+      "id": "catalog-2e054ab1-f791-43c5-8393-536bd98394e7",
+      "name": "Welded",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-2e163679-7303-4e05-9d20-86b76dfa1407",
+      "name": "Vampire Cutthroat",
+      "templates": [
+        "phase70.skulk"
+      ]
+    },
+    {
+      "id": "catalog-2e69537c-c898-4e13-a72d-ce3957a90304",
+      "name": "Jungle Shrine",
+      "templates": [
+        "replacement.self-enters-tapped",
+        "phase70.mana-three"
+      ]
+    },
+    {
+      "id": "catalog-2effcd1c-5833-4e0e-bb67-2d2ffb22a014",
+      "name": "Seething Anger",
+      "templates": [
+        "phase70.buyback",
+        "spell.pump-until-eot"
+      ]
+    },
+    {
+      "id": "catalog-2f0ec7ac-1801-43dc-bb3e-ff0a2b7818cb",
+      "name": "Prideful",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-2f6e9ab8-6951-4c5f-bcde-0e96e0fe87f2",
+      "name": "Exalted Angel",
+      "templates": [
+        "card.keyword-only",
+        "phase70.damage-lifelink-worded",
+        "mechanic.morph"
+      ]
+    },
+    {
+      "id": "catalog-2f807301-37df-4724-871a-08e3512b07b3",
+      "name": "Burglar Rat",
+      "templates": [
+        "phase71.etb-opponents-discard"
+      ]
+    },
+    {
+      "id": "catalog-2f91818f-a6fe-4472-b52b-ab574f790905",
+      "name": "Zebra Unicorn",
+      "templates": [
+        "phase70.damage-lifelink-worded"
+      ]
+    },
+    {
+      "id": "catalog-30693d3f-7b07-492f-a6f5-6221fccf21d7",
+      "name": "Conniving",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-3150b464-a39f-4d19-b4ab-4952b7750db0",
+      "name": "Spicy",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-31ad3382-c67e-4b9d-a4ee-416c0d2b0282",
+      "name": "Vampires",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-3203308c-075c-47ba-98b2-4165e28bbb5b",
+      "name": "Well-Read",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-32116127-cf96-4a1b-8896-a1ebc087b597",
+      "name": "Llanowar Wastes",
+      "templates": [
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-3365a79e-3e2d-4f4b-861c-a970ae23345b",
+      "name": "Treasure",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-3384606b-7724-4584-89fa-fbe006d5de1f",
+      "name": "Skull Fracture",
+      "templates": [
+        "phase70.spell-target-discard",
+        "casting.flashback"
+      ]
+    },
+    {
+      "id": "catalog-33c722cf-b4bf-431f-aefd-ee96241a7fbf",
+      "name": "Crucible of Worlds",
+      "templates": [
+        "phase71.play-lands-graveyard"
+      ]
+    },
+    {
+      "id": "catalog-33de01e9-ce5a-42d4-afcb-343cd54a6d80",
+      "name": "Caves of Koilos",
+      "templates": [
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-3617c4ec-dc70-4fa8-94f3-fbc48abcaeea",
+      "name": "Indatha Crystal",
+      "templates": [
+        "phase70.mana-three",
+        "keyword.cycling-mana"
+      ]
+    },
+    {
+      "id": "catalog-370e92a6-8695-4348-a7a3-a58c1a7f4641",
+      "name": "Archaeology",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-37985fef-696e-4c6b-9a60-29c5051b5a25",
+      "name": "Volcanic Submersion",
+      "templates": [
+        "phase70.destroy-artifact-land",
+        "keyword.cycling-mana"
+      ]
+    },
+    {
+      "id": "catalog-38394ee3-6726-4f91-bc25-36bce0c6aab9",
+      "name": "Reiterate",
+      "templates": [
+        "phase70.buyback",
+        "copy.target-spell"
+      ]
+    },
+    {
+      "id": "catalog-38530399-d2c9-4445-92ba-14c5cd438055",
+      "name": "Mothrider Samurai",
+      "templates": [
+        "card.keyword-only",
+        "phase70.bushido"
+      ]
+    },
+    {
+      "id": "catalog-38aa31bd-7145-43b9-9409-463d9ad6cd69",
+      "name": "Two-Headed Giant of Foriys",
+      "templates": [
+        "card.keyword-only",
+        "phase70.additional-block"
+      ]
+    },
+    {
+      "id": "catalog-38ece0fa-2c94-4eae-b6ab-74b783862f3e",
+      "name": "Doomskar",
+      "templates": [
+        "spell.destroy-all-creatures",
+        "phase70.foretell"
+      ]
+    },
+    {
+      "id": "catalog-397dd0fc-fc96-474e-b3a9-19872e310a67",
+      "name": "Human Soldier",
+      "templates": [
+        "phase71.training"
+      ]
+    },
+    {
+      "id": "catalog-399ea8a4-55f5-4f14-ad7a-7af306959496",
+      "name": "Spike-Tailed Ceratops",
+      "templates": [
+        "phase70.additional-block"
+      ]
+    },
+    {
+      "id": "catalog-39a7c52d-0b89-47c1-a376-5004c94c2e0f",
+      "name": "Battle-Mad Ronin",
+      "templates": [
+        "phase70.bushido",
+        "combat.must-attack-self"
+      ]
+    },
+    {
+      "id": "catalog-39b699e1-79c6-4960-97dc-d58574181bbe",
+      "name": "Jolrael's Centaur",
+      "templates": [
+        "card.keyword-only",
+        "phase71.flanking"
+      ]
+    },
+    {
+      "id": "catalog-39fc3450-df78-4f1a-82dd-9834f8504b1a",
+      "name": "Tutorial",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-3a7a27fe-60f0-4a21-a1c1-5fef8a528391",
+      "name": "Night Market Guard",
+      "templates": [
+        "phase70.additional-block"
+      ]
+    },
+    {
+      "id": "catalog-3ad110fe-fcc0-4a48-9078-5304404fa33c",
+      "name": "Swordmaster",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-3addbbd0-ea1f-4828-a4db-cb0ecca9b818",
+      "name": "Rampaging",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-3cc4032e-b8f5-4f52-8b59-2f8d47c51ecb",
+      "name": "Returned",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-3d0c1301-4fa7-4245-a13f-f613188eb638",
+      "name": "Battering Krasis",
+      "templates": [
+        "card.keyword-only",
+        "phase70.evolve"
+      ]
+    },
+    {
+      "id": "catalog-3df0a392-bcc1-4456-bd6e-d044bcc83a16",
+      "name": "Silverstorm Samurai",
+      "templates": [
+        "card.keyword-only",
+        "phase70.bushido"
+      ]
+    },
+    {
+      "id": "catalog-3e39224c-72ce-4ecc-aa17-12c071ea1f3e",
+      "name": "Krosan Grip",
+      "templates": [
+        "phase70.split-second",
+        "spell.destroy-target"
+      ]
+    },
+    {
+      "id": "catalog-3eacf917-63af-4f15-a8b5-57440f43a1f1",
+      "name": "Knights",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-3ee5d7b6-0263-4239-a5fb-de1e1a220c55",
+      "name": "Ketria Crystal",
+      "templates": [
+        "phase70.mana-three",
+        "keyword.cycling-mana"
+      ]
+    },
+    {
+      "id": "catalog-3f678f76-3863-4ab5-a4fd-9b76a282b1a8",
+      "name": "Balamb T-Rexaur",
+      "templates": [
+        "card.keyword-only",
+        "trigger.etb-gain-life",
+        "phase70.landcycling"
+      ]
+    },
+    {
+      "id": "catalog-3f8b189e-775c-41ad-839a-153a3200c708",
+      "name": "Knights of Dol Amroth",
+      "templates": [
+        "phase71.second-draw-counter"
+      ]
+    },
+    {
+      "id": "catalog-3f96dfd3-975a-4595-95c1-d2f04a86cb37",
+      "name": "Obelisk of Bant",
+      "templates": [
+        "phase70.mana-three"
+      ]
+    },
+    {
+      "id": "catalog-4000e119-3372-431c-bc3a-0db0639311ce",
+      "name": "Fire Urchin",
+      "templates": [
+        "card.keyword-only",
+        "phase70.cast-is-pump"
+      ]
+    },
+    {
+      "id": "catalog-40999aa6-6424-42e4-9d47-33bee6bbb886",
+      "name": "Knight of the Pilgrim's Road",
+      "templates": [
+        "phase70.renown"
+      ]
+    },
+    {
+      "id": "catalog-40b36bc6-c185-4bda-99e7-0118953c2c97",
+      "name": "Yavimaya Coast",
+      "templates": [
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-40d6e1ff-995b-42fc-8146-8d5e5f1adcd9",
+      "name": "Apprentice Sharpshooter",
+      "templates": [
+        "card.keyword-only",
+        "phase71.training"
+      ]
+    },
+    {
+      "id": "catalog-41b0ce83-1c1f-4cc3-aaba-dbe2fded174d",
+      "name": "Gruul Clans",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-42003e9d-e98a-42ba-9369-f30d5ffeb9ef",
+      "name": "Tree-Hugging",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-42b8aa14-10bc-4bd6-88d9-4bb287eadd19",
+      "name": "Talisman of Resilience",
+      "templates": [
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-4314e5b7-f2ab-40a7-92d9-14045cbcb81d",
+      "name": "Firebending",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-44f46d28-a0b0-4e75-a1da-eb0c85003617",
+      "name": "Ghastly",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-45a0fbfb-0be4-4c55-a1ca-2bf903b89c72",
+      "name": "Artifacts",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-45d35128-76e6-43f9-8d23-41f7506c3a71",
+      "name": "Caustic Caterpillar",
+      "templates": [
+        "phase71.sac-destroy-ae"
+      ]
+    },
+    {
+      "id": "catalog-460d6aa7-432c-46a3-8acd-8174416fa6d1",
+      "name": "Copied",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-4619de7e-3d6e-4c6b-8e6e-e24db324839d",
+      "name": "Nomad Outpost",
+      "templates": [
+        "replacement.self-enters-tapped",
+        "phase70.mana-three"
+      ]
+    },
+    {
+      "id": "catalog-46535f8e-1bcd-4588-ac6c-a4bc89c379c8",
+      "name": "Abzan Banner",
+      "templates": [
+        "phase70.mana-three",
+        "phase69.generic-activated-simple"
+      ]
+    },
+    {
+      "id": "catalog-47ad8e9f-9d43-420a-91a3-30008acd8ef6",
+      "name": "Card Draw",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-47fbc46c-c4a1-4f9c-9109-878d4503d085",
+      "name": "Illusions",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-4808e39c-213b-4034-bbc4-f8450b82817d",
+      "name": "Drowned",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-48408f60-56bc-402f-ba19-c9dc53836765",
+      "name": "Deathcoil Wurm",
+      "templates": [
+        "phase71.damage-as-unblocked"
+      ]
+    },
+    {
+      "id": "catalog-48f0cd77-5daa-46aa-9f70-a98c6df15674",
+      "name": "Counters",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-490eaf4d-b2ee-48ad-b032-2505777356ba",
+      "name": "Uncanny",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-494050f4-0a55-415d-9ae9-feb17e61c4e1",
+      "name": "Savage Conception",
+      "templates": [
+        "phase69.simple-spell-payload",
+        "phase70.retrace"
+      ]
+    },
+    {
+      "id": "catalog-4956008e-d912-48ba-9b82-176258281060",
+      "name": "Fallen Askari",
+      "templates": [
+        "phase71.flanking",
+        "combat.cant-block-self"
+      ]
+    },
+    {
+      "id": "catalog-49fe9f5a-5821-4586-b913-7d8aef1f8669",
+      "name": "Cenn's Enlistment",
+      "templates": [
+        "phase69.simple-spell-payload",
+        "phase70.retrace"
+      ]
+    },
+    {
+      "id": "catalog-4a864846-d9dc-4026-8326-dd1f542459aa",
+      "name": "Totally Merciless",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-4a98933a-56d1-4aba-9708-b0476b2c61b2",
+      "name": "Too Many",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-4ab42daa-8726-4973-947d-1d6c32f0ba61",
+      "name": "Fight On!",
+      "templates": [
+        "phase71.return-up-to-two-creatures"
+      ]
+    },
+    {
+      "id": "catalog-4bd42070-4454-43df-a3e9-ebd77da9b4ec",
+      "name": "Cats",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-4c046368-5899-42ef-9972-3a3a6c8fe3fd",
+      "name": "Blazing Specter",
+      "templates": [
+        "card.keyword-only",
+        "phase70.combat-damage-discard"
+      ]
+    },
+    {
+      "id": "catalog-4c0a0448-b9d6-43a0-8549-64066dac63f0",
+      "name": "Talisman of Dominance",
+      "templates": [
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-4c7c36e4-2a6d-4787-b20a-9be10a331def",
+      "name": "Orzhov Syndicate",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-4d4b9512-d29d-4b99-9249-d37e1199a1f5",
+      "name": "Ebon Stronghold",
+      "templates": [
+        "replacement.self-enters-tapped",
+        "mana.tap-fixed",
+        "phase70.mana-sac-double"
+      ]
+    },
+    {
+      "id": "catalog-4d4fe452-19e2-47f7-b771-4b954b0df7b9",
+      "name": "Coalition Legion",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-4f424d94-1544-4086-a57d-2add17332094",
+      "name": "Mind Peel",
+      "templates": [
+        "phase70.buyback",
+        "phase70.spell-target-discard"
+      ]
+    },
+    {
+      "id": "catalog-4f629a7f-3488-4262-8789-b945acdeaec4",
+      "name": "Dinosaurs",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-4f819ba4-52ef-4fdd-8e4c-5ae3b2f44db5",
+      "name": "Ramunap Excavator",
+      "templates": [
+        "phase71.play-lands-graveyard"
+      ]
+    },
+    {
+      "id": "catalog-50715202-1544-40b5-99c3-e14e4fa74ea6",
+      "name": "Lands",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-5078c54d-6db0-4ae7-9048-be3177c0154b",
+      "name": "Faeries",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-50b404ee-700e-44ef-a536-de6cfab7350b",
+      "name": "Plus One",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-50c61be2-f6f1-4894-bfed-7d9311e83941",
+      "name": "Unicorns",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-50fe6d9d-1062-4fc0-a76c-f73840090dbc",
+      "name": "Bounty Hunter",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-511d3de9-076b-4811-bddf-00623f98993f",
+      "name": "Auroral Procession",
+      "templates": [
+        "phase71.return-card-grave-hand"
+      ]
+    },
+    {
+      "id": "catalog-511fa8a3-0a65-47fc-9f3b-57eaef2698cd",
+      "name": "Undergrowth Leopard",
+      "templates": [
+        "card.keyword-only",
+        "phase71.sac-destroy-ae"
+      ]
+    },
+    {
+      "id": "catalog-52793400-bc83-402a-9609-928a4d3ac812",
+      "name": "Capashen Unicorn",
+      "templates": [
+        "phase71.sac-destroy-ae"
+      ]
+    },
+    {
+      "id": "catalog-528484b9-f830-4672-9948-f7559093cd6f",
+      "name": "Zealots",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-52961ca8-ce16-4abb-856b-2627fea1f508",
+      "name": "Runaways",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-52989a30-773d-4daf-aea3-8dbee2a947fa",
+      "name": "Foriysian Interceptor",
+      "templates": [
+        "card.keyword-only",
+        "card.keyword-only",
+        "phase70.additional-block"
+      ]
+    },
+    {
+      "id": "catalog-52a51167-67c6-4f00-bbd1-6d553a4a1408",
+      "name": "Golgari Swarm",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-52b86789-2e2a-4154-a38c-77632037a40f",
+      "name": "Ninjas",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-52cd59ad-b0c8-452e-a084-d75d5bef1b77",
+      "name": "Burning",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-53a40369-0e62-4ad2-a6bd-65a5ff0da65e",
+      "name": "March of the Returned",
+      "templates": [
+        "phase71.return-up-to-two-creatures"
+      ]
+    },
+    {
+      "id": "catalog-54358124-642c-48ae-a51a-b9aca1bf0299",
+      "name": "Sparky Sparky",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-543c85c7-7f93-4af7-8290-043874bb4e72",
+      "name": "Musicians",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-544dbabd-cbfc-40da-a5ba-2fea9cddb453",
+      "name": "Sandsteppe Citadel",
+      "templates": [
+        "replacement.self-enters-tapped",
+        "phase70.mana-three"
+      ]
+    },
+    {
+      "id": "catalog-54970935-b3d3-4f65-a262-c4975f2787e5",
+      "name": "Devoted Retainer",
+      "templates": [
+        "phase70.bushido"
+      ]
+    },
+    {
+      "id": "catalog-5578cf33-62f5-456c-a58c-f744a25df79b",
+      "name": "Svyelunite Temple",
+      "templates": [
+        "replacement.self-enters-tapped",
+        "mana.tap-fixed",
+        "phase70.mana-sac-double"
+      ]
+    },
+    {
+      "id": "catalog-557d2af0-04c5-461d-826b-7208c4535dc2",
+      "name": "Elvish Fury",
+      "templates": [
+        "phase70.buyback",
+        "spell.pump-until-eot"
+      ]
+    },
+    {
+      "id": "catalog-559b522a-7662-4839-a241-6ec97e1a2e9a",
+      "name": "Trained",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-56502146-a5c7-437e-ae90-2d96becbcec8",
+      "name": "Chaos",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-56551cba-3871-4746-a11f-7ab8aaf46cf6",
+      "name": "Ronin Cavekeeper",
+      "templates": [
+        "phase70.bushido"
+      ]
+    },
+    {
+      "id": "catalog-57f58d52-0014-4cac-94fc-668063cc147a",
+      "name": "Shattered Acolyte",
+      "templates": [
+        "card.keyword-only",
+        "phase71.sac-destroy-ae"
+      ]
+    },
+    {
+      "id": "catalog-5863c67b-a47c-4466-8bd1-210ab26e0d3f",
+      "name": "Inspired Insurgent",
+      "templates": [
+        "phase71.sac-destroy-ae"
+      ]
+    },
+    {
+      "id": "catalog-591052c3-8dea-4804-b069-5cecbc6f5559",
+      "name": "Totally Ruthless",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-59c898d8-14f0-4645-84e7-aeedb2ee6c5e",
+      "name": "Firefiend Elemental",
+      "templates": [
+        "card.keyword-only",
+        "phase70.renown"
+      ]
+    },
+    {
+      "id": "catalog-59cb6b45-101e-4757-8881-6c3358442fae",
+      "name": "Spirit",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-59d37aa3-59e6-4ae6-acc7-bc36ac3d2855",
+      "name": "Simic Combine",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-5a2f8474-b032-4567-a569-3f9725805f10",
+      "name": "Ichorspit Basilisk",
+      "templates": [
+        "card.keyword-only",
+        "phase70.toxic"
+      ]
+    },
+    {
+      "id": "catalog-5a396ccc-0dd3-4f5c-89df-506f1ccbb788",
+      "name": "Arcane Mischief",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-5af3e63e-d12f-4c27-8b45-1aeeebcc7d07",
+      "name": "Analyzed",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-5b034e04-70e5-4783-8ac8-04d8e5a9f961",
+      "name": "Outland Colossus",
+      "templates": [
+        "phase70.renown",
+        "phase69.max-one-blocker"
+      ]
+    },
+    {
+      "id": "catalog-5b38fafb-3999-46dc-928b-1677625c1943",
+      "name": "Recollect",
+      "templates": [
+        "phase71.return-card-grave-hand"
+      ]
+    },
+    {
+      "id": "catalog-5b3aa284-1b13-42c9-89bb-a6911748b015",
+      "name": "Courageous",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-5b5e0df8-f8f0-40a1-9814-89d73a026ad0",
+      "name": "Pride of Lions",
+      "templates": [
+        "phase71.damage-as-unblocked"
+      ]
+    },
+    {
+      "id": "catalog-5b729e43-6b6c-4f6f-bf8d-1e4ce0a5bc8c",
+      "name": "Boros Legion",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-5b9f7295-47b8-4b51-8be8-5f23022ecdac",
+      "name": "Cats",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-5c7866ea-a109-4040-8f39-349211339468",
+      "name": "Learning",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-5c84d8da-2bfb-4618-89a0-7d9ed604e854",
+      "name": "Blessing",
+      "templates": [
+        "attachment.aura-enchant-clause",
+        "phase70.activated-aura-pump"
+      ]
+    },
+    {
+      "id": "catalog-5d776be0-cece-4496-a3b0-b7424eca77fd",
+      "name": "Vengeful Reaper",
+      "templates": [
+        "card.keyword-only",
+        "phase70.foretell"
+      ]
+    },
+    {
+      "id": "catalog-5d840e49-3ca5-4e4f-9152-a365ad2b1773",
+      "name": "Soaring Sandwing",
+      "templates": [
+        "card.keyword-only",
+        "trigger.etb-gain-life",
+        "phase70.landcycling"
+      ]
+    },
+    {
+      "id": "catalog-5db715e5-fc75-40e8-8b8c-cd9cf9f7c2ed",
+      "name": "Constellation",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-5eb8b497-ec9a-4a89-ad29-1ec3ca82da7c",
+      "name": "Brushland",
+      "templates": [
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-5f1e8aa2-6b85-4e2e-92e4-876470447d6f",
+      "name": "Goblin Spy",
+      "templates": [
+        "phase71.play-top-revealed"
+      ]
+    },
+    {
+      "id": "catalog-5f9bf94a-8051-4464-947c-efdc50f68235",
+      "name": "Discarding",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-5fdff691-686d-4ce0-bd12-eea676a648b4",
+      "name": "Xindi Surveyors",
+      "templates": [
+        "phase71.landfall-counter"
+      ]
+    },
+    {
+      "id": "catalog-603dc263-270c-4a16-9b75-41f36fd7dfde",
+      "name": "Pine Barrens",
+      "templates": [
+        "replacement.self-enters-tapped",
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-606fbf99-d3e3-4131-b991-3cb71c003834",
+      "name": "Shoreline Ranger",
+      "templates": [
+        "card.keyword-only",
+        "phase70.landcycling"
+      ]
+    },
+    {
+      "id": "catalog-6075494d-4899-476c-bd28-03c7eb63b183",
+      "name": "Gliding",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-60b33294-a41b-4186-83d4-7177bb7bf6d7",
+      "name": "Stoked",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-60b6bd93-3eb3-4b81-bc4d-1e3351ee2e64",
+      "name": "Soul Salvage",
+      "templates": [
+        "phase71.return-up-to-two-creatures"
+      ]
+    },
+    {
+      "id": "catalog-60bc63dc-ac9f-4a2f-aef5-c90d0aa31553",
+      "name": "Thrashing Brontodon",
+      "templates": [
+        "phase71.sac-destroy-ae"
+      ]
+    },
+    {
+      "id": "catalog-60beee75-f865-4670-bc23-2b263e304989",
+      "name": "Nightmares",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-610ff46b-e8d0-4c95-b17e-abfa80c9297b",
+      "name": "Toph",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-616d6013-24f4-4999-9bf3-5b0764e52fa6",
+      "name": "Crystal Vein",
+      "templates": [
+        "mana.tap-fixed",
+        "phase70.mana-sac-double"
+      ]
+    },
+    {
+      "id": "catalog-6180ddfc-afaf-4d83-b5f0-93d9962a2bef",
+      "name": "At the Zoo",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-61ade140-5b11-4882-82e5-a075fc80b260",
+      "name": "Wirewood Guardian",
+      "templates": [
+        "phase70.landcycling"
+      ]
+    },
+    {
+      "id": "catalog-61f84dbb-e9bb-45b1-a30e-c631be6ad25c",
+      "name": "Goblin Fire Fiend",
+      "templates": [
+        "card.keyword-only",
+        "phase71.must-block",
+        "activated.firebreathing"
+      ]
+    },
+    {
+      "id": "catalog-62204fac-a367-475c-bfb9-80a87af2d2f1",
+      "name": "Vinelasher Kudzu",
+      "templates": [
+        "phase71.landfall-counter"
+      ]
+    },
+    {
+      "id": "catalog-632cd9dc-8acb-4986-94dc-3012b5871752",
+      "name": "Michelangelo",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-63fb945e-2f05-4594-8ece-36c87b184285",
+      "name": "Experimental",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-664d982a-5cd8-4289-afb8-fa2e083042c9",
+      "name": "Allay",
+      "templates": [
+        "phase70.buyback",
+        "spell.destroy-target"
+      ]
+    },
+    {
+      "id": "catalog-668cd9af-73cc-4793-a2d4-935693cf49df",
+      "name": "Underwater",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-66f28905-c7fc-4ada-8fa0-199626d9bedb",
+      "name": "Lórien Revealed",
+      "templates": [
+        "spell.draw-fixed",
+        "phase70.landcycling"
+      ]
+    },
+    {
+      "id": "catalog-67d5661e-0765-4987-b624-6c33954c9bbd",
+      "name": "Adaptive",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-68fbc13c-00b3-49bb-b343-4f2f1e8f5a7c",
+      "name": "Gluttonous Slug",
+      "templates": [
+        "card.keyword-only",
+        "phase70.evolve"
+      ]
+    },
+    {
+      "id": "catalog-69a3de91-bb18-4e37-975e-0f4becafa34f",
+      "name": "Ronin Houndmaster",
+      "templates": [
+        "card.keyword-only",
+        "phase70.bushido"
+      ]
+    },
+    {
+      "id": "catalog-69cf3258-1cae-4aaf-806c-4b692be730cc",
+      "name": "Earth Kingdom",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-6b59ffa2-5c8b-4549-aa09-2f2a5cabc5af",
+      "name": "Furtive Homunculus",
+      "templates": [
+        "phase70.skulk"
+      ]
+    },
+    {
+      "id": "catalog-6b6d7ae3-dfa8-4544-a6b8-c84cfeeea9e0",
+      "name": "Scrying",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-6b75b94e-83b7-457e-ac41-7ca90b5a59aa",
+      "name": "Battlefield Forge",
+      "templates": [
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-6b7b30fc-be2b-4db9-a022-09950e4d28c3",
+      "name": "Atlantis",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-6bb7419b-e085-4616-8e5c-4ed08cb2b4c1",
+      "name": "Skystinger",
+      "templates": [
+        "card.keyword-only",
+        "phase70.block-flying-pump"
+      ]
+    },
+    {
+      "id": "catalog-6c0bf39d-64a4-4c8b-a2ff-56aaaea7067d",
+      "name": "Under the Sea",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-6c30053b-cd2d-442d-9e95-90a69a692265",
+      "name": "Fire Nation",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-6c326439-5620-4ec6-a56a-fe9c3d5d2a46",
+      "name": "Talisman of Conviction",
+      "templates": [
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-6cc47c8e-9154-4517-940d-d1a7f35e5677",
+      "name": "Pale Rider of Trostad",
+      "templates": [
+        "phase70.skulk",
+        "phase69.when-this-creature-enters-the-battlefield-"
+      ]
+    },
+    {
+      "id": "catalog-6d32139f-839f-441b-930f-151816143142",
+      "name": "Farbog Revenant",
+      "templates": [
+        "phase70.skulk"
+      ]
+    },
+    {
+      "id": "catalog-6dc8f425-1ef1-455f-8e06-a513c7c7db11",
+      "name": "Spooky",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-6e568103-8814-4a6d-a3c9-bff8d3a13aba",
+      "name": "Insurgent",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-6f1f885f-ed1b-4e68-9ae5-a92d52de9f8d",
+      "name": "Towering",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-6f4dc811-e8c3-4220-bf89-4c2c8910cb2b",
+      "name": "Explorers",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-7058e7c3-b704-47f6-85f8-ee584f76a1fe",
+      "name": "Clinging Anemones",
+      "templates": [
+        "card.keyword-only",
+        "phase70.evolve"
+      ]
+    },
+    {
+      "id": "catalog-7143d82a-931a-4918-bb14-37bc5b9a4d99",
+      "name": "Bedhead Beastie",
+      "templates": [
+        "card.keyword-only",
+        "phase70.landcycling"
+      ]
+    },
+    {
+      "id": "catalog-715cab14-0b76-429e-ab5e-a7e00da27ae9",
+      "name": "Encounter",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-717152c3-2082-49aa-9274-a1a6abe54b65",
+      "name": "Chartooth Cougar",
+      "templates": [
+        "activated.firebreathing",
+        "phase70.landcycling"
+      ]
+    },
+    {
+      "id": "catalog-7190debf-708b-4f41-9714-0d0a5bd5a74e",
+      "name": "Crumbling Necropolis",
+      "templates": [
+        "replacement.self-enters-tapped",
+        "phase70.mana-three"
+      ]
+    },
+    {
+      "id": "catalog-71929ffe-b44e-458e-b164-78db4eef667a",
+      "name": "Azula",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-71aa0cc9-c263-454c-90d8-0d6f31d1bffd",
+      "name": "Healing",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-7261dc6d-7669-4682-977b-1304f57a201d",
+      "name": "Foriysian Brigade",
+      "templates": [
+        "phase70.additional-block"
+      ]
+    },
+    {
+      "id": "catalog-72cc108f-5f9f-4a91-afda-7051a4a045be",
+      "name": "Mite-y",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-7457a383-c905-4dfe-89f1-6920e31b02d3",
+      "name": "Geniuses",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-75b606fd-fb9c-43a6-a508-def6a42a3f46",
+      "name": "Wakanda",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-75d38954-6148-4d95-bf4b-cb82efcbe8df",
+      "name": "Territorial Scythecat",
+      "templates": [
+        "card.keyword-only",
+        "phase71.landfall-counter"
+      ]
+    },
+    {
+      "id": "catalog-75d3d00a-1b65-458a-86ad-8a8883216c3e",
+      "name": "Rogues",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-7616dacf-44e2-4b03-b120-875cc2e50ea5",
+      "name": "Warded Battlements",
+      "templates": [
+        "card.keyword-only",
+        "phase71.static-attacking-pump"
+      ]
+    },
+    {
+      "id": "catalog-763244e6-d783-4c86-9046-817f55414c38",
+      "name": "Spellcasting",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-766787ef-654a-4544-b5d7-d2f96949edf1",
+      "name": "Prized Unicorn",
+      "templates": [
+        "phase71.all-must-block"
+      ]
+    },
+    {
+      "id": "catalog-771ec070-c575-4d09-bda4-bb3edacafe5e",
+      "name": "Progress",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-774dce79-67e0-4820-8013-c7a7347993ce",
+      "name": "Cathar Commando",
+      "templates": [
+        "card.keyword-only",
+        "phase71.sac-destroy-ae"
+      ]
+    },
+    {
+      "id": "catalog-7759445b-72a2-4c6d-b2af-a93c244bf0c7",
+      "name": "Icky",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-77637eff-2963-4402-88f3-ca346f762fc8",
+      "name": "Capsize",
+      "templates": [
+        "phase70.buyback",
+        "spell.bounce-target"
+      ]
+    },
+    {
+      "id": "catalog-77953b7a-813e-45f5-ad7f-ab72a79a0112",
+      "name": "Shattering Pulse",
+      "templates": [
+        "phase70.buyback",
+        "spell.destroy-target"
+      ]
+    },
+    {
+      "id": "catalog-77a77622-dc5b-4ff2-a98b-732d44c8856e",
+      "name": "Flowstone Blade",
+      "templates": [
+        "attachment.aura-enchant-clause",
+        "phase70.activated-aura-pump"
+      ]
+    },
+    {
+      "id": "catalog-7887aa4c-9562-42dc-9b22-a12708136383",
+      "name": "Cruel",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-795cac03-20de-422b-b269-587b4517b274",
+      "name": "Reanimated",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-7a11b4ed-430d-4ef8-b0c1-6a022f12448c",
+      "name": "Hecteyes",
+      "templates": [
+        "phase71.etb-opponents-discard"
+      ]
+    },
+    {
+      "id": "catalog-7a2d4d1f-b5ce-4aeb-b203-fd1cd0085e31",
+      "name": "Monster Territory",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-7a67cb39-6b53-4f2b-a52c-3861119eba12",
+      "name": "Marchesa's Emissary",
+      "templates": [
+        "card.keyword-only",
+        "phase71.dethrone"
+      ]
+    },
+    {
+      "id": "catalog-7a951bd7-4f7d-44ea-9c2f-fe2f6b2f5289",
+      "name": "Salt Flats",
+      "templates": [
+        "replacement.self-enters-tapped",
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-7af493e3-15a1-42d6-a66c-82aacabe816f",
+      "name": "Saber-Tooth Moose-Lion",
+      "templates": [
+        "card.keyword-only",
+        "phase70.landcycling"
+      ]
+    },
+    {
+      "id": "catalog-7b139231-dcd2-4b03-bcf2-fcb040617b69",
+      "name": "Sudden Shock",
+      "templates": [
+        "phase70.split-second",
+        "spell.damage-any-target"
+      ]
+    },
+    {
+      "id": "catalog-7c943883-06af-45a4-b5ed-b4564835dbb0",
+      "name": "Fade from Memory",
+      "templates": [
+        "phase70.spell-exile-grave-card",
+        "keyword.cycling-mana"
+      ]
+    },
+    {
+      "id": "catalog-7d22e071-4af4-4182-b387-ecca873d00cc",
+      "name": "Gods' Hall Guardian",
+      "templates": [
+        "card.keyword-only",
+        "phase70.foretell"
+      ]
+    },
+    {
+      "id": "catalog-7d4b6613-9000-4f53-9737-fe0338f3f629",
+      "name": "Erudite Wizard",
+      "templates": [
+        "phase71.second-draw-counter"
+      ]
+    },
+    {
+      "id": "catalog-7d7cf15c-06b9-4062-a1eb-32614c458a3b",
+      "name": "Arcane Sanctum",
+      "templates": [
+        "replacement.self-enters-tapped",
+        "phase70.mana-three"
+      ]
+    },
+    {
+      "id": "catalog-7db70254-a077-4bfc-84c6-ee8ce3c38ddc",
+      "name": "Speedy",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-7e02ec37-6ee8-4f6e-a036-9152a5dfdff6",
+      "name": "Mordor",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-7ea9ac0d-aa60-4b89-ae3f-15be1c422de2",
+      "name": "Teferi",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-7ebec169-d941-460e-9e3c-ba54b5066b05",
+      "name": "Imps' Taunt",
+      "templates": [
+        "phase70.buyback",
+        "combat.must-attack-this-turn"
+      ]
+    },
+    {
+      "id": "catalog-7f145efb-f299-42c7-ac5e-d319475ca1dc",
+      "name": "Orcish",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-80bcb154-b4be-4bbd-bbc1-b116a59045b7",
+      "name": "Lakeshore Apothecary",
+      "templates": [
+        "card.keyword-only",
+        "phase71.second-draw-counter"
+      ]
+    },
+    {
+      "id": "catalog-811c6f52-03cb-49a9-a3c7-7f4ae40e7155",
+      "name": "Woolly Spider",
+      "templates": [
+        "card.keyword-only",
+        "phase70.block-flying-pump"
+      ]
+    },
+    {
+      "id": "catalog-814b87fe-2a75-4ff2-8637-7e69e3fb285b",
+      "name": "Marauding Blight-Priest",
+      "templates": [
+        "phase71.life-drain-trigger"
+      ]
+    },
+    {
+      "id": "catalog-8195164e-a648-4698-9717-85e517a6fc98",
+      "name": "Raid",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-826b1c93-4e5d-4436-8d59-2d7d970f609f",
+      "name": "Cleanfall",
+      "templates": [
+        "phase71.destroy-all-enchantments"
+      ]
+    },
+    {
+      "id": "catalog-834b8f71-9a45-42ae-9e99-e749fa6fb45e",
+      "name": "Mystic Monastery",
+      "templates": [
+        "replacement.self-enters-tapped",
+        "phase70.mana-three"
+      ]
+    },
+    {
+      "id": "catalog-83578de7-5488-4952-af47-8fe966897210",
+      "name": "Headhunter",
+      "templates": [
+        "phase70.combat-damage-discard",
+        "mechanic.morph"
+      ]
+    },
+    {
+      "id": "catalog-836bd011-2da5-443a-a814-19a664b98a1a",
+      "name": "Goblin Oriflamme",
+      "templates": [
+        "phase71.static-attacking-pump"
+      ]
+    },
+    {
+      "id": "catalog-839d48e8-59f4-4e85-8ef5-7bd500b0e7d5",
+      "name": "Siege Engines",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-83bf5610-a798-4508-88d2-c60d96f60d23",
+      "name": "Bilious Skulldweller",
+      "templates": [
+        "card.keyword-only",
+        "phase70.toxic"
+      ]
+    },
+    {
+      "id": "catalog-842adfc2-6e52-4c5a-95ed-49c4a1741fb1",
+      "name": "Beast Territory",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-8496b597-7d0e-4bfc-9019-2be82d9bd812",
+      "name": "Cabbages",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-84a60a2a-82c2-48e1-97ef-da471eb4d80b",
+      "name": "Phyrexian Beast",
+      "templates": [
+        "phase70.toxic"
+      ]
+    },
+    {
+      "id": "catalog-857febd9-cdd7-4f8e-a852-d88084b0cfbc",
+      "name": "Underground River",
+      "templates": [
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-85c8a87b-35bd-40e2-950e-e9d23baac169",
+      "name": "Healers",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-8603bf74-faab-4910-8e45-0f2e3b318efb",
+      "name": "Firebreathing",
+      "templates": [
+        "attachment.aura-enchant-clause",
+        "phase70.activated-aura-pump"
+      ]
+    },
+    {
+      "id": "catalog-87444b1a-fbd8-46bf-af77-9d68355b1e1f",
+      "name": "Earth Rumble",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-87edb566-8929-4961-9c03-d3657a8c6feb",
+      "name": "Zagoth Crystal",
+      "templates": [
+        "phase70.mana-three",
+        "keyword.cycling-mana"
+      ]
+    },
+    {
+      "id": "catalog-882d3be7-1c0f-4d2b-8f2e-32369488ef82",
+      "name": "Urborg Uprising",
+      "templates": [
+        "phase71.return-up-to-two-creatures",
+        "spell.draw-fixed"
+      ]
+    },
+    {
+      "id": "catalog-885680ba-1bd0-48cb-a962-4721f5931bf8",
+      "name": "Inventive",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-88b16795-e543-408a-afb7-feb1c3fa5465",
+      "name": "Young Avengers",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-8a206c6f-4f6f-4c31-9dab-d73a57db989c",
+      "name": "Akroan Sergeant",
+      "templates": [
+        "card.keyword-only",
+        "phase70.renown"
+      ]
+    },
+    {
+      "id": "catalog-8a35f23d-f59a-4677-9736-035c60c22a2b",
+      "name": "Temur Banner",
+      "templates": [
+        "phase70.mana-three",
+        "phase69.generic-activated-simple"
+      ]
+    },
+    {
+      "id": "catalog-8a49c75c-932d-43bf-8f5e-4718c17007be",
+      "name": "Dinner",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-8a515f67-f868-494b-8bd7-de63fe14477b",
+      "name": "Plunder",
+      "templates": [
+        "phase70.destroy-artifact-land",
+        "mechanic.suspend"
+      ]
+    },
+    {
+      "id": "catalog-8a69a0f0-5f0f-4098-ab6d-be3233af5cd3",
+      "name": "Dryad's Revival",
+      "templates": [
+        "phase71.return-card-grave-hand",
+        "casting.flashback"
+      ]
+    },
+    {
+      "id": "catalog-8a922366-ee2a-4ddb-a904-683dcf4f191a",
+      "name": "Elven Cache",
+      "templates": [
+        "phase71.return-card-grave-hand"
+      ]
+    },
+    {
+      "id": "catalog-8b119b69-4794-443e-aa13-747c125b5b1b",
+      "name": "Treeshaker Chimera",
+      "templates": [
+        "phase71.all-must-block",
+        "phase69.when-this-creature-dies"
+      ]
+    },
+    {
+      "id": "catalog-8b33d890-7d67-44a8-a253-e2b171d7ca9d",
+      "name": "Sprout Swarm",
+      "templates": [
+        "keyword.convoke",
+        "phase70.buyback",
+        "phase69.simple-spell-payload"
+      ]
+    },
+    {
+      "id": "catalog-8b787ba5-0b87-449f-98cd-9454445e2f48",
+      "name": "Kuro's Taken",
+      "templates": [
+        "phase70.bushido",
+        "phase69.activated-regenerate"
+      ]
+    },
+    {
+      "id": "catalog-8beccaff-d30f-4164-a264-cb7119cee4f1",
+      "name": "Stonehands",
+      "templates": [
+        "attachment.aura-enchant-clause",
+        "attachment.enchanted-pt-clause",
+        "phase70.activated-aura-pump"
+      ]
+    },
+    {
+      "id": "catalog-8c34b089-aad1-476e-958a-3077bf1bbb51",
+      "name": "Talisman of Curiosity",
+      "templates": [
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-8c741ad2-2f35-40c8-b36c-a3e3f8016ee3",
+      "name": "Nefarious",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-8d4f5f40-7030-4cac-bf17-17062d67c877",
+      "name": "Bumi",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-8d7933c4-4c74-492f-a9cd-50b339a4b29e",
+      "name": "Druid of the Anima",
+      "templates": [
+        "phase70.mana-three"
+      ]
+    },
+    {
+      "id": "catalog-8db63f1a-0d63-4b11-966d-818d83a082f9",
+      "name": "Elderfang Disciple",
+      "templates": [
+        "phase71.etb-opponents-discard"
+      ]
+    },
+    {
+      "id": "catalog-8f2609e1-59bb-4e04-8e63-be39a9e1f0e6",
+      "name": "Zombies",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-9018029f-9abd-4f7e-ac6d-d64e6a4ae8de",
+      "name": "Modified",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-90edaf33-d0ab-47e0-8f6a-6fba38286e6e",
+      "name": "Saw It Coming",
+      "templates": [
+        "spell.counter-target-spell",
+        "phase70.foretell"
+      ]
+    },
+    {
+      "id": "catalog-912164c2-b4d4-42e3-a10e-903b8c7b2e6d",
+      "name": "Holy Armor",
+      "templates": [
+        "attachment.aura-enchant-clause",
+        "attachment.enchanted-pt-clause",
+        "phase70.activated-aura-pump"
+      ]
+    },
+    {
+      "id": "catalog-9135580e-acac-4c69-a9ec-9152049c62cf",
+      "name": "Fun Guys",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-91987c65-1a19-45c6-8afe-ae80b10ea97b",
+      "name": "Marvelous",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-91d01119-9b3e-4629-8cf0-bbca2c19a7cc",
+      "name": "Rampaging Ceratops",
+      "templates": [
+        "phase71.three-blockers"
+      ]
+    },
+    {
+      "id": "catalog-91fc862d-fdde-45ea-a05d-30d38e7a735c",
+      "name": "Dispeller's Capsule",
+      "templates": [
+        "phase71.sac-destroy-ae"
+      ]
+    },
+    {
+      "id": "catalog-92dbf812-3c68-4278-a1f7-5e7b81893a48",
+      "name": "Boosted",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-9336f33e-92aa-4cbd-aae0-971c3ed65873",
+      "name": "Chandra",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-9399ed27-31c7-4d6a-99eb-644b74e67344",
+      "name": "Tempest of Light",
+      "templates": [
+        "phase71.destroy-all-enchantments"
+      ]
+    },
+    {
+      "id": "catalog-93b139a5-2678-46a5-b8eb-45344ee3290a",
+      "name": "Sultai Banner",
+      "templates": [
+        "phase70.mana-three",
+        "phase69.generic-activated-simple"
+      ]
+    },
+    {
+      "id": "catalog-93d593e9-c553-40aa-a798-32a3112dbe06",
+      "name": "Web-Slinging",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-9410ae41-b6db-47c6-ae0a-4e33aad1d3ce",
+      "name": "Viridian Zealot",
+      "templates": [
+        "phase71.sac-destroy-ae"
+      ]
+    },
+    {
+      "id": "catalog-94701ec4-4cd3-46cc-a2fc-7ab3642ed247",
+      "name": "Goblin Warchief Avatar",
+      "templates": [
+        "phase71.static-attacking-pump"
+      ]
+    },
+    {
+      "id": "catalog-94ec9cf7-b4c8-4074-9b05-3b54b093f716",
+      "name": "Hei Bai",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-95268845-9463-4e4c-a40e-8dd1d59f413a",
+      "name": "Armed",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-957cfa00-7da8-4e36-bff7-0e6a87a893fe",
+      "name": "Landfall",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-9589ac02-7789-4eb9-b50d-74cb12ee5a9f",
+      "name": "Mystic Mischief",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-9622c6df-5315-4bd2-a26f-c6b05ef28bf3",
+      "name": "Tutorial",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-97140551-341a-40a1-93fe-0fcaa0c3be33",
+      "name": "Warrior Angel",
+      "templates": [
+        "card.keyword-only",
+        "phase70.damage-lifelink-worded"
+      ]
+    },
+    {
+      "id": "catalog-97359536-dd4b-4446-980d-883580a286d2",
+      "name": "Snakes",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-97818ed4-3590-4a3b-92ce-716f9cfdc78e",
+      "name": "Sylvok Replica",
+      "templates": [
+        "phase71.sac-destroy-ae"
+      ]
+    },
+    {
+      "id": "catalog-979d5a39-abe2-4a5d-8b2c-18d0f91e1301",
+      "name": "Overachiever",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-9805b7b3-086a-4c91-810f-52c8f8f95f6a",
+      "name": "Mardu Banner",
+      "templates": [
+        "phase70.mana-three",
+        "phase69.generic-activated-simple"
+      ]
+    },
+    {
+      "id": "catalog-987c1261-d6fb-4d24-8b7c-6ced36af9da2",
+      "name": "Ozai",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-98aa9424-5912-4bd6-9300-b3972a31d8af",
+      "name": "Noble Hierarch",
+      "templates": [
+        "card.keyword-only",
+        "phase70.mana-three"
+      ]
+    },
+    {
+      "id": "catalog-99bc739e-c745-47d8-8401-2f34b6becd85",
+      "name": "War Horn",
+      "templates": [
+        "phase71.static-attacking-pump"
+      ]
+    },
+    {
+      "id": "catalog-9a133991-8a7a-4bfd-b0ae-d76433450c03",
+      "name": "Grenzo's Cutthroat",
+      "templates": [
+        "card.keyword-only",
+        "phase71.dethrone"
+      ]
+    },
+    {
+      "id": "catalog-9b197a77-1f97-4fc3-9bd7-9f622c0118f2",
+      "name": "Warriors",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-9b844a0c-590f-46c7-b53e-c99398e0d8c0",
+      "name": "Spinebiter",
+      "templates": [
+        "card.keyword-only",
+        "phase71.damage-as-unblocked"
+      ]
+    },
+    {
+      "id": "catalog-9c382817-5c62-44ff-8f29-d283e65712a1",
+      "name": "Urborg Elf",
+      "templates": [
+        "phase70.mana-three"
+      ]
+    },
+    {
+      "id": "catalog-9c46adaa-ab39-4c0a-99bd-935b6c4f732f",
+      "name": "Wingsteed Rider",
+      "templates": [
+        "card.keyword-only",
+        "phase70.heroic-counter"
+      ]
+    },
+    {
+      "id": "catalog-9cc598ad-8b70-4e0c-a944-7ae8b43ec821",
+      "name": "Buff",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-9cdf840d-314e-46ef-9c04-74f145d9e65b",
+      "name": "Thorn Elemental",
+      "templates": [
+        "phase71.damage-as-unblocked"
+      ]
+    },
+    {
+      "id": "catalog-9d0d19e4-34f9-4bfa-9c8b-74356d223a18",
+      "name": "Samurai Enforcers",
+      "templates": [
+        "phase70.bushido"
+      ]
+    },
+    {
+      "id": "catalog-9d325ff0-4b6b-4ed9-8c25-e19b9fd26065",
+      "name": "DOOM",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-9da963f6-734b-4d3c-a3be-dd5cca2c7b19",
+      "name": "Obelisk of Esper",
+      "templates": [
+        "phase70.mana-three"
+      ]
+    },
+    {
+      "id": "catalog-9db5aa54-3deb-45ee-82a2-e88a4367c6d9",
+      "name": "Coffin Purge",
+      "templates": [
+        "phase70.spell-exile-grave-card",
+        "casting.flashback"
+      ]
+    },
+    {
+      "id": "catalog-9e2cd0d5-1537-412b-9ecd-989ab4ac2700",
+      "name": "Topan Freeblade",
+      "templates": [
+        "card.keyword-only",
+        "phase70.renown"
+      ]
+    },
+    {
+      "id": "catalog-9e93b349-753b-4a40-bebe-1ffee55565d3",
+      "name": "Powerstones",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-9ef2a604-4053-4ce0-bc08-43d9cc0b15cc",
+      "name": "Scorn Effigy",
+      "templates": [
+        "phase70.foretell"
+      ]
+    },
+    {
+      "id": "catalog-9f05fab1-398a-4bd1-824d-6b1373dc9a94",
+      "name": "Marchesa's Infiltrator",
+      "templates": [
+        "phase71.dethrone",
+        "trigger.combat-damage-player-draw-one"
+      ]
+    },
+    {
+      "id": "catalog-a15918f3-a6ad-4488-b3bf-223bcef5e058",
+      "name": "Gross",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-a21c85f3-482b-47e5-9321-0ca21e110bd8",
+      "name": "Raven's Crime",
+      "templates": [
+        "phase70.spell-target-discard",
+        "phase70.retrace"
+      ]
+    },
+    {
+      "id": "catalog-a23293cf-4352-4ce6-8a68-3b30f908e137",
+      "name": "Fear of Being Hunted",
+      "templates": [
+        "card.keyword-only",
+        "phase71.must-block"
+      ]
+    },
+    {
+      "id": "catalog-a30dee74-86e3-4888-980e-b22437fbbb66",
+      "name": "Spitting Image",
+      "templates": [
+        "copy.token-target-creature",
+        "phase70.retrace"
+      ]
+    },
+    {
+      "id": "catalog-a3292406-3f49-42d6-a547-e43dd5797f84",
+      "name": "Savage Lands",
+      "templates": [
+        "replacement.self-enters-tapped",
+        "phase70.mana-three"
+      ]
+    },
+    {
+      "id": "catalog-a3475ca6-d88e-4855-a554-1338624d1635",
+      "name": "Sudden Death",
+      "templates": [
+        "phase70.split-second",
+        "spell.pump-until-eot"
+      ]
+    },
+    {
+      "id": "catalog-a3553db3-0402-40da-bb26-a95a4cd869ac",
+      "name": "Heroes",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-a4a8af4e-8686-45ba-94fd-ccf6cc8adaae",
+      "name": "Whispers of the Muse",
+      "templates": [
+        "phase70.buyback",
+        "spell.draw-fixed"
+      ]
+    },
+    {
+      "id": "catalog-a4de85ee-3381-4582-8e4f-9fc6e1c65359",
+      "name": "Iroh",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-a518b31a-7e9a-460d-839f-39cb1de4f570",
+      "name": "Shadow Rider",
+      "templates": [
+        "phase71.flanking"
+      ]
+    },
+    {
+      "id": "catalog-a552edbe-bd5d-4281-8d9f-d03f4b10815d",
+      "name": "Horned Cheetah",
+      "templates": [
+        "phase70.damage-lifelink-worded"
+      ]
+    },
+    {
+      "id": "catalog-a58adf82-d9e2-4b47-933e-68180f280ba2",
+      "name": "Mystic Speculation",
+      "templates": [
+        "phase70.buyback"
+      ]
+    },
+    {
+      "id": "catalog-a69990e3-78e6-401d-8efd-3402541fbaa1",
+      "name": "Grave Robbers",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-a70ffefb-840c-48c3-a59d-e12306086bb6",
+      "name": "Nezumi Informant",
+      "templates": [
+        "phase71.etb-opponents-discard"
+      ]
+    },
+    {
+      "id": "catalog-a71b2ffb-6a62-4239-987f-ec82a358927f",
+      "name": "Implement of Improvement",
+      "templates": [
+        "phase69.generic-activated-simple",
+        "phase71.artifact-dies-draw"
+      ]
+    },
+    {
+      "id": "catalog-a7d14bba-b704-4214-96d6-2ab77c62de96",
+      "name": "Above the Clouds",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-a7df9a4e-d556-4345-9884-0724a3f9d5f8",
+      "name": "Sheoldred's Headcleaver",
+      "templates": [
+        "card.keyword-only",
+        "phase70.toxic"
+      ]
+    },
+    {
+      "id": "catalog-a8c0b41b-916c-4da9-9c39-a058c91a78f4",
+      "name": "Change of Heart",
+      "templates": [
+        "phase70.buyback",
+        "combat.cant-attack-this-turn"
+      ]
+    },
+    {
+      "id": "catalog-a8da2c3b-a18b-4175-aaa8-75883085a18a",
+      "name": "Liliana",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-a9595011-8ddb-403a-ba35-5a79d346557e",
+      "name": "Tranquil Path",
+      "templates": [
+        "phase71.destroy-all-enchantments",
+        "spell.draw-fixed"
+      ]
+    },
+    {
+      "id": "catalog-aa26fb50-1b53-488e-90d1-b0c7af273622",
+      "name": "War Oracle",
+      "templates": [
+        "card.keyword-only",
+        "phase70.renown"
+      ]
+    },
+    {
+      "id": "catalog-aa8f3255-a5cf-4db4-830d-f665f87abfe6",
+      "name": "Riders",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-aaec3fe0-473f-4cba-bdc5-be2a25067b6d",
+      "name": "Librarian",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-ab43395e-ca41-4e16-aa6d-6283a2c69efe",
+      "name": "Animal",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-abad447a-6827-4f81-8114-686ac4b0d375",
+      "name": "Caretakers",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-ac447fad-a5dd-4562-94db-712442d465d0",
+      "name": "Rainbow",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-ace0cacb-1c35-428f-85e9-817c89e86681",
+      "name": "Freedom Fighters",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-ad319c1e-c0ee-4d3c-bb7f-4832ea89ab84",
+      "name": "Garruk",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-ad5f9a18-89a5-4bcb-9cd7-5399ffd252d3",
+      "name": "Aven Wind Mage",
+      "templates": [
+        "card.keyword-only",
+        "phase70.cast-is-pump"
+      ]
+    },
+    {
+      "id": "catalog-ad7b610c-e276-4c71-9b53-1ccb6d2dafd2",
+      "name": "Ruins of Trokair",
+      "templates": [
+        "replacement.self-enters-tapped",
+        "mana.tap-fixed",
+        "phase70.mana-sac-double"
+      ]
+    },
+    {
+      "id": "catalog-ad9b6737-22c4-45cc-976b-32743ed48462",
+      "name": "Wipe Away",
+      "templates": [
+        "phase70.split-second",
+        "spell.bounce-target"
+      ]
+    },
+    {
+      "id": "catalog-ae069ba4-8ca6-4eda-8f5d-fc82072d7d40",
+      "name": "Depart the Realm",
+      "templates": [
+        "spell.bounce-target",
+        "phase70.foretell"
+      ]
+    },
+    {
+      "id": "catalog-ae1bfae2-ffd5-4ad6-9f57-dcdf7916a5ab",
+      "name": "Adept",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-ae4a8470-4517-42c7-a7f6-ef7635e10fe5",
+      "name": "Raugrin Crystal",
+      "templates": [
+        "phase70.mana-three",
+        "keyword.cycling-mana"
+      ]
+    },
+    {
+      "id": "catalog-ae5713f2-99f1-4385-bb60-ad32dadf2429",
+      "name": "Teamwork",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-ae5ec8dc-045a-4440-8b27-25d1ba9a3fb9",
+      "name": "Wise",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-ae685a9b-4cb8-4a8a-935d-378102431c51",
+      "name": "Branchblight Stalker",
+      "templates": [
+        "phase70.toxic"
+      ]
+    },
+    {
+      "id": "catalog-aef07e62-ac7f-4a5b-9732-136052d88a06",
+      "name": "Taunting Elf",
+      "templates": [
+        "phase71.all-must-block"
+      ]
+    },
+    {
+      "id": "catalog-af237731-d36e-4e4b-9611-46f6fadf4bb6",
+      "name": "Hunting",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-b0287ca1-3dbc-47d2-a0c2-1c3fe800f8d3",
+      "name": "Wild",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-b0660504-da76-4768-9020-05d186b3196d",
+      "name": "Ultron",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-b16733a2-4dc1-4c9f-87d0-10dcac4b051f",
+      "name": "Incredible",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-b1d2519e-7340-4ea4-a62e-cf0740d4e57a",
+      "name": "Wreak Havoc",
+      "templates": [
+        "spell.uncounterable-self",
+        "phase70.destroy-artifact-land"
+      ]
+    },
+    {
+      "id": "catalog-b2adaeef-b1e2-44dd-bda1-19ec4d0a6c1c",
+      "name": "Unlucky Thirteen",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-b38c567e-fd79-4a74-ab5f-df4a6a8f7e00",
+      "name": "Dwarven Reinforcements",
+      "templates": [
+        "phase69.simple-spell-payload",
+        "phase70.foretell"
+      ]
+    },
+    {
+      "id": "catalog-b4a29f21-9d1d-481c-bfa3-41c1e94dc668",
+      "name": "Beasts",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-b4e58e40-85c0-416c-a7a0-41db66d94191",
+      "name": "Warriors",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-b54ba865-fc50-4abc-834f-e1494ea396fe",
+      "name": "Treasures",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-b5ac3a4a-b011-43ea-9c16-16627221c5d8",
+      "name": "Izzet League",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-b6082566-57a2-42f8-b78b-739db7427538",
+      "name": "Dragons",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-b640b672-f423-49b8-b342-34a2358cdfb0",
+      "name": "Spirits",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-b6859c7a-4c4d-4652-938f-ecedce29d506",
+      "name": "Generous Ent",
+      "templates": [
+        "card.keyword-only",
+        "phase69.when-this-creature-enters-the-battlefield-",
+        "phase70.landcycling"
+      ]
+    },
+    {
+      "id": "catalog-b693c3de-2eaf-4850-b405-e79d00adefda",
+      "name": "Talisman of Hierarchy",
+      "templates": [
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-b709910e-ae90-4431-95ad-5f526d605ee7",
+      "name": "Scarlet",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-b8156d00-2e67-4363-ad1c-0e2fb16d14fc",
+      "name": "Wizards",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-b82d1104-8a54-4745-ba8b-eeddcb657338",
+      "name": "Kjeldoran Gargoyle",
+      "templates": [
+        "card.keyword-only",
+        "phase70.damage-lifelink-worded"
+      ]
+    },
+    {
+      "id": "catalog-b872f147-00eb-4cf8-af8c-4144356b2089",
+      "name": "Faerie Vandal",
+      "templates": [
+        "card.keyword-only",
+        "card.keyword-only",
+        "phase71.second-draw-counter"
+      ]
+    },
+    {
+      "id": "catalog-b876101b-7b18-48d7-9c8c-aaa6b1b5c199",
+      "name": "Elusive Krasis",
+      "templates": [
+        "combat.cant-be-blocked-self",
+        "phase70.evolve"
+      ]
+    },
+    {
+      "id": "catalog-b8d8ece6-397e-4bc9-b86c-7caa1d675d0f",
+      "name": "Back to Nature",
+      "templates": [
+        "phase71.destroy-all-enchantments"
+      ]
+    },
+    {
+      "id": "catalog-b9e93832-93b7-409d-91aa-13757225824d",
+      "name": "Citadel Castellan",
+      "templates": [
+        "card.keyword-only",
+        "phase70.renown"
+      ]
+    },
+    {
+      "id": "catalog-ba0ac1b8-2873-448d-861e-6e975381673d",
+      "name": "Phyrexian Wurm",
+      "templates": [
+        "card.keyword-only",
+        "phase70.toxic"
+      ]
+    },
+    {
+      "id": "catalog-bac94fc9-808b-4dc9-b405-408dd2aa6194",
+      "name": "Canyon Crawler",
+      "templates": [
+        "card.keyword-only",
+        "phase69.when-this-creature-enters-the-battlefield-",
+        "phase70.landcycling"
+      ]
+    },
+    {
+      "id": "catalog-bbd7bf29-7cce-4d4e-9d3e-6c1c0850c80f",
+      "name": "Multi-Headed",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-bbe22a0f-ee51-4fe6-9a23-7a68e4621eb5",
+      "name": "Demons",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-bbfc5290-ffc7-4a74-af86-a6b67b468bda",
+      "name": "Great Lakes Avengers",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-bcaf3f32-c4e5-4d39-be98-bfc00327021b",
+      "name": "Ezuri's Archers",
+      "templates": [
+        "card.keyword-only",
+        "phase70.block-flying-pump"
+      ]
+    },
+    {
+      "id": "catalog-bd433a27-1f3f-4d69-8b7e-97239fdf165b",
+      "name": "Mammoth Growth",
+      "templates": [
+        "spell.pump-until-eot",
+        "phase70.foretell"
+      ]
+    },
+    {
+      "id": "catalog-bd785a7e-df65-48e6-843b-7831f3c1e5d3",
+      "name": "Voracious Varmint",
+      "templates": [
+        "card.keyword-only",
+        "phase71.sac-destroy-ae"
+      ]
+    },
+    {
+      "id": "catalog-bd912666-f37f-4767-af6f-9e6d0fcccacf",
+      "name": "Karplusan Forest",
+      "templates": [
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-bdb319a6-a1cd-44f5-999d-af1bb55b2fc4",
+      "name": "Epicure of Blood",
+      "templates": [
+        "phase71.life-drain-trigger"
+      ]
+    },
+    {
+      "id": "catalog-bdd0d01d-b9f2-4c3f-9b3b-04e122013de5",
+      "name": "Ghastbark Twins",
+      "templates": [
+        "card.keyword-only",
+        "phase70.additional-block"
+      ]
+    },
+    {
+      "id": "catalog-bf2f99f3-d983-425b-9624-1aba4f09abb5",
+      "name": "Elven",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-bf65b590-9af3-465a-89d0-ad1f7de0815d",
+      "name": "Armed",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-bf8fa72b-9bd3-4dda-a63c-e6c82ee22404",
+      "name": "Mortals",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-bfdaf633-3e9c-4810-97e9-4859fea84128",
+      "name": "Titanic",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-bfff2da1-a62a-4e22-bd02-2a5fbe46432d",
+      "name": "Cunning",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-c0e26457-9649-4861-8002-7996fb85f029",
+      "name": "Insects",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-c0e81564-6c54-49cb-92ef-3abaa3c9b2cc",
+      "name": "Think Again",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-c1887a80-803d-444b-a7d4-1545f8003294",
+      "name": "Ferocious",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-c2b082b4-5d9c-4125-b353-d1cf4f334720",
+      "name": "Sazh's Chocobo",
+      "templates": [
+        "phase71.landfall-counter"
+      ]
+    },
+    {
+      "id": "catalog-c369d0c0-0cd2-4531-b21f-dc31540f2966",
+      "name": "Earthbending",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-c3a53131-bf70-49cc-b2dc-8b397b0023aa",
+      "name": "Bloody",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-c3bb5173-a292-4ca9-86c9-1f7021a7e4d4",
+      "name": "Goblins",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-c49ca86d-1ee2-467e-91d1-9036120b6d2f",
+      "name": "Alliance",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-c53d6d3e-64e3-48b9-afab-3bde3164888f",
+      "name": "Lab Rats",
+      "templates": [
+        "phase70.buyback",
+        "phase69.simple-spell-payload"
+      ]
+    },
+    {
+      "id": "catalog-c664cde1-c2d6-4a6c-aec1-3c4ecc32e18c",
+      "name": "Morbid",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-c6a2e410-b182-48d1-aeb2-bc8de27e9cd2",
+      "name": "Cremate",
+      "templates": [
+        "phase70.spell-exile-grave-card",
+        "spell.draw-fixed"
+      ]
+    },
+    {
+      "id": "catalog-c6cf6dbf-891f-4408-b119-e97c8778ee22",
+      "name": "Shapeshifters",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-c737d27b-db14-4bd4-8f16-bcbd4401c47b",
+      "name": "Caldera Lake",
+      "templates": [
+        "replacement.self-enters-tapped",
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-c8de43a3-ebd3-4000-b343-a6ffed11d34d",
+      "name": "Ignoble Hierarch",
+      "templates": [
+        "card.keyword-only",
+        "phase70.mana-three"
+      ]
+    },
+    {
+      "id": "catalog-c8f958da-3a31-4064-9a78-66e9b65b85ab",
+      "name": "Dutiful Return",
+      "templates": [
+        "phase71.return-up-to-two-creatures"
+      ]
+    },
+    {
+      "id": "catalog-c986da73-d383-4b0b-876c-a43045ba1426",
+      "name": "Boneyard",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-cb0e1afa-fd9e-4bf9-bcb1-6e8110d6e2ff",
+      "name": "Cloudfin Raptor",
+      "templates": [
+        "card.keyword-only",
+        "phase70.evolve"
+      ]
+    },
+    {
+      "id": "catalog-cb1ae4f2-4fec-4cac-8992-616af82e0ade",
+      "name": "Unhinge",
+      "templates": [
+        "phase70.spell-target-discard",
+        "spell.draw-fixed"
+      ]
+    },
+    {
+      "id": "catalog-cb69e07c-c831-4992-8089-3a3a1278c45b",
+      "name": "Inescapable Brute",
+      "templates": [
+        "card.keyword-only",
+        "phase71.must-block"
+      ]
+    },
+    {
+      "id": "catalog-cb6b38a0-a579-46b0-83f9-6bb9338ce961",
+      "name": "Witchcraft",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-cb6d60c0-1453-4165-9f12-fd7d9f824882",
+      "name": "House Dimir",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-cbbd507e-06da-4b47-befc-61db8c92539e",
+      "name": "Marauding Brinefang",
+      "templates": [
+        "keyword.ward-mana",
+        "phase70.landcycling"
+      ]
+    },
+    {
+      "id": "catalog-cbef6ad5-717f-4b02-9c62-e5deba407ad1",
+      "name": "Dwarven Ruins",
+      "templates": [
+        "replacement.self-enters-tapped",
+        "mana.tap-fixed",
+        "phase70.mana-sac-double"
+      ]
+    },
+    {
+      "id": "catalog-cc840ea6-320b-4e5a-a5d0-bf55e7175266",
+      "name": "Spirits",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-ccfddb1a-1b7f-44f9-89c4-1907e27e1c4a",
+      "name": "Kytheon's Irregulars",
+      "templates": [
+        "phase70.renown",
+        "phase69.generic-activated-simple"
+      ]
+    },
+    {
+      "id": "catalog-cd0c1165-673d-4936-8254-deedd0ebbe97",
+      "name": "Savai Crystal",
+      "templates": [
+        "phase70.mana-three",
+        "keyword.cycling-mana"
+      ]
+    },
+    {
+      "id": "catalog-cdbaa21d-5896-4b8b-9a08-f0839ccfddfc",
+      "name": "Disturbed Burial",
+      "templates": [
+        "phase70.buyback",
+        "spell.return-graveyard-card-to-hand"
+      ]
+    },
+    {
+      "id": "catalog-cdcfeb56-60a8-494a-aacd-2190971c7fc6",
+      "name": "Milling",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-cfef405c-d40e-48d9-82b0-684ba41be90d",
+      "name": "Lessons",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-d030a4d4-2240-4668-8890-cf87992b8dfc",
+      "name": "Selesnya Conclave",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-d140e96a-f1b0-464e-9c97-900deca8de0b",
+      "name": "Reinforced",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-d156d845-9af9-4141-bdc1-e00ce99f0451",
+      "name": "Snow",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-d1dceaa7-d33e-4067-9e1b-8a8978a12933",
+      "name": "Stony-Voiced Goblins",
+      "templates": [
+        "phase71.etb-opponents-discard"
+      ]
+    },
+    {
+      "id": "catalog-d2075f58-b0e9-4e85-b7e6-0523a27a1d5b",
+      "name": "Bala Ged Recovery // Bala Ged Sanctuary",
+      "templates": [
+        "phase71.return-card-grave-hand",
+        "replacement.self-enters-tapped",
+        "mana.tap-fixed"
+      ]
+    },
+    {
+      "id": "catalog-d33509d6-9d0c-4248-bb6d-0a9b7712f3a0",
+      "name": "Nurturing Bristleback",
+      "templates": [
+        "phase69.when-this-creature-enters-the-battlefield-",
+        "phase70.landcycling"
+      ]
+    },
+    {
+      "id": "catalog-d3c0b513-87cb-4c4b-8d81-3784d15214c4",
+      "name": "Precise",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-d3e40d26-1687-4cb4-9ff8-4c4421f09e53",
+      "name": "Riptide Pilferer",
+      "templates": [
+        "phase70.combat-damage-discard",
+        "mechanic.morph"
+      ]
+    },
+    {
+      "id": "catalog-d438aa86-198a-4fd4-96ca-b67bd765104c",
+      "name": "Clerics",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-d48d9e93-72a2-48f2-8164-8032615ee217",
+      "name": "Violent Impact",
+      "templates": [
+        "phase70.destroy-artifact-land",
+        "keyword.cycling-mana"
+      ]
+    },
+    {
+      "id": "catalog-d5432852-e4f2-4fb1-a427-e73c542ca6e5",
+      "name": "Heroes for Hire",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-d5ad26cc-2bdb-46b7-b8bf-dd099d5fa09b",
+      "name": "Adarkar Wastes",
+      "templates": [
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-d60ad13c-07fe-47d5-812e-75e0d32835c3",
+      "name": "Elves",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-d6b54f58-7775-4180-b2e5-1b57da65a409",
+      "name": "Araba Mothrider",
+      "templates": [
+        "card.keyword-only",
+        "phase70.bushido"
+      ]
+    },
+    {
+      "id": "catalog-d7798312-657c-4f4a-9e2d-906284caf50f",
+      "name": "Pharika's Disciple",
+      "templates": [
+        "card.keyword-only",
+        "phase70.renown"
+      ]
+    },
+    {
+      "id": "catalog-d84515a6-912d-4136-b564-72b6c7b47840",
+      "name": "Street Level Villains",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-d8794a02-da32-4a69-bd11-2632f4359e54",
+      "name": "Donatello",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-d91d5d22-9f94-4a41-9970-0a8ddd2f7711",
+      "name": "Gaea's Protector",
+      "templates": [
+        "phase71.must-block"
+      ]
+    },
+    {
+      "id": "catalog-d9b99c58-8e2e-496c-8288-eda934f49162",
+      "name": "Unmake the Graves",
+      "templates": [
+        "keyword.convoke",
+        "phase71.return-up-to-two-creatures"
+      ]
+    },
+    {
+      "id": "catalog-d9c9d8d9-bb5e-4315-9144-27efb8899f54",
+      "name": "Masters of Evil",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-db5d3b52-2e2a-4fc4-bce3-bff26781eadc",
+      "name": "Brood",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-dc638413-c4f8-4f6a-a003-5ce8a10a8f94",
+      "name": "Daggermaw Megalodon",
+      "templates": [
+        "card.keyword-only",
+        "phase70.landcycling"
+      ]
+    },
+    {
+      "id": "catalog-ddbd4d8c-9763-43d7-882f-6edf8efffb0a",
+      "name": "Hand of Cruelty",
+      "templates": [
+        "keyword.protection-simple",
+        "phase70.bushido"
+      ]
+    },
+    {
+      "id": "catalog-de2d0e17-22ef-4d1f-aee0-9f50595a486d",
+      "name": "Doctor",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-de7e814d-c302-44f3-80b2-5f88be187f95",
+      "name": "Primal",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-de96b2b8-8ca3-4e44-a28a-db682d9d2b6b",
+      "name": "Ne'er-Do-Wells",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-df1e25fa-e869-4795-96cc-0886e3a6425b",
+      "name": "Predatory",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-df8782cd-18ec-4bd8-85c9-3eb3b343c044",
+      "name": "Detective",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-e09c0d80-fad4-4a47-a5b0-e33cb5f3ab42",
+      "name": "Zuko",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-e193ae18-91a0-4870-b8a1-f8dedf744708",
+      "name": "Obelisk of Grixis",
+      "templates": [
+        "phase70.mana-three"
+      ]
+    },
+    {
+      "id": "catalog-e1ca5c24-bbd8-4eed-bb2b-17163f90e72b",
+      "name": "Gryff Rider",
+      "templates": [
+        "card.keyword-only",
+        "phase71.training"
+      ]
+    },
+    {
+      "id": "catalog-e1e489f6-37e5-469e-bca3-0e9d3fc3fa95",
+      "name": "Virus Beetle",
+      "templates": [
+        "phase71.etb-opponents-discard"
+      ]
+    },
+    {
+      "id": "catalog-e215e3e5-768b-4700-819f-c54c6ae02987",
+      "name": "Thor",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-e25e2a3f-4add-4744-b1f8-2e880998a51f",
+      "name": "Recruit the Worthy",
+      "templates": [
+        "phase70.buyback",
+        "phase69.simple-spell-payload"
+      ]
+    },
+    {
+      "id": "catalog-e2e33daf-179d-4d5a-b5be-419737b44bf4",
+      "name": "Primates",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-e3444fcf-70ed-4d6e-aea9-030af15cad56",
+      "name": "Throes of Chaos",
+      "templates": [
+        "mechanic.cascade",
+        "phase70.retrace"
+      ]
+    },
+    {
+      "id": "catalog-e3552730-fe09-443f-b432-9640b69c7bbb",
+      "name": "Rancid Rats",
+      "templates": [
+        "phase70.skulk"
+      ]
+    },
+    {
+      "id": "catalog-e4290112-d44b-493b-820d-201e07bf8a2c",
+      "name": "Hydra",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-e43e06fb-52b7-4f38-8fac-f31973b043f7",
+      "name": "Phantom Nishoba",
+      "templates": [
+        "card.keyword-only",
+        "replacement.enters-plus-counters",
+        "phase70.damage-lifelink-worded",
+        "phase69.damage-shield-counter"
+      ]
+    },
+    {
+      "id": "catalog-e4cf6c2f-0f1e-4980-9ef9-e4eabcae42a9",
+      "name": "Frontier Bivouac",
+      "templates": [
+        "replacement.self-enters-tapped",
+        "phase70.mana-three"
+      ]
+    },
+    {
+      "id": "catalog-e4d871a6-9a4c-4b13-9360-a1ec3b3e30c4",
+      "name": "Soaring",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-e5fcc5d7-6a60-4a5b-9d02-6c30041a95b9",
+      "name": "Talisman of Unity",
+      "templates": [
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-e6ddea98-b23f-44de-a63d-5d5dfad60e71",
+      "name": "Festival Crasher",
+      "templates": [
+        "phase70.cast-is-pump"
+      ]
+    },
+    {
+      "id": "catalog-e6e4a8bd-5c40-4654-8de1-0da9afed90fd",
+      "name": "Regrowth",
+      "templates": [
+        "phase71.return-card-grave-hand"
+      ]
+    },
+    {
+      "id": "catalog-e7079969-8d88-4f18-a872-2661bed6ff74",
+      "name": "Noble Templar",
+      "templates": [
+        "card.keyword-only",
+        "phase70.landcycling"
+      ]
+    },
+    {
+      "id": "catalog-e71eca6f-388c-4750-b70e-3ee1832931f0",
+      "name": "Timberland Ancient",
+      "templates": [
+        "card.keyword-only",
+        "phase70.landcycling"
+      ]
+    },
+    {
+      "id": "catalog-e77e733d-41c9-4225-9b3e-679169dc9f77",
+      "name": "Dogs",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-e8ff3e99-eca9-44a5-baac-99ee34df3c36",
+      "name": "Shepherding Spirits",
+      "templates": [
+        "card.keyword-only",
+        "phase70.landcycling"
+      ]
+    },
+    {
+      "id": "catalog-e929b730-9aa2-49e1-9a65-50afc0fbe3e0",
+      "name": "Atlantean Cavalry",
+      "templates": [
+        "card.keyword-only",
+        "phase71.second-draw-counter"
+      ]
+    },
+    {
+      "id": "catalog-e9e56b1d-5ad2-4807-8c4c-1a1a6a25ecbf",
+      "name": "Wee Dragonauts",
+      "templates": [
+        "card.keyword-only",
+        "phase70.cast-is-pump"
+      ]
+    },
+    {
+      "id": "catalog-ea1c2901-bfdd-4dc6-86c9-f2d05577892c",
+      "name": "Undead",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-ea5e8920-1343-4335-b516-6db43c3bfeb0",
+      "name": "Inner-Chamber Guard",
+      "templates": [
+        "phase70.bushido"
+      ]
+    },
+    {
+      "id": "catalog-eaa0c6c2-eee5-443a-867f-ab77b995b6ef",
+      "name": "Hush",
+      "templates": [
+        "phase71.destroy-all-enchantments",
+        "keyword.cycling-mana"
+      ]
+    },
+    {
+      "id": "catalog-eac8c196-8477-4b79-9875-21afa1e61708",
+      "name": "Kiln Fiend",
+      "templates": [
+        "phase70.cast-is-pump"
+      ]
+    },
+    {
+      "id": "catalog-eb0be178-55f9-4743-8128-34bc86f134ec",
+      "name": "Obelisk of Jund",
+      "templates": [
+        "phase70.mana-three"
+      ]
+    },
+    {
+      "id": "catalog-ebcb6bce-c948-4faf-bae7-f169303fa568",
+      "name": "Of the Coast",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-ec58a82f-8c78-4f88-90d5-e32d83be7a48",
+      "name": "Wolf Pack",
+      "templates": [
+        "phase71.damage-as-unblocked"
+      ]
+    },
+    {
+      "id": "catalog-ed26f6bf-fcd6-4cf4-9b65-a492cb79f2df",
+      "name": "Prowling Felidar",
+      "templates": [
+        "card.keyword-only",
+        "phase71.landfall-counter"
+      ]
+    },
+    {
+      "id": "catalog-ed96bd50-5207-419f-88bb-43ae6741e006",
+      "name": "Journey",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-edcc3c19-143b-47cc-b4fb-ad9fc9ee34ee",
+      "name": "Reinforcement",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-edcdcf5c-d3b5-4e24-8e7b-43cfccc748f2",
+      "name": "Merfolk",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-ee05fc58-1356-4b2f-b9ce-bda8cc716aee",
+      "name": "Augury Raven",
+      "templates": [
+        "card.keyword-only",
+        "phase70.foretell"
+      ]
+    },
+    {
+      "id": "catalog-ee388896-62aa-4cd2-9430-18b075036675",
+      "name": "Relentless",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-ee5ea560-5e39-48dc-8a1a-a014ca709b6f",
+      "name": "Powerful",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-ee7dc820-10ee-429a-a1ef-ecd6a11f5608",
+      "name": "Satyr Hoplite",
+      "templates": [
+        "phase70.heroic-counter"
+      ]
+    },
+    {
+      "id": "catalog-ef6ecb67-7e49-4d40-84f2-1e7c02960a0d",
+      "name": "Ochran Assassin",
+      "templates": [
+        "card.keyword-only",
+        "phase71.all-must-block"
+      ]
+    },
+    {
+      "id": "catalog-efd899ba-d3ee-456d-bc8e-7dcabbe13773",
+      "name": "Seismic",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-efea2342-bb24-472a-acfb-1b9e012af91b",
+      "name": "Konda, Lord of Eiganjo",
+      "templates": [
+        "card.keyword-only",
+        "phase70.bushido"
+      ]
+    },
+    {
+      "id": "catalog-f11517f8-358f-4790-9b80-545e628129d1",
+      "name": "Infantry",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-f17d0fb8-c157-43b8-be26-f5ba4c6aed14",
+      "name": "Haze of Rage",
+      "templates": [
+        "phase70.buyback"
+      ]
+    },
+    {
+      "id": "catalog-f2071cbc-f800-4c57-b1f4-a9a276182fbb",
+      "name": "Holy",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-f25c5451-58fa-4916-8342-ae88c5e406cc",
+      "name": "Wander in Death",
+      "templates": [
+        "phase71.return-up-to-two-creatures",
+        "keyword.cycling-mana"
+      ]
+    },
+    {
+      "id": "catalog-f2ccc9e8-8e92-4f8c-8728-8c748630e0dd",
+      "name": "Talisman of Impulse",
+      "templates": [
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-f32caf11-abc1-4cae-a311-10210176ea3a",
+      "name": "Sarulf's Packmate",
+      "templates": [
+        "trigger.etb-draw-fixed",
+        "phase70.foretell"
+      ]
+    },
+    {
+      "id": "catalog-f348b326-8a73-4df9-8faf-e271a36ce373",
+      "name": "Suq'Ata Lancer",
+      "templates": [
+        "card.keyword-only",
+        "phase71.flanking"
+      ]
+    },
+    {
+      "id": "catalog-f3ac1aec-4284-4dff-a6ef-867df614e9bc",
+      "name": "Equipped",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-f4b8e856-17a9-44db-bce6-312a6bd2af32",
+      "name": "Enraged Revolutionary",
+      "templates": [
+        "phase71.dethrone"
+      ]
+    },
+    {
+      "id": "catalog-f4e8be6f-2a1f-47b2-a4d8-7e576e25ab60",
+      "name": "Akroan Skyguard",
+      "templates": [
+        "card.keyword-only",
+        "phase70.heroic-counter"
+      ]
+    },
+    {
+      "id": "catalog-f51d4542-2498-4749-84ef-1aff225ae0d9",
+      "name": "Devilish",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-f5c38c01-4a40-469f-91a0-7479daf4e8e7",
+      "name": "Sulfurous Springs",
+      "templates": [
+        "mana.tap-fixed",
+        "phase70.mana-two-pain"
+      ]
+    },
+    {
+      "id": "catalog-f5e14b0c-c51e-4a65-93c6-828c70cf862e",
+      "name": "Rebellious",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-f671e3c3-cd59-4d06-a1af-5d04892cf74d",
+      "name": "Tranquility",
+      "templates": [
+        "phase71.destroy-all-enchantments"
+      ]
+    },
+    {
+      "id": "catalog-f686a021-8501-4cd4-a097-2262b7ab62c9",
+      "name": "Leonardo",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-f6a99c32-5115-452b-aa35-d91bb7cffee1",
+      "name": "Agents of S.H.I.E.L.D.",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-f718b520-d79d-4b91-9d85-de1f1c90c176",
+      "name": "Cloudbound Moogle",
+      "templates": [
+        "card.keyword-only",
+        "trigger.etb-target-plus-counter",
+        "phase70.landcycling"
+      ]
+    },
+    {
+      "id": "catalog-f77dfcb6-72b0-4d50-8177-6f6c57a034b9",
+      "name": "Lone Wolf",
+      "templates": [
+        "phase71.damage-as-unblocked"
+      ]
+    },
+    {
+      "id": "catalog-f8117dd0-5976-4a77-a866-668d9c623796",
+      "name": "Blink",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-f842c4a8-d8a3-4105-849c-667af4ed4ab1",
+      "name": "Mayhem",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-f85a4830-260a-4223-88a8-6c1b1d53a84a",
+      "name": "Phyrexian",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-f92c9a5d-853f-4157-89ba-8d8c8033c533",
+      "name": "El-Hajjâj",
+      "templates": [
+        "phase70.damage-lifelink-worded"
+      ]
+    },
+    {
+      "id": "catalog-f950eba7-9d39-4782-b045-e8dab57dd66a",
+      "name": "Tricksters",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-f9cc0bbb-9435-4049-a751-92b7988db6d1",
+      "name": "Rebelling",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-f9e7e855-1e3b-42d3-91b0-64ba8b5b8982",
+      "name": "Opulent Palace",
+      "templates": [
+        "replacement.self-enters-tapped",
+        "phase70.mana-three"
+      ]
+    },
+    {
+      "id": "catalog-fab9d455-fd1d-4b09-9e16-8c1037a4bd71",
+      "name": "Walls",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-fb5a02ce-6080-47f9-815a-fef3758d753b",
+      "name": "Paladin of Predation",
+      "templates": [
+        "phase70.toxic",
+        "phase69.block-power-restriction"
+      ]
+    },
+    {
+      "id": "catalog-fba71905-d92c-489b-b691-2598cf5a7b89",
+      "name": "Corruption",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-fda06d9e-d17f-4bb6-916b-06116e47c8e8",
+      "name": "Rural Recruit",
+      "templates": [
+        "phase71.training",
+        "phase69.when-this-creature-enters-the-battlefield-"
+      ]
+    },
+    {
+      "id": "catalog-fda10ef2-f431-4d9b-96a4-4db4c98d2b0c",
+      "name": "Jeskai Banner",
+      "templates": [
+        "phase70.mana-three",
+        "phase69.generic-activated-simple"
+      ]
+    },
+    {
+      "id": "catalog-fdf5d317-ded6-4b90-844a-dd0e1f317cc3",
+      "name": "Lethal",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-fea60c45-cc36-4dd1-8475-23a9361e370d",
+      "name": "Furnace Host Charger",
+      "templates": [
+        "card.keyword-only",
+        "phase70.landcycling"
+      ]
+    },
+    {
+      "id": "catalog-feb65f2e-6f71-4f29-bf31-b210c85f3ab3",
+      "name": "Hand of Honor",
+      "templates": [
+        "keyword.protection-simple",
+        "phase70.bushido"
+      ]
+    },
+    {
+      "id": "catalog-ff24b8de-2c21-4559-be29-7c181ade6660",
+      "name": "Toxic",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    },
+    {
+      "id": "catalog-ffe5e038-dd65-47fe-ae4c-5227471b8ffd",
+      "name": "Law",
+      "templates": [
+        "phase71.theme-color"
+      ]
+    }
+  ]
+}

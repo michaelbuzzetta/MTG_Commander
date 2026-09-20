@@ -166,6 +166,7 @@ export class MechanicLibrary {
   wardCost(permanent) {
     if (!permanent || permanent.zone !== 'battlefield') return null;
     const definition = definitionFor(this.engine, permanent);
+    if (permanent.faceDown && definition.faceDownCasting?.castOption === 'disguise') return this.normalizeWardCost('{2}');
     const candidates = [definition.wardCost, definition.ward];
     for (const ability of definition.abilities || []) if (lower(ability.type) === 'ward') candidates.push(ability.cost ?? ability.manaCost ?? ability.wardCost);
     for (const keyword of normalizedKeywords(this.engine, permanent)) {

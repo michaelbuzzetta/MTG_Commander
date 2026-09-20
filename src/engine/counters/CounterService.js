@@ -24,7 +24,7 @@ export class CounterService {
     this.registerSemantic('lore', {
       afterAdd: ({ target, prior, next }) => {
         if (target?.zone === 'battlefield' && this.engine.static?.hasSubtype(target, 'Saga')) {
-          this.engine._queueSagaChapters(target, prior + 1, next);
+          this.engine._queueSagaChapters(target, Math.max(prior + 1, Number(target.readAheadFloor || 1)), next);
         }
       }
     });
@@ -211,6 +211,14 @@ export class CounterService {
     }
     if (this.engine.static?.isType(permanent, 'Battle') && this.count(permanent, 'defense') <= 0 && chars?.defense != null && Number(chars.defense) > 0) {
       this.addWithoutChoice(permanent, 'defense', Number(chars.defense), { cause: 'battle-entry-defense' });
+    }
+    if (this.engine.static?.hasSubtype(permanent, 'Saga') && this.count(permanent, 'lore') <= 0) {
+      const definition = this.engine.db[permanent.cardId] || {};
+      // Read Ahead replaces the ordinary one-lore-counter entry with a chosen
+      // chapter. The UI/API may call chooseReadAheadChapter before the first
+      // priority pass; ordinary Sagas enter with one lore counter immediately.
+      if (definition.readAhead) permanent.readAheadPending = true;
+      else this.add(permanent, 'lore', 1, { cause: 'saga-entry-lore' });
     }
   }
 

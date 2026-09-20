@@ -1,0 +1,6 @@
+import test from 'node:test'; import assert from 'node:assert/strict'; import { OracleTemplateCompiler } from '../src/cards/compiler/OracleTemplateCompiler.js';
+const c=new OracleTemplateCompiler();
+test('keyword paragraphs compose even when card declares additional keywords',()=>{const r=c.compileCard({id:'k',name:'K',layout:'normal',typeLine:'Creature',keywords:['Flying','Haste'],oracleText:'Flying\nHaste'}); assert.equal(r.autoAccepted,true);});
+test('typed enters-tapped wording compiles',()=>{const r=c.compileCard({id:'l',name:'L',layout:'normal',typeLine:'Land',keywords:[],oracleText:'This land enters tapped.'}); assert.equal(r.autoAccepted,true);});
+test('Aura enchant and PT paragraphs compose',()=>{const r=c.compileCard({id:'a',name:'A',layout:'normal',typeLine:'Enchantment — Aura',keywords:[],oracleText:'Enchant creature\nEnchanted creature gets +1/+1.'}); assert.equal(r.autoAccepted,true); assert.equal(r.compiledCard.enchantFilter.type,'Creature');});
+test('Equipment PT and equip paragraphs compose',()=>{const r=c.compileCard({id:'e',name:'E',layout:'normal',typeLine:'Artifact — Equipment',keywords:[],oracleText:'Equipped creature gets +1/+1.\nEquip {2}'}); assert.equal(r.autoAccepted,true); assert.equal(r.compiledCard.equipCost,'{2}');});

@@ -166,6 +166,34 @@ export class CopyService {
     });
   }
 
+  // Phase 62: copy a stack object while preserving locked choices/modes/X, with optional new targets.
+  copyStackObject(originalItem, options = {}) {
+    const copies = this.createStackCopies(originalItem, options);
+    for (const copy of copies) {
+      copy.lockedChoices = structuredClone(originalItem.lockedChoices || originalItem.choices || null);
+      copy.chosenModes = structuredClone(originalItem.chosenModes || null);
+      copy.xValue = originalItem.xValue ?? originalItem.variables?.X ?? null;
+    }
+    return copies;
+  }
+
+  // Phase 62: control changes do not change ownership and receive a fresh timestamp.
+  changeControl(targetRef, controller, { duration = 'indefinite', sourceId = null } = {}) {
+    const target = this.object(targetRef);
+    if (!target) throw new Error('Control-change target no longer exists');
+    const previous = target.controller;
+    target.controller = controller;
+    target.controlChange = { previousController: previous, controller, duration, sourceId, createdTurn: this.engine.state.turn, timestamp: this.engine.continuous?.timestamps?.next?.() || 0 };
+    return target;
+  }
+
+  expireTemporaryControl() {
+    for (const player of Object.values(this.engine.state.players || {})) for (const permanent of player.battlefield || []) {
+      const c = permanent.controlChange;
+      if (c?.duration === 'until-end-of-turn' && Number(c.createdTurn) < Number(this.engine.state.turn)) { permanent.controller = c.previousController; delete permanent.controlChange; }
+    }
+  }
+
   createTokenCopy(playerId, sourceRef, {
     amount = 1,
     except: modifications = null,

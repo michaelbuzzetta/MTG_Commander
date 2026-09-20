@@ -1,3 +1,2 @@
-// Legacy root-level compatibility forwarder.
-// Canonical module: ./replacement/PreventionService.js
+// Compatibility barrel: canonical implementation lives in ./replacement/PreventionService.js
 export * from './replacement/PreventionService.js';

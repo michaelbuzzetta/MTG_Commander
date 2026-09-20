@@ -135,6 +135,7 @@ export class TriggerMatcher {
     const e = this.engine;
     const obj = eventObject(payload);
     if (condition.controllerEvent && payload.controller !== controller) return false;
+    if (condition.eventController === 'opponent' && !e.areOpponents(controller, payload.controller)) return false;
     if ((condition.sourceEvent || condition.selfEvent) && obj?.instanceId !== source?.instanceId) return false;
     if (condition.notSelfEvent && obj?.instanceId === source?.instanceId) return false;
     if (condition.sourceSubtype) {
@@ -154,7 +155,7 @@ export class TriggerMatcher {
       if (!(def?.typeLine || '').toLowerCase().includes(String(condition.type).toLowerCase())) return false;
     }
     if (condition.cardType) {
-      const def = definitionForObject(e, payload.card);
+      const def = definitionForObject(e, payload.card || obj);
       if (!(def?.typeLine || '').toLowerCase().includes(String(condition.cardType).toLowerCase())) return false;
     }
     if (condition.cardTypeNot) {

@@ -23,7 +23,7 @@ import { CostEngine, PaymentService, CostMechanicRegistry } from './costs/index.
 import { ReplacementService, PreventionService } from './replacement/index.js';
 import { ContinuousEffectEngine } from './continuous/index.js';
 import { StateBasedActionEngine } from './sba/index.js';
-import { CommanderRulesService, MultiplayerRelationService, PlayerEliminationService } from './multiplayer/index.js';
+import { CommanderRulesService, MultiplayerRelationService, PlayerEliminationService, MonarchService } from './multiplayer/index.js';
 import { MechanicLibrary } from '../mechanics/index.js';
 import { CardScriptService, CardSupportService } from '../cards/index.js';
 import { LoopService, SimulationSafetyBudget, LOOP_SHORTCUT_ACTION } from './loops/index.js';
@@ -41,6 +41,7 @@ import { RulesLogger, InvariantChecker, UnsupportedInteractionService, UNSUPPORT
 import { PerformanceService } from './performance/index.js';
 import { StrictRulesService } from './strict/index.js';
 import { RulesVersionService, CURRENT_RULES_VERSION } from './rules-version/index.js';
+import { KeywordRuntimeService } from './KeywordRuntimeService.js';
 
 const INTERNAL = Symbol('GameEngineInternal');
 
@@ -108,6 +109,7 @@ export class GameEngine {
     this.loops = new LoopService(this);
     this.pregameRules = new PregameService(this, this._pregameConfig);
     this.multiplayer = new MultiplayerRelationService(this);
+    this.monarch = new MonarchService(this);
     // Step 21: all permission/restriction/requirement checks are centralized
     // here so UI and AI consume the same authoritative legality decisions.
     this.legality = new LegalityService(this);
@@ -116,6 +118,7 @@ export class GameEngine {
     this.copy = new CopyService(this);
     this.commanders = new CommanderRulesService(this);
     this.mechanics = new MechanicLibrary(this);
+    this.keywordRuntime = new KeywordRuntimeService(this);
     this.mana = ManaEngine;
     this.costMechanics = new CostMechanicRegistry();
     this.costs = new CostEngine(this, this.costMechanics);
@@ -129,6 +132,7 @@ export class GameEngine {
     this.events.addTransformer((event) => this.replacements.transformEvent(event));
     this.events.addTransformer((event) => this.prevention.transformEvent(event));
     this.triggers = new TriggerEngine(this);
+    this.events.subscribe('COMBAT_DAMAGE_PLAYER', (_record, _engine, payload) => this.monarch.onCombatDamage(payload || {}));
     this.continuous = new ContinuousEffectEngine(this);
     this.static = new StaticEngine(this);
     // Step 28: timing legality is a first-class rules subsystem. Every cast,
@@ -210,6 +214,17 @@ export class GameEngine {
       if (!object) throw new Error('Game object is no longer available');
       return object;
     };
+
+    this.events.register(ENGINE_EVENT.BECOME_MONARCH, {
+      validate: event => requirePlayer(event.payload.playerId, this),
+      commit: event => {
+        const previousPlayerId = this.state.monarch || null;
+        this.state.monarch = event.payload.playerId;
+        event.payload.previousPlayerId = previousPlayerId;
+        this.emit('BECAME_MONARCH', { playerId: event.payload.playerId, previousPlayerId, source: event.payload.source || null });
+        return { playerId: event.payload.playerId, previousPlayerId };
+      }
+    });
 
     this.events.register(ENGINE_EVENT.MOVE_ZONE, {
       validate: event => {
@@ -296,6 +311,18 @@ export class GameEngine {
             attachmentType: this.attachments.kind(moved),
             legalHostFilter: this.attachments.legalHostFilter(moved)
           }, { cause: event.payload.attachmentReason || reason || 'entry-attach', stabilize: false });
+        }
+
+        // Linked temporary-exile effects return their cards immediately after
+        // the source leaves the battlefield. The link is stored on the source
+        // object, so unrelated zone changes cannot accidentally return them.
+        if (oldZone === 'battlefield' && Array.isArray(sourceCard?.linkedExile) && sourceCard.linkedExile.length) {
+          const linked = [...sourceCard.linkedExile];
+          sourceCard.linkedExile = [];
+          for (const link of linked) {
+            const exiled = this.zones.find(link.instanceId);
+            if (exiled?.zone === 'exile') this._moveZoneNow(exiled.card, 'battlefield', link.owner || exiled.card.owner, { reason: 'linked-exile-return' });
+          }
         }
 
         if (moved && oldZone === 'battlefield' && lki?.object) {
@@ -1211,7 +1238,9 @@ export class GameEngine {
       case 'ACTIVATE_MANA': return this._validateAbility(pid, action, true);
       case 'ACTIVATE_ABILITY': return this._validateAbility(pid, action, false);
       case 'FORETELL_CARD': return this._validateForetell(pid, action);
+      case 'SUSPEND_CARD': return this._validateSuspend(pid, action);
       case 'ENCORE_CARD': return this._validateEncore(pid, action);
+      case 'TURN_FACE_UP': return this._validateTurnFaceUp(pid, action);
       case 'DECLARE_ATTACKERS': throw new Error('Attackers may only be declared during the declare attackers turn-based action');
       case 'DECLARE_BLOCKERS': throw new Error('Blockers may only be declared during the declare blockers turn-based action');
       case 'MULLIGAN':
@@ -1511,8 +1540,11 @@ export class GameEngine {
       case 'CHOOSE_CULTIVATE': return this._applyCultivateChoice(pid, action.cardInstanceIds || []);
       case 'CHOOSE_SISAY_TUTOR': return this._applySisayTutorChoice(pid, action.cardInstanceId || null);
       case 'CHOOSE_SCRY': return this._applyScryChoice(pid, !!action.putOnBottom);
+      case 'CHOOSE_SURVEIL': return this._applySurveilChoice(pid, !!action.putInGraveyard);
+      case 'CHOOSE_TRIGGER_MODE': return this._applyTriggerModeChoice(pid, action.modeId);
       case 'CHOOSE_TRIGGER_TARGET': return this._applyTriggerTargetChoice(pid, action.targetIds || []);
       case 'CHOOSE_CREATURE_TYPE': return this._applyCreatureTypeChoice(pid, action.creatureType);
+      case 'CHOOSE_COLOR': return this._applyColorChoice(pid, action.color);
       case 'CHOOSE_EFFECT_CARDS': return this._applyEffectCardChoice(pid, action.cardInstanceIds || []);
       case 'CHOOSE_LIBRARY_SEARCH': return this._applyLibrarySearchChoice(pid, action.cardInstanceIds || []);
       case 'CHOOSE_COPY_TARGETS': return this._applyCopyTargetChoice(pid, action.targetIds || []);
@@ -1529,7 +1561,9 @@ export class GameEngine {
         return this.events.dispatch(ENGINE_EVENT.CAST, { playerId: pid, action: structuredClone(action) }, { cause: `action:${action.type}`, stabilize: false });
       case 'ACTIVATE_MANA': return this._applyActivateMana(pid, action.permanentId, action.ability, action.manaColor); 
       case 'ACTIVATE_ABILITY': return this._applyActivateAbility(pid, action.permanentId, action.ability, action.targets || [], action.selections || []);
+      case 'TURN_FACE_UP': return this._applyTurnFaceUp(pid, action.permanentId);
       case 'FORETELL_CARD': return this._applyForetell(pid, action.cardInstanceId);
+      case 'SUSPEND_CARD': return this._applySuspend(pid, action.cardInstanceId);
       case 'ENCORE_CARD': return this._applyEncore(pid, action.cardInstanceId);
       case 'PASS_PRIORITY': return this._applyPassPriority(pid);
       case 'LOOP_SHORTCUT': return this.loops.executeShortcut(pid, action);
@@ -1661,12 +1695,27 @@ export class GameEngine {
       if (!top || top.instanceId !== choice.cardInstanceId) throw new Error('The scry card is no longer on top of the library');
       return true;
     }
+    if (choice.type === 'SURVEIL') {
+      if (action.type !== 'CHOOSE_SURVEIL' || typeof action.putInGraveyard !== 'boolean') throw new Error('Choose whether to keep the surveil card on top or put it into the graveyard');
+      const top = this.state.players[pid].library[0];
+      if (!top || top.instanceId !== choice.cardInstanceId) throw new Error('The surveil card is no longer on top of the library');
+      return true;
+    }
+    if (choice.type === 'TRIGGER_MODE') {
+      if (action.type !== 'CHOOSE_TRIGGER_MODE' || !choice.modes.some(mode => mode.id === action.modeId)) throw new Error('Choose a legal triggered ability mode');
+      return true;
+    }
     if (choice.type === 'TRIGGER_TARGET') {
       if (action.type !== 'CHOOSE_TRIGGER_TARGET') throw new Error('Choose targets for the triggered ability');
       const ids = action.targetIds;
       if (!Array.isArray(ids) || ids.length < choice.minTargets || ids.length > choice.maxTargets || new Set(ids).size !== ids.length) throw new Error('Choose a legal number of unique trigger targets');
       if (ids.some(id => !choice.candidateIds.includes(id))) throw new Error('Triggered ability target is not legal');
       if (choice.targetSource) this.targeting.validateTargets(pid, choice.targetSource, ids, { sourceObject: choice.sourceObjectId ? this._queryObject(choice.sourceObjectId) : null });
+      return true;
+    }
+    if (choice.type === 'COLOR') {
+      if (action.type !== 'CHOOSE_COLOR' || !['W','U','B','R','G'].includes(action.color)) throw new Error('Choose a color');
+      if (!choice.options.includes(action.color)) throw new Error('That color is not available');
       return true;
     }
     if (choice.type === 'CREATURE_TYPE') {
@@ -1878,7 +1927,9 @@ export class GameEngine {
     const topCast = action.castOption === 'top';
     const hideaway = action.castOption === 'hideaway';
     const foretold = action.castOption === 'foretold' || mode?.foretold;
+    const declarativeCastOption = (d.castingOptions || []).find(option => option.castOption === action.castOption && option.fromZone === f.zone) || null;
     const allowed = ['hand','command'].includes(f.zone)
+      || !!declarativeCastOption
       || (allowedModeZone && f.zone === allowedModeZone)
       || (retrace && f.zone === 'graveyard' && this.static.hasRetrace(pid, f.card))
       || (foretold && f.zone === 'exile' && f.card.foretold)
@@ -1901,7 +1952,7 @@ export class GameEngine {
       }).length;
       if (count < 8) throw new Error('Descend 8 is not satisfied');
     }
-    if (!hideaway && !this._canCastAtCurrentTiming(pid, f.card, f.zone, action.mode, action.castFaceIndex ?? null)) throw new Error('Spell cannot be cast at this time');
+    if (!hideaway && !this._canCastAtCurrentTiming(pid, f.card, f.zone, action.mode, action.castFaceIndex ?? null, action.castOption || null)) throw new Error('Spell cannot be cast at this time');
     if (retrace) {
       const discard = ZoneManager.find(s, action.retraceLandInstanceId);
       if (!discard || discard.zone !== 'hand' || discard.player?.id !== pid || !isType(this.db[discard.card.cardId], 'Land')) throw new Error('Retrace requires choosing a land card from your hand to discard');
@@ -1937,8 +1988,8 @@ export class GameEngine {
     return d;
   }
 
-  _canCastAtCurrentTiming(pid, card, zone, modeId = null, castFaceIndex = null) {
-    return this.timing.allowsSpell(pid, card, zone, modeId, castFaceIndex);
+  _canCastAtCurrentTiming(pid, card, zone, modeId = null, castFaceIndex = null, castOption = null) {
+    return this.timing.allowsSpell(pid, card, zone, modeId, castFaceIndex, castOption);
   }
 
   _findDefinedAbility(permanent, supplied) {
@@ -1954,6 +2005,7 @@ export class GameEngine {
     const ability = this._findDefinedAbility(perm, action.ability);
     if (!ability) throw new Error('Ability is not printed on the selected permanent');
     if (manaAbility ? ability.type !== 'mana' : ability.type !== 'activated') throw new Error(manaAbility ? 'Not a mana ability' : 'Not an activated ability');
+    if (!manaAbility && this.attachments?.restrictionsForHost?.(perm)?.cantActivateAbilities) throw new Error('Activated abilities of this permanent cannot be activated');
     if (manaAbility && ability.autoOnly) throw new Error('This restricted mana ability is used automatically only for legal payments');
     const requiresTap = manaAbility ? ability.tap !== false : !!ability.tap;
     if (requiresTap && perm.tapped) throw new Error('Permanent is already tapped');
@@ -2009,10 +2061,18 @@ export class GameEngine {
   }
 
   _validateAbilitySelections(pid, source, spec, ids = []) {
-    const count = Number(spec.count || 0);
-    if (!Array.isArray(ids) || ids.length !== count || new Set(ids).size !== ids.length) throw new Error(`Choose exactly ${count} permanent(s) for the ability cost`);
-    const legal = new Set(this._selectionCandidates(pid, source, spec).map(card => card.instanceId));
+    if (!Array.isArray(ids) || new Set(ids).size !== ids.length) throw new Error('Ability cost selections must be a unique list');
+    const legalCards = this._selectionCandidates(pid, source, spec);
+    const legal = new Set(legalCards.map(card => card.instanceId));
     if (ids.some(id => !legal.has(id))) throw new Error('An illegal permanent was selected for the ability cost');
+    if (spec.minCombinedPower != null) {
+      if (!ids.length) throw new Error('Crew requires at least one creature');
+      const power = ids.reduce((sum, id) => sum + Math.max(0, Number(this.static.derivedStats(this.findPermanent(id)).power || 0)), 0);
+      if (power < Number(spec.minCombinedPower)) throw new Error(`Selected creatures need combined power ${spec.minCombinedPower} or greater`);
+      return true;
+    }
+    const min = Number(spec.minCount ?? spec.count ?? 0), max = Number(spec.maxCount ?? spec.count ?? min);
+    if (ids.length < min || ids.length > max) throw new Error(`Choose between ${min} and ${max} permanent(s) for the ability cost`);
     return true;
   }
 
@@ -2138,6 +2198,21 @@ export class GameEngine {
     for (const saga of sagas) this.effects.addCounters(playerId, saga, 'lore', 1);
   }
 
+  chooseReadAheadChapter(playerId, sagaRef, chapterNumber) {
+    const saga = typeof sagaRef === 'string' ? this.findPermanent(sagaRef) : sagaRef;
+    const definition = saga?.cardId ? (this.db[saga.cardId] || {}) : {};
+    const max = Math.max(0, ...(definition.sagaChapters || []).map(ch => Number(ch.number || 0)));
+    const chosen = Number(chapterNumber);
+    if (!saga || saga.controller !== playerId || !definition.readAhead || !Number.isInteger(chosen) || chosen < 1 || chosen > max) throw new Error('Illegal Read Ahead chapter choice');
+    const current = this.counters.count(saga, 'lore');
+    if (current > 0) this.counters.removeWithoutChoice(saga, 'lore', current, { cause: 'read-ahead-reset', skipReplacements: true });
+    saga.readAheadFloor = chosen;
+    this.counters.add(saga, 'lore', chosen, { cause: 'read-ahead-entry' });
+    delete saga.readAheadFloor;
+    saga.readAheadChosen = chosen;
+    return chosen;
+  }
+
   _queueSagaChapters(saga, fromChapter, throughChapter) {
     const definition = this.db[saga?.cardId] || {};
     const chapters = definition.sagaChapters || [];
@@ -2178,6 +2253,16 @@ export class GameEngine {
         c.damageMarked = 0;
         c.deathtouchMarked = false;
         c.modifiers = { power: 0, toughness: 0, keywords: [] };
+        if (c.temporaryCombatFlags?.expiresTurn === s.turn) {
+          if (c.temporaryCombatFlags.cantAttack) c.cantAttack = false;
+          if (c.temporaryCombatFlags.mustAttack) c.mustAttack = false;
+          delete c.temporaryCombatFlags;
+        }
+        if (c.temporaryControl?.expiresTurn === s.turn && c.temporaryControl.previousController && c.controller !== c.temporaryControl.previousController) {
+          const restore = c.temporaryControl.previousController;
+          delete c.temporaryControl;
+          this.changeController(c.instanceId, restore);
+        }
       }
     }
     this.stateBasedActions();
@@ -2305,16 +2390,25 @@ export class GameEngine {
     const card = item.card, d = this.copy?.definitionForObject(card) || this.db[card.cardId] || {};
     const chosenType = card.chosenType || null;
     const castMode = item.mode || item.castOption || card.castMode || null;
+    const resolvesFaceDown = !!card.faceDown && (item.castOption === 'morph' || item.castOption === 'disguise');
     this._moveZoneNow(card, 'battlefield', item.controller, {
       ...(this.static.hasSubtype(card, 'Aura') && resolutionTargets[0] ? { attachmentTargetId: resolutionTargets[0], attachmentReason: 'aura-spell' } : {})
     });
     card.chosenType = chosenType;
     card.castMode = castMode;
+    if (resolvesFaceDown) { card.faceDown = true; if (card.faceState) card.faceState.faceUp = false; }
     card.summoningSick = isType(d, 'Creature') && !this.mechanics.canIgnoreSummoningSickness(d);
     card.createdTurn = this.state.turn;
     card.controlledSinceTurn = this.state.turn;
     card.tapped = this._permanentEntersTapped(card, item.controller);
     this._applyEntryCounters(card, item.controller);
+    if (d.entersIfKickedCounters && /kicker/i.test(String(card.castMode || ''))) {
+      this.effects.addCounters(item.controller, card, d.entersIfKickedCounters.type || '+1/+1', Number(d.entersIfKickedCounters.amount || 1));
+    }
+    if (d.startYourEngines) {
+      const player = this.state.players[item.controller];
+      if (player && !Number(player.speed || 0)) player.speed = Number(d.speedMechanic?.initial || 1);
+    }
     this.emit(EVENT.ENTER_BATTLEFIELD, { controller: item.controller, target: card, castMode: card.castMode });
     for (const eff of d.onEnterEffects || []) {
       this.effects.resolve(eff, { controller: item.controller, source: card, targets: resolutionTargets, mode: item.mode, castOption: item.castOption });
@@ -2337,7 +2431,10 @@ export class GameEngine {
     if (pending.kind === 'finishSpell') {
       const item = pending.item, card = item.card, d = this.copy?.definitionForObject(card) || this.db[card.cardId] || {};
       const selectedMode = item.mode ? this._modeFor(d, item.mode) : null;
-      if (!item.isCopy) this._moveZoneNow(card, selectedMode?.afterResolutionZone || d.afterResolutionZone || 'graveyard', card.owner);
+      if (!item.isCopy) {
+        const castRule = (d.castingOptions || []).find(option => option.castOption === item.castOption);
+        this._moveZoneNow(card, castRule?.exileOnLeaveStack ? 'exile' : (selectedMode?.afterResolutionZone || d.afterResolutionZone || 'graveyard'), card.owner);
+      }
       this.emit(EVENT.SPELL_RESOLVED, { controller: item.controller, card, targets: pending.resolutionTargets || [], copy: !!item.isCopy });
       this.stateBasedActions();
       return true;
@@ -2401,6 +2498,52 @@ export class GameEngine {
     return true;
   }
 
+  _validateTurnFaceUp(pid, action) {
+    const permanent = this.findPermanent(action.permanentId);
+    if (!permanent || permanent.controller !== pid || !permanent.faceDown) throw new Error('Permanent must be a face-down permanent you control');
+    const definition = this.db[permanent.cardId] || {};
+    const cost = definition.faceDownCasting?.faceUpCost;
+    if (!cost) throw new Error('This permanent has no supported turn-face-up cost');
+    if (!this.mana.canAfford(this.state.players[pid], this.db, cost, 0, this, { kind: 'special-action', source: permanent })) throw new Error('Insufficient mana to turn face up');
+    return true;
+  }
+
+  _applyTurnFaceUp(pid, permanentId) {
+    const permanent = this.findPermanent(permanentId);
+    const definition = this.db[permanent.cardId] || {};
+    const cost = definition.faceDownCasting?.faceUpCost;
+    if (!this.mana.autoTapAndPay(this.state.players[pid], this.db, cost, 0, this, { kind: 'special-action', source: permanent })) throw new Error('Insufficient mana to turn face up');
+    permanent.faceDown = false;
+    if (permanent.faceState) permanent.faceState.faceUp = true;
+    this.performance?.markMutation?.('face-up');
+    return permanent;
+  }
+
+  _validateSuspend(pid, action) {
+    const f = ZoneManager.find(this.state, action.cardInstanceId);
+    if (!f || f.zone !== 'hand' || f.player?.id !== pid) throw new Error('Suspend card must be in your hand');
+    const d = this.db[f.card.cardId];
+    if (!d?.suspend?.cost || Number(d.suspend.timeCounters) <= 0) throw new Error('This card does not have suspend');
+    if (this.state.priorityPlayer !== pid) throw new Error('Suspend requires priority');
+    if (!this._canCastAtCurrentTiming(pid, f.card, 'hand', null, null, null)) throw new Error('Suspend may only be used when you could cast the card');
+    if (!this.mana.canAfford(this.state.players[pid], this.db, d.suspend.cost, 0, this, { kind: 'special-action', source: f.card })) throw new Error('Insufficient mana to suspend');
+    return true;
+  }
+
+  _applySuspend(pid, instanceId) {
+    const found = ZoneManager.find(this.state, instanceId);
+    const d = found ? this.db[found.card.cardId] : null;
+    if (!found || found.zone !== 'hand' || !d?.suspend) throw new Error('Invalid suspend action');
+    if (!this.mana.autoTapAndPay(this.state.players[pid], this.db, d.suspend.cost, 0, this, { kind: 'special-action', source: found.card })) throw new Error('Insufficient mana to suspend');
+    const card = this._moveZoneNow(found.card, 'exile', pid, { reason: 'suspend' });
+    card.suspended = true;
+    this.counters.add(card, 'time', Number(d.suspend.timeCounters), { playerId: pid, source: card, cause: 'suspend-time-counters' });
+    this.state.priorityPlayer = pid;
+    this.state.passes = 0;
+    this.log('CARD_SUSPENDED', { controller: pid, card: card.cardId, counters: this.counters.count(card, 'time') });
+    return card;
+  }
+
   _validateForetell(pid, action) {
     const f = ZoneManager.find(this.state, action.cardInstanceId);
     if (!f || f.zone !== 'hand' || f.player?.id !== pid) throw new Error('Foretell card must be in your hand');
@@ -2451,6 +2594,7 @@ export class GameEngine {
     if (Number.isInteger(castFaceIndex)) setCastFace(c, rootDefinition, castFaceIndex);
     this.zones.detach(c.instanceId);
     ZoneManager.prepareForZone(c, 'stack', pid, rootDefinition);
+    if (castOption === 'morph' || castOption === 'disguise') { c.faceDown = true; if (c.faceState) c.faceState.faceUp = false; }
     if (castOption === 'hideaway' || castOption === 'foretold') {
       delete c.faceDown;
       if (c.faceState) c.faceState.faceUp = true;
@@ -2461,12 +2605,15 @@ export class GameEngine {
     const item = this.stack.push({
       id: `spell-${c.instanceId}`, type: 'spell', controller: pid, card: c,
       targets: [...targets], mode, castOption, castFaceIndex: Number.isInteger(castFaceIndex) ? castFaceIndex : null,
+      castFromZone: loc.zone,
       lockedCost: structuredClone(lockedCost),
       paymentPlan: structuredClone(paymentPlan),
       additionalCosts: structuredClone(lockedCost.nonManaCosts || []),
       alternativeCost: lockedCost.alternativeManaCost || null
     });
     if (c.isCommander && loc.zone === 'command') this.commanders.recordCast(pid, c, { fromZone: loc.zone });
+    this.state.spellsCastThisTurn ||= {};
+    this.state.spellsCastThisTurn[pid] = Number(this.state.spellsCastThisTurn[pid] || 0) + 1;
     this.emit(EVENT.SPELL_CAST, { controller: pid, card: c, targets: [...targets], mode, castOption, castFaceIndex: Number.isInteger(castFaceIndex) ? castFaceIndex : null });
     if (this._lastPaymentPlan?.length) this.emit(EVENT.MANA_SPENT_TO_CAST, { controller: pid, card: c, manaSourceIds: [...this._lastPaymentPlan] });
     this._queueWardTriggers(item, pid, targets);
@@ -2793,7 +2940,11 @@ export class GameEngine {
   _counterStackItem(stackItemId, reason = 'countered') {
     const item = this.stack.remove(stackItemId);
     if (!item) return null;
-    if (item.type === 'spell' && item.card && !item.isCopy) this._moveZoneNow(item.card, 'graveyard', item.card.owner);
+    if (item.type === 'spell' && item.card && !item.isCopy) {
+      const d = this.copy?.definitionForObject(item.card) || this.db[item.card.cardId] || {};
+      const castRule = (d.castingOptions || []).find(option => option.castOption === item.castOption);
+      this._moveZoneNow(item.card, castRule?.exileOnLeaveStack ? 'exile' : 'graveyard', item.card.owner);
+    }
     this.log('STACK_ITEM_COUNTERED', { stackItemId, controller: item.controller, reason, cardId: item.card?.cardId || null });
     return item;
   }
@@ -2958,6 +3109,17 @@ export class GameEngine {
     return cardInstanceId;
   }
 
+  _applySurveilChoice(pid, putInGraveyard) {
+    const choice = this.state.pendingChoice;
+    const player = this.state.players[pid];
+    this.state.pendingChoice = null;
+    if (player.library[0]?.instanceId === choice.cardInstanceId) {
+      this.libraryOps.surveil(pid, 1, { graveyardIds: putInGraveyard ? [choice.cardInstanceId] : [], reason: 'surveil' });
+    }
+    this._resumeAfterRulesChoice(choice);
+    return putInGraveyard;
+  }
+
   _applyScryChoice(pid, putOnBottom) {
     const choice = this.state.pendingChoice;
     const player = this.state.players[pid];
@@ -2976,11 +3138,33 @@ export class GameEngine {
     return result;
   }
 
+  _applyTriggerModeChoice(pid, modeId) {
+    const choice = this.state.pendingChoice;
+    const result = this.triggers.chooseMode(choice.triggerId, modeId);
+    this._resumeAfterRulesChoice(choice);
+    return result;
+  }
+
   _applyTriggerTargetChoice(pid, targetIds) {
     const choice = this.state.pendingChoice;
     this.triggers.chooseTargets(choice.triggerId, targetIds);
     this._resumeAfterRulesChoice(choice);
     return targetIds;
+  }
+
+  _applyColorChoice(pid, color) {
+    const choice = this.state.pendingChoice;
+    this.state.pendingChoice = null;
+    const pending = this.state.pendingResolution;
+    if (pending?.item?.card?.instanceId === choice.cardInstanceId) pending.item.card.chosenColor = color;
+    const zoned = ZoneManager.find(this.state, choice.cardInstanceId);
+    if (zoned?.card) zoned.card.chosenColor = color;
+    const permanent = this.findPermanent(choice.cardInstanceId);
+    if (permanent) permanent.chosenColor = color;
+    this.log('COLOR_CHOSEN', { controller: pid, cardInstanceId: choice.cardInstanceId, color });
+    this._resumePendingResolution();
+    if (!this.state.pendingChoice) this._resumeAfterRulesChoice(choice);
+    return color;
   }
 
   _applyCreatureTypeChoice(pid, creatureType) {
@@ -3216,10 +3400,16 @@ export class GameEngine {
   changeLife(pid, delta) {
     if (delta === 0) return 0;
     const type = delta > 0 ? ENGINE_EVENT.GAIN_LIFE : ENGINE_EVENT.LOSE_LIFE;
-    return this.replacements.dispatchWithChoice(type, {
-      playerId: pid,
-      amount: Math.abs(delta)
-    }, { cause: 'life-change', stabilize: false, affectedPlayerId: pid });
+    const result = this.replacements.dispatchWithChoice(type, { playerId: pid, amount: Math.abs(delta) }, { cause: 'life-change', stabilize: false, affectedPlayerId: pid });
+    if (delta < 0 && this.state.activePlayer && pid !== this.state.activePlayer) {
+      const active = this.state.players[this.state.activePlayer];
+      if (active && Number(active.speed || 0) > 0 && Number(active.speed || 0) < 4 && active.speedIncreasedTurn !== this.state.turn) {
+        active.speed = Math.min(4, Number(active.speed || 0) + 1);
+        active.speedIncreasedTurn = this.state.turn;
+        this.log('SPEED_INCREASED', { playerId: this.state.activePlayer, speed: active.speed });
+      }
+    }
+    return result;
   }
 
   _preventDamage(target, amount) {

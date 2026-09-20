@@ -1,3 +1,2 @@
-// Legacy root-level compatibility forwarder.
-// Canonical module: ./costs/ManaPool.js
+// Compatibility barrel: canonical implementation lives in ./costs/ManaPool.js
 export * from './costs/ManaPool.js';

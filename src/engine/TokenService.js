@@ -1,3 +1,2 @@
-// Legacy root-level compatibility forwarder.
-// Canonical module: ./tokens/TokenService.js
+// Compatibility barrel: canonical implementation lives in ./tokens/TokenService.js
 export * from './tokens/TokenService.js';

@@ -130,6 +130,9 @@ export function createGameState(deckA, deckBOrDecks, db, rng) {
     turnActionPending: null,
     cleanupPriority: false,
     cardsDrawnThisTurn: keyed(0),
+    spellsCastThisTurn: keyed(0),
+    spellsCastLastTurn: 0,
+    dayNight: null,
     extraTurns: keyed(0),
     extraTurnQueue: [],
     turnKind: 'normal',
@@ -170,6 +173,7 @@ export function createGameState(deckA, deckBOrDecks, db, rng) {
       validation: []
     },
     history: [],
+    monarch: null,
     winner: null,
     started: false,
     gameBegun: false

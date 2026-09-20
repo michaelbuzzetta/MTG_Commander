@@ -1,0 +1,14 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { OracleTemplateCompiler } from '../src/cards/compiler/OracleTemplateCompiler.js';
+import { CostEngine } from '../src/engine/costs/CostEngine.js';
+import { ReplacementEffect } from '../src/engine/replacement/ReplacementEffect.js';
+import { ENGINE_EVENT } from '../src/engine/events/EventTypes.js';
+const compiler=new OracleTemplateCompiler();
+const compile=(oracleText,typeLine='Instant')=>compiler.compileCard({id:'p60',name:'P60',typeLine,keywords:[],oracleText,manaCost:'{X}{G}'});
+const stub=(def={})=>({db:{c:{manaCost:'{X}{G}',...def}},commanders:null,state:{players:{p:{}}},static:{targetingTax:()=>0,spellGenericCostReduction:()=>0},mechanics:{affinityReduction:()=>0}});
+test('Step56 alternative casting cost is compiled and used',()=>{const r=compile('You may cast this spell for {2}{G} rather than pay its mana cost.');assert.equal(r.autoAccepted,true); const ce=new CostEngine(stub(r.compiledCard));assert.equal(ce.determineSpellCost('p',{instanceId:'i',cardId:'c',zone:'hand'},{castOption:'alternative'}).finalManaCost,'{2}{G}');});
+test('Step57 reductions/increases apply after base selection and never reduce colored symbols',()=>{const ce=new CostEngine(stub({manaCost:'{5}{G}'}));const x=ce.determineSpellCost('p',{instanceId:'i',cardId:'c',zone:'hand'},{costIncreases:[{generic:2}],costReductions:[{generic:4}]});assert.equal(x.finalManaCost,'{3}{G}');});
+test('Step58 X is locked from announced variables',()=>{const ce=new CostEngine(stub());const x=ce.determineSpellCost('p',{instanceId:'i',cardId:'c',zone:'hand'},{variables:{X:4}});assert.equal(x.finalManaCost,'{4}{G}');assert.equal(x.xValue,4);});
+test('Step59 complex activated costs lower selections to atomic payment primitives',()=>{const ce=new CostEngine({static:{targetingTax:()=>0}});const x=ce.determineAbilityCost('p',{instanceId:'s'},{cost:{life:2,discard:2,sacrifice:1,reveal:1}},{selections:['a','b','c']});assert.ok(x.nonManaCosts.some(c=>c.type==='payLife'));assert.equal(x.nonManaCosts.filter(c=>c.type==='discard').length,2);assert.equal(x.nonManaCosts.filter(c=>c.type==='sacrifice').length,1);assert.equal(x.nonManaCosts.filter(c=>c.type==='reveal').length,1);});
+test('Step60 declarative replacement supports damage prevention and amount multiplication',()=>{const prevent=ReplacementEffect.fromCardAbility({source:{instanceId:'s',cardId:'x',controller:'p'},definition:{name:'x'},ability:{event:'DAMAGE',effect:{kind:'prevent'}},abilityIndex:0,predicate:()=>true});assert.equal(prevent.apply({type:ENGINE_EVENT.DEAL_DAMAGE,payload:{amount:5}}).prevented,true);const dbl=ReplacementEffect.fromCardAbility({source:{instanceId:'s',cardId:'x',controller:'p'},definition:{name:'x'},ability:{event:'DRAW_CARD',effect:{kind:'multiplyAmount',factor:2}},abilityIndex:1,predicate:()=>true});assert.equal(dbl.apply({type:ENGINE_EVENT.DRAW_CARD,payload:{amount:1}}).payload.amount,2);});

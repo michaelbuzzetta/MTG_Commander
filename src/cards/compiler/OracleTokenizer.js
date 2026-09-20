@@ -1,4 +1,4 @@
-export const ORACLE_PARSER_VERSION = '1.3.0';
+export const ORACLE_PARSER_VERSION = '4.5.0';
 
 const NUMBER_WORDS = Object.freeze({
   zero: 0, a: 1, an: 1, one: 1, two: 2, three: 3, four: 4, five: 5,

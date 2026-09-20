@@ -171,7 +171,9 @@ test('Step 18: additional engine-backed keyword-only mechanics compile only as c
     assert.deepEqual(result.matchedTemplates, ['card.keyword-only']);
   }
   const extra = compiler.compileCard(card('prowess-extra', 'Prowess\nWhenever this creature attacks, draw a card.', { typeLine: 'Creature — Test', keywords: ['prowess'] }));
-  assert.equal(extra.autoAccepted, false);
+  assert.equal(extra.autoAccepted, true);
+  assert.equal(extra.composed, true);
+  assert.deepEqual(extra.matchedTemplates, ['card.keyword-only', 'trigger.attacks-draw-fixed']);
 });
 
 test('Step 18: targeted ETB counter, artifact removal, and damage templates preserve target contracts', () => {
@@ -361,4 +363,120 @@ test('Step 18: committed compiler snapshot has a clean self-diff while retaining
   assert.equal(changeDiff.changeCount, 0);
   assert.match(changeDiff.policy, /never silently accepted/i);
   assert.match(coverage.metricPolicy, /exact full-text high-confidence/i);
+});
+
+test('Step 7: static lord P/T effects compile into the continuous layer engine', () => {
+  const lord = compiler.compileCard(card('lord-fixture', 'Other creatures you control get +1/+1.', { typeLine: 'Creature — Lord', power: 2, toughness: 2 }));
+  assert.equal(lord.autoAccepted, true);
+  assert.deepEqual(lord.matchedTemplates, ['static.other-creatures-you-control-pt']);
+  assert.deepEqual(lord.compiledCard.abilities[0].filter, { type: 'Creature', controller: 'you', other: true });
+  assert.deepEqual(lord.compiledCard.abilities[0].effect, { power: 1, toughness: 1 });
+
+  const debuff = compiler.compileCard(card('debuff-fixture', 'Creatures your opponents control get -1/-1.', { typeLine: 'Enchantment' }));
+  assert.equal(debuff.autoAccepted, true);
+  assert.deepEqual(debuff.compiledCard.abilities[0].filter, { type: 'Creature', controller: 'opponent' });
+  assert.deepEqual(debuff.compiledCard.abilities[0].effect, { power: -1, toughness: -1 });
+});
+
+test('Step 7: static keyword grants/removal compile into layer 6 effects and remain fail-closed for unknown keywords', () => {
+  const grant = compiler.compileCard(card('keyword-lord', 'Creatures you control have flying and vigilance.', { typeLine: 'Enchantment' }));
+  assert.equal(grant.autoAccepted, true);
+  assert.deepEqual(grant.compiledCard.abilities[0].effect.keywords, ['flying', 'vigilance']);
+
+  const other = compiler.compileCard(card('other-keyword-lord', 'Other creatures you control have deathtouch.', { typeLine: 'Creature — Lord' }));
+  assert.equal(other.autoAccepted, true);
+  assert.equal(other.compiledCard.abilities[0].filter.other, true);
+
+  const remove = compiler.compileCard(card('keyword-hoser', 'Creatures your opponents control lose flying.', { typeLine: 'Enchantment' }));
+  assert.equal(remove.autoAccepted, true);
+  assert.deepEqual(remove.compiledCard.abilities[0].effect.removeKeywords, ['flying']);
+
+  const unknown = compiler.compileCard(card('unknown-static', 'Creatures you control have madeupability.', { typeLine: 'Enchantment' }));
+  assert.equal(unknown.autoAccepted, false);
+});
+
+test('Phase 9: common graveyard, self-return, blink, and linked exile Oracle families compile exactly', () => {
+  const reanimateAny = compiler.compileCard(card('reanimate-any', 'Return target creature card from a graveyard to the battlefield under your control.'));
+  assert.equal(reanimateAny.autoAccepted, true);
+  assert.equal(reanimateAny.compiledCard.spellEffects[0].type, 'scriptMoveZone');
+  assert.equal(reanimateAny.compiledCard.targets.zone, 'graveyard');
+
+  const selfHand = compiler.compileCard(card('self-hand', "When this creature dies, return it to its owner's hand.", { typeLine: 'Creature — Spirit' }));
+  assert.equal(selfHand.autoAccepted, true);
+  assert.deepEqual(selfHand.compiledCard.abilities[0].sourceZones, ['graveyard']);
+  assert.equal(selfHand.compiledCard.abilities[0].effect.type, 'moveEventObject');
+
+  const blink = compiler.compileCard(card('blink', "Exile target creature you control, then return it to the battlefield under its owner's control.", { typeLine: 'Instant' }));
+  assert.equal(blink.autoAccepted, true);
+  assert.equal(blink.compiledCard.spellEffects[0].type, 'blink');
+  assert.equal(blink.compiledCard.targets.controller, 'you');
+
+  const linked = compiler.compileCard(card('linked', 'When this enchantment enters, exile target nonland permanent an opponent controls until this permanent leaves the battlefield.', { typeLine: 'Enchantment' }));
+  assert.equal(linked.autoAccepted, true);
+  assert.equal(linked.compiledCard.abilities[0].effect.type, 'exileUntilSourceLeaves');
+  assert.equal(linked.compiledCard.abilities[0].targets.controller, 'opponent');
+});
+
+test('Phase 11: conditional spell effects compile through scriptIf and control predicates', () => {
+  const result = compiler.compileCard(card('conditional-draw', 'If you control an artifact, draw two cards.', { typeLine: 'Sorcery' }));
+  assert.equal(result.autoAccepted, true);
+  assert.deepEqual(result.matchedTemplates, ['conditional.spell-control']);
+  assert.equal(result.compiledCard.spellEffects[0].type, 'scriptIf');
+  assert.deepEqual(result.compiledCard.spellEffects[0].condition, { controllerControls: { type: 'Artifact', min: 1 } });
+  assert.deepEqual(result.compiledCard.spellEffects[0].then, { type: 'draw', amount: 2 });
+});
+
+test('Phase 11: intervening-if ETB conditions are preserved separately for trigger and resolution checks', () => {
+  const result = compiler.compileCard(card('intervening-etb', 'When this creature enters, if you control an artifact, draw a card.', { typeLine: 'Creature — Wizard', power: 2, toughness: 2 }));
+  assert.equal(result.autoAccepted, true);
+  assert.deepEqual(result.matchedTemplates, ['trigger.etb-intervening-control']);
+  const ability = result.compiledCard.abilities[0];
+  assert.deepEqual(ability.condition.controllerControls, { type: 'Artifact', min: 1 });
+  assert.deepEqual(ability.interveningIf, { controllerControls: { type: 'Artifact', min: 1 } });
+});
+
+test('Phase 11: subtype control conditions compile without hard-coding individual creature types', () => {
+  const result = compiler.compileCard(card('dragon-gate', 'At the beginning of your upkeep, if you control a Dragon, you gain 2 life.', { typeLine: 'Enchantment' }));
+  assert.equal(result.autoAccepted, true);
+  const ability = result.compiledCard.abilities[0];
+  assert.deepEqual(ability.condition.controllerControls, { subtype: 'Dragon', min: 1 });
+  assert.deepEqual(ability.interveningIf, { controllerControls: { subtype: 'Dragon', min: 1 } });
+});
+
+test('Phase 12: compiles life-payment activated cost', () => {
+  const c = new OracleTemplateCompiler();
+  const r = c.compileCard({ id:'p12-life', name:'P12 Life', typeLine:'Artifact', oracleText:'Pay 2 life: Draw a card.', keywords:[] });
+  assert.equal(r.status, 'compiled');
+  assert.equal(r.script.abilities[0].cost.life, 2);
+});
+
+test('Phase 12: compiles counter-removal activated cost', () => {
+  const c = new OracleTemplateCompiler();
+  const r = c.compileCard({ id:'p12-counter', name:'P12 Counter', typeLine:'Artifact', oracleText:'Remove a charge counter from this artifact: Draw a card.', keywords:[] });
+  assert.equal(r.status, 'compiled');
+  assert.deepEqual(r.script.abilities[0].cost.removeCounterSelf, { counter:'charge', amount:1 });
+});
+
+test('Phase 12: compiles selected sacrifice cost and preserves selection', () => {
+  const c = new OracleTemplateCompiler();
+  const r = c.compileCard({ id:'p12-sac', name:'P12 Sac', typeLine:'Creature — Human', oracleText:'Sacrifice another creature: Draw two cards.', keywords:[] });
+  assert.equal(r.status, 'compiled');
+  assert.equal(r.script.abilities[0].cost.sacrificeSelection, true);
+  assert.deepEqual(r.script.abilities[0].selection, { count:1, type:'Creature', other:true, tap:false });
+});
+
+test('Phase 16-18: keyword actions and fight compile to reusable primitives', () => {
+  const scry = compiler.compileCard(card('p18-scry', 'Scry 1.', { typeLine: 'Sorcery' }));
+  assert.equal(scry.autoAccepted, true);
+  assert.equal(scry.compiledCard.spellEffects[0].type, 'scry');
+
+  const surveil = compiler.compileCard(card('p18-surveil', 'Surveil 1.', { typeLine: 'Sorcery' }));
+  assert.equal(surveil.autoAccepted, true);
+  assert.equal(surveil.compiledCard.spellEffects[0].type, 'surveil');
+
+  const fight = compiler.compileCard(card('p18-fight', 'Two target creatures fight each other.', { typeLine: 'Sorcery' }));
+  assert.equal(fight.autoAccepted, true);
+  assert.equal(fight.compiledCard.spellEffects[0].type, 'fight');
+  assert.equal(fight.compiledCard.targets.minTargets, 2);
+  assert.equal(fight.compiledCard.targets.maxTargets, 2);
 });

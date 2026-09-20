@@ -6,9 +6,24 @@ function resolveValue(expr, ctx = {}) {
   if (expr == null || typeof expr === 'number' || typeof expr === 'string' || typeof expr === 'boolean') return expr;
   if (typeof expr !== 'object') return expr;
   if (expr.variable) return ctx.vars?.[expr.variable];
+  if (expr.xValue) return Number(ctx.xValue ?? ctx.mode?.xValue ?? 0);
   if (expr.eventField) return String(expr.eventField).split('.').reduce((value, key) => value?.[key], ctx.eventPayload);
   if (expr.sourcePower) return ctx.engine.static.derivedStats(ctx.engine.findPermanent(ctx.source?.instanceId) || ctx.source).power;
+  if (expr.sourceToughness) return ctx.engine.static.derivedStats(ctx.engine.findPermanent(ctx.source?.instanceId) || ctx.source).toughness;
+  if (expr.targetPower || expr.targetToughness || expr.targetManaValue) {
+    const index = Number(expr.targetIndex || 0);
+    const id = (ctx.targets || [])[index];
+    const permanent = id ? ctx.engine.findPermanent(id) : null;
+    if (!permanent) return 0;
+    if (expr.targetPower) return ctx.engine.static.derivedStats(permanent).power;
+    if (expr.targetToughness) return ctx.engine.static.derivedStats(permanent).toughness;
+    return Number((ctx.engine.copy?.definitionForObject(permanent) || ctx.engine.db[permanent.cardId] || {}).manaValue || 0);
+  }
+  if (expr.controllerHandCount) return Number(ctx.engine.state.players[ctx.controller]?.hand?.length || 0);
+  if (expr.controllerGraveyardCount) return Number(ctx.engine.state.players[ctx.controller]?.graveyard?.length || 0);
   if (expr.countSelector) return selectObjects(ctx.engine, ctx.controller, expr.countSelector, ctx).length;
+  if (expr.multiply) return [].concat(expr.multiply).reduce((product, item) => product * Number(resolveValue(item, ctx) || 0), 1);
+  if (expr.add) return [].concat(expr.add).reduce((sum, item) => sum + Number(resolveValue(item, ctx) || 0), 0);
   return expr;
 }
 
@@ -64,6 +79,30 @@ function conditionHolds(engine, condition, ctx = {}) {
   }
   if (condition.controllerLifeAtMost != null) return Number(engine.state.players[ctx.controller]?.life || 0) <= Number(condition.controllerLifeAtMost);
   if (condition.controllerLifeAtLeast != null) return Number(engine.state.players[ctx.controller]?.life || 0) >= Number(condition.controllerLifeAtLeast);
+  if (condition.controllerControls) {
+    const spec = condition.controllerControls;
+    const cards = engine.state.players[ctx.controller]?.battlefield || [];
+    const min = Number(spec.min ?? 1);
+    const count = cards.filter(card => {
+      if (spec.other && card.instanceId === ctx.source?.instanceId) return false;
+      if (spec.type && !engine.static.isType(card, spec.type)) return false;
+      if (spec.subtype && !engine.static.hasSubtype(card, spec.subtype)) return false;
+      return true;
+    }).length;
+    return count >= min;
+  }
+  if (condition.opponentControls) {
+    const spec = condition.opponentControls;
+    const min = Number(spec.min ?? 1);
+    return engine.opponents(ctx.controller).some(playerId => {
+      const cards = engine.state.players[playerId]?.battlefield || [];
+      return cards.filter(card => {
+        if (spec.type && !engine.static.isType(card, spec.type)) return false;
+        if (spec.subtype && !engine.static.hasSubtype(card, spec.subtype)) return false;
+        return true;
+      }).length >= min;
+    });
+  }
   if (condition.eventFieldEquals) {
     const actual = resolveValue({ eventField: condition.eventFieldEquals.path }, ctx);
     return actual === condition.eventFieldEquals.value;
@@ -141,7 +180,8 @@ export class CardScriptRuntime {
     for (const id of ids) {
       const found = ZoneManager.find(this.engine.state, id);
       if (!found?.card) continue;
-      const result = this.engine._moveZoneNow(found.card, effect.toZone, effect.toPlayer || found.card.owner);
+      const destinationPlayer = effect.toPlayer === 'controller' ? ctx.controller : effect.toPlayer === 'owner' ? found.card.owner : (effect.toPlayer || found.card.owner);
+      const result = this.engine._moveZoneNow(found.card, effect.toZone, destinationPlayer);
       if (result) moved.push(result);
     }
     return moved;

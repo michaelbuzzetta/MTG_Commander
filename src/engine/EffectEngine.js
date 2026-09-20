@@ -54,9 +54,23 @@ export class EffectEngine {
     e.state.priorityPlayer = pid;
   }
 
+  _effectPlayer(effect = {}, ctx = {}) {
+    const s = this.engine.state;
+    if (effect.player && typeof effect.player === 'object' && this.engine.cardScripts?.runtime) {
+      const resolved = this.engine.cardScripts.runtime.resolveValue(effect.player, ctx);
+      if (resolved && s.players[resolved]) return resolved;
+    }
+    if (typeof effect.player === 'string' && s.players[effect.player]) return effect.player;
+    if (effect.player === 'target') {
+      const id = (ctx.targets || []).find(value => !!s.players[value]);
+      if (id) return id;
+    }
+    return ctx.controller || s.activePlayer;
+  }
+
   resolve(effect, ctx = {}) {
     if (!effect) return;
-    const e = this.engine, s = e.state, pid = effect.player || ctx.controller || s.activePlayer, p = s.players[pid];
+    const e = this.engine, s = e.state, pid = this._effectPlayer(effect, ctx), p = s.players[pid];
     switch (effect.type) {
       case 'sequence':
         for (const child of effect.effects || []) { this.resolve(child, ctx); if (s.pendingChoice) break; }
@@ -79,6 +93,35 @@ export class EffectEngine {
       case 'scriptMoveZone':
         e.cardScripts.runtime.moveZone(effect, ctx);
         break;
+      case 'moveEventObject': {
+        const object = this._eventObject(ctx);
+        const ref = object?.instanceId || object?.gameObjectId || ctx.eventPayload?.target?.instanceId || null;
+        const found = ref ? ZoneManager.find(s, ref) : null;
+        if (!found?.card) break;
+        const destinationPlayer = effect.toPlayer === 'controller' ? pid : effect.toPlayer === 'owner' ? found.card.owner : (effect.toPlayer || found.card.owner);
+        e._moveZoneNow(found.card, effect.toZone, destinationPlayer, { reason: 'oracle-event-zone-move' });
+        break;
+      }
+      case 'blink': {
+        const targets = this._permanentTargets(ctx);
+        for (const target of targets) {
+          const owner = target.owner;
+          const exiled = e._moveZoneNow(target, 'exile', owner, { reason: 'blink-exile' });
+          if (exiled) e._moveZoneNow(exiled, 'battlefield', effect.returnTo === 'controller' ? pid : owner, { reason: 'blink-return' });
+        }
+        break;
+      }
+      case 'exileUntilSourceLeaves': {
+        const source = ctx.source?.instanceId ? e.findPermanent(ctx.source.instanceId) : null;
+        if (!source) break;
+        const targets = this._permanentTargets(ctx);
+        source.linkedExile = source.linkedExile || [];
+        for (const target of targets) {
+          const exiled = e._moveZoneNow(target, 'exile', target.owner, { reason: 'linked-exile' });
+          if (exiled) source.linkedExile.push({ instanceId: exiled.instanceId, owner: exiled.owner });
+        }
+        break;
+      }
       case 'scriptRemoveCounter':
         e.cardScripts.runtime.removeCounter(effect, ctx);
         break;
@@ -100,6 +143,18 @@ export class EffectEngine {
       case 'scriptRemoveAbility':
         e.cardScripts.runtime.removeAbility(effect, ctx);
         break;
+      case 'learn': {
+        // Constructed digital rules: outside-the-game Lessons are represented by
+        // an optional lessonBoard. If none is available, the discard/draw branch
+        // remains available and choice-aware.
+        const lessons = (p.lessonBoard || []).filter(card => /(?:^|—|\s)Lesson(?:$|\s)/i.test(card.typeLine || ''));
+        if (lessons.length) {
+          this._openCardChoice(pid, [...lessons.map(c => c.instanceId), ...p.hand.map(c => c.instanceId)], { min: 0, max: 1, prompt: 'Learn — choose a Lesson or a card to discard', continuation: { type: 'learnChoice', lessonIds: lessons.map(c => c.instanceId) } });
+        } else if (p.hand.length) {
+          this._openCardChoice(pid, p.hand.map(c => c.instanceId), { min: 0, max: 1, prompt: 'Learn — you may discard a card to draw a card', continuation: { type: 'discardChosenThenDraw', draw: 1 } });
+        }
+        break;
+      }
       case 'draw':
         for (let i = 0; i < this._amount(effect, ctx, 1); i++) { e.draw(pid); if (s.pendingChoice) break; }
         break;
@@ -110,7 +165,8 @@ export class EffectEngine {
         if (count > 0 && p.hand.length) this._openCardChoice(pid, p.hand.map(c => c.instanceId), { min: Math.min(count,p.hand.length), max: Math.min(count,p.hand.length), prompt: 'Choose card(s) to discard', continuation: { type: 'discardChosen' } });
         break;
       }
-      case 'gainLife': e.changeLife(pid, effect.amount || 1); break;
+      case 'gainLife': e.changeLife(pid, this._amount(effect, ctx, 1)); break;
+      case 'becomeMonarch': e.monarch.become(effect.targetPlayer || pid, { source: ctx.source }); break;
       case 'gainLifeTarget': {
         for (const targetPid of ctx.targets || []) if (s.players[targetPid]) e.changeLife(targetPid, effect.amount || 1);
         break;
@@ -122,13 +178,41 @@ export class EffectEngine {
         }
         break;
       }
-      case 'loseLife': e.changeLife(pid, -(effect.amount || 1)); break;
+      case 'loseLife': e.changeLife(pid, -this._amount(effect, ctx, 1)); break;
+      case 'fight': {
+        const ids = (ctx.targets || []).filter(id => !!e.findPermanent(id));
+        if (ids.length >= 2) {
+          const a = e.findPermanent(ids[0]), b = e.findPermanent(ids[1]);
+          if (a && b && e.static.isType(a, 'Creature') && e.static.isType(b, 'Creature')) {
+            const ap = Math.max(0, Number(e.static.derivedStats(a).power || 0));
+            const bp = Math.max(0, Number(e.static.derivedStats(b).power || 0));
+            e.damage.resolveBatch([
+              { targetId: b.instanceId, amount: ap, source: a, combat: false },
+              { targetId: a.instanceId, amount: bp, source: b, combat: false }
+            ], { cause: 'fight', combat: false, stabilize: true, emitType: 'FIGHT' });
+          }
+        }
+        break;
+      }
+      case 'surveil': {
+        const count = this._amount(effect, ctx, 1);
+        if (count === 1) {
+          const top = p.library[0];
+          if (top) {
+            s.pendingChoice = { type: 'SURVEIL', playerId: pid, cardInstanceId: top.instanceId, cardId: top.cardId, cardName: e.db[top.cardId]?.name || top.cardId, resume: this._choiceResume() };
+            s.priorityPlayer = pid;
+          }
+        } else {
+          throw new Error('Surveil counts greater than 1 require ordered multi-card choice support');
+        }
+        break;
+      }
       case 'damage': {
         for (const id of ctx.targets || []) {
-          if (s.players[id]) e.dealDamageToPlayer(id, effect.amount || 1, ctx.source);
+          if (s.players[id]) e.dealDamageToPlayer(id, this._amount(effect, ctx, 1), ctx.source);
           else {
             const permanent = e.findPermanent(id);
-            if (permanent) e.dealDamageToPermanent(permanent, effect.amount || 1, ctx.source);
+            if (permanent) e.dealDamageToPermanent(permanent, this._amount(effect, ctx, 1), ctx.source);
           }
         }
         break;
@@ -141,7 +225,35 @@ export class EffectEngine {
         break;
       }
       case 'addMana': e.mana.add(p, effect.mana || {}); break;
-      case 'createToken': this.createToken(pid, effect.token, effect.amount || 1, { source: ctx.source || null }); break;
+      case 'createToken': this.createToken(pid, effect.token, this._amount(effect, ctx, 1), { source: ctx.source || null }); break;
+      case 'backup': {
+        const source = ctx.source?.instanceId ? e.findPermanent(ctx.source.instanceId) : null;
+        if (!source) break;
+        const targetId = this._targetId(ctx) || source.instanceId;
+        e.keywordRuntime.backup(source, targetId, effect.amount);
+        break;
+      }
+      case 'exileReturnTransformedSelf': {
+        const source = ctx.source?.instanceId ? e.findPermanent(ctx.source.instanceId) : null;
+        if (source) e.events.dispatch('TRANSFORM', { permanentId: source.instanceId }, { cause:'saga-transform-chapter', stabilize:false });
+        break;
+      }
+      case 'livingWeapon': {
+        const source = ctx.source?.instanceId ? e.findPermanent(ctx.source.instanceId) : null;
+        if (!source) break;
+        const created = this.createToken(pid, { name:'Phyrexian Germ', typeLine:'Token Creature — Phyrexian Germ', subtypes:['Phyrexian','Germ'], colors:['B'], power:0, toughness:0, abilities:[] }, 1, { source });
+        const germ = Array.isArray(created) ? created[0] : null;
+        if (germ) e.attachments.attach(source, germ.instanceId, { reason:'living-weapon', attachmentType:'equipment', actionKind:'living-weapon' });
+        break;
+      }
+      case 'equipmentTokenAttach': {
+        const source = ctx.source?.instanceId ? e.findPermanent(ctx.source.instanceId) : null;
+        if (!source) break;
+        const created = this.createToken(pid, effect.token, 1, { source });
+        const token = Array.isArray(created) ? created[0] : null;
+        if (token) e.attachments.attach(source, token.instanceId, { reason:effect.reason || 'equipment-token-attach', attachmentType:'equipment', actionKind:effect.reason || 'equipment-token-attach' });
+        break;
+      }
       case 'transformSelf': {
         const source = e.findPermanent(ctx.source?.instanceId);
         if (source) e.events.dispatch(ENGINE_EVENT.TRANSFORM, { permanentId: source.instanceId }, { cause: 'transform-self', stabilize: false });
@@ -329,6 +441,17 @@ export class EffectEngine {
         e.turn.addExtraMainPhaseAfterCurrent();
         break;
       }
+      case 'crewVehicle': {
+        const vehicle = ctx.source?.instanceId ? e.findPermanent(ctx.source.instanceId) : null;
+        if (!vehicle) break;
+        e.continuous.register({
+          sourceId: vehicle.instanceId, layer: 4, duration: 'until-end-of-turn',
+          filter: { self: true }, transform: { addType: 'Creature' },
+          metadata: { createdTurn: e.state.turn, mechanic: 'crew' }
+        });
+        e.log('VEHICLE_CREWED', { controller: pid, vehicleId: vehicle.instanceId, crew: [...(ctx.selections || [])] });
+        break;
+      }
       case 'resolveSagaChapter': {
         const liveSaga = ctx.source?.instanceId ? e.findPermanent(ctx.source.instanceId) : null;
         if (!liveSaga) break;
@@ -348,8 +471,19 @@ export class EffectEngine {
         if (Number(chapter.number) === finalChapter) {
           e.emit(EVENT.SAGA_FINAL_RESOLVED, { controller: pid, source: liveSaga, chapter: chapter.number });
           const stillThere = e.findPermanent(liveSaga.instanceId);
-          if (stillThere) e.sacrifice(stillThere);
+          if (stillThere && e.static.hasSubtype(stillThere, 'Saga') && e.counters.count(stillThere, 'lore') >= finalChapter) stillThere.sagaFinalResolved = true;
         }
+        break;
+      }
+      case 'cascade': {
+        const sourceDef = ctx.source?.cardId ? e.db[ctx.source.cardId] : null;
+        const sourceManaValue = Number(effect.sourceManaValue ?? sourceDef?.manaValue ?? sourceDef?.cmc ?? 0);
+        e.libraryOps.cascade(pid, sourceManaValue, { reason: effect.reason || 'cascade' });
+        break;
+      }
+      case 'discover': {
+        const amount = this._amount(effect, ctx, 0);
+        e.libraryOps.discover(pid, amount, { reason: effect.reason || 'discover' });
         break;
       }
       case 'revealUntilToBattlefield': {
@@ -484,6 +618,23 @@ export class EffectEngine {
         }
         break;
       }
+      case 'tap': {
+        for (const target of this._permanentTargets(ctx)) e.tapPermanent(target);
+        break;
+      }
+      case 'skipNextUntap': {
+        for (const target of this._permanentTargets(ctx)) target.skipNextUntap = true;
+        break;
+      }
+      case 'increment': {
+        const source = e.findPermanent(ctx.source?.instanceId);
+        if (!source) break;
+        const castCard = ctx.event?.card || ctx.card || null;
+        const manaSpent = Number(ctx.event?.manaSpent ?? castCard?.manaSpent ?? castCard?.manaValue ?? (castCard ? e.db[castCard.cardId]?.manaValue : 0) ?? 0);
+        const stats = e.static.derivedStats(source);
+        if (manaSpent > Number(stats.power || 0) || manaSpent > Number(stats.toughness || 0)) this.addCounters(source.controller, source, '+1/+1', 1);
+        break;
+      }
       case 'untap': {
         for (const target of this._permanentTargets(ctx)) e.untapPermanent(target);
         break;
@@ -609,8 +760,20 @@ export class EffectEngine {
       case 'gainControl': {
         const target = this._permanentTargets(ctx)[0];
         if (target) {
+          const previousController = target.controller;
           e.changeController(target.instanceId, pid);
-          if (effect.attachIfEquipment && isType(e.db[target.cardId], 'Equipment')) target.attachedTo = ctx.source?.instanceId || null;
+          const moved = e.findPermanent(target.instanceId);
+          if (moved && effect.duration === 'until-end-of-turn') moved.temporaryControl = { previousController, expiresTurn: s.turn };
+          if (moved && effect.untap) e.untapPermanent(moved);
+          if (effect.attachIfEquipment && moved && isType(e.db[moved.cardId], 'Equipment')) moved.attachedTo = ctx.source?.instanceId || null;
+        }
+        break;
+      }
+      case 'combatRestriction': {
+        for (const target of this._permanentTargets(ctx)) {
+          if (effect.cantAttack) target.cantAttack = true;
+          if (effect.mustAttack) target.mustAttack = true;
+          target.temporaryCombatFlags = { expiresTurn: s.turn, cantAttack: !!effect.cantAttack, mustAttack: !!effect.mustAttack };
         }
         break;
       }
@@ -1003,6 +1166,11 @@ export class EffectEngine {
         });
         break;
       }
+      case 'exploit': { const src=e.findPermanent(ctx.source?.instanceId); if(src) e.keywordRuntime.exploit(src, effect.sacrificeId || ctx.sacrificeId || null); break; }
+      case 'cumulativeUpkeep': { const src=e.findPermanent(ctx.source?.instanceId); if(src) e.keywordRuntime.cumulativeUpkeep(src,{pay:!!(effect.pay ?? ctx.pay)}); break; }
+      case 'extort': { const src=e.findPermanent(ctx.source?.instanceId); if(src) e.keywordRuntime.extort(src,{pay:!!(effect.pay ?? ctx.pay)}); break; }
+      case 'melee': { const src=e.findPermanent(ctx.source?.instanceId); if(src) e.keywordRuntime.melee(src); break; }
+      case 'soulbond': { const src=e.findPermanent(ctx.source?.instanceId); if(src) e.keywordRuntime.soulbond(src,effect.partnerId||ctx.partnerId||null); break; }
       case 'sacrifice': {
         const t = e.selectPermanents(pid, effect.filter || {}, ctx)[0];
         if (t) e.sacrifice(t);

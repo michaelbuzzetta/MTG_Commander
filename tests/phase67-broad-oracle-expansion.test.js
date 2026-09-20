@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { OracleTemplateCompiler } from '../src/cards/compiler/OracleTemplateCompiler.js';
+const c=new OracleTemplateCompiler();
+const compile=(oracleText, extra={})=>c.compileCard({id:oracleText,name:'Test Card',layout:'normal',typeLine:'Creature — Test',keywords:[],oracleText,...extra});
+test('Phase67 common combat restrictions compile',()=>{assert.equal(compile("This creature can't block.").compiledCard.cantBlock,true);assert.equal(compile("This creature can't be blocked.").compiledCard.cantBeBlocked,true);assert.equal(compile('This creature attacks each combat if able.').compiledCard.mustAttack,true);});
+test('Phase67 fixed enter counters compile',()=>{assert.equal(compile('This creature enters with two +1/+1 counters on it.').autoAccepted,true);});
+test('Phase67 dual mana ability compiles',()=>{const r=compile('{T}: Add {R} or {G}.',{typeLine:'Land'});assert.equal(r.autoAccepted,true);assert.deepEqual(r.compiledCard.abilities[0].colors,['R','G']);});
+test('Phase67 no maximum hand size compiles',()=>{assert.equal(compile('You have no maximum hand size.',{typeLine:'Enchantment'}).compiledCard.noMaximumHandSize,true);});
+test('Phase67 exact counterspell compiles',()=>{assert.equal(compile('Counter target spell.',{typeLine:'Instant'}).autoAccepted,true);});

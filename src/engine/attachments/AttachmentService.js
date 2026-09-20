@@ -110,6 +110,17 @@ export class AttachmentService {
     return (this.engine.state.attachments || []).filter(item => item.hostId === id || item.hostGameObjectId === id);
   }
 
+
+  restrictionsForHost(ref) {
+    const out = {};
+    for (const relationship of this.relationshipsForHost(ref)) {
+      const attached = this.object(relationship.attachedId);
+      const restrictions = this.definition(attached)?.grantedRestrictions || {};
+      for (const [key, value] of Object.entries(restrictions)) if (value) out[key] = value;
+    }
+    return out;
+  }
+
   isAttached(ref) { return !!this.relationshipForAttached(ref); }
 
   isReconfigured(ref) {

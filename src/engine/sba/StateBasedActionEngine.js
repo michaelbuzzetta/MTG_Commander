@@ -174,6 +174,18 @@ export class StateBasedActionEngine {
 
   stabilize() {
     if (this.engine.state.pendingChoice) return false;
+    // Ascend does not use the stack. Once earned, the city's blessing persists.
+    for (const [playerId, player] of Object.entries(this.engine.state.players)) {
+      if (player.citysBlessing || (player.battlefield || []).length < 10) continue;
+      const hasAscendPermanent = (player.battlefield || []).some(permanent => {
+        const definition = this.engine.copy?.definitionForObject(permanent) || this.engine.db[permanent.cardId] || {};
+        return !!definition.ascend || (definition.keywords || []).some(keyword => String(keyword).toLowerCase() === 'ascend');
+      });
+      if (hasAscendPermanent) {
+        player.citysBlessing = true;
+        this.engine.log('CITYS_BLESSING_GAINED', { playerId, reason: 'ascend-permanent' });
+      }
+    }
     let changed = false;
     let guard = 0;
     while (guard++ < 100) {

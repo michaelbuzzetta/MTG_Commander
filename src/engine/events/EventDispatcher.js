@@ -277,6 +277,26 @@ export class EventDispatcher {
   }
 
   /**
+   * Commit a rules-defined simultaneous event set while deferring trigger
+   * stacking until every member has completed. Replacement effects still see
+   * each event individually; the shared batch metadata preserves simultaneity.
+   */
+  dispatchSimultaneous(requests = [], options = {}) {
+    if (!Array.isArray(requests)) throw new Error('Simultaneous event requests must be an array');
+    const batchId = options.batchId || uid('sim');
+    const results = [];
+    return this.engine._withDeferredTriggers(() => {
+      requests.forEach((request, index) => {
+        if (!request?.type) throw new Error('Each simultaneous event request requires a type');
+        const payload = { ...(request.payload || {}), simultaneousBatchId: batchId, simultaneousIndex: index, simultaneousSize: requests.length };
+        results.push(this.dispatch(request.type, payload, { ...(request.options || {}), stabilize: false, cause: request.options?.cause || options.cause || 'simultaneous-event' }));
+      });
+      if (options.stabilize !== false && !this.engine.state.pendingChoice) this.engine.stateBasedActions?.();
+      return { batchId, results };
+    });
+  }
+
+  /**
    * Publish an observation for triggers/logs without committing a second state
    * mutation. Existing card data subscribes to these legacy notification names.
    */

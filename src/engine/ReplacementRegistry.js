@@ -77,7 +77,7 @@ export class ReplacementRegistry {
     return this.cardAbilityIndex.get(eventType) || [];
   }
 
-  _matchesAbilityFilter(source, affectedPlayerId, target, ability = {}) {
+  _matchesAbilityFilter(source, affectedPlayerId, target, ability = {}, eventPayload = {}) {
     const filter = ability.filter || {};
     const targetDefinition = target?.cardId ? (this.engine.copy?.definitionForObject(target) || this.engine.db[target.cardId]) : null;
     if (filter.controller && filter.controller !== 'any') {
@@ -89,11 +89,15 @@ export class ReplacementRegistry {
         if (!['you', 'opponent'].includes(filter.controller) && affectedPlayerId !== filter.controller) return false;
       }
     }
+    if (filter.self && target?.instanceId !== source.instanceId) return false;
     if ((filter.notSelf || filter.other) && target?.instanceId === source.instanceId) return false;
     if (filter.type && !isType(targetDefinition, filter.type)) return false;
     if (filter.subtype && !hasSubtype(targetDefinition, filter.subtype)) return false;
     if (Array.isArray(filter.subtypes) && filter.subtypes.length && !filter.subtypes.some(subtype => hasSubtype(targetDefinition, subtype))) return false;
     if (filter.zone && target?.zone !== filter.zone) return false;
+    if (filter.fromZone && eventPayload?.fromZone !== filter.fromZone) return false;
+    if (filter.toZone && eventPayload?.toZone !== filter.toZone) return false;
+    if (filter.counterType && eventPayload?.counterType !== filter.counterType) return false;
     return true;
   }
 
@@ -102,14 +106,27 @@ export class ReplacementRegistry {
     const affectedPlayerId = engine.replacements.inferAffectedPlayer(event);
     const target = engine.replacements.inferAffectedObject(event);
     const effects = [];
-    for (const { source, definition, ability, abilityIndex } of this._cardRowsFor(event.type)) {
+    const rows = [...this._cardRowsFor(event.type)];
+    // A permanent's own replacement effect can modify how that object enters
+    // the battlefield even though the source is not on the battlefield yet.
+    // Pull self-scoped MOVE_ZONE replacements from the moving object's
+    // definition and merge them with battlefield-sourced replacements.
+    if (event.type === ENGINE_EVENT.MOVE_ZONE && target && event.payload?.toZone === 'battlefield') {
+      const enteringDefinition = target?.cardId ? (engine.copy?.definitionForObject(target) || engine.db[target.cardId]) : null;
+      for (let abilityIndex = 0; abilityIndex < (enteringDefinition?.abilities || []).length; abilityIndex++) {
+        const ability = enteringDefinition.abilities[abilityIndex];
+        if (ability?.type !== 'replacement' || !ability?.filter?.self || replacementEventType(ability) !== event.type) continue;
+        if (!rows.some(row => row.source?.instanceId === target.instanceId && row.abilityIndex === abilityIndex)) rows.push({ source: target, definition: enteringDefinition, ability, abilityIndex });
+      }
+    }
+    for (const { source, definition, ability, abilityIndex } of rows) {
       const predicate = (candidateEvent) => {
         if (ability.counterType && candidateEvent.payload?.counterType !== ability.counterType) return false;
         if (ability.event === 'TOKEN_CREATED' && ability.effect === 'manufactor') {
           const name = candidateEvent.payload?.tokenDefinition?.name || candidateEvent.payload?.tokenBatches?.[0]?.tokenDefinition?.name;
           if (!['Treasure', 'Food', 'Clue'].includes(name)) return false;
         }
-        return this._matchesAbilityFilter(source, affectedPlayerId, target, ability);
+        return this._matchesAbilityFilter(source, affectedPlayerId, target, ability, candidateEvent.payload || {});
       };
       const effect = ReplacementEffect.fromCardAbility({ source, definition, ability, abilityIndex, predicate });
       if (effect.applies(event, engine)) effects.push(effect);

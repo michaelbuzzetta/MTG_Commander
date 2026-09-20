@@ -44,13 +44,13 @@ export class CardScriptCompiler {
     };
 
     if (ability.kind === ABILITY_KIND.SPELL) return { kind: 'spell', effects: [this.compileEffect(ability.effect)], targets: targetSpec, id: ability.id, timing: clone(ability.timing, null) };
-    if (ability.kind === ABILITY_KIND.ACTIVATED) return { type: 'activated', cost: clone(ability.cost, {}), ...(ability.timing ? { timing: clone(ability.timing) } : {}), ...(ability.timing?.sorcerySpeed ? { sorcerySpeed: true } : {}), ...common, effect: this.compileEffect(ability.effect) };
-    if (ability.kind === ABILITY_KIND.TRIGGERED) return { type: 'triggered', event: clone(ability.event), sourceZones: clone(ability.sourceZones, undefined), condition: clone(ability.condition, {}), interveningIf: clone(ability.interveningIf, undefined), ...common, effect: this.compileEffect(ability.effect) };
+    if (ability.kind === ABILITY_KIND.ACTIVATED) return { type: 'activated', cost: clone(ability.cost, {}), ...(ability.sourceZones ? { sourceZones: clone(ability.sourceZones) } : {}), ...(ability.cost?.tap ? { tap: true } : {}), ...(ability.timing ? { timing: clone(ability.timing) } : {}), ...(ability.timing?.sorcerySpeed ? { sorcerySpeed: true } : {}), ...common, effect: this.compileEffect(ability.effect) };
+    if (ability.kind === ABILITY_KIND.TRIGGERED) return { type: 'triggered', event: clone(ability.event), sourceZones: clone(ability.sourceZones, undefined), condition: clone(ability.condition, {}), interveningIf: clone(ability.interveningIf, undefined), ...(ability.modes?.length ? { modes: ability.modes.map(mode => ({ ...clone(mode, {}), ...(mode.targets ? { targets: selectorToTargetSpec(mode.targets) } : {}), effect: this.compileEffect(mode.effect) })) } : {}), ...common, effect: this.compileEffect(ability.effect) };
     if (ability.kind === ABILITY_KIND.REPLACEMENT) {
       const replacement = ability.replacement ?? ability.effect;
       return { type: 'replacement', event: clone(ability.event), filter: clone(ability.filter, {}), affectedFilter: clone(ability.affectedFilter, undefined), ...common, ...(typeof replacement === 'string' ? { effect: replacement } : { effect: clone(replacement, {}) }) };
     }
-    if (ability.kind === ABILITY_KIND.STATIC) return { type: 'static', filter: clone(ability.filter, {}), ...common, effect: clone(ability.effect, {}) };
+    if (ability.kind === ABILITY_KIND.STATIC) return { type: 'static', filter: clone(ability.filter, {}), ...(ability.dependsOn?.length ? { dependsOn: clone(ability.dependsOn, []) } : {}), ...(ability.ruleObject ? { ruleObject: clone(ability.ruleObject) } : {}), ...(ability.ruleObjects?.length ? { ruleObjects: clone(ability.ruleObjects, []) } : {}), ...common, ...(ability.effect ? { effect: clone(ability.effect, {}) } : {}) };
     if (ability.kind === ABILITY_KIND.CDA) return { type: 'static', cda: true, filter: { self: true, ...clone(ability.filter, {}) }, ...common, effect: clone(ability.characteristic, {}) };
     throw new Error(`Unsupported ability kind ${ability.kind}`);
   }
@@ -90,6 +90,24 @@ export class CardScriptCompiler {
         ...(mode.targets || mode.target ? { targets: selectorToTargetSpec(mode.targets || mode.target, { minTargets: mode.minTargets, maxTargets: mode.maxTargets, optional: !!mode.optional }) } : {}),
         effects: [this.compileEffect(mode.effect ?? mode.effects)].filter(Boolean)
       }))];
+    }
+    // Oracle templates may contribute card-level casting metadata that cannot
+    // be represented as a resolving ability (for example flashback or a
+    // permission to cast this card from another zone). Keep this declarative
+    // and let GameEngine/CostEngine enforce it authoritatively.
+    const cardPatch = script.metadata?.cardPatch;
+    if (cardPatch && typeof cardPatch === 'object') {
+      if (Array.isArray(cardPatch.castingOptions)) {
+        compiled.castingOptions = [...(compiled.castingOptions || []), ...structuredClone(cardPatch.castingOptions)];
+      }
+      for (const [key, value] of Object.entries(cardPatch)) {
+        if (key === 'castingOptions') continue;
+        if (key === 'abilities' && Array.isArray(value)) {
+          compiled.abilities = [...(compiled.abilities || []), ...structuredClone(value)];
+          continue;
+        }
+        compiled[key] = structuredClone(value);
+      }
     }
     compiled.scriptVersion = Number(script.version ?? CARD_SCRIPT_VERSION);
     compiled.scriptCompiled = true;
