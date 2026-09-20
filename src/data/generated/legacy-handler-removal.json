@@ -14,7 +14,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 188,
+          "line": 300,
           "effectType": "stationCharge",
           "snippet": "case 'stationCharge': {"
         }
@@ -30,7 +30,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 183,
+          "line": 295,
           "effectType": "createSpiritsPerPermanent",
           "snippet": "case 'createSpiritsPerPermanent': {"
         }
@@ -46,7 +46,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 194,
+          "line": 306,
           "effectType": "stanggTwin",
           "snippet": "case 'stanggTwin': {"
         }
@@ -62,7 +62,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 269,
+          "line": 381,
           "effectType": "bulliesDonate",
           "snippet": "case 'bulliesDonate': {"
         }
@@ -78,13 +78,13 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 652,
+          "line": 815,
           "effectType": "exploreAll",
           "snippet": "case 'exploreAll': {"
         },
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 668,
+          "line": 831,
           "effectType": "hakbalAttack",
           "snippet": "case 'hakbalAttack': {"
         }
@@ -100,7 +100,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 464,
+          "line": 598,
           "effectType": "returnAttackers",
           "snippet": "case 'returnAttackers': {"
         }
@@ -116,7 +116,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 637,
+          "line": 800,
           "effectType": "castPermission",
           "snippet": "case 'castPermission':"
         }
@@ -132,7 +132,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 106,
+          "line": 161,
           "effectType": "drawDiscard",
           "snippet": "case 'drawDiscard': {"
         }
@@ -148,7 +148,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 927,
+          "line": 1090,
           "effectType": "copySpellByInstance",
           "snippet": "case 'copySpellByInstance': {"
         }
@@ -164,7 +164,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 575,
+          "line": 726,
           "effectType": "drawEventAmount",
           "snippet": "case 'drawEventAmount':"
         }
@@ -180,7 +180,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 514,
+          "line": 665,
           "effectType": "levelUp",
           "snippet": "case 'levelUp': {"
         }
@@ -196,7 +196,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 446,
+          "line": 580,
           "effectType": "additionalLandPlay",
           "snippet": "case 'additionalLandPlay':"
         }
@@ -212,7 +212,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 449,
+          "line": 583,
           "effectType": "putLandFromHand",
           "snippet": "case 'putLandFromHand': {"
         }
@@ -228,7 +228,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 564,
+          "line": 715,
           "effectType": "drawPerCreaturesWithCounter",
           "snippet": "case 'drawPerCreaturesWithCounter': {"
         }
@@ -244,7 +244,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 487,
+          "line": 638,
           "effectType": "untap",
           "snippet": "case 'untap': {"
         }
@@ -260,13 +260,13 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 505,
+          "line": 656,
           "effectType": "addCountersAll",
           "snippet": "case 'addCountersAll': {"
         },
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 524,
+          "line": 675,
           "effectType": "addKeywordSource",
           "snippet": "case 'addKeywordSource': {"
         }
@@ -282,13 +282,13 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 578,
+          "line": 729,
           "effectType": "moveCounterToEvent",
           "snippet": "case 'moveCounterToEvent': {"
         },
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 811,
+          "line": 974,
           "effectType": "optionalEffect",
           "snippet": "case 'optionalEffect': {"
         }
@@ -304,7 +304,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 749,
+          "line": 912,
           "effectType": "pumpEventObject",
           "snippet": "case 'pumpEventObject': {"
         }
@@ -320,7 +320,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 491,
+          "line": 642,
           "effectType": "tapOrUntap",
           "snippet": "case 'tapOrUntap': {"
         }
@@ -336,7 +336,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 942,
+          "line": 1105,
           "effectType": "playHideaway",
           "snippet": "case 'playHideaway': {"
         }
@@ -352,7 +352,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 956,
+          "line": 1119,
           "effectType": "myriadLandscape",
           "snippet": "case 'myriadLandscape': {"
         }
@@ -368,7 +368,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 588,
+          "line": 739,
           "effectType": "putLandFromHandIfExploredLand",
           "snippet": "case 'putLandFromHandIfExploredLand': {"
         }
@@ -384,7 +384,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 569,
+          "line": 720,
           "effectType": "drawSourcePower",
           "snippet": "case 'drawSourcePower': {"
         }
@@ -400,7 +400,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 921,
+          "line": 1084,
           "effectType": "copySpell",
           "snippet": "case 'copySpell': {"
         }
@@ -416,7 +416,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 905,
+          "line": 1068,
           "effectType": "ruinousIntrusion",
           "snippet": "case 'ruinousIntrusion': {"
         }
@@ -432,7 +432,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 841,
+          "line": 1004,
           "effectType": "winIfSourceCounterAtLeast",
           "snippet": "case 'winIfSourceCounterAtLeast': {"
         }
@@ -448,7 +448,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 609,
+          "line": 760,
           "effectType": "gainControl",
           "snippet": "case 'gainControl': {"
         }
@@ -464,7 +464,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 561,
+          "line": 712,
           "effectType": "drawPerCreatures",
           "snippet": "case 'drawPerCreatures':"
         }
@@ -481,12 +481,12 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 1330,
+          "line": 1498,
           "snippet": "const trackerCount = this.engine.state.players[live.controller].battlefield.filter(card => card.cardId === 'lcc-topography-tracker' && !card.phasedOut).length;"
         },
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 634,
+          "line": 797,
           "effectType": "makeMap",
           "snippet": "case 'makeMap':"
         }
@@ -502,7 +502,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 629,
+          "line": 792,
           "effectType": "mentor",
           "snippet": "case 'mentor': {"
         }
@@ -518,7 +518,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 597,
+          "line": 748,
           "effectType": "doubleCounters",
           "snippet": "case 'doubleCounters': {"
         }
@@ -534,7 +534,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 471,
+          "line": 605,
           "effectType": "returnCreaturesWithoutCounter",
           "snippet": "case 'returnCreaturesWithoutCounter': {"
         }
@@ -550,7 +550,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 594,
+          "line": 745,
           "effectType": "untapPermanentsWithCounters",
           "snippet": "case 'untapPermanentsWithCounters':"
         }
@@ -566,7 +566,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 834,
+          "line": 997,
           "effectType": "conditionalDraw",
           "snippet": "case 'conditionalDraw': {"
         }
@@ -582,7 +582,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 643,
+          "line": 806,
           "effectType": "explore",
           "snippet": "case 'explore': {"
         }
@@ -598,7 +598,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 704,
+          "line": 867,
           "effectType": "sisayTutor",
           "snippet": "case 'sisayTutor': {"
         }
@@ -614,7 +614,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 283,
+          "line": 395,
           "effectType": "jhoiraSuspend",
           "snippet": "case 'jhoiraSuspend': {"
         }
@@ -630,7 +630,7 @@
       "references": [
         {
           "file": "src/engine/EffectEngine.js",
-          "line": 364,
+          "line": 498,
           "effectType": "tomBombadilCascade",
           "snippet": "case 'tomBombadilCascade': {"
         }

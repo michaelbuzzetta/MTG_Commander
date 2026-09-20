@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "rulesVersion": "mtg-cr-2026-08-07",
-  "generatedAt": "2026-09-17T23:51:28.560Z",
+  "generatedAt": "2026-09-20T19:10:39.499Z",
   "cards": [
     {
       "cardId": "aang",
@@ -12470,7 +12470,7 @@
       "strictEligible": true,
       "caveats": [],
       "identityWarnings": [],
-      "testCount": 11,
+      "testCount": 12,
       "testFiles": [
         "ai.test.js",
         "category9.test.js",
@@ -12478,6 +12478,7 @@
         "explorers-complete.test.js",
         "land-entry.test.js",
         "mana.test.js",
+        "phase25-27-batch.test.js",
         "release-mdfc-reveal-until.test.js",
         "release-mechanic-registry-conformance.test.js",
         "step13-combat-engine.test.js",
