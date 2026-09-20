@@ -1,0 +1,25 @@
+MTG Commander bootstrap installers
+
+Place the installer for your operating system in the root of the cloned
+MTG_Commander repository (the same directory as package.json).
+
+macOS:
+  chmod +x Setup_MTG_Commander_macOS.command
+  ./Setup_MTG_Commander_macOS.command
+
+Windows:
+  Right-click Setup_MTG_Commander_Windows.ps1 and choose Run with PowerShell.
+  If script execution is blocked, open PowerShell in the project folder and run:
+    powershell -ExecutionPolicy Bypass -File .\Setup_MTG_Commander_Windows.ps1
+
+Both installers:
+- install/check the platform package manager where applicable
+- install/check Node.js 22
+- install MongoDB Community Server
+- start MongoDB
+- verify localhost:27017
+- install npm project dependencies
+- run the architecture check
+
+After setup:
+  npm run dev
