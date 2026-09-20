@@ -1,0 +1,30 @@
+[
+  {
+    "id": "temporal-paradox",
+    "name": "Temporal Paradox",
+    "description": "Suspend impossible threats with Jhoira, manipulate time counters, and take extra turns while the future crashes into the present.",
+    "commander": "Jhoira of the Ghitu",
+    "cards": [
+      "Jhoira of the Ghitu", "Artisan of Kozilek", "Pathrazer of Ulamog", "Triplicate Titan", "Ulamog's Crusher", "It That Betrays", "Jin-Gitaxias, Progress Tyrant", "Sphinx of the Second Sun", "Consecrated Sphinx", "Jhoira's Timebug", "Rift Elemental", "Deep-Sea Kraken",
+      "Sol Ring", "Arcane Signet", "Izzet Signet", "Talisman of Creativity", "Fellwar Stone", "Mind Stone", "Thought Vessel", "Basalt Monolith", "Thran Dynamo", "Gilded Lotus",
+      "Clockspinning", "Fury Charm", "Timecrafting", "Delay", "Ancestral Vision", "Wheel of Fate", "Paradox Haze", "As Foretold", "Omniscience",
+      "Time Stretch", "Temporal Mastery", "Temporal Trespass", "Nexus of Fate", "Beacon of Tomorrows",
+      "Evacuation", "Chaos Warp", "Pongify", "Rapid Hybridization", "Reality Shift", "Resculpt", "Vandalblast", "Blasphemous Act",
+      "Counterspell", "Arcane Denial", "Negate", "Wash Away", "Swan Song", "An Offer You Can't Refuse", "Flusterstorm", "Pact of Negation", "Bolt Bend", "Narset's Reversal",
+      "Mystic Remora", "Fact or Fiction", "Brainstorm", "Ponder", "Preordain", "Jeska's Will", "Dig Through Time", "Treasure Cruise", "Frantic Search",
+      "Lightning Greaves", "Swiftfoot Boots",
+      "Command Tower", "Steam Vents", "Training Center", "Spirebluff Canal", "Stormcarved Coast", "Shivan Reef", "Sulfur Falls", "Riverglide Pathway", "Cascade Bluffs", "Fiery Islet", "Temple of Epiphany", "Frostboil Snarl", "Myriad Landscape", "Desolate Lighthouse", "Reliquary Tower", "Otawara, Soaring City", "Exotic Orchard", "Reflecting Pool", "Temple of the False God",
+      "Island", "Island", "Island", "Island", "Island", "Island", "Island", "Island", "Island", "Island",
+      "Mountain", "Mountain", "Mountain", "Mountain", "Mountain", "Mountain"
+    ]
+  },
+  {
+    "id": "never-ending-story",
+    "name": "Never Ending Story",
+    "description": "Tell an endless five-color chain of Sagas with Tom Bombadil, moving lore counters and turning every final chapter into the next story.",
+    "commander": "Tom Bombadil",
+    "cards": [
+      "Arcane Signet", "Archon of Sun's Grace", "Arid Mesa", "Barbara Wright", "Binding the Old Gods", "Birds of Paradise", "Birth of the Imperium", "Blood Crypt", "Bloodstained Mire", "Bloom Tender", "Boseiju, Who Endures", "Breeding Pool", "Chromatic Lantern", "City of Brass", "Command Tower", "Cyclonic Rift", "Demonic Tutor", "Destiny Spinner", "Dryad of the Ilysian Grove", "Eidolon of Blossoms", "Elspeth Conquers Death", "Enchantress's Presence", "Enlightened Tutor", "Estrid's Invocation", "Exotic Orchard", "Fable of the Mirror-Breaker // Reflection of Kiki-Jiki", "Farseek", "Fierce Guardianship", "Flooded Strand", "Forest", "Godless Shrine", "Goldberry, River-Daughter", "Hall of Heliod's Generosity", "Hallowed Fountain", "Heroic Intervention", "Historian's Boon", "In the Darkness Bind Them", "Indatha Triome", "Jugan Defends the Temple // Remnant of the Rising Star", "Jukai Naturalist", "Ketria Triome", "Kiora Bests the Sea God", "Mana Confluence", "Marsh Flats", "Misty Rainforest", "Narci, Fable Singer", "Nature's Lore", "Nesting Grounds", "One Ring to Rule Them All", "Otawara, Soaring City", "Overgrown Tomb", "Polluted Delta", "Power Conduit", "Reflecting Pool", "Resurgent Belief", "Rhystic Study", "Sacred Foundry", "Sanctum Weaver", "Satsuki, the Living Lore", "Scalding Tarn", "Scroll of Isildur", "Setessan Champion", "Sigurd, Jarl of Ravensthorpe", "Sol Ring", "Spara's Headquarters", "Starfield of Nyx", "Steam Vents", "Sterling Grove", "Stomping Ground", "Summon: Bahamut", "Summon: Knights of Round", "Summon: Primal Odin", "Summon: Yojimbo", "Swan Song", "Swords to Plowshares", "Sythis, Harvest's Hand", "Teferi's Protection", "Temple Garden", "The Akroan War", "The Cruelty of Gix", "The Eldest Reborn", "The First Iroan Games", "The Horus Heresy", "The Kami War // O-Kagachi Made Manifest", "The Restoration of Eiganjo // Architect of Restoration", "The Weatherseed Treaty", "The World Tree", "There and Back Again", "Three Visits", "Tom Bombadil", "Urza's Saga", "Vampiric Tutor", "Verdant Catacombs", "War of the Last Alliance", "Watery Grave", "Weaver of Harmony", "Windswept Heath", "Wooded Foothills", "Yenna, Redtooth Regent", "Zagoth Triome"
+    ]
+  }
+]

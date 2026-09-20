@@ -1,0 +1,11 @@
+services:
+  mongodb:
+    image: mongo:8
+    container_name: mtg-commander-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mtg_card_database:/data/db
+volumes:
+  mtg_card_database:

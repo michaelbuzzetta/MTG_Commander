@@ -1,0 +1,698 @@
+{
+  "ertai-self-counter": {
+    "Ability to Counter": {
+      "id": 229722126,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Ability to Counter"
+    },
+    "Artifact Removal": {
+      "id": 229781225,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Artifact Removal"
+    },
+    "Blink": {
+      "id": 229601555,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Blink"
+    },
+    "Burn": {
+      "id": 229722608,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Burn"
+    },
+    "Commander": {
+      "id": 229597134,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": true,
+      "name": "Commander"
+    },
+    "Copy": {
+      "id": 229599354,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Copy"
+    },
+    "Counter Ability": {
+      "id": 229720994,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Counter Ability"
+    },
+    "Counter Spell": {
+      "id": 229732388,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Counter Spell"
+    },
+    "Counters": {
+      "id": 229605554,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Counters"
+    },
+    "Creature": {
+      "id": 229665320,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Creature"
+    },
+    "Creature Removal": {
+      "id": 229721150,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Creature Removal"
+    },
+    "Discard": {
+      "id": 229600371,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Discard"
+    },
+    "Drain": {
+      "id": 229648267,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Drain"
+    },
+    "Draw": {
+      "id": 229600385,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Draw"
+    },
+    "Enchantment Removal": {
+      "id": 229781324,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Enchantment Removal"
+    },
+    "Evasion": {
+      "id": 229716505,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Evasion"
+    },
+    "Finisher": {
+      "id": 229730782,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Finisher"
+    },
+    "Graveyard Hate": {
+      "id": 229723080,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Graveyard Hate"
+    },
+    "Land": {
+      "id": 229656103,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Land"
+    },
+    "Lifegain": {
+      "id": 229722695,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Lifegain"
+    },
+    "Maybeboard": {
+      "id": 229781350,
+      "includedInDeck": false,
+      "includedInPrice": false,
+      "isPremier": false,
+      "name": "Maybeboard"
+    },
+    "Mill/Surveil/Gravefill": {
+      "id": 230072716,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Mill/Surveil/Gravefill"
+    },
+    "Planeswalker Removal": {
+      "id": 229721245,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Planeswalker Removal"
+    },
+    "Protection": {
+      "id": 229624899,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Protection"
+    },
+    "Pump": {
+      "id": 230012533,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Pump"
+    },
+    "Ramp": {
+      "id": 229599678,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Ramp"
+    },
+    "Recursion": {
+      "id": 229621171,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Recursion"
+    },
+    "Removal": {
+      "id": 229597124,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Removal"
+    },
+    "Sac Outlet": {
+      "id": 229603100,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Sac Outlet"
+    },
+    "Sideboard": {
+      "id": 229723102,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Sideboard"
+    },
+    "Snow": {
+      "id": 229740851,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Snow"
+    },
+    "Theft": {
+      "id": 229632260,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Theft"
+    },
+    "Token Creature": {
+      "id": 229722063,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Token Creature"
+    },
+    "Tokens": {
+      "id": 229599114,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Tokens"
+    },
+    "Tutor": {
+      "id": 229676021,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Tutor"
+    }
+  },
+  "myojin-challenge": {
+    "Anthem": {
+      "id": 237009815,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Anthem"
+    },
+    "Bounce": {
+      "id": 236440806,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Bounce"
+    },
+    "Commander": {
+      "id": 236439409,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": true,
+      "name": "Commander"
+    },
+    "Counters": {
+      "id": 237012804,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Counters"
+    },
+    "Draw": {
+      "id": 237009012,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Draw"
+    },
+    "Land": {
+      "id": 236440063,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Land"
+    },
+    "Maybeboard": {
+      "id": null,
+      "includedInDeck": false,
+      "includedInPrice": false,
+      "isPremier": false,
+      "name": "Maybeboard"
+    },
+    "Proliferate": {
+      "id": 236440606,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Proliferate"
+    },
+    "Protection": {
+      "id": 236440338,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Protection"
+    },
+    "Ramp": {
+      "id": 236440235,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Ramp"
+    },
+    "Recursion": {
+      "id": 237008366,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Recursion"
+    },
+    "Removal": {
+      "id": 237008800,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Removal"
+    },
+    "Sideboard": {
+      "id": null,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Sideboard"
+    },
+    "Tokens": {
+      "id": 237009772,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Tokens"
+    }
+  },
+  "stangg-twin": {
+    "Burn": {
+      "id": 200085580,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Burn"
+    },
+    "Commander": {
+      "id": 200076810,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": true,
+      "name": "Commander"
+    },
+    "Creature": {
+      "id": 203630600,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Creature"
+    },
+    "Draw": {
+      "id": 200076804,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Draw"
+    },
+    "Evasion": {
+      "id": 200076808,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Evasion"
+    },
+    "Finisher": {
+      "id": 200076801,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Finisher"
+    },
+    "Infect": {
+      "id": 200078574,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Infect"
+    },
+    "Land": {
+      "id": 200076807,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Land"
+    },
+    "Landfall": {
+      "id": 200092035,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Landfall"
+    },
+    "Lifegain": {
+      "id": 200076811,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Lifegain"
+    },
+    "Maybeboard": {
+      "id": 239605557,
+      "includedInDeck": false,
+      "includedInPrice": false,
+      "isPremier": false,
+      "name": "Maybeboard"
+    },
+    "Protection": {
+      "id": 200076809,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Protection"
+    },
+    "Pump": {
+      "id": 200076802,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Pump"
+    },
+    "Ramp": {
+      "id": 200076803,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Ramp"
+    },
+    "Recursion": {
+      "id": 200076812,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Recursion"
+    },
+    "Removal": {
+      "id": 200076805,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Removal"
+    },
+    "Sideboard": {
+      "id": 261848101,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Sideboard"
+    },
+    "Tokens": {
+      "id": 200076806,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Tokens"
+    },
+    "Tokens & Extras": {
+      "id": 200093334,
+      "includedInDeck": false,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Tokens & Extras"
+    }
+  },
+  "inspirit-spacecraft": {
+    "Artifact": {
+      "id": 182979342,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Artifact"
+    },
+    "Commander": {
+      "id": 166281562,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": true,
+      "name": "Commander"
+    },
+    "Creature": {
+      "id": 166619657,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Creature"
+    },
+    "Engine Room (Ramp)": {
+      "id": 166299407,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Engine Room (Ramp)"
+    },
+    "Fuel Reserves (Card Draw)": {
+      "id": 166323872,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Fuel Reserves (Card Draw)"
+    },
+    "Hangar Bay (Spacecraft)": {
+      "id": 166326417,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Hangar Bay (Spacecraft)"
+    },
+    "Maybeboard": {
+      "id": 167039824,
+      "includedInDeck": false,
+      "includedInPrice": false,
+      "isPremier": false,
+      "name": "Maybeboard"
+    },
+    "Planetary Registry (Land)": {
+      "id": 166330639,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Planetary Registry (Land)"
+    },
+    "Shore Leave(Maybeboard)": {
+      "id": 166581531,
+      "includedInDeck": false,
+      "includedInPrice": false,
+      "isPremier": false,
+      "name": "Shore Leave(Maybeboard)"
+    },
+    "Sideboard": {
+      "id": 243254112,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Sideboard"
+    },
+    "Tech": {
+      "id": 166326733,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Tech"
+    },
+    "The Crew (Creatures/PWs)": {
+      "id": 166326254,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "The Crew (Creatures/PWs)"
+    },
+    "Weapon Systems (Interaction/Wincons)": {
+      "id": 166327259,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Weapon Systems (Interaction/Wincons)"
+    }
+  },
+  "bullies-face-down": {
+    "Bully / Pet": {
+      "id": 97010590,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Bully / Pet"
+    },
+    "Combo #1": {
+      "id": 93932533,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Combo #1"
+    },
+    "Combo #2": {
+      "id": 176882972,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Combo #2"
+    },
+    "Commander": {
+      "id": 93922128,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": true,
+      "name": "Commander"
+    },
+    "Creature": {
+      "id": 93922214,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Creature"
+    },
+    "Draw": {
+      "id": 93922132,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Draw"
+    },
+    "Face Down": {
+      "id": 93931225,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Face Down"
+    },
+    "Fill Yard": {
+      "id": 93931124,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Fill Yard"
+    },
+    "Flip Up": {
+      "id": 98331182,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Flip Up"
+    },
+    "Land": {
+      "id": 93932871,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Land"
+    },
+    "Maybeboard": {
+      "id": null,
+      "includedInDeck": false,
+      "includedInPrice": false,
+      "isPremier": false,
+      "name": "Maybeboard"
+    },
+    "Protect": {
+      "id": 93922131,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Protect"
+    },
+    "Ramp": {
+      "id": 93922129,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Ramp"
+    },
+    "Recur": {
+      "id": 93934211,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Recur"
+    },
+    "Removal": {
+      "id": 93922130,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Removal"
+    },
+    "Sideboard": {
+      "id": 95116319,
+      "includedInDeck": false,
+      "includedInPrice": false,
+      "isPremier": false,
+      "name": "Sideboard"
+    },
+    "Tutor": {
+      "id": 93922133,
+      "includedInDeck": true,
+      "includedInPrice": true,
+      "isPremier": false,
+      "name": "Tutor"
+    }
+  }
+}

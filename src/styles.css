@@ -603,3 +603,304 @@ button{cursor:pointer;color:inherit}
 }
 .deck-library-card-row.unsupported { opacity: .82; }
 .deck-library-card-row.unsupported .deck-library-card-name small { font-weight: 600; }
+
+/* ========================================================================== */
+/* 2026-09-20 Responsive multiplayer table overhaul                           */
+/* Major play surfaces stay in normal document flow: nothing is allowed to    */
+/* cover the battlefield. Player count changes the table composition itself.   */
+/* ========================================================================== */
+body{min-width:760px;overflow-x:auto}
+.game-shell{
+  --phase-h:50px;
+  --action-h:auto;
+  --hand-h:auto;
+  height:auto;
+  min-height:100dvh;
+  padding:0;
+  overflow:visible;
+}
+.game-shell:before{position:absolute}
+.phase-banner{position:sticky;top:0;height:var(--phase-h);flex:0 0 var(--phase-h)}
+.table.multiplayer-table{
+  flex:1 0 auto;
+  min-height:500px;
+  padding:10px clamp(10px,2vw,28px) 8px;
+  display:grid;
+  gap:8px;
+  grid-template-rows:auto 34px minmax(250px,1fr) auto;
+}
+.opponent-arena{padding:0;gap:10px;overflow:visible}
+
+/* Duel: one broad opponent board, preserving the familiar across-the-table view. */
+.multiplayer-table.opponents-1 .opponent-arena{grid-template-columns:minmax(0,1fr)}
+.multiplayer-table.opponents-1 .opponent-seat{min-height:240px}
+
+/* Three-player: the two opponents share the far side equally. */
+.multiplayer-table.opponents-2 .opponent-arena{grid-template-columns:repeat(2,minmax(0,1fr))}
+.multiplayer-table.opponents-2 .opponent-seat{min-height:235px}
+
+/* Four-player: three distinct seats across the far side. The center seat is a
+   little wider to make the visual table feel radial without using overlays. */
+.multiplayer-table.opponents-3 .opponent-arena{grid-template-columns:minmax(220px,.92fr) minmax(260px,1.16fr) minmax(220px,.92fr)}
+.multiplayer-table.opponents-3 .opponent-seat{min-height:225px}
+.multiplayer-table.opponents-3 .opponent-seat:nth-child(2){transform:none}
+
+.opponent-seat{overflow:hidden}
+.opponent-play-area{min-height:175px}
+.opponent-seat .battle-zone{overflow:auto;scrollbar-width:thin}
+.opponent-seat .battlefield{min-height:165px;justify-content:space-around}
+.opponent-seat .permanent-row{flex:1 0 68px;min-height:68px}
+.opponent-seat .permanent-row.land-row{min-height:64px}
+.opponent-seat .permanent-cards{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;overflow-y:visible;padding:7px 10px 7px 32px;min-width:0;scrollbar-width:thin}
+.opponent-seat .card,.opponents-2 .opponent-seat .card,.opponents-3 .opponent-seat .card{width:56px;height:78px;margin-left:-10px}
+.opponent-seat .card:first-child{margin-left:0}
+.opponent-seat .land-row .card,.opponents-2 .opponent-seat .land-row .card,.opponents-3 .opponent-seat .land-row .card{width:51px;height:71px;margin-left:-12px}
+.opponent-seat .land-row .card:first-child{margin-left:0}
+.seat-command-slot{width:auto!important;min-width:58px}
+.seat-command-slot .card,.opponents-3 .seat-command-slot .card{width:50px;height:70px;margin:0 auto}
+
+.center-line{height:34px;min-height:34px}
+.player-play-area{
+  min-height:250px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 76px;
+  gap:8px;
+  padding:0;
+  border:1px solid rgba(83,174,252,.13);
+  border-radius:14px;
+  background:linear-gradient(180deg,rgba(16,31,37,.18),rgba(18,46,55,.3));
+  overflow:hidden;
+}
+.player-play-area>.battle-zone{height:auto;min-height:250px;overflow:auto;border:0;border-radius:0;padding:4px 8px}
+.player-play-area .battlefield{min-height:240px;justify-content:space-around}
+.player-play-area .permanent-row{min-height:76px;flex:1 0 76px}
+.player-play-area .permanent-row.land-row{min-height:72px}
+.player-play-area .permanent-cards{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;overflow-y:visible;min-height:72px;padding:8px 16px 8px 64px;scrollbar-width:thin}
+.player-play-area .card{width:68px;height:95px;margin-left:-12px}
+.player-play-area .card:first-child{margin-left:0}
+.player-play-area .land-row .card{width:62px;height:87px;margin-left:-15px}
+.player-play-area .land-row .card:first-child{margin-left:0}
+.player-play-area .player-command{
+  position:static;
+  width:auto;
+  min-width:0;
+  align-self:stretch;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  padding:9px 6px;
+  border:0;
+  border-left:1px solid rgba(255,255,255,.1);
+  border-radius:0;
+  background:rgba(4,8,10,.32);
+  box-shadow:none;
+}
+.player-play-area .player-command .card{width:62px;height:87px;margin:6px auto 0}
+.player-strip{width:min(900px,94%);height:auto;min-height:38px;margin:0 auto;padding:5px 10px;flex-wrap:wrap}
+
+/* Hand is a real row below the table, never an overlay. */
+.hand-tray{
+  position:relative;
+  inset:auto;
+  height:auto;
+  min-height:148px;
+  z-index:20;
+  pointer-events:auto;
+  display:grid;
+  grid-template-columns:150px minmax(0,1fr);
+  align-items:center;
+  justify-content:stretch;
+  padding:8px 14px 10px;
+  border-top:1px solid rgba(255,255,255,.12);
+  background:linear-gradient(180deg,rgba(7,11,13,.8),rgba(3,6,8,.98));
+}
+.hand-label{position:static;max-width:none;margin:0 10px 0 0;align-self:center}
+.hand-cards{height:130px;min-width:0;justify-content:flex-start;overflow-x:auto;overflow-y:visible;padding:8px 18px 8px 4px;scrollbar-width:thin}
+.hand-cards .card{width:86px;height:120px;margin-left:-16px;flex:0 0 auto}
+.hand-cards .card:first-child{margin-left:0}
+.hand-cards .card:hover{transform:translateY(-7px) scale(1.05);margin-right:0;margin-left:-16px}
+.hand-cards .card:first-child:hover{margin-left:0}
+
+/* Controls are also in flow. */
+.action-bar{
+  position:relative;
+  inset:auto;
+  height:auto;
+  min-height:58px;
+  z-index:25;
+  grid-template-columns:minmax(190px,1fr) auto minmax(260px,1fr);
+  gap:12px;
+  padding:8px 14px;
+}
+
+/* Width-aware multiplayer behavior. */
+@media(max-width:1180px){
+  .multiplayer-table.opponents-3 .opponent-arena{grid-template-columns:repeat(3,minmax(210px,1fr));overflow-x:auto;padding-bottom:4px}
+  .table.multiplayer-table{padding-left:10px;padding-right:10px}
+  .action-bar{grid-template-columns:minmax(150px,1fr) auto minmax(210px,1fr)}
+}
+@media(max-width:940px){
+  body{min-width:680px}
+  .multiplayer-table.opponents-2 .opponent-arena{grid-template-columns:repeat(2,minmax(300px,1fr));overflow-x:auto}
+  .multiplayer-table.opponents-3 .opponent-arena{grid-template-columns:repeat(3,minmax(280px,1fr));overflow-x:auto}
+  .hand-tray{grid-template-columns:118px minmax(0,1fr)}
+  .hand-cards .card{width:80px;height:112px}
+  .player-play-area .card{width:64px;height:90px}
+  .player-play-area .land-row .card{width:59px;height:83px}
+  .action-right{display:none}
+  .action-bar{grid-template-columns:1fr auto}
+}
+
+/* Height-aware behavior: preserve readable cards and let the page scroll instead
+   of stealing space from lands or putting the hand over the battlefield. */
+@media(max-height:760px){
+  .game-shell{--phase-h:44px;min-height:100dvh}
+  .table.multiplayer-table{min-height:470px;grid-template-rows:auto 28px minmax(220px,1fr) auto;padding-top:6px}
+  .opponent-seat,.multiplayer-table.opponents-1 .opponent-seat,.multiplayer-table.opponents-2 .opponent-seat,.multiplayer-table.opponents-3 .opponent-seat{min-height:205px}
+  .opponent-play-area{min-height:145px}
+  .opponent-seat .battlefield{min-height:140px}
+  .opponent-seat .permanent-row{min-height:56px;flex-basis:56px}
+  .opponent-seat .permanent-row.land-row{min-height:52px}
+  .opponent-seat .card,.opponents-2 .opponent-seat .card,.opponents-3 .opponent-seat .card{width:50px;height:70px}
+  .opponent-seat .land-row .card,.opponents-2 .opponent-seat .land-row .card,.opponents-3 .opponent-seat .land-row .card{width:46px;height:64px}
+  .center-line{height:28px;min-height:28px}
+  .player-play-area,.player-play-area>.battle-zone{min-height:220px}
+  .player-play-area .battlefield{min-height:210px}
+  .player-play-area .permanent-row{min-height:68px;flex-basis:68px}
+  .player-play-area .permanent-row.land-row{min-height:66px}
+  .player-play-area .card{width:62px;height:87px}
+  .player-play-area .land-row .card{width:58px;height:81px}
+  .hand-tray{min-height:130px;padding-top:5px;padding-bottom:6px}
+  .hand-cards{height:116px}
+  .hand-cards .card{width:78px;height:109px}
+  .action-bar{min-height:52px}
+}
+
+/* 2026-09-20 control-visibility repair:
+   Keep the turn-advance control directly below the sticky phase banner.
+   It remains in normal document flow (no overlay), but cannot be pushed
+   below the battlefield/hand on short Safari viewports. */
+.game-shell > .action-bar{
+  order:0;
+  flex:0 0 auto;
+  position:relative;
+  top:auto;
+  bottom:auto;
+  z-index:30;
+  min-height:54px;
+}
+@media(max-height:760px){
+  .game-shell > .action-bar{min-height:48px;padding-top:5px;padding-bottom:5px}
+  .game-shell > .action-bar .action-button{min-height:38px}
+}
+
+
+/* 2026-09-20 bottom-right progression control
+   The action deck is in normal document flow after the hand. It never overlays
+   cards or lands, while the primary turn button is anchored to the right edge. */
+.game-shell > .bottom-action-bar{
+  order:initial;
+  position:relative;
+  inset:auto;
+  width:100%;
+  min-height:64px;
+  display:grid;
+  grid-template-columns:minmax(220px,1fr) minmax(210px,280px) minmax(300px,1fr);
+  align-items:center;
+  gap:14px;
+  padding:8px 16px max(10px,env(safe-area-inset-bottom));
+  border-top:1px solid rgba(255,255,255,.12);
+  background:linear-gradient(180deg,rgba(5,8,10,.94),rgba(2,5,7,.99));
+  z-index:30;
+}
+.game-shell > .bottom-action-bar .action-context{grid-column:1;grid-row:1;min-width:0}
+.game-shell > .bottom-action-bar .action-right{grid-column:2;grid-row:1;justify-self:center;min-width:0}
+.game-shell > .bottom-action-bar .action-button{
+  grid-column:3;
+  grid-row:1;
+  justify-self:end;
+  width:min(100%,280px);
+  min-width:210px;
+  min-height:46px;
+  padding:10px 20px;
+}
+@media(max-width:940px){
+  .game-shell > .bottom-action-bar{grid-template-columns:minmax(0,1fr) minmax(200px,260px)}
+  .game-shell > .bottom-action-bar .action-context{grid-column:1}
+  .game-shell > .bottom-action-bar .action-right{display:none}
+  .game-shell > .bottom-action-bar .action-button{grid-column:2;width:100%;min-width:0}
+}
+@media(max-height:760px){
+  .game-shell > .bottom-action-bar{min-height:56px;padding-top:6px;padding-bottom:max(7px,env(safe-area-inset-bottom))}
+  .game-shell > .bottom-action-bar .action-button{min-height:42px}
+}
+
+/* 2026-09-20 unified hand + command deck
+   One horizontal HUD row: left half is the readable hand, right half is all
+   turn automation, zone counts, and the primary progression button. */
+.game-shell > .hand-command-deck{
+  position:relative;
+  width:100%;
+  min-height:148px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  align-items:stretch;
+  border-top:1px solid rgba(255,255,255,.12);
+  background:linear-gradient(180deg,rgba(7,11,13,.82),rgba(3,6,8,.99));
+  z-index:30;
+}
+.hand-half{
+  min-width:0;
+  display:grid;
+  grid-template-columns:150px minmax(0,1fr);
+  align-items:center;
+  padding:8px 12px 10px 14px;
+  border-right:1px solid rgba(255,255,255,.12);
+}
+.hand-half .hand-label{position:static;max-width:none;margin:0 10px 0 0;align-self:center}
+.hand-half .hand-cards{
+  height:130px;
+  min-width:0;
+  display:flex;
+  align-items:flex-end;
+  justify-content:flex-start;
+  overflow-x:auto;
+  overflow-y:visible;
+  padding:8px 10px 8px 4px;
+  scrollbar-width:thin;
+}
+.hand-half .hand-cards .card{width:86px;height:120px;margin-left:-16px;flex:0 0 auto}
+.hand-half .hand-cards .card:first-child{margin-left:0}
+.hand-half .hand-cards .card:hover{transform:translateY(-7px) scale(1.05);margin-right:0;margin-left:-16px}
+.hand-half .hand-cards .card:first-child:hover{margin-left:0}
+.command-half{
+  min-width:0;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(190px,280px);
+  align-items:center;
+  gap:16px;
+  padding:14px 18px;
+}
+.command-options{min-width:0;display:flex;align-items:center;justify-content:flex-end;gap:12px;flex-wrap:wrap}
+.command-half .automation-controls,.command-half .resources{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.command-half .hand-action-button{width:100%;min-width:0;min-height:50px;padding:10px 18px;justify-self:end}
+/* Old standalone bars are intentionally unused by the new JSX. */
+@media(max-width:1180px){
+  .hand-half{grid-template-columns:112px minmax(0,1fr)}
+  .command-half{grid-template-columns:minmax(0,1fr) minmax(170px,220px);gap:10px;padding-left:12px;padding-right:12px}
+  .command-options{gap:7px}
+  .hand-half .hand-cards .card{width:80px;height:112px}
+}
+@media(max-width:940px){
+  .game-shell > .hand-command-deck{grid-template-columns:minmax(0,1.15fr) minmax(330px,.85fr)}
+  .hand-half{grid-template-columns:96px minmax(0,1fr);padding-left:9px;padding-right:8px}
+  .command-half{grid-template-columns:1fr;gap:8px;padding:9px 10px}
+  .command-options{justify-content:center}
+  .command-half .hand-action-button{min-height:42px}
+}
+@media(max-height:760px){
+  .game-shell > .hand-command-deck{min-height:126px}
+  .hand-half .hand-cards{height:114px}
+  .hand-half .hand-cards .card{width:78px;height:109px}
+  .command-half{padding-top:8px;padding-bottom:8px}
+}

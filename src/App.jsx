@@ -1321,31 +1321,32 @@ export default function App() {
       </section>
     </div>
 
-    <section className="hand-tray">
-      <div className="hand-label"><b>YOUR HAND</b><span>{pendingCleanup ? 'Click cards to choose your cleanup discard' : targetingAction ? 'Choose a highlighted battlefield/player target above' : 'Playable cards are highlighted when you have priority'}</span></div>
-      <div className="hand-cards">{p.hand.map(c => {
-        const selected = pendingCleanup ? choiceCards.includes(c.instanceId) : (targetingAction?.baseAction.cardInstanceId === c.instanceId);
-        const actionState = cardActionPresentation({ instanceId: c.instanceId, zone: 'hand', index: legalActionIndex, pendingChoice: !!s.pendingChoice, targeting: !!targetingAction, hasPriority: s.priorityPlayer === 'player' });
-        return <Card key={c.instanceId} perm={c} def={cardDb[c.cardId]} selected={selected} actionState={actionState} onClick={() => {
-          if (targetingAction) return;
-          if (pendingCleanup) { toggleChoiceCard(c.instanceId); return; }
-          const actions = legalActionIndex.byCard.get(c.instanceId) || [];
-          chooseCardAction(c, actions);
-        }} />;
-      })}</div>
+    <section className="hand-command-deck">
+      <div className="hand-half">
+        <div className="hand-label"><b>YOUR HAND</b><span>{pendingCleanup ? 'Click cards to choose your cleanup discard' : targetingAction ? 'Choose a highlighted battlefield/player target above' : 'Playable cards are highlighted when you have priority'}</span></div>
+        <div className="hand-cards">{p.hand.map(c => {
+          const selected = pendingCleanup ? choiceCards.includes(c.instanceId) : (targetingAction?.baseAction.cardInstanceId === c.instanceId);
+          const actionState = cardActionPresentation({ instanceId: c.instanceId, zone: 'hand', index: legalActionIndex, pendingChoice: !!s.pendingChoice, targeting: !!targetingAction, hasPriority: s.priorityPlayer === 'player' });
+          return <Card key={c.instanceId} perm={c} def={cardDb[c.cardId]} selected={selected} actionState={actionState} onClick={() => {
+            if (targetingAction) return;
+            if (pendingCleanup) { toggleChoiceCard(c.instanceId); return; }
+            const actions = legalActionIndex.byCard.get(c.instanceId) || [];
+            chooseCardAction(c, actions);
+          }} />;
+        })}</div>
+      </div>
+      <div className="command-half" aria-label="Turn controls and player zones">
+        <div className="command-options">
+          <div className="automation-controls" aria-label="AI turn automation">
+            <label title="When enabled, routine priority on opponent turns is passed automatically."><input type="checkbox" checked={autoPassAITurns} onChange={e => setAutoPassAITurns(e.target.checked)} /> Auto-pass AI turns</label>
+            <button type="button" className={holdPriority ? 'hold-active' : ''} disabled={s.activePlayer === 'player' || !!s.winner || !autoPassAITurns} onClick={() => setHoldPriority(value => !value)}>{holdPriority ? 'Priority held' : 'Hold next priority'}</button>
+          </div>
+          <div className="resources"><span>Graveyard <b>{p.graveyard.length}</b></span><span>Library <b>{p.library.length}</b></span></div>
+        </div>
+        <button className="primary action-button hand-action-button" disabled={buttonDisabled || s.priorityPlayer !== 'player'} onClick={next}>{buttonText}</button>
+      </div>
     </section>
 
-    <footer className="action-bar">
-      <div className="action-context"><b>{(PHASE_UI[s.phase] || {}).label || s.phase}</b><span>{targetingAction ? 'Select a legal target before paying costs' : s.pendingChoice ? 'Complete the required choice' : aiTurnPausedForHuman ? automationDecision.reason : priorityText}</span></div>
-      <button className="primary action-button" disabled={buttonDisabled || s.priorityPlayer !== 'player'} onClick={next}>{buttonText}</button>
-      <div className="action-right">
-        <div className="automation-controls" aria-label="AI turn automation">
-          <label title="When enabled, routine priority on opponent turns is passed automatically."><input type="checkbox" checked={autoPassAITurns} onChange={e => setAutoPassAITurns(e.target.checked)} /> Auto-pass AI turns</label>
-          <button type="button" className={holdPriority ? 'hold-active' : ''} disabled={s.activePlayer === 'player' || !!s.winner || !autoPassAITurns} onClick={() => setHoldPriority(value => !value)}>{holdPriority ? 'Priority held' : 'Hold next priority'}</button>
-        </div>
-        <div className="resources"><span>Graveyard <b>{p.graveyard.length}</b></span><span>Library <b>{p.library.length}</b></span></div>
-      </div>
-    </footer>
     {s.winner && <div className="winner"><div>{s.winner === 'player' ? 'Victory' : s.winner === 'draw' ? 'Draw' : 'Defeat'}</div></div>}
   </main>;
 }
