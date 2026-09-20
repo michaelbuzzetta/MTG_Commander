@@ -4,3 +4,4 @@ node_modules/
 .cache/
 # Step 37 runtime fuzz artifacts
 fuzz-artifacts/
+*.zip
