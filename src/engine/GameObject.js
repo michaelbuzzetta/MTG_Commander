@@ -1,4 +1,4 @@
-import { uid } from '../utils.js';
+import { uid } from './utils.js';
 import { deepFreeze } from '../public/immutable.js';
 import { createCardFaceModel, createFaceState, resetFaceStateForZone } from './CardFace.js';
 import { createStackObject as createCanonicalStackObject } from '../stack/StackObject.js';

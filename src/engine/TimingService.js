@@ -1,4 +1,4 @@
-import { isType } from '../utils.js';
+import { isType } from './utils.js';
 import { STEP_DEFINITION, TURN_PHASE_GROUP } from '../turn/TurnStructure.js';
 import { normalizeTimingPermission } from './TimingPermission.js';
 import { TIMING_ACTION, TIMING_RELEVANT_ACTIONS, TIMING_SPEED, TimingError } from './TimingTypes.js';

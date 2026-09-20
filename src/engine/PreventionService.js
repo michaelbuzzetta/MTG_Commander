@@ -1,4 +1,4 @@
-import { uid } from '../utils.js';
+import { uid } from './utils.js';
 import { ENGINE_EVENT } from '../events/EventTypes.js';
 import { PreventionEffect } from './PreventionEffect.js';
 

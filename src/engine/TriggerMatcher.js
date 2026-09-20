@@ -1,6 +1,6 @@
-import { hasSubtype } from '../utils.js';
+import { hasSubtype } from './utils.js';
 import { TRIGGER_KIND } from './TriggerDefinition.js';
-import { matchesTargetFilter } from '../choices/TargetFilter.js';
+import { matchesTargetFilter } from './choices/TargetFilter.js';
 
 
 function definitionForObject(engine, object) {

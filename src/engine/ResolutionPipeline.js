@@ -1,5 +1,5 @@
 import { EVENT } from '../constants.js';
-import { isType } from '../utils.js';
+import { isType } from './utils.js';
 
 /**
  * Step 5 resolution transaction. Target legality is rechecked at resolution,

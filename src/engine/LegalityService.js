@@ -1,4 +1,4 @@
-import { isType, hasSubtype } from '../utils.js';
+import { isType, hasSubtype } from './utils.js';
 import { LEGALITY_OPERATION, LEGALITY_OPERATIONS, RULE_KIND, operationForAction } from './RuleTypes.js';
 import { staxRulesForPermanent } from './StaxRuleAdapter.js';
 

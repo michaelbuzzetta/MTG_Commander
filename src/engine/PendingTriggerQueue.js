@@ -1,4 +1,4 @@
-import { uid } from '../utils.js';
+import { uid } from './utils.js';
 
 export class PendingTriggerQueue {
   constructor(engine) { this.engine = engine; }

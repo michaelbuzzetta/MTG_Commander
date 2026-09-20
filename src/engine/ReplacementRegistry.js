@@ -1,6 +1,6 @@
 import { ReplacementEffect } from './ReplacementEffect.js';
 import { ENGINE_EVENT } from '../events/EventTypes.js';
-import { hasSubtype, isType } from '../utils.js';
+import { hasSubtype, isType } from './utils.js';
 
 const LEGACY_REPLACEMENT_EVENT_MAP = Object.freeze({
   COUNTERS_ADDED: ENGINE_EVENT.ADD_COUNTER,

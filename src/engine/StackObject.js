@@ -1,4 +1,4 @@
-import { uid } from '../utils.js';
+import { uid } from './utils.js';
 
 export const STACK_OBJECT_TYPE = Object.freeze({
   SPELL: 'spell',

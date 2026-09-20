@@ -1,4 +1,4 @@
-import { reserveUid } from '../utils.js';
+import { reserveUid } from './utils.js';
 import { GAME_STATE_SCHEMA_VERSION, hydrateCanonicalGameState, validateCanonicalGameState } from './GameStateSchema.js';
 
 const SPECIAL_NUMBER = '__mtgSpecialNumber';

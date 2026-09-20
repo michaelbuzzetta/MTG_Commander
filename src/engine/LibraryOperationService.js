@@ -1,6 +1,6 @@
 import { ENGINE_EVENT } from '../events/EventTypes.js';
 import { LEGALITY_OPERATION } from '../legality/index.js';
-import { isType, hasSubtype } from '../utils.js';
+import { isType, hasSubtype } from './utils.js';
 import { normalizeSearchRequest } from './SearchRequest.js';
 
 const NUMBER_WORDS = Object.freeze({ one:1, two:2, three:3, four:4, five:5, six:6, seven:7, eight:8, nine:9, ten:10 });

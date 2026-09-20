@@ -1,4 +1,4 @@
-import { isType, hasSubtype } from '../utils.js';
+import { isType, hasSubtype } from './utils.js';
 
 const BASIC_COLORS = new Set(['W', 'U', 'B', 'R', 'G']);
 const COLOR_ALIASES = Object.freeze({

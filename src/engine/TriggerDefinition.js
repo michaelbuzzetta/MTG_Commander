@@ -1,4 +1,4 @@
-import { uid } from '../utils.js';
+import { uid } from './utils.js';
 
 export const TRIGGER_KIND = Object.freeze({
   NORMAL: 'normal',

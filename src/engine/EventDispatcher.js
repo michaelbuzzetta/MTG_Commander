@@ -1,4 +1,4 @@
-import { uid } from '../utils.js';
+import { uid } from './utils.js';
 import { buildEventProvenance, summarizeEventPayload, summarizeEventResult } from './provenance.js';
 
 /**
