@@ -20,11 +20,15 @@ const OVERRIDES = Object.freeze({
     ]
   },
   'Arcane Signet': {
-    // This targeted Valgavoth deck has black/red commander color identity.
-    abilities: [
-      { type:'mana', tap:true, anyColor:true, colors:['B','R'], amount:1 }
-    ]
-  },
+  abilities: [
+    {
+      type: 'mana',
+      tap: true,
+      anyColor: true,
+      amount: 1
+    }
+  ]
+},
   'Repercussion': {
     abilities: [
       { type:'triggered', event:'DAMAGE_DEALT_TO_CREATURE', condition:{ creatureDamaged:true }, effect:{ type:'repercussionDamage' } }

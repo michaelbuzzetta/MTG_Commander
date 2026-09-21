@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "rulesVersion": "mtg-cr-2026-08-07",
-  "implementationCount": 647,
+  "implementationCount": 671,
   "implementations": [
     {
       "implementationId": "local-name:aang, last airbender",
@@ -382,6 +382,24 @@
       ]
     },
     {
+      "implementationId": "local-name:backlash",
+      "oracleId": null,
+      "oracleTextFingerprint": "98304e232d97eccf",
+      "canonicalCardId": "backlash",
+      "name": "Backlash",
+      "cardIds": [
+        "backlash"
+      ],
+      "printings": [
+        {
+          "cardId": "backlash",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:baleful strix",
       "oracleId": null,
       "oracleTextFingerprint": "0e48090e78c0cdb0",
@@ -490,6 +508,24 @@
       ]
     },
     {
+      "implementationId": "local-name:bedevil",
+      "oracleId": null,
+      "oracleTextFingerprint": "c61436e2b960021e",
+      "canonicalCardId": "bedevil",
+      "name": "Bedevil",
+      "cardIds": [
+        "bedevil"
+      ],
+      "printings": [
+        {
+          "cardId": "bedevil",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:benthic biomancer",
       "oracleId": null,
       "oracleTextFingerprint": "32cff7d5c64a66ac",
@@ -562,6 +598,24 @@
       ]
     },
     {
+      "implementationId": "local-name:blazemire verge",
+      "oracleId": null,
+      "oracleTextFingerprint": "4908bb624bdf9fc5",
+      "canonicalCardId": "blazemire-verge",
+      "name": "Blazemire Verge",
+      "cardIds": [
+        "blazemire-verge"
+      ],
+      "printings": [
+        {
+          "cardId": "blazemire-verge",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:blech, loafing pest",
       "oracleId": null,
       "oracleTextFingerprint": "2909846d93aff92f",
@@ -573,6 +627,42 @@
       "printings": [
         {
           "cardId": "blech",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:blood seeker",
+      "oracleId": null,
+      "oracleTextFingerprint": "0acf36bbb3dd17d4",
+      "canonicalCardId": "blood-seeker",
+      "name": "Blood Seeker",
+      "cardIds": [
+        "blood-seeker"
+      ],
+      "printings": [
+        {
+          "cardId": "blood-seeker",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:bloodchief ascension",
+      "oracleId": null,
+      "oracleTextFingerprint": "d24d1fef769cc12e",
+      "canonicalCardId": "bloodchief-ascension",
+      "name": "Bloodchief Ascension",
+      "cardIds": [
+        "bloodchief-ascension"
+      ],
+      "printings": [
+        {
+          "cardId": "bloodchief-ascension",
           "scryfallId": null,
           "set": null,
           "collectorNumber": null
@@ -880,6 +970,24 @@
         {
           "cardId": "arch-castle-doom",
           "scryfallId": "daaf180d-074d-4ade-8954-0b3a90d56ce5",
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:chandra, awakened inferno",
+      "oracleId": null,
+      "oracleTextFingerprint": "887fa67ac293808c",
+      "canonicalCardId": "chandra-awakened-inferno",
+      "name": "Chandra, Awakened Inferno",
+      "cardIds": [
+        "chandra-awakened-inferno"
+      ],
+      "printings": [
+        {
+          "cardId": "chandra-awakened-inferno",
+          "scryfallId": null,
           "set": null,
           "collectorNumber": null
         }
@@ -1228,6 +1336,24 @@
       ]
     },
     {
+      "implementationId": "local-name:crypt ghast",
+      "oracleId": null,
+      "oracleTextFingerprint": "6bafde5eacadd0b9",
+      "canonicalCardId": "crypt-ghast",
+      "name": "Crypt Ghast",
+      "cardIds": [
+        "crypt-ghast"
+      ],
+      "printings": [
+        {
+          "cardId": "crypt-ghast",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:cryptothrall",
       "oracleId": null,
       "oracleTextFingerprint": "cc30711b2f32ed3e",
@@ -1444,6 +1570,24 @@
       ]
     },
     {
+      "implementationId": "local-name:dark ritual",
+      "oracleId": null,
+      "oracleTextFingerprint": "639f6e6a77582568",
+      "canonicalCardId": "dark-ritual",
+      "name": "Dark Ritual",
+      "cardIds": [
+        "dark-ritual"
+      ],
+      "printings": [
+        {
+          "cardId": "dark-ritual",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:darkwater catacombs",
       "oracleId": null,
       "oracleTextFingerprint": "0dc995e30fce95de",
@@ -1492,6 +1636,24 @@
         {
           "cardId": "arch-deadeye-navigator",
           "scryfallId": "fa94262b-f740-48fb-a937-75776864c9ee",
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:deadly rollick",
+      "oracleId": null,
+      "oracleTextFingerprint": "c866f56b480cb7a8",
+      "canonicalCardId": "deadly-rollick",
+      "name": "Deadly Rollick",
+      "cardIds": [
+        "deadly-rollick"
+      ],
+      "printings": [
+        {
+          "cardId": "deadly-rollick",
+          "scryfallId": null,
           "set": null,
           "collectorNumber": null
         }
@@ -1582,6 +1744,42 @@
         {
           "cardId": "arch-defiler-of-faith",
           "scryfallId": "2cfe404d-1a27-4627-9284-56188d92d5d5",
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:deflecting swat",
+      "oracleId": null,
+      "oracleTextFingerprint": "ed85f9e432450791",
+      "canonicalCardId": "deflecting-swat",
+      "name": "Deflecting Swat",
+      "cardIds": [
+        "deflecting-swat"
+      ],
+      "printings": [
+        {
+          "cardId": "deflecting-swat",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:delirium",
+      "oracleId": null,
+      "oracleTextFingerprint": "d54ac51583125f65",
+      "canonicalCardId": "delirium",
+      "name": "Delirium",
+      "cardIds": [
+        "delirium"
+      ],
+      "printings": [
+        {
+          "cardId": "delirium",
+          "scryfallId": null,
           "set": null,
           "collectorNumber": null
         }
@@ -2380,6 +2578,24 @@
       ]
     },
     {
+      "implementationId": "local-name:exquisite blood",
+      "oracleId": null,
+      "oracleTextFingerprint": "9b0ab8a6b988e880",
+      "canonicalCardId": "exquisite-blood",
+      "name": "Exquisite Blood",
+      "cardIds": [
+        "exquisite-blood"
+      ],
+      "printings": [
+        {
+          "cardId": "exquisite-blood",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:extinguisher battleship",
       "oracleId": null,
       "oracleTextFingerprint": "01cafbc8db9a4187",
@@ -2650,6 +2866,24 @@
       ]
     },
     {
+      "implementationId": "local-name:forsaken wastes",
+      "oracleId": null,
+      "oracleTextFingerprint": "1a59ddff906c7b74",
+      "canonicalCardId": "forsaken-wastes",
+      "name": "Forsaken Wastes",
+      "cardIds": [
+        "forsaken-wastes"
+      ],
+      "printings": [
+        {
+          "cardId": "forsaken-wastes",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:fruit of the first tree",
       "oracleId": null,
       "oracleTextFingerprint": "ab8c94c5890d00e0",
@@ -2758,6 +2992,24 @@
       ]
     },
     {
+      "implementationId": "local-name:geth's verdict",
+      "oracleId": null,
+      "oracleTextFingerprint": "f887d00fcf840307",
+      "canonicalCardId": "geths-verdict",
+      "name": "Geth's Verdict",
+      "cardIds": [
+        "geths-verdict"
+      ],
+      "printings": [
+        {
+          "cardId": "geths-verdict",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:giant spider",
       "oracleId": null,
       "oracleTextFingerprint": "2068b81b75d4b2b1",
@@ -2788,6 +3040,24 @@
         {
           "cardId": "arch-gilded-pinions",
           "scryfallId": "dca8554a-f74c-4d2d-95b6-ef6e74431d7c",
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:gleeful arsonist",
+      "oracleId": null,
+      "oracleTextFingerprint": "aac48c55503cda17",
+      "canonicalCardId": "gleeful-arsonist",
+      "name": "Gleeful Arsonist",
+      "cardIds": [
+        "gleeful-arsonist"
+      ],
+      "printings": [
+        {
+          "cardId": "gleeful-arsonist",
+          "scryfallId": null,
           "set": null,
           "collectorNumber": null
         }
@@ -2902,6 +3172,24 @@
       ]
     },
     {
+      "implementationId": "local-name:graven cairns",
+      "oracleId": null,
+      "oracleTextFingerprint": "5be9ad1b47870ea4",
+      "canonicalCardId": "graven-cairns",
+      "name": "Graven Cairns",
+      "cardIds": [
+        "graven-cairns"
+      ],
+      "printings": [
+        {
+          "cardId": "graven-cairns",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:great furnace",
       "oracleId": null,
       "oracleTextFingerprint": "535bb08cb15181c5",
@@ -2914,6 +3202,24 @@
         {
           "cardId": "arch-great-furnace",
           "scryfallId": "74c5bb44-d72c-4c1a-a38f-86b4a8f49ae1",
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:grim tutor",
+      "oracleId": null,
+      "oracleTextFingerprint": "13804b065acf0d7d",
+      "canonicalCardId": "grim-tutor",
+      "name": "Grim Tutor",
+      "cardIds": [
+        "grim-tutor"
+      ],
+      "printings": [
+        {
+          "cardId": "grim-tutor",
+          "scryfallId": null,
           "set": null,
           "collectorNumber": null
         }
@@ -3028,6 +3334,24 @@
       ]
     },
     {
+      "implementationId": "local-name:gut shot",
+      "oracleId": null,
+      "oracleTextFingerprint": "744a5cf4146cc832",
+      "canonicalCardId": "gut-shot",
+      "name": "Gut Shot",
+      "cardIds": [
+        "gut-shot"
+      ],
+      "printings": [
+        {
+          "cardId": "gut-shot",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:hagra mauling // hagra broodpit",
       "oracleId": null,
       "oracleTextFingerprint": "ab946d8a47c2cecc",
@@ -3093,6 +3417,24 @@
       "printings": [
         {
           "cardId": "hardened-scales",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:haunted ridge",
+      "oracleId": null,
+      "oracleTextFingerprint": "51b7ef40bc3cfced",
+      "canonicalCardId": "haunted-ridge",
+      "name": "Haunted Ridge",
+      "cardIds": [
+        "haunted-ridge"
+      ],
+      "printings": [
+        {
+          "cardId": "haunted-ridge",
           "scryfallId": null,
           "set": null,
           "collectorNumber": null
@@ -3244,6 +3586,24 @@
       ]
     },
     {
+      "implementationId": "local-name:hexing squelcher",
+      "oracleId": null,
+      "oracleTextFingerprint": "9aefef4f8a9f4047",
+      "canonicalCardId": "hexing-squelcher",
+      "name": "Hexing Squelcher",
+      "cardIds": [
+        "hexing-squelcher"
+      ],
+      "printings": [
+        {
+          "cardId": "hexing-squelcher",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:hidden hideout",
       "oracleId": null,
       "oracleTextFingerprint": "442c9bde582b8975",
@@ -3292,6 +3652,24 @@
         {
           "cardId": "arch-hide-on-the-ceiling",
           "scryfallId": "3d9847a8-ae5d-4f24-8605-609f0c1a11bc",
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:hideous end",
+      "oracleId": null,
+      "oracleTextFingerprint": "a24060f5fd9b16c4",
+      "canonicalCardId": "hideous-end",
+      "name": "Hideous End",
+      "cardIds": [
+        "hideous-end"
+      ],
+      "printings": [
+        {
+          "cardId": "hideous-end",
+          "scryfallId": null,
           "set": null,
           "collectorNumber": null
         }
@@ -3676,6 +4054,24 @@
       ]
     },
     {
+      "implementationId": "local-name:jet medallion",
+      "oracleId": null,
+      "oracleTextFingerprint": "935bd912fcfe9bdc",
+      "canonicalCardId": "jet-medallion",
+      "name": "Jet Medallion",
+      "cardIds": [
+        "jet-medallion"
+      ],
+      "printings": [
+        {
+          "cardId": "jet-medallion",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:jhoira, weatherlight captain",
       "oracleId": null,
       "oracleTextFingerprint": "17e878caa40f4783",
@@ -3688,6 +4084,24 @@
         {
           "cardId": "arch-jhoira-weatherlight-captain",
           "scryfallId": "776f490a-2f75-4c18-8164-56bd65bb09c6",
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:kardur, doomscourge",
+      "oracleId": null,
+      "oracleTextFingerprint": "a4494933097c1c89",
+      "canonicalCardId": "kardur-doomscourge",
+      "name": "Kardur, Doomscourge",
+      "cardIds": [
+        "kardur-doomscourge"
+      ],
+      "printings": [
+        {
+          "cardId": "kardur-doomscourge",
+          "scryfallId": null,
           "set": null,
           "collectorNumber": null
         }
@@ -3742,6 +4156,24 @@
         {
           "cardId": "arch-kavaron-memorial-world",
           "scryfallId": "60f3ca25-9dcc-4781-bf7b-ab6736d8db29",
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:kaya's ghostform",
+      "oracleId": null,
+      "oracleTextFingerprint": "3a7d7e85c77100af",
+      "canonicalCardId": "kayas-ghostform",
+      "name": "Kaya's Ghostform",
+      "cardIds": [
+        "kayas-ghostform"
+      ],
+      "printings": [
+        {
+          "cardId": "kayas-ghostform",
+          "scryfallId": null,
           "set": null,
           "collectorNumber": null
         }
@@ -12297,6 +12729,30 @@
     "user-windswept-heath": "oracle:29737a60-3ebd-40d9-b935-c4f54b90d45d",
     "user-wooded-foothills": "oracle:6587a463-a108-4854-b6d1-944e89b8c8a4",
     "user-yenna-redtooth-regent": "oracle:0adede77-5181-4190-8066-4797cefe0189",
-    "user-zagoth-triome": "oracle:fdd46004-eaba-4024-8687-39b23dc6a58c"
+    "user-zagoth-triome": "oracle:fdd46004-eaba-4024-8687-39b23dc6a58c",
+    "backlash": "local-name:backlash",
+    "bedevil": "local-name:bedevil",
+    "blazemire-verge": "local-name:blazemire verge",
+    "blood-seeker": "local-name:blood seeker",
+    "bloodchief-ascension": "local-name:bloodchief ascension",
+    "chandra-awakened-inferno": "local-name:chandra, awakened inferno",
+    "crypt-ghast": "local-name:crypt ghast",
+    "dark-ritual": "local-name:dark ritual",
+    "deadly-rollick": "local-name:deadly rollick",
+    "deflecting-swat": "local-name:deflecting swat",
+    "delirium": "local-name:delirium",
+    "exquisite-blood": "local-name:exquisite blood",
+    "forsaken-wastes": "local-name:forsaken wastes",
+    "geths-verdict": "local-name:geth's verdict",
+    "gleeful-arsonist": "local-name:gleeful arsonist",
+    "graven-cairns": "local-name:graven cairns",
+    "grim-tutor": "local-name:grim tutor",
+    "gut-shot": "local-name:gut shot",
+    "haunted-ridge": "local-name:haunted ridge",
+    "hexing-squelcher": "local-name:hexing squelcher",
+    "hideous-end": "local-name:hideous end",
+    "jet-medallion": "local-name:jet medallion",
+    "kardur-doomscourge": "local-name:kardur, doomscourge",
+    "kayas-ghostform": "local-name:kaya's ghostform"
   }
 }
