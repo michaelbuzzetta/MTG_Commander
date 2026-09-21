@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "rulesVersion": "mtg-cr-2026-08-07",
-  "implementationCount": 671,
+  "implementationCount": 712,
   "implementations": [
     {
       "implementationId": "local-name:aang, last airbender",
@@ -4198,6 +4198,24 @@
       ]
     },
     {
+      "implementationId": "local-name:kederekt parasite",
+      "oracleId": null,
+      "oracleTextFingerprint": "38c285c75e56bbe6",
+      "canonicalCardId": "kederekt-parasite",
+      "name": "Kederekt Parasite",
+      "cardIds": [
+        "kederekt-parasite"
+      ],
+      "printings": [
+        {
+          "cardId": "kederekt-parasite",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:kediss, emberclaw familiar",
       "oracleId": null,
       "oracleTextFingerprint": "3a046ad269e11066",
@@ -4468,6 +4486,24 @@
       ]
     },
     {
+      "implementationId": "local-name:leechridden swamp",
+      "oracleId": null,
+      "oracleTextFingerprint": "ff98f15964fe2090",
+      "canonicalCardId": "leechridden-swamp",
+      "name": "Leechridden Swamp",
+      "cardIds": [
+        "leechridden-swamp"
+      ],
+      "printings": [
+        {
+          "cardId": "leechridden-swamp",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:leveler",
       "oracleId": null,
       "oracleTextFingerprint": "f111ece908c6ecb6",
@@ -4551,6 +4587,24 @@
       "printings": [
         {
           "cardId": "lightning-bolt",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:lindblum, industrial regency // mage siege",
+      "oracleId": null,
+      "oracleTextFingerprint": "6532c7e35d673e5c",
+      "canonicalCardId": "lindblum-industrial-regency",
+      "name": "Lindblum, Industrial Regency // Mage Siege",
+      "cardIds": [
+        "lindblum-industrial-regency"
+      ],
+      "printings": [
+        {
+          "cardId": "lindblum-industrial-regency",
           "scryfallId": null,
           "set": null,
           "collectorNumber": null
@@ -4732,6 +4786,24 @@
         {
           "cardId": "arch-lux-cannon",
           "scryfallId": "d477db7e-d964-45b2-95ee-d6a382dd2aa9",
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:luxury suite",
+      "oracleId": null,
+      "oracleTextFingerprint": "30cf7bb62acc4128",
+      "canonicalCardId": "luxury-suite",
+      "name": "Luxury Suite",
+      "cardIds": [
+        "luxury-suite"
+      ],
+      "printings": [
+        {
+          "cardId": "luxury-suite",
+          "scryfallId": null,
           "set": null,
           "collectorNumber": null
         }
@@ -5080,6 +5152,24 @@
       ]
     },
     {
+      "implementationId": "local-name:minas morgul, dark fortress",
+      "oracleId": null,
+      "oracleTextFingerprint": "2a0801ed57aa558e",
+      "canonicalCardId": "minas-morgul-dark-fortress",
+      "name": "Minas Morgul, Dark Fortress",
+      "cardIds": [
+        "minas-morgul-dark-fortress"
+      ],
+      "printings": [
+        {
+          "cardId": "minas-morgul-dark-fortress",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:minas tirith",
       "oracleId": null,
       "oracleTextFingerprint": "eb33f3942e90e646",
@@ -5145,6 +5235,42 @@
       "printings": [
         {
           "cardId": "lcc-mist-dancer",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:mogis, god of slaughter",
+      "oracleId": null,
+      "oracleTextFingerprint": "4b7cfbed0d818a15",
+      "canonicalCardId": "mogis-god-of-slaughter",
+      "name": "Mogis, God of Slaughter",
+      "cardIds": [
+        "mogis-god-of-slaughter"
+      ],
+      "printings": [
+        {
+          "cardId": "mogis-god-of-slaughter",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:molten influence",
+      "oracleId": null,
+      "oracleTextFingerprint": "7cf8d609947c6205",
+      "canonicalCardId": "molten-influence",
+      "name": "Molten Influence",
+      "cardIds": [
+        "molten-influence"
+      ],
+      "printings": [
+        {
+          "cardId": "molten-influence",
           "scryfallId": null,
           "set": null,
           "collectorNumber": null
@@ -5235,6 +5361,24 @@
       "printings": [
         {
           "cardId": "murder",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:my precious // allure of power",
+      "oracleId": null,
+      "oracleTextFingerprint": "50738c09f2a79ac7",
+      "canonicalCardId": "my-precious",
+      "name": "My Precious // Allure of Power",
+      "cardIds": [
+        "my-precious"
+      ],
+      "printings": [
+        {
+          "cardId": "my-precious",
           "scryfallId": null,
           "set": null,
           "collectorNumber": null
@@ -5361,6 +5505,42 @@
       "printings": [
         {
           "cardId": "lcc-nicanzil-current-conductor",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:nightshade harvester",
+      "oracleId": null,
+      "oracleTextFingerprint": "6309bc0c96710e17",
+      "canonicalCardId": "nightshade-harvester",
+      "name": "Nightshade Harvester",
+      "cardIds": [
+        "nightshade-harvester"
+      ],
+      "printings": [
+        {
+          "cardId": "nightshade-harvester",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:no mercy",
+      "oracleId": null,
+      "oracleTextFingerprint": "7e14bf089ba74786",
+      "canonicalCardId": "no-mercy",
+      "name": "No Mercy",
+      "cardIds": [
+        "no-mercy"
+      ],
+      "printings": [
+        {
+          "cardId": "no-mercy",
           "scryfallId": null,
           "set": null,
           "collectorNumber": null
@@ -5656,6 +5836,24 @@
       ]
     },
     {
+      "implementationId": "local-name:persistent constrictor",
+      "oracleId": null,
+      "oracleTextFingerprint": "f9fabe968d8c5071",
+      "canonicalCardId": "persistent-constrictor",
+      "name": "Persistent Constrictor",
+      "cardIds": [
+        "persistent-constrictor"
+      ],
+      "printings": [
+        {
+          "cardId": "persistent-constrictor",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:pest summoner",
       "oracleId": null,
       "oracleTextFingerprint": "a1bed9e02f0cfa5f",
@@ -5746,6 +5944,24 @@
       ]
     },
     {
+      "implementationId": "local-name:play with fire",
+      "oracleId": null,
+      "oracleTextFingerprint": "d40d1945c2b64bbe",
+      "canonicalCardId": "play-with-fire",
+      "name": "Play with Fire",
+      "cardIds": [
+        "play-with-fire"
+      ],
+      "printings": [
+        {
+          "cardId": "play-with-fire",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:plaza of heroes",
       "oracleId": null,
       "oracleTextFingerprint": "79f6cfcfacdd74f1",
@@ -5794,6 +6010,24 @@
         {
           "cardId": "arch-power-depot",
           "scryfallId": "feaffb58-26e0-4f14-80af-681b785bb059",
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:price of progress",
+      "oracleId": null,
+      "oracleTextFingerprint": "f89eb5ffcf18adc9",
+      "canonicalCardId": "price-of-progress",
+      "name": "Price of Progress",
+      "cardIds": [
+        "price-of-progress"
+      ],
+      "printings": [
+        {
+          "cardId": "price-of-progress",
+          "scryfallId": null,
           "set": null,
           "collectorNumber": null
         }
@@ -5944,6 +6178,24 @@
       ]
     },
     {
+      "implementationId": "local-name:rakdos charm",
+      "oracleId": null,
+      "oracleTextFingerprint": "a628ac2295020a3a",
+      "canonicalCardId": "rakdos-charm",
+      "name": "Rakdos Charm",
+      "cardIds": [
+        "rakdos-charm"
+      ],
+      "printings": [
+        {
+          "cardId": "rakdos-charm",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:rampant growth",
       "oracleId": null,
       "oracleTextFingerprint": "59e6972a275d4ffb",
@@ -5991,6 +6243,24 @@
       "printings": [
         {
           "cardId": "lcc-ravenform",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:razorkin needlehead",
+      "oracleId": null,
+      "oracleTextFingerprint": "e1d3814a0bcd5ea1",
+      "canonicalCardId": "razorkin-needlehead",
+      "name": "Razorkin Needlehead",
+      "cardIds": [
+        "razorkin-needlehead"
+      ],
+      "printings": [
+        {
+          "cardId": "razorkin-needlehead",
           "scryfallId": null,
           "set": null,
           "collectorNumber": null
@@ -6064,6 +6334,24 @@
         {
           "cardId": "arch-red-xiii-proud-warrior",
           "scryfallId": "10407b26-be28-4628-9567-746681e5c834",
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:redirect lightning",
+      "oracleId": null,
+      "oracleTextFingerprint": "694faf36799a8ef2",
+      "canonicalCardId": "redirect-lightning",
+      "name": "Redirect Lightning",
+      "cardIds": [
+        "redirect-lightning"
+      ],
+      "printings": [
+        {
+          "cardId": "redirect-lightning",
+          "scryfallId": null,
           "set": null,
           "collectorNumber": null
         }
@@ -6232,6 +6520,24 @@
       ]
     },
     {
+      "implementationId": "local-name:roiling vortex",
+      "oracleId": null,
+      "oracleTextFingerprint": "372632615555bc89",
+      "canonicalCardId": "roiling-vortex",
+      "name": "Roiling Vortex",
+      "cardIds": [
+        "roiling-vortex"
+      ],
+      "printings": [
+        {
+          "cardId": "roiling-vortex",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:rootbound crag",
       "oracleId": null,
       "oracleTextFingerprint": "d8d0b79bbc2014a8",
@@ -6280,6 +6586,24 @@
         {
           "cardId": "arch-royal-treatment",
           "scryfallId": "009bad41-5e96-4bb3-9f5e-66500fb8af29",
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:ruby medallion",
+      "oracleId": null,
+      "oracleTextFingerprint": "7af2ea6b3982b379",
+      "canonicalCardId": "ruby-medallion",
+      "name": "Ruby Medallion",
+      "cardIds": [
+        "ruby-medallion"
+      ],
+      "printings": [
+        {
+          "cardId": "ruby-medallion",
+          "scryfallId": null,
           "set": null,
           "collectorNumber": null
         }
@@ -6484,6 +6808,24 @@
       ]
     },
     {
+      "implementationId": "local-name:scrawling crawler",
+      "oracleId": null,
+      "oracleTextFingerprint": "1640cc3a0df16fd0",
+      "canonicalCardId": "scrawling-crawler",
+      "name": "Scrawling Crawler",
+      "cardIds": [
+        "scrawling-crawler"
+      ],
+      "printings": [
+        {
+          "cardId": "scrawling-crawler",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:scroll of fate",
       "oracleId": null,
       "oracleTextFingerprint": "260e9f0522737bf1",
@@ -6610,6 +6952,24 @@
       ]
     },
     {
+      "implementationId": "local-name:shadowspear",
+      "oracleId": null,
+      "oracleTextFingerprint": "1da64c42d535a2e2",
+      "canonicalCardId": "shadowspear",
+      "name": "Shadowspear",
+      "cardIds": [
+        "shadowspear"
+      ],
+      "printings": [
+        {
+          "cardId": "shadowspear",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:shepherd of the flock // usher to safety",
       "oracleId": null,
       "oracleTextFingerprint": "f62f11baa6fec72b",
@@ -6640,6 +7000,24 @@
         {
           "cardId": "arch-shipwreck-marsh",
           "scryfallId": "156df6eb-1ac9-4954-bf93-b1668096b8bd",
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:shivan gorge",
+      "oracleId": null,
+      "oracleTextFingerprint": "bbcef210f3e084f1",
+      "canonicalCardId": "shivan-gorge",
+      "name": "Shivan Gorge",
+      "cardIds": [
+        "shivan-gorge"
+      ],
+      "printings": [
+        {
+          "cardId": "shivan-gorge",
+          "scryfallId": null,
           "set": null,
           "collectorNumber": null
         }
@@ -6862,6 +7240,24 @@
       ]
     },
     {
+      "implementationId": "local-name:smash to smithereens",
+      "oracleId": null,
+      "oracleTextFingerprint": "2a1504cd93489179",
+      "canonicalCardId": "smash-to-smithereens",
+      "name": "Smash to Smithereens",
+      "cardIds": [
+        "smash-to-smithereens"
+      ],
+      "printings": [
+        {
+          "cardId": "smash-to-smithereens",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:smaug, the golden",
       "oracleId": null,
       "oracleTextFingerprint": "89a73eb250cdc733",
@@ -6873,6 +7269,24 @@
       "printings": [
         {
           "cardId": "smaug",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:smoke",
+      "oracleId": null,
+      "oracleTextFingerprint": "59067a942449b62b",
+      "canonicalCardId": "smoke",
+      "name": "Smoke",
+      "cardIds": [
+        "smoke"
+      ],
+      "printings": [
+        {
+          "cardId": "smoke",
           "scryfallId": null,
           "set": null,
           "collectorNumber": null
@@ -6970,6 +7384,24 @@
       ]
     },
     {
+      "implementationId": "local-name:solphim, mayhem dominus",
+      "oracleId": null,
+      "oracleTextFingerprint": "ac88294fbaf2a6a1",
+      "canonicalCardId": "solphim-mayhem-dominus",
+      "name": "Solphim, Mayhem Dominus",
+      "cardIds": [
+        "solphim-mayhem-dominus"
+      ],
+      "printings": [
+        {
+          "cardId": "solphim-mayhem-dominus",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:soulgorger orgg",
       "oracleId": null,
       "oracleTextFingerprint": "09b6b205db77ba53",
@@ -7018,6 +7450,24 @@
         {
           "cardId": "arch-spectator-seating",
           "scryfallId": "b126484c-c3eb-484d-95a1-83eebb115b83",
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:spikefield hazard // spikefield cave",
+      "oracleId": null,
+      "oracleTextFingerprint": "8a97895ed94effb9",
+      "canonicalCardId": "spikefield-hazard",
+      "name": "Spikefield Hazard // Spikefield Cave",
+      "cardIds": [
+        "spikefield-hazard"
+      ],
+      "printings": [
+        {
+          "cardId": "spikefield-hazard",
+          "scryfallId": null,
           "set": null,
           "collectorNumber": null
         }
@@ -7222,6 +7672,24 @@
       ]
     },
     {
+      "implementationId": "local-name:sulfuric vortex",
+      "oracleId": null,
+      "oracleTextFingerprint": "7ff9390ebb7eeaa7",
+      "canonicalCardId": "sulfuric-vortex",
+      "name": "Sulfuric Vortex",
+      "cardIds": [
+        "sulfuric-vortex"
+      ],
+      "printings": [
+        {
+          "cardId": "sulfuric-vortex",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:sun titan",
       "oracleId": null,
       "oracleTextFingerprint": "32a7770ffb6d7f59",
@@ -7420,6 +7888,42 @@
       ]
     },
     {
+      "implementationId": "local-name:syr konrad, the grim",
+      "oracleId": null,
+      "oracleTextFingerprint": "3f209f1299c3bc32",
+      "canonicalCardId": "syr-konrad-the-grim",
+      "name": "Syr Konrad, the Grim",
+      "cardIds": [
+        "syr-konrad-the-grim"
+      ],
+      "printings": [
+        {
+          "cardId": "syr-konrad-the-grim",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:tainted strike",
+      "oracleId": null,
+      "oracleTextFingerprint": "ba8eb3e39b37a095",
+      "canonicalCardId": "tainted-strike",
+      "name": "Tainted Strike",
+      "cardIds": [
+        "tainted-strike"
+      ],
+      "printings": [
+        {
+          "cardId": "tainted-strike",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:talisman of dominance",
       "oracleId": null,
       "oracleTextFingerprint": "7ff2ef420254b21b",
@@ -7450,6 +7954,24 @@
         {
           "cardId": "arch-tanglespan-lookout",
           "scryfallId": "3bc5c32d-be0a-4a5f-a8c7-9767a895bc76",
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:tarrian's soulcleaver",
+      "oracleId": null,
+      "oracleTextFingerprint": "8fabed4417e03554",
+      "canonicalCardId": "tarrians-soulcleaver",
+      "name": "Tarrian's Soulcleaver",
+      "cardIds": [
+        "tarrians-soulcleaver"
+      ],
+      "printings": [
+        {
+          "cardId": "tarrians-soulcleaver",
+          "scryfallId": null,
           "set": null,
           "collectorNumber": null
         }
@@ -7564,6 +8086,24 @@
       ]
     },
     {
+      "implementationId": "local-name:terminate",
+      "oracleId": null,
+      "oracleTextFingerprint": "b27f21dff96976d4",
+      "canonicalCardId": "terminate",
+      "name": "Terminate",
+      "cardIds": [
+        "terminate"
+      ],
+      "printings": [
+        {
+          "cardId": "terminate",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:terrain generator",
       "oracleId": null,
       "oracleTextFingerprint": "cca11419180154fb",
@@ -7654,6 +8194,24 @@
       ]
     },
     {
+      "implementationId": "local-name:the lord of pain",
+      "oracleId": null,
+      "oracleTextFingerprint": "d8b0b87b8c7fcc0b",
+      "canonicalCardId": "the-lord-of-pain",
+      "name": "The Lord of Pain",
+      "cardIds": [
+        "the-lord-of-pain"
+      ],
+      "printings": [
+        {
+          "cardId": "the-lord-of-pain",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:the mightstone and weakstone",
       "oracleId": null,
       "oracleTextFingerprint": "7f0c009a7216fa3d",
@@ -7684,6 +8242,24 @@
         {
           "cardId": "arch-the-mycosynth-gardens",
           "scryfallId": "4afcac49-ac80-4561-ba2c-ce9487e9d8fe",
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:the reaver cleaver",
+      "oracleId": null,
+      "oracleTextFingerprint": "f0999003b96832c8",
+      "canonicalCardId": "the-reaver-cleaver",
+      "name": "The Reaver Cleaver",
+      "cardIds": [
+        "the-reaver-cleaver"
+      ],
+      "printings": [
+        {
+          "cardId": "the-reaver-cleaver",
+          "scryfallId": null,
           "set": null,
           "collectorNumber": null
         }
@@ -7978,6 +8554,24 @@
       ]
     },
     {
+      "implementationId": "local-name:toxic deluge",
+      "oracleId": null,
+      "oracleTextFingerprint": "70865ac65497db8a",
+      "canonicalCardId": "toxic-deluge",
+      "name": "Toxic Deluge",
+      "cardIds": [
+        "toxic-deluge"
+      ],
+      "printings": [
+        {
+          "cardId": "toxic-deluge",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:trailblazer's boots",
       "oracleId": null,
       "oracleTextFingerprint": "0b4445247ff85895",
@@ -8212,6 +8806,24 @@
       ]
     },
     {
+      "implementationId": "local-name:underworld dreams",
+      "oracleId": null,
+      "oracleTextFingerprint": "9b11629333def037",
+      "canonicalCardId": "underworld-dreams",
+      "name": "Underworld Dreams",
+      "cardIds": [
+        "underworld-dreams"
+      ],
+      "printings": [
+        {
+          "cardId": "underworld-dreams",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:undying evil",
       "oracleId": null,
       "oracleTextFingerprint": "687a3d0cc6227604",
@@ -8266,6 +8878,42 @@
       ]
     },
     {
+      "implementationId": "local-name:untimely malfunction",
+      "oracleId": null,
+      "oracleTextFingerprint": "53fb10d4dda08d0f",
+      "canonicalCardId": "untimely-malfunction",
+      "name": "Untimely Malfunction",
+      "cardIds": [
+        "untimely-malfunction"
+      ],
+      "printings": [
+        {
+          "cardId": "untimely-malfunction",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:urabrask // the great work",
+      "oracleId": null,
+      "oracleTextFingerprint": "991f93ca7ffb2295",
+      "canonicalCardId": "urabrask-the-great-work",
+      "name": "Urabrask // The Great Work",
+      "cardIds": [
+        "urabrask-the-great-work"
+      ],
+      "printings": [
+        {
+          "cardId": "urabrask-the-great-work",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:urza, lord protector",
       "oracleId": null,
       "oracleTextFingerprint": "4b208f16a4d8e438",
@@ -8314,6 +8962,24 @@
         {
           "cardId": "arch-uthros-titanic-godcore",
           "scryfallId": "11da39d6-cfa6-498d-91b1-11454cc7e5a3",
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:valgavoth, harrower of souls",
+      "oracleId": null,
+      "oracleTextFingerprint": "49c7076c0799d8cd",
+      "canonicalCardId": "valgavoth-harrower-of-souls",
+      "name": "Valgavoth, Harrower of Souls",
+      "cardIds": [
+        "valgavoth-harrower-of-souls"
+      ],
+      "printings": [
+        {
+          "cardId": "valgavoth-harrower-of-souls",
+          "scryfallId": null,
           "set": null,
           "collectorNumber": null
         }
@@ -8410,6 +9076,24 @@
       ]
     },
     {
+      "implementationId": "local-name:virtue of courage // embereth blaze",
+      "oracleId": null,
+      "oracleTextFingerprint": "cc49a9615b0bb6d5",
+      "canonicalCardId": "virtue-of-courage-embereth-blaze",
+      "name": "Virtue of Courage // Embereth Blaze",
+      "cardIds": [
+        "virtue-of-courage-embereth-blaze"
+      ],
+      "printings": [
+        {
+          "cardId": "virtue-of-courage-embereth-blaze",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:viscera seer",
       "oracleId": null,
       "oracleTextFingerprint": "060cf6b94836ab88",
@@ -8457,6 +9141,24 @@
       "printings": [
         {
           "cardId": "lcc-vorel-of-the-hull-clade",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:vorrac battlehorns",
+      "oracleId": null,
+      "oracleTextFingerprint": "3a05157a991951f5",
+      "canonicalCardId": "vorrac-battlehorns",
+      "name": "Vorrac Battlehorns",
+      "cardIds": [
+        "vorrac-battlehorns"
+      ],
+      "printings": [
+        {
+          "cardId": "vorrac-battlehorns",
           "scryfallId": null,
           "set": null,
           "collectorNumber": null
@@ -8698,6 +9400,24 @@
       ]
     },
     {
+      "implementationId": "local-name:witch's clinic",
+      "oracleId": null,
+      "oracleTextFingerprint": "580ded5d9b227e16",
+      "canonicalCardId": "witchs-clinic",
+      "name": "Witch's Clinic",
+      "cardIds": [
+        "witchs-clinic"
+      ],
+      "printings": [
+        {
+          "cardId": "witchs-clinic",
+          "scryfallId": null,
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
       "implementationId": "local-name:wizards of thay",
       "oracleId": null,
       "oracleTextFingerprint": "2bccffbbea31085e",
@@ -8854,6 +9574,24 @@
         {
           "cardId": "arch-zhur-taa-druid",
           "scryfallId": "f1882783-7284-490f-a0de-df9eb11f6ea5",
+          "set": null,
+          "collectorNumber": null
+        }
+      ]
+    },
+    {
+      "implementationId": "local-name:zo-zu the punisher",
+      "oracleId": null,
+      "oracleTextFingerprint": "d4dc1efb270c1697",
+      "canonicalCardId": "zo-zu-the-punisher",
+      "name": "Zo-Zu the Punisher",
+      "cardIds": [
+        "zo-zu-the-punisher"
+      ],
+      "printings": [
+        {
+          "cardId": "zo-zu-the-punisher",
+          "scryfallId": null,
           "set": null,
           "collectorNumber": null
         }
@@ -12753,6 +13491,47 @@
     "hideous-end": "local-name:hideous end",
     "jet-medallion": "local-name:jet medallion",
     "kardur-doomscourge": "local-name:kardur, doomscourge",
-    "kayas-ghostform": "local-name:kaya's ghostform"
+    "kayas-ghostform": "local-name:kaya's ghostform",
+    "kederekt-parasite": "local-name:kederekt parasite",
+    "leechridden-swamp": "local-name:leechridden swamp",
+    "lindblum-industrial-regency": "local-name:lindblum, industrial regency // mage siege",
+    "luxury-suite": "local-name:luxury suite",
+    "minas-morgul-dark-fortress": "local-name:minas morgul, dark fortress",
+    "mogis-god-of-slaughter": "local-name:mogis, god of slaughter",
+    "molten-influence": "local-name:molten influence",
+    "my-precious": "local-name:my precious // allure of power",
+    "nightshade-harvester": "local-name:nightshade harvester",
+    "no-mercy": "local-name:no mercy",
+    "persistent-constrictor": "local-name:persistent constrictor",
+    "play-with-fire": "local-name:play with fire",
+    "price-of-progress": "local-name:price of progress",
+    "rakdos-charm": "local-name:rakdos charm",
+    "razorkin-needlehead": "local-name:razorkin needlehead",
+    "redirect-lightning": "local-name:redirect lightning",
+    "roiling-vortex": "local-name:roiling vortex",
+    "ruby-medallion": "local-name:ruby medallion",
+    "scrawling-crawler": "local-name:scrawling crawler",
+    "shadowspear": "local-name:shadowspear",
+    "shivan-gorge": "local-name:shivan gorge",
+    "smash-to-smithereens": "local-name:smash to smithereens",
+    "smoke": "local-name:smoke",
+    "solphim-mayhem-dominus": "local-name:solphim, mayhem dominus",
+    "spikefield-hazard": "local-name:spikefield hazard // spikefield cave",
+    "sulfuric-vortex": "local-name:sulfuric vortex",
+    "syr-konrad-the-grim": "local-name:syr konrad, the grim",
+    "tainted-strike": "local-name:tainted strike",
+    "tarrians-soulcleaver": "local-name:tarrian's soulcleaver",
+    "terminate": "local-name:terminate",
+    "the-lord-of-pain": "local-name:the lord of pain",
+    "the-reaver-cleaver": "local-name:the reaver cleaver",
+    "toxic-deluge": "local-name:toxic deluge",
+    "underworld-dreams": "local-name:underworld dreams",
+    "untimely-malfunction": "local-name:untimely malfunction",
+    "urabrask-the-great-work": "local-name:urabrask // the great work",
+    "valgavoth-harrower-of-souls": "local-name:valgavoth, harrower of souls",
+    "virtue-of-courage-embereth-blaze": "local-name:virtue of courage // embereth blaze",
+    "vorrac-battlehorns": "local-name:vorrac battlehorns",
+    "witchs-clinic": "local-name:witch's clinic",
+    "zo-zu-the-punisher": "local-name:zo-zu the punisher"
   }
 }

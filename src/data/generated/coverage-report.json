@@ -1,30 +1,30 @@
 {
   "schemaVersion": 1,
   "rulesVersion": "mtg-cr-2026-08-07",
-  "generatedAt": "2026-09-21T00:35:43.701Z",
-  "cardCount": 671,
-  "oracleImplementationCount": 671,
+  "generatedAt": "2026-09-21T01:12:24.529Z",
+  "cardCount": 712,
+  "oracleImplementationCount": 712,
   "identityCoverage": {
     "cardsWithOracleId": 178,
-    "cardsUsingLocalNameFallback": 493,
-    "oracleIdPercent": 26.53,
+    "cardsUsingLocalNameFallback": 534,
+    "oracleIdPercent": 25,
     "cachedScryfallSnapshotCards": 178,
     "cachedScryfallCapturedAt": "2026-09-02T18:55:35.121Z"
   },
   "statusCounts": {
     "fully_supported": 31,
-    "partially_supported": 640
+    "partially_supported": 681
   },
   "statusPercent": {
-    "fully_supported": 4.62,
-    "partially_supported": 95.38
+    "fully_supported": 4.35,
+    "partially_supported": 95.65
   },
   "implementationPathCounts": {
-    "auto-template-candidate": 210,
+    "auto-template-candidate": 251,
     "complex-scripted": 13,
     "declarative-scripted": 448
   },
-  "cardsWithCardSpecificTests": 85,
+  "cardsWithCardSpecificTests": 86,
   "cardsWithGoldenBehaviorTests": 31,
   "goldenBehaviorCaseCount": 34,
   "cardsWithFullCertification": 31,

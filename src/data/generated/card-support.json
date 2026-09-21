@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "rulesVersion": "mtg-cr-2026-08-07",
-  "generatedAt": "2026-09-21T00:35:43.701Z",
+  "generatedAt": "2026-09-21T01:12:24.529Z",
   "cards": [
     {
       "cardId": "aang",
@@ -13247,6 +13247,36 @@
       "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
     },
     {
+      "cardId": "kederekt-parasite",
+      "name": "Kederekt Parasite",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:kederekt parasite",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "38c285c75e56bbe6",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
       "cardId": "keranos",
       "name": "Keranos, God of Storms",
       "oracleId": null,
@@ -15397,6 +15427,37 @@
       "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
     },
     {
+      "cardId": "leechridden-swamp",
+      "name": "Leechridden Swamp",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:leechridden swamp",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "ff98f15964fe2090",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
       "cardId": "lightning-bolt",
       "name": "Lightning Bolt",
       "oracleId": null,
@@ -15426,6 +15487,68 @@
       "certification": {
         "notes": "Direct damage spell primitive"
       },
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "lindblum-industrial-regency",
+      "name": "Lindblum, Industrial Regency // Mage Siege",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:lindblum, industrial regency // mage siege",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "6532c7e35d673e5c",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "luxury-suite",
+      "name": "Luxury Suite",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:luxury suite",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "30cf7bb62acc4128",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
       "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
     },
     {
@@ -15533,6 +15656,98 @@
       "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
     },
     {
+      "cardId": "minas-morgul-dark-fortress",
+      "name": "Minas Morgul, Dark Fortress",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:minas morgul, dark fortress",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "2a0801ed57aa558e",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "mogis-god-of-slaughter",
+      "name": "Mogis, God of Slaughter",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:mogis, god of slaughter",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "4b7cfbed0d818a15",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "molten-influence",
+      "name": "Molten Influence",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:molten influence",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "7cf8d609947c6205",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
       "cardId": "mountain",
       "name": "Mountain",
       "oracleId": "a3fb7228-e76b-4e96-a40e-20b5fed75685",
@@ -15598,6 +15813,98 @@
       "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
     },
     {
+      "cardId": "my-precious",
+      "name": "My Precious // Allure of Power",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:my precious // allure of power",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "50738c09f2a79ac7",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "nightshade-harvester",
+      "name": "Nightshade Harvester",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:nightshade harvester",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "6309bc0c96710e17",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "no-mercy",
+      "name": "No Mercy",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:no mercy",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "7e14bf089ba74786",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
       "cardId": "parallel-lives",
       "name": "Parallel Lives",
       "oracleId": null,
@@ -15626,6 +15933,36 @@
       "certification": {
         "notes": "Token doubling replacement"
       },
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "persistent-constrictor",
+      "name": "Persistent Constrictor",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:persistent constrictor",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "f9fabe968d8c5071",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
       "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
     },
     {
@@ -15694,6 +16031,68 @@
       "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
     },
     {
+      "cardId": "play-with-fire",
+      "name": "Play with Fire",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:play with fire",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "d40d1945c2b64bbe",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "price-of-progress",
+      "name": "Price of Progress",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:price of progress",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "f89eb5ffcf18adc9",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
       "cardId": "proliferate-spell",
       "name": "Steady Progress",
       "oracleId": null,
@@ -15717,6 +16116,252 @@
       "goldenFixtureFile": null,
       "goldenOracleTextFingerprint": null,
       "implementationOracleTextFingerprint": "1555d110aa6fcca1",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "rakdos-charm",
+      "name": "Rakdos Charm",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:rakdos charm",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "a628ac2295020a3a",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "razorkin-needlehead",
+      "name": "Razorkin Needlehead",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:razorkin needlehead",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "e1d3814a0bcd5ea1",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "redirect-lightning",
+      "name": "Redirect Lightning",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:redirect lightning",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "694faf36799a8ef2",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "roiling-vortex",
+      "name": "Roiling Vortex",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:roiling vortex",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "372632615555bc89",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "ruby-medallion",
+      "name": "Ruby Medallion",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:ruby medallion",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "7af2ea6b3982b379",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "scrawling-crawler",
+      "name": "Scrawling Crawler",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:scrawling crawler",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "1640cc3a0df16fd0",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "shadowspear",
+      "name": "Shadowspear",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:shadowspear",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "1da64c42d535a2e2",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "shivan-gorge",
+      "name": "Shivan Gorge",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:shivan gorge",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "bbcef210f3e084f1",
       "authoritativeOracleTextFingerprint": null,
       "oracleTextCurrent": true,
       "requiredCustomHooks": [],
@@ -15757,6 +16402,37 @@
       "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
     },
     {
+      "cardId": "smash-to-smithereens",
+      "name": "Smash to Smithereens",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:smash to smithereens",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "2a1504cd93489179",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
       "cardId": "smaug",
       "name": "Smaug, the Golden",
       "oracleId": null,
@@ -15784,6 +16460,37 @@
       "goldenFixtureFile": null,
       "goldenOracleTextFingerprint": null,
       "implementationOracleTextFingerprint": "89a73eb250cdc733",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "smoke",
+      "name": "Smoke",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:smoke",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "59067a942449b62b",
       "authoritativeOracleTextFingerprint": null,
       "oracleTextCurrent": true,
       "requiredCustomHooks": [],
@@ -15830,6 +16537,98 @@
       "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
     },
     {
+      "cardId": "solphim-mayhem-dominus",
+      "name": "Solphim, Mayhem Dominus",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:solphim, mayhem dominus",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "ac88294fbaf2a6a1",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "spikefield-hazard",
+      "name": "Spikefield Hazard // Spikefield Cave",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:spikefield hazard // spikefield cave",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "8a97895ed94effb9",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "sulfuric-vortex",
+      "name": "Sulfuric Vortex",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:sulfuric vortex",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "7ff9390ebb7eeaa7",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
       "cardId": "swamp",
       "name": "Swamp",
       "oracleId": null,
@@ -15865,6 +16664,130 @@
       "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
     },
     {
+      "cardId": "syr-konrad-the-grim",
+      "name": "Syr Konrad, the Grim",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:syr konrad, the grim",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "3f209f1299c3bc32",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "tainted-strike",
+      "name": "Tainted Strike",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:tainted strike",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "ba8eb3e39b37a095",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "tarrians-soulcleaver",
+      "name": "Tarrian's Soulcleaver",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:tarrian's soulcleaver",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "8fabed4417e03554",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "terminate",
+      "name": "Terminate",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:terminate",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 1,
+      "testFiles": [
+        "targeted-rakdos-removal.test.js"
+      ],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "b27f21dff96976d4",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
       "cardId": "thassa",
       "name": "Thassa, God of the Sea",
       "oracleId": null,
@@ -15889,6 +16812,98 @@
       "goldenFixtureFile": null,
       "goldenOracleTextFingerprint": null,
       "implementationOracleTextFingerprint": "a41f60cb96f42be2",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "the-lord-of-pain",
+      "name": "The Lord of Pain",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:the lord of pain",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "d8b0b87b8c7fcc0b",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "the-reaver-cleaver",
+      "name": "The Reaver Cleaver",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:the reaver cleaver",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "f0999003b96832c8",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "toxic-deluge",
+      "name": "Toxic Deluge",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:toxic deluge",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "70865ac65497db8a",
       "authoritativeOracleTextFingerprint": null,
       "oracleTextCurrent": true,
       "requiredCustomHooks": [],
@@ -15956,6 +16971,98 @@
       "goldenFixtureFile": null,
       "goldenOracleTextFingerprint": null,
       "implementationOracleTextFingerprint": "83a834f6601df862",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "underworld-dreams",
+      "name": "Underworld Dreams",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:underworld dreams",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "9b11629333def037",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "untimely-malfunction",
+      "name": "Untimely Malfunction",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:untimely malfunction",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "53fb10d4dda08d0f",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "urabrask-the-great-work",
+      "name": "Urabrask // The Great Work",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:urabrask // the great work",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "991f93ca7ffb2295",
       "authoritativeOracleTextFingerprint": null,
       "oracleTextCurrent": true,
       "requiredCustomHooks": [],
@@ -20069,6 +21176,36 @@
       "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
     },
     {
+      "cardId": "valgavoth-harrower-of-souls",
+      "name": "Valgavoth, Harrower of Souls",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:valgavoth, harrower of souls",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "49c7076c0799d8cd",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
       "cardId": "vampire-nighthawk",
       "name": "Vampire Nighthawk",
       "oracleId": null,
@@ -20135,6 +21272,68 @@
       "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
     },
     {
+      "cardId": "virtue-of-courage-embereth-blaze",
+      "name": "Virtue of Courage // Embereth Blaze",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:virtue of courage // embereth blaze",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "cc49a9615b0bb6d5",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "vorrac-battlehorns",
+      "name": "Vorrac Battlehorns",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:vorrac battlehorns",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "3a05157a991951f5",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
       "cardId": "wind-drake",
       "name": "Wind Drake",
       "oracleId": null,
@@ -20165,6 +21364,67 @@
       "certification": {
         "notes": "Flying"
       },
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "witchs-clinic",
+      "name": "Witch's Clinic",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:witch's clinic",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No complete machine-readable behavior is registered yet; this card is queued for template compilation or manual scripting.",
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "580ded5d9b227e16",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
+      "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
+    },
+    {
+      "cardId": "zo-zu-the-punisher",
+      "name": "Zo-Zu the Punisher",
+      "oracleId": null,
+      "scryfallId": null,
+      "oracleIdentity": "local-name:zo-zu the punisher",
+      "identitySource": "local-name-fallback",
+      "implementationPath": "auto-template-candidate",
+      "supportStatus": "partially_supported",
+      "strictEligible": false,
+      "caveats": [
+        "No card-specific behavioral regression test currently certifies this implementation.",
+        "Step 17 has not yet granted full-support certification for every material behavior of this card."
+      ],
+      "identityWarnings": [
+        "Authoritative Oracle ID is not cached for this local definition; a stable normalized-name identity is used until the next metadata refresh."
+      ],
+      "testCount": 0,
+      "testFiles": [],
+      "goldenTestCount": 0,
+      "goldenContractVersion": "step35-golden-v1",
+      "goldenFixtureFile": null,
+      "goldenOracleTextFingerprint": null,
+      "implementationOracleTextFingerprint": "d4dc1efb270c1697",
+      "authoritativeOracleTextFingerprint": null,
+      "oracleTextCurrent": true,
+      "requiredCustomHooks": [],
+      "certification": null,
       "lastValidatedRulesVersion": "mtg-cr-2026-08-07"
     }
   ]

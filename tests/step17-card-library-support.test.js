@@ -117,7 +117,7 @@ test('Step 17: differing Oracle text under the same Oracle id creates version-sp
 
 test('Step 17: cached Scryfall data supplies real Oracle identities where available and falls back visibly otherwise', () => {
   assert.equal(coverage.identityCoverage.cardsWithOracleId, 178);
-  assert.equal(coverage.identityCoverage.cardsUsingLocalNameFallback, 469);
+  assert.equal(coverage.identityCoverage.cardsUsingLocalNameFallback, 534);
   const jhoira = supportById['user-jhoira-of-the-ghitu'];
   assert.ok(jhoira.oracleId);
   assert.match(jhoira.oracleIdentity, /^oracle:/);
@@ -148,7 +148,7 @@ test('Step 17: GameEngine loads support metadata before game object creation and
   const ready = e.getDeckSupportReadiness(decks[0]);
   assert.equal(ready.cardCount, 100);
   assert.equal(ready.silentUnsupportedCount, 0);
-  assert.equal(e.getCardSupportCoverage().cardCount, 647);
+  assert.equal(e.getCardSupportCoverage().cardCount, 712);
 });
 
 test('Step 17: runtime cards not present in the certified database fail closed to partial support', () => {
