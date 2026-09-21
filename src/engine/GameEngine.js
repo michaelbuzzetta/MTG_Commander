@@ -709,6 +709,30 @@ export class GameEngine {
     return immutableClone(card);
   }
 
+  getManaAvailabilitySnapshot(playerId) {
+    const player = this.state.players[playerId];
+    if (!player) throw new Error(`Unknown player ${playerId}`);
+
+    const colors = ['W', 'U', 'B', 'R', 'G', 'C'];
+    const available = Object.fromEntries(colors.map(color => [color, Number(player.manaPool?.[color] || 0)]));
+
+    // Show mana that can be produced right now as well as mana already floating.
+    // A flexible source (for example, a dual land) contributes to each color it can
+    // currently produce, but only once per color. This is a color-availability
+    // indicator, not a claim that all displayed color totals can be produced at once.
+    for (const source of this.mana.manaSources(player, this.db, this, null)) {
+      const sourceMaximum = Object.fromEntries(colors.map(color => [color, 0]));
+      for (const option of source.options || []) {
+        for (const color of colors) {
+          sourceMaximum[color] = Math.max(sourceMaximum[color], Number(option.mana?.[color] || 0));
+        }
+      }
+      for (const color of colors) available[color] += sourceMaximum[color];
+    }
+
+    return immutableClone(available);
+  }
+
   getCardDatabaseSnapshot() {
     if (!this._publicDatabaseSnapshot || this._publicDatabaseSnapshotRevision !== this._databaseRevision) {
       this._publicDatabaseSnapshot = immutableClone(this.db);

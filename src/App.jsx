@@ -438,6 +438,8 @@ export default function App() {
   </main>;
 
   const s = engine.getPlayerStateSnapshot('player'), cardDb = engine.getCardDatabaseSnapshot(), p = s.players.player;
+  const manaAvailability = Object.fromEntries(Object.keys(s.players).map(id => [id, engine.getManaAvailabilitySnapshot(id)]));
+  const manaDisplay = id => manaAvailability[id] || { W: 0, U: 0, B: 0, R: 0, G: 0, C: 0 };
   const playerLegalActions = engine.getLegalActions('player');
   const legalActionIndex = buildLegalActionIndex(playerLegalActions);
   const opponentEntries = s.playerOrder.filter(id => id !== 'player').map(id => [id, s.players[id]]);
@@ -1292,6 +1294,7 @@ export default function App() {
             <div className="opponent-seat-header">
               <div className="identity compact"><span className="avatar">AI {index + 1}</span><div><b>{playerLabel(id)}</b><small>{opponent.lost ? 'Eliminated' : `${opponent.hand.length} cards in hand`}</small></div></div>
               <div className="life compact-life">{opponent.life}<span>♥</span></div>
+              <div className="mana compact-mana" title="Mana currently available by color (floating mana plus usable mana sources)"><span>W <b>{manaDisplay(id).W}</b></span><span>U <b>{manaDisplay(id).U}</b></span><span>B <b>{manaDisplay(id).B}</b></span><span>R <b>{manaDisplay(id).R}</b></span><span>G <b>{manaDisplay(id).G}</b></span><span>C <b>{manaDisplay(id).C}</b></span></div>
               <div className="seat-zone-counts"><span>Lib <b>{opponent.library.length}</b></span><span>GY <b>{opponent.graveyard.length}</b></span></div>
             </div>
             <div className="ai-last-action" title="Land plays never spend mana; only spells and activated abilities do.">{latestActionFor(id)}</div>
@@ -1317,7 +1320,7 @@ export default function App() {
       <section className="player-strip self">
         <div className="identity"><span className="avatar">YOU</span><div><b>Player</b><small>{p.hand.length} cards in hand</small></div></div>
         <div className="life">{p.life}<span>♥</span></div>
-        <div className="mana"><span>W <b>{p.manaPool.W}</b></span><span>U <b>{p.manaPool.U}</b></span><span>B <b>{p.manaPool.B}</b></span><span>R <b>{p.manaPool.R}</b></span><span>G <b>{p.manaPool.G}</b></span><span>C <b>{p.manaPool.C}</b></span></div>
+        <div className="mana" title="Mana currently available by color (floating mana plus usable mana sources)"><span>W <b>{manaDisplay('player').W}</b></span><span>U <b>{manaDisplay('player').U}</b></span><span>B <b>{manaDisplay('player').B}</b></span><span>R <b>{manaDisplay('player').R}</b></span><span>G <b>{manaDisplay('player').G}</b></span><span>C <b>{manaDisplay('player').C}</b></span></div>
       </section>
     </div>
 
