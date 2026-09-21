@@ -98,6 +98,12 @@ export class ReplacementRegistry {
     if (filter.fromZone && eventPayload?.fromZone !== filter.fromZone) return false;
     if (filter.toZone && eventPayload?.toZone !== filter.toZone) return false;
     if (filter.counterType && eventPayload?.counterType !== filter.counterType) return false;
+    if (filter.sourceController === 'you' && eventPayload?.sourceController !== source.controller) return false;
+    if (filter.noncombat === true && !!eventPayload?.combat) return false;
+    if (filter.recipientController === 'opponent') {
+      const recipientController = eventPayload?.targetPlayer || target?.controller || target?.owner || null;
+      if (!recipientController || !this.engine.opponents(source.controller).includes(recipientController)) return false;
+    }
     return true;
   }
 

@@ -1,0 +1,11 @@
+import test from 'node:test'; import assert from 'node:assert/strict';
+import { applyTargetedDeckInteractionImplementations } from '../src/cards/targeted/TargetedDeckInteractionImplementations.js';
+const names=['Deflecting Swat','Redirect Lightning','Rakdos Charm','Untimely Malfunction','Mount Doom'];
+const db=Object.fromEntries(names.map((name,i)=>[String(i),{id:String(i),name,manaCost:'',typeLine:name==='Mount Doom'?'Legendary Land':'Instant'}]));
+const out=applyTargetedDeckInteractionImplementations(db);
+test('interaction batch exact overrides are certified',()=>{for(const c of Object.values(out)){assert.equal(c.certificationEligible,true);assert.equal(c.targetedImplementation,'rakdos-deck-interaction-v1');}});
+test('Deflecting Swat has commander free cast and retarget effect',()=>{const c=Object.values(out).find(x=>x.name==='Deflecting Swat');assert.equal(c.freeIfControlCommander,true);assert.equal(c.targets.singleTargetOnly,true);assert.equal(c.spellEffects[0].type,'chooseNewTargetsForStackObject');});
+test('Redirect Lightning exposes both legal additional-cost choices',()=>{const c=Object.values(out).find(x=>x.name==='Redirect Lightning');assert.equal(c.modes.find(x=>x.id==='pay-life').additionalLifeCost,5);assert.equal(c.modes.find(x=>x.id==='pay-mana').manaCost,'{2}{R}');});
+test('Rakdos Charm implements all three modes',()=>{const c=Object.values(out).find(x=>x.name==='Rakdos Charm');assert.deepEqual(c.modes.map(x=>x.id),['graveyard','artifact','creatures']);});
+test('Untimely Malfunction implements all three modes',()=>{const c=Object.values(out).find(x=>x.name==='Untimely Malfunction');assert.deepEqual(c.modes.map(x=>x.id),['artifact','retarget','cant-block']);assert.equal(c.modes[2].targets.maxTargets,2);});
+test('Mount Doom implements mana and table-damage abilities',()=>{const c=Object.values(out).find(x=>x.name==='Mount Doom');assert.equal(c.abilities[0].cost.life,1);assert.deepEqual(c.abilities[0].manaOptions,[{B:1},{R:1}]);assert.equal(c.abilities[1].effect.type,'damageEachOpponent');});

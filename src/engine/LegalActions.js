@@ -230,8 +230,9 @@ export class LegalActions {
       const d = e.db[perm.cardId];
       for (const ability of e.static.effectiveAbilities(perm)) {
         if (ability.type === 'mana' && !ability.autoOnly) {
-          if (ability.anyColor) {
-            for (const manaColor of e.mana.anyColorChoices(p, ability)) {
+          if (ability.anyColor || (ability.manaOptions || []).length > 1) {
+            const choices = ability.anyColor ? e.mana.anyColorChoices(p, ability) : ability.manaOptions.map((_, index) => String(index));
+            for (const manaColor of choices) {
               const action = { type: 'ACTIVATE_MANA', permanentId: perm.instanceId, ability, manaColor };
               if (e.isActionLegal(pid, action)) out.push(action);
             }

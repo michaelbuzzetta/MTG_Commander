@@ -52,7 +52,8 @@ export class CostEngine {
     const definition = Number.isInteger(castFaceIndex) ? getObjectCardDefinition(rootDefinition, faceCard, 'stack') : rootDefinition;
     const selectedMode = mode ? engine._modeFor(definition, mode) : null;
     const castingOption = (definition.castingOptions || []).find(option => option.castOption === castOption) || ((castOption === 'morph' || castOption === 'disguise') && definition.faceDownCasting?.castOption === castOption ? definition.faceDownCasting : null);
-    const free = !!card.freeCast || castOption === 'hideaway' || castOption === 'withoutManaCost' || !!castingOption?.withoutManaCost;
+    const controlsCommander = !!definition.freeIfControlCommander && (engine.state.players[playerId]?.battlefield || []).some(permanent => permanent.isCommander && permanent.controller === playerId);
+    const free = !!card.freeCast || controlsCommander || castOption === 'hideaway' || castOption === 'withoutManaCost' || !!castingOption?.withoutManaCost;
     const baseOrAlternativeCost = free ? '' : (castOption === 'foretold' && definition.foretellCost
       ? definition.foretellCost
       : (castingOption?.manaCost ?? selectedMode?.manaCost ?? definition.manaCost ?? ''));

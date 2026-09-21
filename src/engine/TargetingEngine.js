@@ -131,12 +131,13 @@ export class TargetingEngine {
     const target = found.card;
     const def = e.copy?.definitionForObject(target) || e.db[target.cardId];
     const merged = { ...(spec.filter || {}), ...spec };
-    const supportsStack = kind === 'spell' || kind === 'spellOrPermanent' || kind === 'spell-or-permanent';
+    const supportsStack = kind === 'spell' || kind === 'stackObject' || kind === 'spellOrPermanent' || kind === 'spell-or-permanent';
     const supportsBattlefield = kind !== 'spell';
     const zone = merged.zone || (kind === 'spell' ? 'stack' : null);
 
     if (zone && found.zone !== zone) throw new Error(`Target must be in ${zone}`);
-    if (kind === 'spell' && found.zone !== 'stack') throw new Error('Target must be a spell on the stack');
+    if ((kind === 'spell' || kind === 'stackObject') && found.zone !== 'stack') throw new Error('Target must be a spell or ability on the stack');
+    if (kind === 'stackObject' && spec.singleTargetOnly && (found.stackItem?.targets || []).length !== 1) throw new Error('Target stack object must have a single target');
     if ((kind === 'permanent' || kind === 'playerOrPermanent' || kind === 'player-or-permanent') && found.zone !== 'battlefield') {
       throw new Error('Target must be a permanent on the battlefield');
     }
@@ -150,6 +151,7 @@ export class TargetingEngine {
       if (!expectedOwner || !e.state.players[expectedOwner] || target.owner !== expectedOwner) throw new Error('Target card must be owned by the selected player');
     }
     if (merged.type && !(found.zone === 'battlefield' ? e.static.isType(target, merged.type) : isType(def, merged.type))) throw new Error(`Target must be ${merged.type}`);
+    if (merged.commander && !target.isCommander) throw new Error('Target must be a commander');
     if (Array.isArray(merged.types) && merged.types.length && !merged.types.some(type => found.zone === 'battlefield' ? e.static.isType(target, type) : isType(def, type))) throw new Error(`Target must be one of: ${merged.types.join(', ')}`);
     if (merged.subtype && !(found.zone === 'battlefield' ? e.static.hasSubtype(target, merged.subtype) : hasSubtype(def, merged.subtype))) throw new Error(`Target must have subtype ${merged.subtype}`);
     if (Array.isArray(merged.subtypes) && merged.subtypes.length && !merged.subtypes.some(type => found.zone === 'battlefield' ? e.static.hasSubtype(target, type) : hasSubtype(def, type))) throw new Error(`Target must have one of these subtypes: ${merged.subtypes.join(', ')}`);
@@ -212,7 +214,7 @@ export class TargetingEngine {
     const kind = spec.kind || 'permanent';
     const supportsPlayer = ['player', 'playerOrPermanent', 'player-or-permanent'].includes(kind);
     const supportsCards = kind !== 'player';
-    const supportsStack = ['spell', 'spellOrPermanent', 'spell-or-permanent'].includes(kind);
+    const supportsStack = ['spell','stackObject','spellOrPermanent','spell-or-permanent'].includes(kind);
 
     if (supportsPlayer) {
       for (const id of this.engine.livingPlayerIds()) {
@@ -221,14 +223,15 @@ export class TargetingEngine {
     }
 
     if (supportsCards) {
-      const requestedZone = spec.zone || (kind === 'spell' ? 'stack' : null);
+      const requestedZone = spec.zone || ((kind === 'spell' || kind === 'stackObject') ? 'stack' : null);
       const zones = requestedZone ? [requestedZone] : (supportsStack ? ['battlefield','stack'] : ['battlefield']);
       for (const zone of zones) {
         if (zone === 'stack') {
           for (const item of this.engine.state.stack) {
-            const card = item.card;
-            if (!card || used.has(card.instanceId)) continue;
-            if (this.isLegalTarget(actorPid, card.instanceId, spec, { ...context, selectedTargets: selected })) candidates.push({ id: card.instanceId, kind: 'spell', card, zone: 'stack' });
+            const card = item.card || item.source || null;
+            const targetId = item.type === 'ability' ? (item.id || item.gameObjectId) : (card?.instanceId || item.id || item.gameObjectId);
+            if (!targetId || used.has(targetId)) continue;
+            if (this.isLegalTarget(actorPid, targetId, spec, { ...context, selectedTargets: selected })) candidates.push({ id: targetId, kind: 'stackObject', card, zone: 'stack' });
           }
           continue;
         }

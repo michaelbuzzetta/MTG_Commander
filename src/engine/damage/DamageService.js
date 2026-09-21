@@ -134,6 +134,12 @@ export class DamageService {
     const consequence = damage.recipient.kind === 'player' ? this._applyPlayerDamage(damage) : this._applyPermanentDamage(damage);
     this._enrichCommittedPayload(event, damage, consequence);
     this._applyLinkedConsequences(damage, consequence);
+    if (damage.recipient.kind === 'permanent' && consequence.amount > 0 && consequence.target && this.engine.static.isType(consequence.target, 'Creature')) {
+      this.engine.emit('DAMAGE_DEALT_TO_CREATURE', {
+        controller: consequence.target.controller, target: consequence.target, amount: consequence.amount,
+        source: damage.sourceSnapshot || damage.source || null, damageEvent: damage.snapshot()
+      });
+    }
     if (damage.recipient.kind === 'player' && !damage.batchId) this.engine.checkWinner();
     return {
       ...damage.snapshot(),

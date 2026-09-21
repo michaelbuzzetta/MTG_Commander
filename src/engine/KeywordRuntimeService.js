@@ -19,9 +19,9 @@ export class KeywordRuntimeService {
     if(!pay) this.engine.sacrificePermanent(source);
     return pay;
   }
-  extort(source,{pay=false}={}){
+  extort(source,{pay=false,prepaid=false}={}){
     if(!pay) return false; const e=this.engine,pid=source.controller;
-    if(!eCanPay(e,pid,'{W/B}')) return false; ePay(e,pid,'{W/B}');
+    if(!prepaid){ if(!eCanPay(e,pid,'{W/B}')) return false; ePay(e,pid,'{W/B}'); }
     let gained=0; for(const opp of e.opponents(pid)){ if(e.state.players[opp]?.lost) continue; e.changeLife(opp,-1); gained++; }
     if(gained) e.changeLife(pid,gained); return true;
   }
@@ -96,8 +96,8 @@ export class KeywordRuntimeService {
   tribute(source,opponentAdds=true,n=null){const k=Number(n??this.definition(source).tribute??0);if(opponentAdds)this.addCounter(source,k);source.tributePaid=!!opponentAdds;return source.tributePaid;}
   soulshift(source,targetId=null,n=null){const k=Number(n??this.definition(source).soulshift??0),p=this.engine.state.players[source.controller];const legal=(p.graveyard||[]).filter(c=>/Spirit/i.test(this.definition(c).typeLine||'')&&Number(this.definition(c).manaValue??0)<=k);if(!targetId)return legal.map(c=>c.instanceId);const c=legal.find(x=>x.instanceId===targetId);if(!c)throw new Error('Illegal soulshift target');this.engine.zones.move(c.instanceId,'hand',source.controller);return c;}
   venture(pid,room='entrance'){const p=this.engine.state.players[pid];p.dungeon ||= {room:null,completed:0};p.dungeon.room=room;return p.dungeon;}
-  cleanup(){ for(const pid of this.engine.playerIds()) for(const c of this.engine.state.players[pid].battlefield||[]){ const n=Number(c.meleeUntilCleanup||0); if(n){ c.modifiers.power-=n;c.modifiers.toughness-=n;c.meleeUntilCleanup=0; } const en=Number(c.enlistUntilCleanup||0); if(en){ c.modifiers.power-=en;c.enlistUntilCleanup=0; } const r=Number(c.rampageUntilCleanup||0);if(r){c.modifiers.power-=r;c.modifiers.toughness-=r;c.rampageUntilCleanup=0;}if(c.saddledUntilCleanup){c.saddled=false;delete c.saddledUntilCleanup;} } this.validatePairs(); }
+  cleanup(){ for(const pid of this.engine.playerIds()) for(const c of this.engine.state.players[pid].battlefield||[]){ const n=Number(c.meleeUntilCleanup||0); if(n){ c.modifiers.power-=n;c.modifiers.toughness-=n;c.meleeUntilCleanup=0; } const en=Number(c.enlistUntilCleanup||0); if(en){ c.modifiers.power-=en;c.enlistUntilCleanup=0; } const r=Number(c.rampageUntilCleanup||0);if(r){c.modifiers.power-=r;c.modifiers.toughness-=r;c.rampageUntilCleanup=0;}if(c.saddledUntilCleanup){c.saddled=false;delete c.saddledUntilCleanup;} if(Array.isArray(c.ptUntilCleanup)){ for(const m of c.ptUntilCleanup){ c.modifiers.power-=Number(m.power||0); c.modifiers.toughness-=Number(m.toughness||0); } delete c.ptUntilCleanup; } } this.validatePairs(); }
 
 }
-function eCanPay(e,pid,cost){ return e.mana.canAfford(e.state.players[pid],cost,0); }
+function eCanPay(e,pid,cost){ return e.mana.canAfford(e.state.players[pid],e.db,cost,0,e,{kind:'other'}); }
 function ePay(e,pid,cost){ return e.mana.pay(e.state.players[pid],cost,0); }

@@ -25,6 +25,7 @@ export class TurnBasedActions {
     switch (stepKey) {
       case 'UNTAP': {
         s.cardsDrawnThisTurn[s.activePlayer] = 0;
+        s.lifeLostThisTurn = Object.fromEntries(Object.keys(s.players).map(pid => [pid, 0]));
         // Day/night changes during the untap step and uses the previous turn's
         // spell count. Transform every daybound/nightbound permanent to the
         // face appropriate for the resulting designation.

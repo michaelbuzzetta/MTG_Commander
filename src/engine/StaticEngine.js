@@ -155,13 +155,14 @@ export class StaticEngine {
   }
 
   canPlayerGainLife(playerId) {
+    if (Number(this.engine.state.opponentsCantGainLifeUntilTurn?.[playerId] ?? -1) === Number(this.engine.state.turnNumber)) return false;
     for (const [controller, player] of Object.entries(this.engine.state.players)) {
-      if (controller === playerId) continue;
       for (const source of player.battlefield) {
         if (source.phasedOut) continue;
         const definition = this.definitionFor(source);
         for (const ability of definition?.abilities || []) {
-          if (ability.type === 'static' && ability.effect?.opponentsCantGainLife) return false;
+          if (ability.type === 'static' && ability.effect?.playersCantGainLife) return false;
+          if (ability.type === 'static' && ability.effect?.opponentsCantGainLife && controller !== playerId) return false;
         }
       }
     }
@@ -180,6 +181,7 @@ export class StaticEngine {
         if (filter.subtype && !hasSubtype(def, filter.subtype)) continue;
         if (Array.isArray(filter.subtypes) && filter.subtypes.length && !filter.subtypes.some(t => hasSubtype(def, t))) continue;
         if (filter.type && !isType(def, filter.type)) continue;
+        if (filter.color && !(def.colors || def.colorIdentity || []).includes(filter.color)) continue;
         reduction += Number(ability.effect.spellCostReduction || 0);
       }
     }

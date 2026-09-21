@@ -27195,5 +27195,1468 @@
     "supported": true,
     "source": "Scryfall oracle capture IKO 259",
     "entersTapped": true
+  },
+  "backlash": {
+    "id": "backlash",
+    "name": "Backlash",
+    "typeLine": "Instant",
+    "manaCost": "{1}{B}{R}",
+    "manaValue": 3,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B",
+      "R"
+    ],
+    "colors": [],
+    "oracleText": "Tap target untapped creature. That creature deals damage equal to its power to its controller.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch1"
+  },
+  "bedevil": {
+    "id": "bedevil",
+    "name": "Bedevil",
+    "typeLine": "Instant",
+    "manaCost": "{B}{B}{R}",
+    "manaValue": 3,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B",
+      "R"
+    ],
+    "colors": [],
+    "oracleText": "Destroy target artifact, creature, or planeswalker.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch1"
+  },
+  "blazemire-verge": {
+    "id": "blazemire-verge",
+    "name": "Blazemire Verge",
+    "typeLine": "Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B",
+      "R"
+    ],
+    "colors": [],
+    "oracleText": "{T}: Add {B}. {T}: Add {R}. Activate only if you control a Swamp or a Mountain.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch1"
+  },
+  "blood-seeker": {
+    "id": "blood-seeker",
+    "name": "Blood Seeker",
+    "typeLine": "Creature — Vampire Shaman",
+    "manaCost": "{1}{B}",
+    "manaValue": 2,
+    "power": "1",
+    "toughness": "1",
+    "subtypes": [
+      "Vampire",
+      "Shaman"
+    ],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "Whenever a creature enters under an opponent’s control, you may have that player lose 1 life.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch1"
+  },
+  "bloodchief-ascension": {
+    "id": "bloodchief-ascension",
+    "name": "Bloodchief Ascension",
+    "typeLine": "Enchantment",
+    "manaCost": "{B}",
+    "manaValue": 1,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "At the beginning of each end step, if an opponent lost 2 or more life this turn, you may put a quest counter on Bloodchief Ascension. Whenever a card is put into an opponent’s graveyard from anywhere, if Bloodchief Ascension has three or more quest counters on it, you may have that player lose 2 life. If you do, you gain 2 life.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch1"
+  },
+  "chandra-awakened-inferno": {
+    "id": "chandra-awakened-inferno",
+    "name": "Chandra, Awakened Inferno",
+    "typeLine": "Legendary Planeswalker — Chandra",
+    "manaCost": "{4}{R}{R}",
+    "manaValue": 6,
+    "power": "",
+    "toughness": "",
+    "subtypes": [
+      "Chandra"
+    ],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "R"
+    ],
+    "colors": [
+      "R"
+    ],
+    "oracleText": "This spell can’t be countered. +2: Each opponent gets an emblem with “At the beginning of your upkeep, this emblem deals 1 damage to you.” −3: Chandra, Awakened Inferno deals 3 damage to each non-Elemental creature. −X: Chandra, Awakened Inferno deals X damage to target creature or planeswalker. If a permanent dealt damage this way would die this turn, exile it instead.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch1",
+    "loyalty": "6"
+  },
+  "crypt-ghast": {
+    "id": "crypt-ghast",
+    "name": "Crypt Ghast",
+    "typeLine": "Creature — Spirit",
+    "manaCost": "{3}{B}",
+    "manaValue": 4,
+    "power": "2",
+    "toughness": "2",
+    "subtypes": [
+      "Spirit"
+    ],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "Extort. Whenever you tap a Swamp for mana, add an additional {B}.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch1"
+  },
+  "dark-ritual": {
+    "id": "dark-ritual",
+    "name": "Dark Ritual",
+    "typeLine": "Instant",
+    "manaCost": "{B}",
+    "manaValue": 1,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "Add {B}{B}{B}.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch1"
+  },
+  "deadly-rollick": {
+    "id": "deadly-rollick",
+    "name": "Deadly Rollick",
+    "typeLine": "Instant",
+    "manaCost": "{3}{B}",
+    "manaValue": 4,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "If you control a commander, you may cast this spell without paying its mana cost. Exile target creature.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch2"
+  },
+  "deflecting-swat": {
+    "id": "deflecting-swat",
+    "name": "Deflecting Swat",
+    "typeLine": "Instant",
+    "manaCost": "{2}{R}",
+    "manaValue": 3,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "R"
+    ],
+    "colors": [
+      "R"
+    ],
+    "oracleText": "If you control a commander, you may cast this spell without paying its mana cost. You may choose new targets for target spell or ability.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch2"
+  },
+  "delirium": {
+    "id": "delirium",
+    "name": "Delirium",
+    "typeLine": "Instant",
+    "manaCost": "{1}{B}{R}",
+    "manaValue": 3,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B",
+      "R"
+    ],
+    "colors": [
+      "B",
+      "R"
+    ],
+    "oracleText": "Cast this spell only during an opponent’s turn. Tap target creature that player controls. That creature deals damage equal to its power to the player. The creature doesn’t untap during its controller’s next untap step.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch2"
+  },
+  "exquisite-blood": {
+    "id": "exquisite-blood",
+    "name": "Exquisite Blood",
+    "typeLine": "Enchantment",
+    "manaCost": "{4}{B}",
+    "manaValue": 5,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "Whenever an opponent loses life, you gain that much life.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch2"
+  },
+  "forsaken-wastes": {
+    "id": "forsaken-wastes",
+    "name": "Forsaken Wastes",
+    "typeLine": "World Enchantment",
+    "manaCost": "{2}{B}",
+    "manaValue": 3,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "Players can’t gain life. At the beginning of each player’s upkeep, that player loses 1 life. Whenever Forsaken Wastes becomes the target of a spell, that spell’s controller loses 5 life.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch2"
+  },
+  "geths-verdict": {
+    "id": "geths-verdict",
+    "name": "Geth's Verdict",
+    "typeLine": "Instant",
+    "manaCost": "{B}{B}",
+    "manaValue": 2,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "Target player sacrifices a creature and loses 1 life.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch2"
+  },
+  "gleeful-arsonist": {
+    "id": "gleeful-arsonist",
+    "name": "Gleeful Arsonist",
+    "typeLine": "Creature — Human Wizard",
+    "manaCost": "{2}{R}",
+    "manaValue": 3,
+    "power": "2",
+    "toughness": "2",
+    "subtypes": [
+      "Human",
+      "Wizard"
+    ],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "R"
+    ],
+    "colors": [
+      "R"
+    ],
+    "oracleText": "Whenever a player casts their second spell each turn, Gleeful Arsonist deals 2 damage to that player.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch2"
+  },
+  "graven-cairns": {
+    "id": "graven-cairns",
+    "name": "Graven Cairns",
+    "typeLine": "Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B",
+      "R"
+    ],
+    "colors": [],
+    "oracleText": "{T}: Add {C}. {B/R}, {T}: Add {B}{B}, {B}{R}, or {R}{R}.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch2"
+  },
+  "grim-tutor": {
+    "id": "grim-tutor",
+    "name": "Grim Tutor",
+    "typeLine": "Sorcery",
+    "manaCost": "{1}{B}{B}",
+    "manaValue": 3,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "Search your library for a card, put that card into your hand, then shuffle. You lose 3 life.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch3"
+  },
+  "gut-shot": {
+    "id": "gut-shot",
+    "name": "Gut Shot",
+    "typeLine": "Instant",
+    "manaCost": "{R/P}",
+    "manaValue": 1,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "R"
+    ],
+    "colors": [
+      "R"
+    ],
+    "oracleText": "Gut Shot deals 1 damage to any target.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch3"
+  },
+  "haunted-ridge": {
+    "id": "haunted-ridge",
+    "name": "Haunted Ridge",
+    "typeLine": "Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B",
+      "R"
+    ],
+    "colors": [],
+    "oracleText": "Haunted Ridge enters tapped unless you control two or more other lands. {T}: Add {B} or {R}.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch3"
+  },
+  "hexing-squelcher": {
+    "id": "hexing-squelcher",
+    "name": "Hexing Squelcher",
+    "typeLine": "Creature — Goblin Sorcerer",
+    "manaCost": "{1}{R}",
+    "manaValue": 2,
+    "power": "2",
+    "toughness": "2",
+    "subtypes": [
+      "Goblin",
+      "Sorcerer"
+    ],
+    "keywords": [
+      "Ward"
+    ],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "R"
+    ],
+    "colors": [
+      "R"
+    ],
+    "oracleText": "This spell can't be countered. Ward—Pay 2 life. Spells you control can't be countered. Other creatures you control have \"Ward—Pay 2 life.\"",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch3"
+  },
+  "hideous-end": {
+    "id": "hideous-end",
+    "name": "Hideous End",
+    "typeLine": "Instant",
+    "manaCost": "{1}{B}{B}",
+    "manaValue": 3,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "Destroy target nonblack creature. Its controller loses 2 life.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch3"
+  },
+  "jet-medallion": {
+    "id": "jet-medallion",
+    "name": "Jet Medallion",
+    "typeLine": "Artifact",
+    "manaCost": "{2}",
+    "manaValue": 2,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [],
+    "oracleText": "Black spells you cast cost {1} less to cast.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch3"
+  },
+  "kardur-doomscourge": {
+    "id": "kardur-doomscourge",
+    "name": "Kardur, Doomscourge",
+    "typeLine": "Legendary Creature — Demon Berserker",
+    "manaCost": "{2}{B}{R}",
+    "manaValue": 4,
+    "power": "4",
+    "toughness": "3",
+    "subtypes": [
+      "Demon",
+      "Berserker"
+    ],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B",
+      "R"
+    ],
+    "colors": [
+      "B",
+      "R"
+    ],
+    "oracleText": "When Kardur enters, until your next turn, creatures your opponents control attack each combat if able and attack a player other than you if able. Whenever an attacking creature dies, each opponent loses 1 life and you gain 1 life.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch3"
+  },
+  "kayas-ghostform": {
+    "id": "kayas-ghostform",
+    "name": "Kaya's Ghostform",
+    "typeLine": "Enchantment — Aura",
+    "manaCost": "{B}",
+    "manaValue": 1,
+    "power": "",
+    "toughness": "",
+    "subtypes": [
+      "Aura"
+    ],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "Enchant creature or planeswalker you control. When enchanted permanent dies or is put into exile, return that card to the battlefield under your control.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch3"
+  },
+  "kederekt-parasite": {
+    "id": "kederekt-parasite",
+    "name": "Kederekt Parasite",
+    "typeLine": "Creature — Horror",
+    "manaCost": "{B}",
+    "manaValue": 1,
+    "power": "1",
+    "toughness": "1",
+    "subtypes": [
+      "Horror"
+    ],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "Whenever an opponent draws a card, if you control a red permanent, you may have Kederekt Parasite deal 1 damage to that player.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch4"
+  },
+  "leechridden-swamp": {
+    "id": "leechridden-swamp",
+    "name": "Leechridden Swamp",
+    "typeLine": "Land — Swamp",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": "",
+    "toughness": "",
+    "subtypes": [
+      "Swamp"
+    ],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "Leechridden Swamp enters tapped. {T}: Add {B}. {B}, {T}: Each opponent loses 1 life. Activate only if you control two or more black permanents.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch4"
+  },
+  "lindblum-industrial-regency": {
+    "id": "lindblum-industrial-regency",
+    "name": "Lindblum, Industrial Regency // Mage Siege",
+    "typeLine": "Land // Sorcery",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "R"
+    ],
+    "colors": [
+      "R"
+    ],
+    "oracleText": "Lindblum, Industrial Regency enters tapped. {T}: Add {R}. // Mage Siege",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch4"
+  },
+  "luxury-suite": {
+    "id": "luxury-suite",
+    "name": "Luxury Suite",
+    "typeLine": "Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B",
+      "R"
+    ],
+    "colors": [
+      "B",
+      "R"
+    ],
+    "oracleText": "Luxury Suite enters tapped unless you have two or more opponents. {T}: Add {B} or {R}.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch4"
+  },
+  "minas-morgul-dark-fortress": {
+    "id": "minas-morgul-dark-fortress",
+    "name": "Minas Morgul, Dark Fortress",
+    "typeLine": "Legendary Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "Minas Morgul, Dark Fortress enters tapped. {T}: Add {B}.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch4"
+  },
+  "mogis-god-of-slaughter": {
+    "id": "mogis-god-of-slaughter",
+    "name": "Mogis, God of Slaughter",
+    "typeLine": "Legendary Enchantment Creature — God",
+    "manaCost": "{2}{B}{R}",
+    "manaValue": 4,
+    "power": "7",
+    "toughness": "5",
+    "subtypes": [
+      "God"
+    ],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B",
+      "R"
+    ],
+    "colors": [
+      "B",
+      "R"
+    ],
+    "oracleText": "Indestructible. As long as your devotion to black and red is less than seven, Mogis isn't a creature. At the beginning of each opponent's upkeep, Mogis deals 2 damage to that player unless they sacrifice a creature.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch4"
+  },
+  "molten-influence": {
+    "id": "molten-influence",
+    "name": "Molten Influence",
+    "typeLine": "Instant",
+    "manaCost": "{1}{R}",
+    "manaValue": 2,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "R"
+    ],
+    "colors": [
+      "R"
+    ],
+    "oracleText": "Counter target instant or sorcery spell unless its controller has Molten Influence deal 4 damage to them.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch4"
+  },
+  "my-precious": {
+    "id": "my-precious",
+    "name": "My Precious // Allure of Power",
+    "typeLine": "Legendary Artifact — Equipment // Sorcery",
+    "manaCost": "{2}",
+    "manaValue": 2,
+    "power": "",
+    "toughness": "",
+    "subtypes": [
+      "Equipment"
+    ],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "Double-faced targeted implementation.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch4"
+  },
+  "nightshade-harvester": {
+    "id": "nightshade-harvester",
+    "name": "Nightshade Harvester",
+    "typeLine": "Creature — Vampire Warlock",
+    "manaCost": "{3}{B}",
+    "manaValue": 4,
+    "power": "2",
+    "toughness": "2",
+    "subtypes": [
+      "Vampire",
+      "Warlock"
+    ],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "Whenever a land enters under an opponent’s control, that player loses 1 life. Put a +1/+1 counter on Nightshade Harvester.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch5"
+  },
+  "no-mercy": {
+    "id": "no-mercy",
+    "name": "No Mercy",
+    "typeLine": "Enchantment",
+    "manaCost": "{2}{B}{B}",
+    "manaValue": 4,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "Whenever a creature deals damage to you, destroy it.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch5"
+  },
+  "persistent-constrictor": {
+    "id": "persistent-constrictor",
+    "name": "Persistent Constrictor",
+    "typeLine": "Creature — Zombie Snake",
+    "manaCost": "{1}{B}",
+    "manaValue": 2,
+    "power": "2",
+    "toughness": "1",
+    "subtypes": [
+      "Zombie",
+      "Snake"
+    ],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "Targeted implementation for opponent-upkeep life loss and persist.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch5"
+  },
+  "play-with-fire": {
+    "id": "play-with-fire",
+    "name": "Play with Fire",
+    "typeLine": "Instant",
+    "manaCost": "{R}",
+    "manaValue": 1,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "R"
+    ],
+    "colors": [
+      "R"
+    ],
+    "oracleText": "Play with Fire deals 2 damage to any target. If a player is dealt damage this way, scry 1.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch5"
+  },
+  "price-of-progress": {
+    "id": "price-of-progress",
+    "name": "Price of Progress",
+    "typeLine": "Instant",
+    "manaCost": "{1}{R}",
+    "manaValue": 2,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "R"
+    ],
+    "colors": [
+      "R"
+    ],
+    "oracleText": "Price of Progress deals damage to each player equal to twice the number of nonbasic lands that player controls.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch5"
+  },
+  "rakdos-charm": {
+    "id": "rakdos-charm",
+    "name": "Rakdos Charm",
+    "typeLine": "Instant",
+    "manaCost": "{B}{R}",
+    "manaValue": 2,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B",
+      "R"
+    ],
+    "colors": [
+      "B",
+      "R"
+    ],
+    "oracleText": "Choose one — Exile target player’s graveyard; destroy target artifact; or each creature deals 1 damage to its controller.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch5"
+  },
+  "razorkin-needlehead": {
+    "id": "razorkin-needlehead",
+    "name": "Razorkin Needlehead",
+    "typeLine": "Creature — Human Assassin",
+    "manaCost": "{B}{R}",
+    "manaValue": 2,
+    "power": "2",
+    "toughness": "2",
+    "subtypes": [
+      "Human",
+      "Assassin"
+    ],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B",
+      "R"
+    ],
+    "colors": [
+      "B",
+      "R"
+    ],
+    "oracleText": "First strike during your turn. Whenever an opponent draws a card, Razorkin Needlehead deals 1 damage to them.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch5"
+  },
+  "redirect-lightning": {
+    "id": "redirect-lightning",
+    "name": "Redirect Lightning",
+    "typeLine": "Instant",
+    "manaCost": "{R}",
+    "manaValue": 1,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "R"
+    ],
+    "colors": [
+      "R"
+    ],
+    "oracleText": "Targeted implementation supports its additional-cost target-changing modes.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch5"
+  },
+  "roiling-vortex": {
+    "id": "roiling-vortex",
+    "name": "Roiling Vortex",
+    "typeLine": "Enchantment",
+    "manaCost": "{1}{R}",
+    "manaValue": 2,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "R"
+    ],
+    "colors": [
+      "R"
+    ],
+    "oracleText": "At the beginning of each player’s upkeep, Roiling Vortex deals 1 damage to them. Whenever a player casts a spell, if no mana was spent to cast that spell, Roiling Vortex deals 5 damage to that player. {R}: Your opponents can’t gain life this turn.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch6"
+  },
+  "ruby-medallion": {
+    "id": "ruby-medallion",
+    "name": "Ruby Medallion",
+    "typeLine": "Artifact",
+    "manaCost": "{2}",
+    "manaValue": 2,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [],
+    "colors": [],
+    "oracleText": "Red spells you cast cost {1} less to cast.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch6"
+  },
+  "scrawling-crawler": {
+    "id": "scrawling-crawler",
+    "name": "Scrawling Crawler",
+    "typeLine": "Artifact Creature — Phyrexian Construct",
+    "manaCost": "{3}",
+    "manaValue": 3,
+    "power": "3",
+    "toughness": "2",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "At the beginning of your upkeep, each player draws a card. Whenever an opponent draws a card, that player loses 1 life.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch6"
+  },
+  "shadowspear": {
+    "id": "shadowspear",
+    "name": "Shadowspear",
+    "typeLine": "Legendary Artifact — Equipment",
+    "manaCost": "{1}",
+    "manaValue": 1,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [],
+    "colors": [],
+    "oracleText": "Equipped creature gets +1/+1 and has trample and lifelink. {1}: Permanents your opponents control lose hexproof and indestructible until end of turn. Equip {2}.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch6"
+  },
+  "shivan-gorge": {
+    "id": "shivan-gorge",
+    "name": "Shivan Gorge",
+    "typeLine": "Legendary Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "R"
+    ],
+    "colors": [
+      "R"
+    ],
+    "oracleText": "{T}: Add {C}. {2}{R}, {T}: Shivan Gorge deals 1 damage to each opponent.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch6"
+  },
+  "smash-to-smithereens": {
+    "id": "smash-to-smithereens",
+    "name": "Smash to Smithereens",
+    "typeLine": "Instant",
+    "manaCost": "{1}{R}",
+    "manaValue": 2,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "R"
+    ],
+    "colors": [
+      "R"
+    ],
+    "oracleText": "Destroy target artifact. Smash to Smithereens deals 3 damage to that artifact’s controller.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch6"
+  },
+  "smoke": {
+    "id": "smoke",
+    "name": "Smoke",
+    "typeLine": "Enchantment",
+    "manaCost": "{R}{R}",
+    "manaValue": 2,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "R"
+    ],
+    "colors": [
+      "R"
+    ],
+    "oracleText": "Players can’t untap more than one creature during their untap steps.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch6"
+  },
+  "solphim-mayhem-dominus": {
+    "id": "solphim-mayhem-dominus",
+    "name": "Solphim, Mayhem Dominus",
+    "typeLine": "Legendary Creature — Phyrexian Horror",
+    "manaCost": "{2}{R}{R}",
+    "manaValue": 4,
+    "power": "5",
+    "toughness": "4",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "R"
+    ],
+    "colors": [
+      "R"
+    ],
+    "oracleText": "If a source you control would deal noncombat damage to an opponent or a permanent an opponent controls, it deals double that damage instead. {1}{R/P}{R/P}, Discard two cards: Put an indestructible counter on Solphim, Mayhem Dominus.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch6"
+  },
+  "spikefield-hazard": {
+    "id": "spikefield-hazard",
+    "name": "Spikefield Hazard // Spikefield Cave",
+    "typeLine": "Instant // Land",
+    "manaCost": "{R}",
+    "manaValue": 1,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "R"
+    ],
+    "colors": [
+      "R"
+    ],
+    "oracleText": "Spikefield Hazard deals 1 damage to any target. If a permanent dealt damage this way would die this turn, exile it instead. // Spikefield Cave enters tapped. {T}: Add {R}.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch7"
+  },
+  "sulfuric-vortex": {
+    "id": "sulfuric-vortex",
+    "name": "Sulfuric Vortex",
+    "typeLine": "Enchantment",
+    "manaCost": "{1}{R}{R}",
+    "manaValue": 3,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "R"
+    ],
+    "colors": [
+      "R"
+    ],
+    "oracleText": "At the beginning of each player’s upkeep, Sulfuric Vortex deals 2 damage to that player. Players can’t gain life.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch7"
+  },
+  "syr-konrad-the-grim": {
+    "id": "syr-konrad-the-grim",
+    "name": "Syr Konrad, the Grim",
+    "typeLine": "Legendary Creature — Human Knight",
+    "manaCost": "{3}{B}{B}",
+    "manaValue": 5,
+    "power": "5",
+    "toughness": "4",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "Whenever another creature dies, or a creature card is put into a graveyard from anywhere other than the battlefield, or a creature card leaves your graveyard, Syr Konrad, the Grim deals 1 damage to each opponent. {1}{B}: Each player mills a card.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch7"
+  },
+  "tainted-strike": {
+    "id": "tainted-strike",
+    "name": "Tainted Strike",
+    "typeLine": "Instant",
+    "manaCost": "{B}",
+    "manaValue": 1,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "Target creature gets +1/+0 and gains infect until end of turn.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch7"
+  },
+  "tarrians-soulcleaver": {
+    "id": "tarrians-soulcleaver",
+    "name": "Tarrian's Soulcleaver",
+    "typeLine": "Legendary Artifact — Equipment",
+    "manaCost": "{1}",
+    "manaValue": 1,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "Equipped creature has vigilance and gets a +1/+1 counter whenever another artifact or creature is put into a graveyard from the battlefield. Equip {2}.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch7"
+  },
+  "terminate": {
+    "id": "terminate",
+    "name": "Terminate",
+    "typeLine": "Instant",
+    "manaCost": "{B}{R}",
+    "manaValue": 2,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B",
+      "R"
+    ],
+    "colors": [
+      "B",
+      "R"
+    ],
+    "oracleText": "Destroy target creature. It can’t be regenerated.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch7"
+  },
+  "the-lord-of-pain": {
+    "id": "the-lord-of-pain",
+    "name": "The Lord of Pain",
+    "typeLine": "Legendary Creature — Human Assassin",
+    "manaCost": "{3}{B}{R}",
+    "manaValue": 5,
+    "power": "5",
+    "toughness": "5",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B",
+      "R"
+    ],
+    "colors": [
+      "B",
+      "R"
+    ],
+    "oracleText": "Menace. Your opponents can’t gain life. Whenever a player casts their first spell each turn, choose another target player. The Lord of Pain deals damage equal to that spell’s mana value to the chosen player.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch7"
+  },
+  "the-reaver-cleaver": {
+    "id": "the-reaver-cleaver",
+    "name": "The Reaver Cleaver",
+    "typeLine": "Legendary Artifact — Equipment",
+    "manaCost": "{2}{R}",
+    "manaValue": 3,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "R"
+    ],
+    "colors": [
+      "R"
+    ],
+    "oracleText": "Equipped creature gets +1/+1 and has trample. Whenever equipped creature deals combat damage to a player or planeswalker, create that many Treasure tokens. Equip {3}.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch7"
+  },
+  "toxic-deluge": {
+    "id": "toxic-deluge",
+    "name": "Toxic Deluge",
+    "typeLine": "Sorcery",
+    "manaCost": "{2}{B}",
+    "manaValue": 0,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "All creatures get -X/-X until end of turn, where X is the amount of life paid this way.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch8"
+  },
+  "underworld-dreams": {
+    "id": "underworld-dreams",
+    "name": "Underworld Dreams",
+    "typeLine": "Enchantment",
+    "manaCost": "{B}{B}{B}",
+    "manaValue": 0,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B"
+    ],
+    "colors": [
+      "B"
+    ],
+    "oracleText": "Whenever an opponent draws a card, Underworld Dreams deals 1 damage to that player.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch8"
+  },
+  "untimely-malfunction": {
+    "id": "untimely-malfunction",
+    "name": "Untimely Malfunction",
+    "typeLine": "Instant",
+    "manaCost": "{1}{R}",
+    "manaValue": 0,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "R"
+    ],
+    "colors": [
+      "R"
+    ],
+    "oracleText": "Choose one — Destroy target artifact; change the target of target spell or ability with a single target; or one or two target creatures can’t block this turn.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch8"
+  },
+  "urabrask-the-great-work": {
+    "id": "urabrask-the-great-work",
+    "name": "Urabrask // The Great Work",
+    "typeLine": "Legendary Creature — Phyrexian Praetor // Enchantment — Saga",
+    "manaCost": "{2}{R}{R}",
+    "manaValue": 0,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "R"
+    ],
+    "colors": [
+      "R"
+    ],
+    "oracleText": "First strike. Whenever you cast an instant or sorcery spell, Urabrask deals 1 damage to target opponent. Add {R}. // I — The Great Work deals 3 damage to target opponent and each creature they control. II — Create three Treasure tokens. III — Until end of turn, you may cast instant and sorcery spells from any graveyard.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch8"
+  },
+  "valgavoth-harrower-of-souls": {
+    "id": "valgavoth-harrower-of-souls",
+    "name": "Valgavoth, Harrower of Souls",
+    "typeLine": "Legendary Creature — Elder Demon",
+    "manaCost": "{2}{B}{R}",
+    "manaValue": 0,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "B",
+      "R"
+    ],
+    "colors": [
+      "B",
+      "R"
+    ],
+    "oracleText": "Flying, ward—Pay 2 life. Whenever an opponent loses life for the first time during their turn, put a +1/+1 counter on Valgavoth, Harrower of Souls and draw a card.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch8"
+  },
+  "virtue-of-courage-embereth-blaze": {
+    "id": "virtue-of-courage-embereth-blaze",
+    "name": "Virtue of Courage // Embereth Blaze",
+    "typeLine": "Enchantment // Instant — Adventure",
+    "manaCost": "{3}{R}{R}",
+    "manaValue": 0,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "R"
+    ],
+    "colors": [
+      "R"
+    ],
+    "oracleText": "Whenever a source you control deals noncombat damage to an opponent, you may exile that many cards from the top of your library. You may play those cards this turn. // Embereth Blaze deals 2 damage divided as you choose among one or two targets.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch8"
+  },
+  "vorrac-battlehorns": {
+    "id": "vorrac-battlehorns",
+    "name": "Vorrac Battlehorns",
+    "typeLine": "Artifact — Equipment",
+    "manaCost": "{2}",
+    "manaValue": 0,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [],
+    "colors": [],
+    "oracleText": "Equipped creature has trample and can’t be blocked by more than one creature. Equip {1}.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch8"
+  },
+  "witchs-clinic": {
+    "id": "witchs-clinic",
+    "name": "Witch's Clinic",
+    "typeLine": "Land",
+    "manaCost": "",
+    "manaValue": 0,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [],
+    "colors": [],
+    "oracleText": "{T}: Add {C}. {2}, {T}: Target commander gains lifelink until end of turn.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch8"
+  },
+  "zo-zu-the-punisher": {
+    "id": "zo-zu-the-punisher",
+    "name": "Zo-Zu the Punisher",
+    "typeLine": "Legendary Creature — Goblin Warrior",
+    "manaCost": "{1}{R}{R}",
+    "manaValue": 0,
+    "power": "",
+    "toughness": "",
+    "subtypes": [],
+    "keywords": [],
+    "abilities": [],
+    "spellEffects": [],
+    "colorIdentity": [
+      "R"
+    ],
+    "colors": [
+      "R"
+    ],
+    "oracleText": "Whenever a land enters, Zo-Zu the Punisher deals 2 damage to that land’s controller.",
+    "supported": true,
+    "integrationSeed": "valgavoth-batch8"
   }
 }

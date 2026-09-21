@@ -269,12 +269,18 @@ export class ContinuousEffectEngine {
     // creature. This is derived in layer 4 rather than mutating its base type.
     if (this.engine.attachments?.isReconfigured(object)) push({ layer: LAYER.TYPE, transform: { removeType: 'Creature' } });
     if (counterCount(object, 'flood') > 0 && definitionHasType(definition, 'Land')) push({ layer: LAYER.TYPE, transform: { addSubtypes: ['Island'] } });
+    if (definition.counterGrantedCharacteristics && counterCount(object, definition.counterGrantedCharacteristics.counter) > 0) {
+      const rule = definition.counterGrantedCharacteristics;
+      if (rule.subtype) push({ layer: LAYER.TYPE, transform: { addSubtypes: [rule.subtype] } });
+      if (rule.keyword) push({ layer: LAYER.ABILITY, transform: { addKeywords: [rule.keyword] } });
+    }
     if (definition.dynamicPowerToughness === 'handSize') push({ layer: LAYER.PT_CDA, transform: chars => {
       const amount = this.engine.state.players[object.controller]?.hand?.length || 0; chars.power = amount; chars.toughness = amount;
     }});
 
     if (Number(object.modifiers?.power || 0) || Number(object.modifiers?.toughness || 0)) push({ layer: LAYER.PT_MODIFY, transform: { powerDelta: Number(object.modifiers?.power || 0), toughnessDelta: Number(object.modifiers?.toughness || 0) } });
     if ((object.modifiers?.keywords || []).length) push({ layer: LAYER.ABILITY, transform: { addKeywords: object.modifiers.keywords } });
+    if (Number(object.suppressedKeywordsUntilTurn ?? -1) === Number(this.engine.state.turn)) push({ layer: LAYER.ABILITY, transform: { removeKeywords: object.suppressedKeywords || [] } });
     const plus = counterCount(object, '+1/+1'), minus = counterCount(object, '-1/-1');
     if (plus || minus) push({ layer: LAYER.PT_COUNTERS, transform: { powerDelta: plus - minus, toughnessDelta: plus - minus } });
 

@@ -135,8 +135,11 @@ export class TriggerMatcher {
     const e = this.engine;
     const obj = eventObject(payload);
     if (condition.controllerEvent && payload.controller !== controller) return false;
-    if (condition.eventController === 'opponent' && !e.areOpponents(controller, payload.controller)) return false;
-    if ((condition.sourceEvent || condition.selfEvent) && obj?.instanceId !== source?.instanceId) return false;
+    if (condition.eventController === 'opponent' && !e.opponents(controller).includes(payload.controller)) return false;
+    if ((condition.sourceEvent || condition.selfEvent || condition.sourceSelf) && obj?.instanceId !== source?.instanceId) return false;
+    if (condition.toZone && payload.toZone !== condition.toZone) return false;
+    if (condition.fromZone && payload.fromZone !== condition.fromZone) return false;
+    if (condition.bySpell && !payload.bySpell) return false;
     if (condition.notSelfEvent && obj?.instanceId === source?.instanceId) return false;
     if (condition.sourceSubtype) {
       const def = definitionForObject(e, obj);
@@ -162,8 +165,50 @@ export class TriggerMatcher {
       const def = definitionForObject(e, payload.card);
       if ((def?.typeLine || '').toLowerCase().includes(String(condition.cardTypeNot).toLowerCase())) return false;
     }
+    if (condition.cardTypeAny?.length) {
+      const def=definitionForObject(e,payload.card||obj); const tl=String(def?.typeLine||'').toLowerCase();
+      if(!condition.cardTypeAny.some(t=>tl.includes(String(t).toLowerCase()))) return false;
+    }
+    if (condition.eventWasAttacking && !(payload.object?.attacking || payload.wasAttacking || payload.lki?.attacking)) return false;
+    if (condition.damageFromCreature) {
+      const def=definitionForObject(e,payload.source); if(!String(def?.typeLine||'').toLowerCase().includes('creature')) return false;
+    }
+    if (condition.noncombatDamageFromControllerSource) {
+      if(payload.combat) return false; const src=payload.source; if(!src || src.controller!==controller) return false;
+    }
+    if (condition.anotherArtifactOrCreatureFromBattlefield) {
+      if(payload.fromZone!=='battlefield') return false; if(obj?.instanceId===source?.instanceId) return false;
+      const def=definitionForObject(e,obj); const tl=String(def?.typeLine||'').toLowerCase(); if(!tl.includes('artifact')&&!tl.includes('creature')) return false;
+    }
+    if (condition.attachedCreatureSource) {
+      const attached=e.attachments?.attachedTo?.(source); if(!attached || payload.source?.instanceId!==attached.instanceId) return false;
+    }
+
+    if (condition.manaSpentExactly != null && Number(payload.manaSpent ?? payload.card?.manaSpent ?? 0) !== Number(condition.manaSpentExactly)) return false;
+    if (condition.controllerControlsColorPermanent) {
+      const color = String(condition.controllerControlsColorPermanent).toUpperCase();
+      const has = (e.state.players[controller]?.battlefield || []).some(permanent => {
+        if (permanent.phasedOut) return false;
+        const def = e.db[permanent.cardId] || {};
+        return (def.colors || []).map(String).map(x=>x.toUpperCase()).includes(color) || String(def.manaCost || '').includes(`{${color}}`);
+      });
+      if (!has) return false;
+    }
     if (condition.yourTurn && e.state.activePlayer !== controller) return false;
+    if (condition.opponentLostLifeThisTurnAtLeast != null && !e.opponents(controller).some(pid => Number(e.state.lifeLostThisTurn?.[pid] || 0) >= Number(condition.opponentLostLifeThisTurnAtLeast))) return false;
     if (condition.firstDrawThisTurn && !payload.firstDrawThisTurn) return false;
+    if (condition.firstSpellThisTurn && !payload.firstSpellThisTurn) return false;
+    if (condition.firstLifeLossThisTurn && !payload.firstLifeLossThisTurn) return false;
+    if (condition.fromZoneNot && payload.fromZone === condition.fromZoneNot) return false;
+    if (condition.nonManaAbility && payload.manaAbility) return false;
+    if (condition.sourcePermanentTypeAny?.length) {
+      const def = definitionForObject(e, payload.source || obj);
+      if (!condition.sourcePermanentTypeAny.some(type => String(def?.typeLine || '').toLowerCase().includes(String(type).toLowerCase()))) return false;
+    }
+    if (condition.sourceHadNoCounter) {
+      const eventObj = payload.object || obj;
+      if (Number(eventObj?.counters?.[condition.sourceHadNoCounter] || 0) > 0) return false;
+    }
     if (condition.phase && payload.phase !== condition.phase) return false;
     if (condition.sourceAttacking && !(payload.attackers || []).includes(source?.instanceId)) return false;
     if (condition.exactlyOneAttacker && (payload.attackers || []).length !== 1) return false;

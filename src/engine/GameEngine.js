@@ -25,7 +25,7 @@ import { ContinuousEffectEngine } from './continuous/index.js';
 import { StateBasedActionEngine } from './sba/index.js';
 import { CommanderRulesService, MultiplayerRelationService, PlayerEliminationService, MonarchService } from './multiplayer/index.js';
 import { MechanicLibrary } from '../mechanics/index.js';
-import { CardScriptService, CardSupportService } from '../cards/index.js';
+import { CardScriptService, CardSupportService, applyTargetedDeckLandImplementations, applyTargetedDeckManaImplementations, applyTargetedDeckRemovalImplementations, applyTargetedDeckDamageImplementations, applyTargetedDeckPunishmentImplementations, applyTargetedDeckPunishment2Implementations, applyTargetedDeckPunishment3Implementations, applyTargetedDeckSpecialImplementations, applyTargetedDeckUtilityImplementations, applyTargetedDeckInteractionImplementations, applyTargetedDeckFinalImplementations } from '../cards/index.js';
 import { LoopService, SimulationSafetyBudget, LOOP_SHORTCUT_ACTION } from './loops/index.js';
 import { SeededRandom, PregameService } from './pregame/index.js';
 import { LegalityService, LEGALITY_OPERATION } from './legality/index.js';
@@ -96,7 +96,7 @@ export class GameEngine {
     // ability/effect structures consumed by the authoritative engine before
     // any game object is created. Invalid scripts therefore fail at load time.
     this.cardScripts = new CardScriptService(this);
-    this.db = this.cardScripts.compileDatabase(oraclePreparedDb);
+    this.db = applyTargetedDeckFinalImplementations(applyTargetedDeckInteractionImplementations(applyTargetedDeckUtilityImplementations(applyTargetedDeckSpecialImplementations(applyTargetedDeckPunishment3Implementations(applyTargetedDeckPunishment2Implementations(applyTargetedDeckPunishmentImplementations(applyTargetedDeckDamageImplementations(applyTargetedDeckRemovalImplementations(applyTargetedDeckManaImplementations(applyTargetedDeckLandImplementations(this.cardScripts.compileDatabase(oraclePreparedDb))))))))))));
     this.state = createGameState(deckA, deckB, this.db, this.rng);
     // Step 38: performance services own non-authoritative caches/profiling.
     // Cache revision metadata never enters GameState/replay hashes, so optimizations
@@ -325,6 +325,14 @@ export class GameEngine {
           }
         }
 
+        if (moved && oldZone === 'graveyard' && toZone !== 'graveyard') {
+          this.emit(EVENT.CARD_LEFT_GRAVEYARD, { controller: oldOwner, owner: oldOwner, card: moved, object: moved, fromZone: oldZone, toZone });
+        }
+
+        if (moved && toZone === 'graveyard' && oldZone !== 'graveyard') {
+          this.emit(EVENT.CARD_TO_GRAVEYARD, { controller: moved.owner || oldOwner, owner: moved.owner || oldOwner, card: moved, object: moved, fromZone: oldZone, toZone });
+        }
+
         if (moved && oldZone === 'battlefield' && lki?.object) {
           this.emit(EVENT.LEAVE_BATTLEFIELD, {
             controller: oldController,
@@ -408,7 +416,10 @@ export class GameEngine {
         const { playerId, amount } = event.payload;
         const n = Number(amount);
         this.state.players[playerId].life -= n;
-        this.emit(EVENT.LIFE_LOSS, { controller: playerId, amount: n });
+        this.state.lifeLostThisTurn ||= {};
+        const firstLifeLossThisTurn = Number(this.state.lifeLostThisTurn[playerId] || 0) === 0;
+        this.state.lifeLostThisTurn[playerId] = Number(this.state.lifeLostThisTurn[playerId] || 0) + n;
+        this.emit(EVENT.LIFE_LOSS, { controller: playerId, amount: n, firstLifeLossThisTurn, source: event.payload.source || null, cause: event.provenance?.cause || null });
         this.checkWinner();
         return -n;
       }
@@ -1548,6 +1559,7 @@ export class GameEngine {
       case 'CHOOSE_EFFECT_CARDS': return this._applyEffectCardChoice(pid, action.cardInstanceIds || []);
       case 'CHOOSE_LIBRARY_SEARCH': return this._applyLibrarySearchChoice(pid, action.cardInstanceIds || []);
       case 'CHOOSE_COPY_TARGETS': return this._applyCopyTargetChoice(pid, action.targetIds || []);
+      case 'CHOOSE_RETARGET': return this._applyRetargetChoice(pid, action.targetId ?? null);
       case 'CHOOSE_PERMANENT_COPY': return this._applyPermanentCopyChoice(pid, action.permanentId || null);
       case 'CHOOSE_ATTACHMENT_HOST': return this._applyAttachmentEntryChoice(pid, action.hostId);
       case 'CHOOSE_ENTRY_LIFE_PAYMENT': return this._applyEntryLifeChoice(pid, !!action.pay);
@@ -1741,6 +1753,12 @@ export class GameEngine {
       }
       return true;
     }
+    if (choice.type === 'RETARGET_SINGLE') {
+      if (action.type !== 'CHOOSE_RETARGET') throw new Error('Choose a new target');
+      if (action.targetId == null) { if (!choice.may) throw new Error('A new target is required'); return true; }
+      if (!choice.candidateIds.includes(action.targetId)) throw new Error('That is not a legal new target');
+      return true;
+    }
     if (choice.type === 'COPY_TARGETS') {
       if (action.type !== 'CHOOSE_COPY_TARGETS') throw new Error('Choose targets for the spell or ability copy');
       const ids = action.targetIds;
@@ -1902,9 +1920,13 @@ export class GameEngine {
   }
 
   _castCostInfo(pid, card, zone, mode, targets = [], castOption = null, castFaceIndex = null) {
-    const lockedCost = this.costs.determineSpellCost(pid, card, { zone, mode, targets, castOption, castFaceIndex });
+    let lockedCost = this.costs.determineSpellCost(pid, card, { zone, mode, targets, castOption, castFaceIndex });
     const d = this._castDefinition(card, castFaceIndex);
     const selectedMode = this._modeFor(d, mode);
+    if (selectedMode?.additionalLifeCost) lockedCost = Object.freeze({ ...lockedCost, nonManaCosts:Object.freeze([...(lockedCost.nonManaCosts || []), { type:'payLife', amount:Number(selectedMode.additionalLifeCost) }]) });
+    if (selectedMode?.xValue != null && d?.xMode?.lifeCostFromX) {
+      lockedCost = Object.freeze({ ...lockedCost, xValue:Number(selectedMode.xValue), nonManaCosts:Object.freeze([...(lockedCost.nonManaCosts || []), { type:'payLife', amount:Number(selectedMode.xValue) }]) });
+    }
     return {
       mode: selectedMode,
       cost: lockedCost.finalManaCost,
@@ -1942,6 +1964,7 @@ export class GameEngine {
     if (action.type === 'CAST_SPELL' && f.zone === 'command') throw new Error('Use CAST_COMMANDER for a commander in the command zone');
     if (!d || isType(d, 'Land')) throw new Error('Lands are not cast as spells');
     if (d.castOnlyFromSuspend && !f.card.suspended) throw new Error('This card has no mana cost and must be cast from suspend');
+    if (d.onlyDuringOpponentsTurn && s.activePlayer === pid) throw new Error("This spell may be cast only during an opponent's turn");
     if (hideaway && mode?.fromZone && mode.fromZone !== 'hand') throw new Error('That face of the card cannot be cast from hideaway');
     if (foretold && Number(f.card.foretoldTurn ?? s.turn) >= Number(s.turn)) throw new Error('A foretold card may only be cast on a later turn');
     if (((Array.isArray(d.modes) && d.modes.length) || d.xMode) && !mode) throw new Error('A valid spell mode is required');
@@ -2012,10 +2035,10 @@ export class GameEngine {
     if (requiresTap && this.static.isType(perm, 'Creature') && perm.summoningSick) {
       if (!this.mechanics.canIgnoreSummoningSickness(perm)) throw new Error('Summoning-sick creature cannot pay a tap cost');
     }
-    if (manaAbility && ability.anyColor) {
-      const choices = this.mana.anyColorChoices(this.state.players[pid], ability);
-      if (!action.manaColor) throw new Error('A mana color choice is required');
-      if (!choices.includes(action.manaColor)) throw new Error('Illegal mana color choice');
+    if (manaAbility && (ability.anyColor || (ability.manaOptions || []).length > 1)) {
+      const choices = ability.anyColor ? this.mana.anyColorChoices(this.state.players[pid], ability) : (ability.manaOptions || []).map((_, i) => String(i));
+      if (action.manaColor == null) throw new Error('A mana choice is required');
+      if (!choices.includes(String(action.manaColor))) throw new Error('Illegal mana choice');
     } else if (manaAbility && action.manaColor) {
       throw new Error('This mana ability does not require a color choice');
     }
@@ -2026,6 +2049,8 @@ export class GameEngine {
     if (lifeCost > this.state.players[pid].life) throw new Error('Cannot pay life cost');
     if (ability.condition?.noPlusOneCounters && Number(perm.counters?.['+1/+1'] || 0) > 0) throw new Error('Adapt can only be activated if this creature has no +1/+1 counters');
     if (ability.condition?.controlLandsMin != null && this.state.players[pid].battlefield.filter(card => this.static.isType(card, 'Land')).length < Number(ability.condition.controlLandsMin)) throw new Error('Not enough lands to activate this ability');
+    if (ability.condition?.controlLandSubtypeAny?.length && !this.state.players[pid].battlefield.some(card => this.static.isType(card, 'Land') && ability.condition.controlLandSubtypeAny.some(type => this.static.hasSubtype(card, type)))) throw new Error('Required land subtype is not controlled');
+    if (ability.condition?.controlPermanents) { const spec = ability.condition.controlPermanents; const count = this.state.players[pid].battlefield.filter(card => { const def=this.static.definitionFor(card); if (spec.type && !this.static.isType(card,spec.type)) return false; if (spec.color && !(def.colors || def.colorIdentity || []).includes(spec.color)) return false; return true; }).length; if (count < Number(spec.min || 1)) throw new Error('Required permanents are not controlled'); }
     if (ability.selection) this._validateAbilitySelections(pid, perm, ability.selection, action.selections || []);
     this._validateTargets(pid, ability, action.targets || [], { sourceObject: perm });
     const lockedAbilityCost = this.costs.determineAbilityCost(pid, perm, ability, {
@@ -2054,6 +2079,7 @@ export class GameEngine {
       if (permanent.phasedOut || (spec.tap !== false && permanent.tapped)) return false;
       if (spec.other && permanent.instanceId === source.instanceId) return false;
       if (spec.type && !this.static.isType(permanent, spec.type)) return false;
+      if (spec.legendary && !String(this.static.definitionFor(permanent)?.typeLine||'').includes('Legendary')) return false;
       if (spec.subtype && !this.static.hasSubtype(permanent, spec.subtype)) return false;
       if (spec.hasCounter && Number(permanent.counters?.[spec.hasCounter] || 0) <= 0) return false;
       return true;
@@ -2256,6 +2282,7 @@ export class GameEngine {
         if (c.temporaryCombatFlags?.expiresTurn === s.turn) {
           if (c.temporaryCombatFlags.cantAttack) c.cantAttack = false;
           if (c.temporaryCombatFlags.mustAttack) c.mustAttack = false;
+          if (c.temporaryCombatFlags.cantBlock) c.cantBlock = false;
           delete c.temporaryCombatFlags;
         }
         if (c.temporaryControl?.expiresTurn === s.turn && c.temporaryControl.previousController && c.controller !== c.temporaryControl.previousController) {
@@ -2401,6 +2428,7 @@ export class GameEngine {
     card.createdTurn = this.state.turn;
     card.controlledSinceTurn = this.state.turn;
     card.tapped = this._permanentEntersTapped(card, item.controller);
+    if (d.asEntersRemoveAllPermanentCounters) { let removed=0; for (const player of Object.values(this.state.players)) for (const permanent of player.battlefield || []) { if (permanent.instanceId===card.instanceId) continue; for (const [counter,amount] of Object.entries(permanent.counters||{})) { const n=Math.max(0,Number(amount||0)); if(n){ removed+=n; this.counters.removeWithoutChoice(permanent,counter,n,{cause:'thief-of-blood',skipReplacements:true}); } } } if(removed>0) this.counters.addWithoutChoice(card,'+1/+1',removed,{cause:'thief-of-blood-entry',skipReplacements:true}); }
     this._applyEntryCounters(card, item.controller);
     if (d.entersIfKickedCounters && /kicker/i.test(String(card.castMode || ''))) {
       this.effects.addCounters(item.controller, card, d.entersIfKickedCounters.type || '+1/+1', Number(d.entersIfKickedCounters.amount || 1));
@@ -2609,12 +2637,15 @@ export class GameEngine {
       lockedCost: structuredClone(lockedCost),
       paymentPlan: structuredClone(paymentPlan),
       additionalCosts: structuredClone(lockedCost.nonManaCosts || []),
-      alternativeCost: lockedCost.alternativeManaCost || null
+      alternativeCost: lockedCost.alternativeManaCost || null,
+      xValue: info.mode?.xValue ?? lockedCost.xValue ?? null
     });
     if (c.isCommander && loc.zone === 'command') this.commanders.recordCast(pid, c, { fromZone: loc.zone });
     this.state.spellsCastThisTurn ||= {};
     this.state.spellsCastThisTurn[pid] = Number(this.state.spellsCastThisTurn[pid] || 0) + 1;
-    this.emit(EVENT.SPELL_CAST, { controller: pid, card: c, targets: [...targets], mode, castOption, castFaceIndex: Number.isInteger(castFaceIndex) ? castFaceIndex : null });
+    const firstSpellThisTurn = this.state.spellsCastThisTurn[pid] === 1;
+    this.emit(EVENT.SPELL_CAST, { controller: pid, card: c, targets: [...targets], mode, castOption, firstSpellThisTurn, castFaceIndex: Number.isInteger(castFaceIndex) ? castFaceIndex : null });
+    for (const targetId of targets) { const target=this.findPermanent(targetId); if (target) this.emit(EVENT.BECOMES_TARGET,{controller:pid,target,object:target,source:c,bySpell:true}); }
     if (this._lastPaymentPlan?.length) this.emit(EVENT.MANA_SPENT_TO_CAST, { controller: pid, card: c, manaSourceIds: [...this._lastPaymentPlan] });
     this._queueWardTriggers(item, pid, targets);
     this.state.priorityPlayer = pid;
@@ -2667,6 +2698,22 @@ export class GameEngine {
     this.state.priorityPlayer = pid;
     this.state.passes = 0;
     return true;
+  }
+
+  _openRetargetChoice(pid, item, { may=false }={}) {
+    const def=item.card ? (this.copy?.definitionForObject(item.card)||this.db[item.card.cardId]||{}) : {};
+    const source=item.type==='spell' ? this.targetSourceForAction({mode:item.mode},def) : (item.ability||item.targetSource||null);
+    if(!source || (item.targets||[]).length!==1) return false;
+    const candidates=this.targeting.getCandidates(pid,source,[],{sourceObject:item.card||item.source||null}).map(x=>x.id);
+    this.state.pendingChoice={type:'RETARGET_SINGLE',playerId:pid,stackItemId:item.id||item.gameObjectId,originalTarget:item.targets[0],candidateIds:candidates,may,resume:'RESOLUTION'};
+    this.state.priorityPlayer=pid; this.state.passes=0; return true;
+  }
+
+  _applyRetargetChoice(pid,targetId) {
+    const choice=this.state.pendingChoice; if(!choice||choice.type!=='RETARGET_SINGLE'||choice.playerId!==pid) throw new Error('No retarget choice is pending');
+    const item=this.state.stack.find(x=>(x.id||x.gameObjectId)===choice.stackItemId);
+    this.state.pendingChoice=null; if(item&&targetId!=null) item.targets=[targetId];
+    this._resumePendingResolution(); if(!this.state.pendingChoice) this._resumeAfterRulesChoice(choice); return targetId;
   }
 
   _applyCopyTargetChoice(pid, targetIds) {
@@ -2852,8 +2899,17 @@ export class GameEngine {
       const perm = this.findPermanent(permanentId);
       this._payAbilityCosts(pid, perm, ability, { defaultTap: true });
       const player = this.state.players[pid];
-      const mana = ability.anyColor ? { [manaColor]: ability.amount || 1 } : (ability.mana || {});
+      const mana = ability.anyColor ? { [manaColor]: ability.amount || 1 } : ((ability.manaOptions || []).length ? ability.manaOptions[Number(manaColor)] : (ability.mana || {}));
       this.mana.add(player, mana);
+      // Crypt Ghast: tapping a Swamp for mana adds an additional {B}. This is a
+      // triggered mana ability under CR 605.1b and resolves immediately, not via the stack.
+      if (this.static.hasSubtype(perm, 'Swamp')) {
+        for (const source of player.battlefield || []) {
+          if (source.phasedOut) continue;
+          const bonus = this.static.definitionFor(source)?.swampManaBonus;
+          if (bonus) this.mana.add(player, bonus);
+        }
+      }
       this.stateBasedActions();
       this.state.priorityPlayer = this.state.pendingChoice?.playerId || pid;
       this.state.passes = 0;
@@ -2881,6 +2937,7 @@ export class GameEngine {
         paymentPlan: structuredClone(paid.paymentPlan),
         additionalCosts: structuredClone(paid.lockedCost.nonManaCosts || [])
       });
+      this.emit(EVENT.ABILITY_ACTIVATED, { controller: pid, source: perm, object: perm, ability: structuredClone(ability), manaAbility: false });
       this._queueWardTriggers(item, pid, targets);
       this.stateBasedActions();
       this.state.priorityPlayer = this.state.pendingChoice?.playerId || pid;
@@ -2938,6 +2995,12 @@ export class GameEngine {
   }
 
   _counterStackItem(stackItemId, reason = 'countered') {
+    const pending = this.state.stack.find(x => (x.id || x.gameObjectId) === stackItemId);
+    if (pending?.type === 'spell' && pending.card) {
+      const def = this.copy?.definitionForObject(pending.card) || this.db[pending.card.cardId] || {};
+      const protectedByController = (this.state.players[pending.controller]?.battlefield || []).some(p => !p.phasedOut && this.static.definitionFor(p)?.controllerSpellsCantBeCountered);
+      if (def.cantBeCountered || protectedByController) { this.log('COUNTER_PREVENTED', { stackItemId, cardId: pending.card.cardId }); return null; }
+    }
     const item = this.stack.remove(stackItemId);
     if (!item) return null;
     if (item.type === 'spell' && item.card && !item.isCopy) {
@@ -2985,6 +3048,11 @@ export class GameEngine {
     const choice = this.state.pendingChoice;
     if (!choice || choice.type !== 'OPTIONAL_EFFECT' || choice.playerId !== pid) throw new Error('No optional effect choice is pending');
     this.state.pendingChoice = null;
+    if (accept && choice.manaCost) {
+      const player=this.state.players[pid];
+      if (!this.mana.canAfford(player, this.db, choice.manaCost, 0, this, { kind:'other' })) throw new Error('Insufficient mana for optional effect');
+      this.mana.pay(player, choice.manaCost, 0);
+    }
     if (accept && choice.then) this.effects.resolve(choice.then, { ...(choice.context || {}), controller: pid });
     if (!this.state.pendingChoice) this._resumePendingResolution();
     if (!this.state.pendingChoice) this._resumeAfterRulesChoice(choice);
@@ -3358,7 +3426,7 @@ export class GameEngine {
     return this.perform(pid, { type: f?.zone === 'command' ? 'CAST_COMMANDER' : 'CAST_SPELL', cardInstanceId: instanceId, targets });
   }
   playLand(pid, instanceId) { return this.perform(pid, { type: 'PLAY_LAND', cardInstanceId: instanceId }); }
-  activateMana(pid, permanentId, ability, manaColor = null) { return this.perform(pid, { type: 'ACTIVATE_MANA', permanentId, ability, ...(manaColor ? { manaColor } : {}) }); }
+  activateMana(pid, permanentId, ability, manaColor = null) { return this.perform(pid, { type: 'ACTIVATE_MANA', permanentId, ability, ...(manaColor != null ? { manaColor } : {}) }); }
   activateAbility(pid, permanentId, ability, targets = []) { return this.perform(pid, { type: 'ACTIVATE_ABILITY', permanentId, ability, targets }); }
   chooseExplore(pid, putInGraveyard) { return this.perform(pid, { type: 'CHOOSE_EXPLORE', putInGraveyard }); }
 
@@ -3434,9 +3502,9 @@ export class GameEngine {
 
   getDamageBatchSnapshot() { return immutableClone(this.damage.snapshot()); }
 
-  destroy(p) {
+  destroy(p, { cannotRegenerate = false } = {}) {
     if (!p) return false;
-    return this.events.dispatch(ENGINE_EVENT.DESTROY, { permanentId: p.instanceId }, { cause: 'destroy', stabilize: false });
+    return this.events.dispatch(ENGINE_EVENT.DESTROY, { permanentId: p.instanceId, cannotRegenerate: !!cannotRegenerate }, { cause: 'destroy', stabilize: false });
   }
 
   sacrifice(p) {

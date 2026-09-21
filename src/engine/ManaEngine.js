@@ -99,6 +99,14 @@ export class ManaEngine {
       const lands = player.battlefield.filter(card => engine ? engine.static.isType(card, 'Land') : String(card?.zone || '') === 'battlefield').length;
       if (lands < Number(ability.condition.controlLandsMin)) return false;
     }
+    if (ability.condition?.controlLandSubtypeAny?.length && engine) {
+      if (!player.battlefield.some(card => engine.static.isType(card, 'Land') && ability.condition.controlLandSubtypeAny.some(type => engine.static.hasSubtype(card, type)))) return false;
+    }
+    if (ability.condition?.controlPermanents && engine) {
+      const spec=ability.condition.controlPermanents;
+      const count=player.battlefield.filter(card=>{ const def=engine.static.definitionFor(card); if(spec.type && !engine.static.isType(card,spec.type)) return false; if(spec.color && !(def.colors || def.colorIdentity || []).includes(spec.color)) return false; return true; }).length;
+      if(count < Number(spec.min || 1)) return false;
+    }
     return true;
   }
 

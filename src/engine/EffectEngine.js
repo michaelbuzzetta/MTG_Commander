@@ -179,6 +179,57 @@ export class EffectEngine {
         break;
       }
       case 'loseLife': e.changeLife(pid, -this._amount(effect, ctx, 1)); break;
+      case 'eachOpponentLoseLife': for (const opponent of e.opponents(pid)) e.changeLife(opponent, -this._amount(effect, ctx, 1)); break;
+      case 'damageEachOpponent': for (const opponent of e.opponents(pid)) e.dealDamageToPlayer(opponent, this._amount(effect, ctx, 1), ctx.source); break;
+      case 'damageActivePlayer': e.dealDamageToPlayer(e.state.activePlayer, this._amount(effect, ctx, 1), ctx.source); break;
+      case 'damageEventController': { const targetPid=ctx.eventPayload?.controller; if(targetPid && s.players[targetPid]) e.dealDamageToPlayer(targetPid,this._amount(effect,ctx,1),ctx.source); break; }
+      case 'repercussionDamage': { const targetPid=ctx.eventPayload?.controller; const amount=Math.max(0,Number(ctx.eventPayload?.amount||0)); if(targetPid && s.players[targetPid] && amount>0) e.dealDamageToPlayer(targetPid,amount,ctx.source); break; }
+      case 'eventControllerLoseLife': { const targetPid=ctx.eventPayload?.controller; if(targetPid && s.players[targetPid]) e.changeLife(targetPid,-this._amount(effect,ctx,1)); break; }
+      case 'eachPlayerDraw': { for(const targetPid of e.playerIds()){ for(let i=0;i<this._amount(effect,ctx,1);i++) e.draw(targetPid); } break; }
+      case 'opponentsCantGainLifeThisTurn': { s.opponentsCantGainLifeUntilTurn = s.opponentsCantGainLifeUntilTurn || {}; for(const opponent of e.opponents(pid)) s.opponentsCantGainLifeUntilTurn[opponent]=s.turnNumber; break; }
+      case 'eachPlayerMill': {
+        const amount=this._amount(effect,ctx,1);
+        for(const targetPid of e.playerIds()) for(let i=0;i<amount;i++){ const top=s.players[targetPid]?.library?.[0]; if(top) e._moveZoneNow(top,'graveyard',top.owner,{reason:'mill'}); }
+        break;
+      }
+      case 'persistentConstrictorUpkeep': {
+        const victim=ctx.eventPayload?.controller;
+        if(!victim || !e.opponents(pid).includes(victim)) break;
+        e.changeLife(victim,-1);
+        const creatures=s.players[victim].battlefield.filter(card=>e.static.isType(card,'Creature')&&!card.phasedOut);
+        if(creatures.length) this._openCardChoice(pid,creatures.map(c=>c.instanceId),{min:0,max:1,prompt:'Persistent Constrictor — put a -1/-1 counter on up to one creature',continuation:{type:'persistentConstrictorCounter'}});
+        break;
+      }
+      case 'persistentConstrictorReturn': {
+        const id=ctx.source?.instanceId; const found=id?ZoneManager.find(s,id):null;
+        if(found?.zone==='graveyard'){ const card=e._moveZoneNow(found.card,'battlefield',found.card.owner,{reason:'persist'}); if(card) this.addCounters(card.controller,card,'-1/-1',1); }
+        break;
+      }
+      case 'lordOfPainDamage': {
+        const targetPid=(ctx.targets||[]).find(id=>s.players[id]); const caster=ctx.eventPayload?.controller;
+        if(!targetPid || targetPid===caster) break;
+        const def=ctx.eventPayload?.card ? (e.copy?.definitionForObject(ctx.eventPayload.card)||e.db[ctx.eventPayload.card.cardId]||{}) : {};
+        const mv=Number(def.manaValue ?? def.cmc ?? 0); if(mv>0) e.dealDamageToPlayer(targetPid,mv,ctx.source);
+        break;
+      }
+      case 'valgavothReward': {
+        const source=e.findPermanent(ctx.source?.instanceId); if(source){ this.addCounters(pid,source,'+1/+1',1); e.draw(pid); }
+        break;
+      }
+      case 'activePlayerLosesLife': { const ap=s.activePlayer; if(ap&&s.players[ap]) e.changeLife(ap,-this._amount(effect,ctx,1)); break; }
+      case 'addCounterAttached': { const aura=e.findPermanent(ctx.source?.instanceId)||ctx.source; const host=aura?.attachedTo?e.findPermanent(aura.attachedTo):null; if(host) this.addCounters(host.controller,host,effect.counter||'-1/-1',this._amount(effect,ctx,1)); break; }
+      case 'returnEventCardToOwnerHand': { const id=ctx.eventPayload?.card?.instanceId||ctx.source?.instanceId; const found=id?ZoneManager.find(s,id):null; if(found?.zone==='graveyard') e._moveZoneNow(found.card,'hand',found.card.owner,{reason:'return-to-hand-trigger'}); break; }
+      case 'counterTargetIfBlue': { const id=this._targetId(ctx); const found=id?ZoneManager.find(s,id):null; if(found?.zone==='stack'){ const def=e.copy?.definitionForObject(found.card)||e.db[found.card.cardId]||{}; if((def.colors||def.colorIdentity||[]).includes('U')) e._counterStackItem(found.stackItem?.id||found.stackItem?.gameObjectId||id,'pyroblast'); } break; }
+      case 'destroyTargetIfBlue': { const target=this._permanentTarget(ctx); if(target){ const def=e.static.definitionFor(target)||{}; if((def.colors||def.colorIdentity||[]).includes('U')) e.destroy(target); } break; }
+      case 'mogisPunishment': {
+        const targetPid=ctx.eventPayload?.controller;
+        if(!targetPid || !e.opponents(pid).includes(targetPid)) break;
+        const creatures=s.players[targetPid].battlefield.filter(card=>e.static.isType(card,'Creature')&&!card.phasedOut);
+        if(!creatures.length){e.dealDamageToPlayer(targetPid,this._amount(effect,ctx,2),ctx.source);break;}
+        this._openCardChoice(targetPid,creatures.map(card=>card.instanceId),{min:0,max:1,prompt:'Mogis — sacrifice a creature or choose none to take 2 damage',continuation:{type:'mogisChoice',damage:this._amount(effect,ctx,2),source:ctx.source?{instanceId:ctx.source.instanceId,cardId:ctx.source.cardId}:null}});
+        break;
+      }
+      case 'bloodchiefDrain': { const victim=ctx.eventPayload?.controller || ctx.eventPayload?.owner; if(victim && e.opponents(pid).includes(victim)){ e.changeLife(victim,-this._amount(effect,ctx,2)); e.changeLife(pid,this._amount(effect,ctx,2)); } break; }
       case 'fight': {
         const ids = (ctx.targets || []).filter(id => !!e.findPermanent(id));
         if (ids.length >= 2) {
@@ -217,12 +268,51 @@ export class EffectEngine {
         }
         break;
       }
+      case 'damageThenScryIfPlayer': {
+        let damagedPlayer = false;
+        for (const id of ctx.targets || []) {
+          if (s.players[id]) {
+            const lifeBefore = Number(s.players[id].life || 0);
+            e.dealDamageToPlayer(id, this._amount(effect, ctx, 1), ctx.source);
+            if (Number(s.players[id].life || 0) < lifeBefore) damagedPlayer = true;
+          } else {
+            const permanent = e.findPermanent(id);
+            if (permanent) e.dealDamageToPermanent(permanent, this._amount(effect, ctx, 1), ctx.source);
+          }
+        }
+        if (damagedPlayer) {
+          const top = p.library[0];
+          if (top) {
+            s.pendingChoice = { type:'SCRY', playerId:pid, cardInstanceId:top.instanceId, cardId:top.cardId, cardName:e.db[top.cardId]?.name || top.cardId, resume:this._choiceResume() };
+            s.priorityPlayer = pid;
+          }
+        }
+        break;
+      }
       case 'damagePlayer': {
         const playerTargets = (ctx.targets || []).filter(id => !!s.players[id]);
         if (ctx.targeted) for (const targetPid of playerTargets) e.dealDamageToPlayer(targetPid, effect.amount || 1, ctx.source);
         else if (playerTargets.length) for (const targetPid of playerTargets) e.dealDamageToPlayer(targetPid, effect.amount || 1, ctx.source);
         else e.dealDamageToPlayer(effect.targetPlayer || e.opponent(pid), effect.amount || 1, ctx.source);
         break;
+      }
+      case 'chandrasIgnition': {
+        const creature=this._permanentTarget(ctx); if(!creature) break;
+        const amount=Math.max(0,Number(e.static.derivedStats(creature).power||0));
+        const events=[];
+        for(const opponent of e.opponents(pid)) events.push({targetPlayer:opponent,amount,source:creature,combat:false});
+        for(const player of Object.values(s.players)) for(const permanent of player.battlefield||[]) if(permanent.instanceId!==creature.instanceId && e.static.isType(permanent,'Creature') && !permanent.phasedOut) events.push({targetId:permanent.instanceId,amount,source:creature,combat:false});
+        if(events.length) e.damage.resolveBatch(events,{cause:'Chandra\'s Ignition',combat:false,stabilize:true});
+        break;
+      }
+      case 'tapCreatureDamageItsControllerEqualPower': {
+        const creature=this._permanentTarget(ctx); if(!creature || creature.tapped) break; const controller=creature.controller; const amount=Math.max(0,Number(e.static.derivedStats(creature).power||0)); creature.tapped=true; e.dealDamageToPlayer(controller,amount,creature); break;
+      }
+      case 'deliriumCreature': {
+        const creature=this._permanentTarget(ctx); if(!creature) break; const controller=creature.controller; const amount=Math.max(0,Number(e.static.derivedStats(creature).power||0)); creature.tapped=true; creature.skipNextUntap=true; e.dealDamageToPlayer(controller,amount,creature); break;
+      }
+      case 'priceOfProgress': {
+        for(const player of Object.values(s.players)){ if(player.lost) continue; let n=0; for(const land of player.battlefield||[]) if(e.static.isType(land,'Land')) { const def=e.db[land.cardId]||{}; if(!/Basic/i.test(def.typeLine||def.type_line||'')) n++; } if(n) e.dealDamageToPlayer(player.id,n*2,ctx.source); } break;
       }
       case 'addMana': e.mana.add(p, effect.mana || {}); break;
       case 'createToken': this.createToken(pid, effect.token, this._amount(effect, ctx, 1), { source: ctx.source || null }); break;
@@ -536,6 +626,16 @@ export class EffectEngine {
         }
         break;
       }
+      case 'opponentsPermanentsLoseKeywordsUntilEOT': {
+        const keywords = [...new Set(effect.keywords || [])];
+        for (const opponentId of e.opponents(pid)) for (const permanent of e.state.players[opponentId]?.battlefield || []) {
+          if (permanent.phasedOut) continue;
+          permanent.suppressedKeywordsUntilTurn = Number(e.state.turn);
+          permanent.suppressedKeywords = [...new Set([...(permanent.suppressedKeywords || []), ...keywords])];
+        }
+        e.stateBasedActions();
+        break;
+      }
       case 'sacrificeSelf': {
         const source = ctx.source?.instanceId ? e.findPermanent(ctx.source.instanceId) : null;
         if (source) e.sacrifice(source);
@@ -563,11 +663,53 @@ export class EffectEngine {
         }
         break;
       }
+      case 'exileTargetPlayersGraveyard': { const targetPid=(ctx.targets||[]).find(id=>!!e.state.players[id]); if(targetPid){ for(const card of [...e.state.players[targetPid].graveyard]) e.zones.move(card.instanceId,'exile',targetPid,{reason:'Rakdos Charm'}); } break; }
+      case 'eachCreatureDealsDamageToController': { const amount=this._amount(effect,ctx,1); for(const pl of Object.values(s.players)) for(const creature of [...(pl.battlefield||[])]) if(e.static.isType(creature,'Creature')&&!creature.phasedOut) e.dealDamageToPlayer(creature.controller,amount,creature); break; }
+      case 'cantBlockUntilEOT': { for(const t of this._permanentTargets(ctx)){ t.cantBlock=true; t.temporaryCombatFlags={...(t.temporaryCombatFlags||{}),expiresTurn:s.turn,cantBlock:true}; } break; }
+      case 'changeSingleTargetOfStackObject':
+      case 'chooseNewTargetsForStackObject': { const id=this._targetId(ctx); const found=id?ZoneManager.find(s,id):null; const item=found?.stackItem; if(!item || (item.targets||[]).length!==1) break; e._openRetargetChoice?.(pid,item,{may:effect.type==='chooseNewTargetsForStackObject'&&effect.may!==false}); break; }
+      case 'destroyAllCreaturesExceptTargets': { const keep=new Set(ctx.targets||[]); for(const pl of Object.values(s.players)) for(const creature of [...(pl.battlefield||[])]) if(e.static.isType(creature,'Creature')&&!creature.phasedOut&&!keep.has(creature.instanceId)) e.destroy(creature); break; }
       case 'destroy': {
         const targets = ctx.targeted
           ? this._permanentTargets(ctx)
           : ((ctx.targets || []).length ? this._permanentTargets(ctx) : e.selectPermanents(effect.targetPlayer || e.opponent(pid), effect.filter || {}, ctx).slice(0, effect.maxTargets || 1));
-        for (const t of targets) e.destroy(t);
+        for (const t of targets) e.destroy(t, { cannotRegenerate: !!effect.cannotRegenerate });
+        break;
+      }
+      case 'destroyThenDamageController': {
+        const target = this._permanentTarget(ctx);
+        if (!target) break;
+        const controller = target.controller;
+        e.destroy(target, { cannotRegenerate: !!effect.cannotRegenerate });
+        if (e.state.players[controller] && !e.state.players[controller].lost) e.dealDamageToPlayer(controller, this._amount(effect, ctx, 1), ctx.source);
+        break;
+      }
+      case 'destroyThenControllerLosesLife': {
+        const target = this._permanentTarget(ctx);
+        if (!target) break;
+        const controller = target.controller;
+        e.destroy(target, { cannotRegenerate: !!effect.cannotRegenerate });
+        if (e.state.players[controller] && !e.state.players[controller].lost) e.changeLife(controller, -this._amount(effect, ctx, 1));
+        break;
+      }
+      case 'targetPlayerSacrificesCreatureThenLosesLife': {
+        const targetPid = (ctx.targets || []).find(id => !!e.state.players[id]);
+        if (!targetPid) break;
+        const creatures = e.state.players[targetPid].battlefield.filter(card => e.static.isType(card, 'Creature') && !card.phasedOut);
+        if (!creatures.length) { e.changeLife(targetPid, -this._amount(effect, ctx, 1)); break; }
+        if (creatures.length === 1) { e.sacrifice(creatures[0]); e.changeLife(targetPid, -this._amount(effect, ctx, 1)); break; }
+        this._openCardChoice(targetPid, creatures.map(card => card.instanceId), { min:1, max:1, prompt:'Choose a creature to sacrifice', continuation:{ type:'gethsVerdictSacrifice', lifeLoss:this._amount(effect, ctx, 1) } });
+        break;
+      }
+      case 'allCreaturesMinusXMinusX': {
+        const x = Math.max(0, Number(ctx.xValue || 0));
+        if (!x) break;
+        for (const player of Object.values(s.players)) for (const creature of player.battlefield || []) {
+          if (!e.static.isType(creature, 'Creature') || creature.phasedOut) continue;
+          creature.modifiers.power -= x; creature.modifiers.toughness -= x;
+          creature.ptUntilCleanup ||= []; creature.ptUntilCleanup.push({ power:-x, toughness:-x, source:'Toxic Deluge' });
+        }
+        e.stateBasedActions();
         break;
       }
       case 'exile': {
@@ -955,6 +1097,7 @@ export class EffectEngine {
           mana: cost,
           sourceName: e.db[ctx.source?.cardId]?.name || ctx.source?.cardId || 'ability',
           then: structuredClone(effect.then || null),
+          manaCost: effect.cost?.mana || null,
           context: {
             controller: pid,
             source: ctx.source ? structuredClone(ctx.source) : null,
@@ -978,6 +1121,7 @@ export class EffectEngine {
           prompt: effect.prompt || 'Use this optional effect?',
           sourceName: e.db[ctx.source?.cardId]?.name || ctx.source?.cardId || 'ability',
           then: structuredClone(effect.then || null),
+          manaCost: effect.cost?.mana || null,
           context: {
             controller: pid,
             source: ctx.source ? structuredClone(ctx.source) : null,
@@ -1168,7 +1312,7 @@ export class EffectEngine {
       }
       case 'exploit': { const src=e.findPermanent(ctx.source?.instanceId); if(src) e.keywordRuntime.exploit(src, effect.sacrificeId || ctx.sacrificeId || null); break; }
       case 'cumulativeUpkeep': { const src=e.findPermanent(ctx.source?.instanceId); if(src) e.keywordRuntime.cumulativeUpkeep(src,{pay:!!(effect.pay ?? ctx.pay)}); break; }
-      case 'extort': { const src=e.findPermanent(ctx.source?.instanceId); if(src) e.keywordRuntime.extort(src,{pay:!!(effect.pay ?? ctx.pay)}); break; }
+      case 'extort': { const src=e.findPermanent(ctx.source?.instanceId); if(src) e.keywordRuntime.extort(src,{pay:!!(effect.pay ?? ctx.pay),prepaid:!!effect.prepaid}); break; }
       case 'melee': { const src=e.findPermanent(ctx.source?.instanceId); if(src) e.keywordRuntime.melee(src); break; }
       case 'soulbond': { const src=e.findPermanent(ctx.source?.instanceId); if(src) e.keywordRuntime.soulbond(src,effect.partnerId||ctx.partnerId||null); break; }
       case 'sacrifice': {
@@ -1176,6 +1320,46 @@ export class EffectEngine {
         if (t) e.sacrifice(t);
         break;
       }
+      case 'grimTutor': {
+        const ids=(p.library||[]).map(c=>c.instanceId);
+        this._openCardChoice(pid,ids,{min:ids.length?1:0,max:ids.length?1:0,prompt:'Search your library for a card',continuation:{type:'grimTutor'}});
+        break;
+      }
+      case 'damageEventControllerEqualSourcePower': {
+        const src=e.findPermanent(ctx.source?.instanceId)||ctx.source; const amount=Math.max(0,Number(src?e.static.derivedStats(src).power:0));
+        const target=ctx.event?.controller||ctx.eventPayload?.controller||ctx.controller; if(target&&s.players[target]) e.dealDamageToPlayer(target,amount,src); break;
+      }
+      case 'undyingReturn': {
+        const card=ctx.event?.object||ctx.eventPayload?.object; if(card?.instanceId){const found=ZoneManager.find(s,card.instanceId); if(found?.zone==='graveyard'){const ret=e._moveZoneNow(found.card,'battlefield',found.card.owner); ret.counters||={}; ret.counters['+1/+1']=(ret.counters['+1/+1']||0)+1; e.emit(EVENT.ENTER_BATTLEFIELD,{controller:ret.controller,target:ret,object:ret});}} break;
+      }
+      case 'nightshadeHarvester': {
+        const who=ctx.event?.controller||ctx.eventPayload?.controller; if(who&&s.players[who]) e.changeLife(who,-1); const src=e.findPermanent(ctx.source?.instanceId); if(src) this.addCounters(src.controller,src,'+1/+1',1); break;
+      }
+      case 'urabraskCastTrigger': {
+        const target=(ctx.targets||[]).find(id=>s.players[id])||e.opponents(pid)[0]; if(target) e.dealDamageToPlayer(target,1,ctx.source); e.mana.add(p,{R:1}); break;
+      }
+      case 'moltenInfluence': {
+        const item=(s.stack||[]).find(x=>x.id===(ctx.targets||[])[0]||x.stackObjectId===(ctx.targets||[])[0]); if(!item) break;
+        const ctl=item.controller; s.pendingChoice={type:'OPTIONAL_EFFECT',playerId:ctl,prompt:'Have Molten Influence deal 4 damage to you instead of countering the spell?',then:{type:'moltenInfluenceDamage',targetPlayer:ctl},else:{type:'counterTarget'},context:{...ctx,targets:[item.id||item.stackObjectId]},resume:this._choiceResume()}; s.priorityPlayer=ctl; break;
+      }
+      case 'moltenInfluenceDamage': e.dealDamageToPlayer(effect.targetPlayer||pid,4,ctx.source); break;
+      case 'createMageSiegeWizard': this.createToken(pid,{name:'Wizard',typeLine:'Token Creature — Wizard',colors:['B'],power:0,toughness:1,abilities:[{type:'triggered',event:EVENT.SPELL_CAST,condition:{controllerEvent:true,cardTypeNot:'Creature'},effect:{type:'damageEachOpponent',amount:1}}]},1,{source:ctx.source}); break;
+      case 'createTreasureEqualEventDamage': this.createToken(pid,{name:'Treasure',typeLine:'Token Artifact — Treasure',abilities:[{type:'mana',tap:true,cost:{sacrificeSelf:true},anyColor:true,amount:1}]},Number(ctx.event?.amount||ctx.eventPayload?.amount||0),{source:ctx.source}); break;
+      case 'virtueOfCourageExile': {
+        const n=Number(ctx.event?.amount||ctx.eventPayload?.amount||0); p.exilePlayableThisTurn||=[]; for(let i=0;i<n;i++){const top=p.library[0];if(!top)break;const moved=e._moveZoneNow(top,'exile',pid); if(moved)p.exilePlayableThisTurn.push(moved.instanceId);} break;
+      }
+      case 'chandraSweep': {
+        const events=[]; for(const pl of Object.values(s.players))for(const perm of pl.battlefield||[])if(e.static.isType(perm,'Creature')&&!e.static.hasSubtype(perm,effect.excludeSubtype||'Elemental'))events.push({targetId:perm.instanceId,amount:Number(effect.amount||3),source:ctx.source,combat:false}); if(events.length)e.damage.resolveBatch(events,{cause:'Chandra -3',combat:false,stabilize:true}); break;
+      }
+      case 'chandraEmblemEachOpponent': {
+        for(const opp of e.opponents(pid)){s.players[opp].emblems||=[];s.players[opp].emblems.push({name:'Chandra, Awakened Inferno Emblem',upkeepDamage:1,sourceController:pid});} break;
+      }
+      case 'greatWorkChapter1': { const target=(ctx.targets||[]).find(id=>s.players[id])||e.opponents(pid)[0]; if(target)e.dealDamageToPlayer(target,3,ctx.source); if(target)for(const perm of [...(s.players[target].battlefield||[])])if(e.static.isType(perm,'Creature'))e.dealDamageToPermanent(perm,3,ctx.source); break; }
+      case 'greatWorkChapter3': { p.castFromAnyGraveyardUntilEOT=true; p.exileSpellsCastFromGraveyardUntilEOT=true; break; }
+      case 'transformUrabraskToGreatWork': { const src=e.findPermanent(ctx.source?.instanceId); if(src)e.events.dispatch('TRANSFORM',{permanentId:src.instanceId},{cause:'Urabrask',stabilize:true}); break; }
+      case 'destroyDamageSource': { const src=ctx.event?.source||ctx.eventPayload?.source; const perm=src?.instanceId?e.findPermanent(src.instanceId):null; if(perm&&e.static.isType(perm,'Creature'))e.destroy(perm,ctx.source); break; }
+      case 'returnAttachedCardToBattlefieldUnderYourControl': { const card=ctx.event?.object||ctx.eventPayload?.object; if(card?.instanceId){const found=ZoneManager.find(s,card.instanceId); if(found&&['graveyard','exile'].includes(found.zone)){const ret=e._moveZoneNow(found.card,'battlefield',pid); if(ret){ret.controller=pid;e.emit(EVENT.ENTER_BATTLEFIELD,{controller:pid,target:ret,object:ret});}}} break; }
+      case 'kardurGoadUntilNextTurn': { for(const opp of e.opponents(pid))for(const c of s.players[opp].battlefield||[])if(e.static.isType(c,'Creature')){c.mustAttackUntilTurn=(s.turn||0)+1;c.mustAttackOtherThanPlayer=pid;} break; }
       default: {
         // Step 41: unknown effect nodes are never silently ignored. In normal
         // and strict play this raises UNSUPPORTED_INTERACTION before mutation;
@@ -1294,6 +1478,9 @@ export class EffectEngine {
   resolveEffectCardChoice(choice, cardInstanceIds) {
     const e = this.engine, s = e.state, pid = choice.playerId, p = s.players[pid];
     const continuation = choice.continuation || {};
+    if (continuation.type === 'grimTutor') {
+      const id=cardInstanceIds[0]; if(id){const found=ZoneManager.find(s,id); if(found?.zone==='library'&&found.player?.id===pid)e._moveZoneNow(found.card,'hand',pid);} e.shuffleLibrary(pid,'grim-tutor'); e.changeLife(pid,-3); return;
+    }
     if (continuation.type === 'discardChosen') {
       for (const id of cardInstanceIds) {
         const found = ZoneManager.find(s, id);
@@ -1301,6 +1488,24 @@ export class EffectEngine {
           e.events.dispatch(ENGINE_EVENT.DISCARD_CARD, { playerId: pid, cardInstanceId: found.card.instanceId, reason: 'effect-discard' }, { cause: 'discard', stabilize: false });
         }
       }
+      return;
+    }
+    if (continuation.type === 'persistentConstrictorCounter') {
+      const id=cardInstanceIds[0]; const target=id?e.findPermanent(id):null;
+      if(target && e.static.isType(target,'Creature')) this.addCounters(target.controller,target,'-1/-1',1);
+      return;
+    }
+    if (continuation.type === 'mogisChoice') {
+      const id=cardInstanceIds[0]; const target=id?e.findPermanent(id):null;
+      if(target && target.controller===pid && e.static.isType(target,'Creature')) e.sacrifice(target);
+      else e.dealDamageToPlayer(pid,Number(continuation.damage||2),continuation.source||null);
+      return;
+    }
+    if (continuation.type === 'gethsVerdictSacrifice') {
+      const id = cardInstanceIds[0];
+      const target = id ? e.findPermanent(id) : null;
+      if (target && target.controller === pid && e.static.isType(target, 'Creature')) e.sacrifice(target);
+      e.changeLife(pid, -Number(continuation.lifeLoss || 1));
       return;
     }
     if (continuation.type === 'returnPermanentToHand') {
